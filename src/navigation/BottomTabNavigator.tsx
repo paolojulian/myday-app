@@ -4,6 +4,7 @@ import CalendarScreen from '../screens/CalendarScreen';
 import ExpenseScreen from '../screens/ExpenseScreen';
 import TodoScreen from '../screens/TodoScreen';
 import { Text, TouchableOpacity, View } from 'react-native';
+import AddScreen from '../screens/AddScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +20,13 @@ export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
       tabBar={(props) => (
-        <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 8,
+          }}
+        >
           <TouchableOpacity
             onPress={() => props.navigation.navigate(TabName.Home)}
           >
@@ -33,12 +40,11 @@ export default function BottomTabNavigator() {
           <TouchableOpacity
             onPress={() => props.navigation.navigate('Add')}
             style={{
-              position: 'absolute',
-              bottom: 20, // space from bottombar
-              backgroundColor: 'blue',
+              bottom: 40, // space from bottombar
+              backgroundColor: '#7d7d7d',
               width: 70,
               height: 70,
-              borderRadius: 35,
+              borderRadius: 9999,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -63,7 +69,7 @@ export default function BottomTabNavigator() {
         name={TabName.Calendar}
         component={CalendarScreen}
       ></Tab.Screen>
-      <Tab.Screen name={TabName.Add} component={() => null}></Tab.Screen>
+      <Tab.Screen name={TabName.Add} component={AddScreen}></Tab.Screen>
       <Tab.Screen name={TabName.Expense} component={ExpenseScreen}></Tab.Screen>
       <Tab.Screen name={TabName.Todo} component={TodoScreen}></Tab.Screen>
     </Tab.Navigator>
