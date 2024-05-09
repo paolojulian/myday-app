@@ -3,7 +3,7 @@ import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import ExpenseScreen from '../screens/ExpenseScreen';
 import TodoScreen from '../screens/TodoScreen';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import AddScreen from '../screens/AddScreen';
 
 const Tab = createBottomTabNavigator();
@@ -19,6 +19,9 @@ enum TabName {
 export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
+      screenOptions={{
+        header: ({ route }) => <SafeAreaView></SafeAreaView>,
+      }}
       tabBar={(props) => (
         <View
           style={{

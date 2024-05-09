@@ -1,5 +1,6 @@
-import Stack from '../components/Stack';
-import Typography from '../components/Typography';
+import Stack from '../components/common/Stack';
+import Typography from '../components/common/Typography';
+import { colors } from '../utils/theme/colors';
 
 export default function HomeScreen() {
   return (
