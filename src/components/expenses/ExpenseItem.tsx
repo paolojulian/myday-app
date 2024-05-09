@@ -16,7 +16,7 @@ export default function ExpenseItem({
   return (
     <Row
       style={{
-        paddingVertical: 8,
+        paddingVertical: 16,
         justifyContent: 'space-between',
       }}
     >

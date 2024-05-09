@@ -1,3 +1,4 @@
+import { FlatList, View } from 'react-native';
 import Stack from '../common/Stack';
 import ExpenseItem from './ExpenseItem';
 
@@ -26,10 +27,13 @@ export default function ExpensesList() {
   const expenses = MOCK_EXPENSES;
 
   return (
-    <Stack>
-      {expenses.map(({ id, name, amount, date }) => (
-        <ExpenseItem key={id} id={id} name={name} date={date} notes={''} />
-      ))}
-    </Stack>
+    <FlatList
+      style={{ flex: 1 }}
+      data={expenses}
+      renderItem={({ item }) => (
+        <ExpenseItem id={item.id} date={item.date} name={item.name} notes='' />
+      )}
+      keyExtractor={(item) => item.id}
+    ></FlatList>
   );
 }

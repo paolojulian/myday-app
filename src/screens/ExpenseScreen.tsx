@@ -6,6 +6,7 @@ export default function ExpenseScreen() {
   return (
     <Stack
       style={{
+        flex: 1,
         padding: 16,
         rowGap: 16,
       }}
