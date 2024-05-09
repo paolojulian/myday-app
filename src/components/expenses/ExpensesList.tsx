@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import ExpenseItem from './ExpenseItem';
+import Stack from '../common/Stack';
 
 const MOCK_EXPENSES = [
   {
@@ -35,46 +36,26 @@ export default function ExpensesList() {
   const expenses = MOCK_EXPENSES;
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        renderItem={({ item }) => (
-          <ExpenseItem
-            onDelete={() => {}}
-            id={item.id}
-            date={item.date}
-            name={item.name}
-            notes=''
-            amount={item.amount}
-          />
-        )}
-        style={styles.flatListContainer}
-        data={expenses}
-        keyExtractor={(item) => item.id}
-      ></FlatList>
-    </View>
+    <FlatList
+      renderItem={({ item }) => (
+        <ExpenseItem
+          onDelete={() => {}}
+          id={item.id}
+          date={item.date}
+          name={item.name}
+          notes=''
+          amount={item.amount}
+        />
+      )}
+      style={styles.container}
+      data={expenses}
+      keyExtractor={(item) => item.id}
+    ></FlatList>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
-  },
-  flatListContainer: {
-    flex: 1,
-  },
-  shadowWhenScrollingDown: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 64,
-  },
-  shadowWhenScrollingUp: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 64,
   },
 });
