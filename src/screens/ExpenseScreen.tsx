@@ -8,12 +8,11 @@ export default function ExpenseScreen() {
     <Stack
       style={{
         flex: 1,
-        rowGap: 16,
       }}
     >
       <View
         style={{
-          paddingHorizontal: 16,
+          padding: 16,
         }}
       >
         <Typography variant='heading'>Expenses</Typography>

@@ -13,17 +13,21 @@ export default function Typography({
     return styles[variant] || styles.body;
   }, [variant]);
 
-  return <Text {...props} style={[variantStyle]}></Text>;
+  return <Text {...props} style={[variantStyle, styles.baseStyle]}></Text>;
 }
 
 const styles = StyleSheet.create({
+  baseStyle: {
+    fontFamily: 'Inter',
+  },
   heading: {
-    fontSize: 32,
+    fontSize: 48,
   },
   body: {
     fontSize: 16,
   },
   ['body-lg']: {
     fontSize: 24,
+    fontWeight: '500',
   },
 });

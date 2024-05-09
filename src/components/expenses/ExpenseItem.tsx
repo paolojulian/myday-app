@@ -1,3 +1,4 @@
+import { TouchableOpacity } from 'react-native';
 import Row from '../common/Row';
 import Stack from '../common/Stack';
 import Typography from '../common/Typography';
