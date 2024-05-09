@@ -23,6 +23,7 @@ const MOCK_EXPENSES = [
     date: '2024-07-14',
   },
 ];
+
 export default function ExpensesList() {
   const expenses = MOCK_EXPENSES;
 
@@ -31,7 +32,13 @@ export default function ExpensesList() {
       style={{ flex: 1 }}
       data={expenses}
       renderItem={({ item }) => (
-        <ExpenseItem id={item.id} date={item.date} name={item.name} notes='' />
+        <ExpenseItem
+          id={item.id}
+          date={item.date}
+          name={item.name}
+          notes=''
+          amount={item.amount}
+        />
       )}
       keyExtractor={(item) => item.id}
     ></FlatList>
