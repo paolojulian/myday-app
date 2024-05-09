@@ -2,10 +2,10 @@ import { ComponentProps, useMemo } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 type TypographyProps = {
-  variant: 'heading' | 'body';
+  variant?: 'heading' | 'body';
 } & ComponentProps<typeof Text>;
 
-export default function Typography({ variant, ...props }: TypographyProps) {
+export default function Typography({ variant = 'body', ...props }: TypographyProps) {
   const variantStyle = useMemo(() => {
     if (variant === 'heading') {
       return styles.heading;

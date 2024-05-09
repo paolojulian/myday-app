@@ -1,3 +1,18 @@
+import Stack from '../components/common/Stack';
+import Typography from '../components/common/Typography';
+import ExpensesList from '../components/expenses/ExpensesList';
+
 export default function ExpenseScreen() {
-  return null;
+  return (
+    <Stack
+      style={{
+        padding: 16,
+        rowGap: 16,
+      }}
+    >
+      <Typography variant='heading'>Expenses</Typography>
+
+      <ExpensesList />
+    </Stack>
+  );
 }
