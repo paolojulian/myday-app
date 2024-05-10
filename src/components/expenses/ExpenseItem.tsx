@@ -43,36 +43,34 @@ export default function ExpenseItem({
   };
 
   return (
-    <GestureHandlerRootView>
-      <Swipeable
-        containerStyle={{
-          backgroundColor: colors.primary[400],
-        }}
-        renderRightActions={renderRightActions}
-        overshootFriction={9}
-        friction={2}
+    <Swipeable
+      containerStyle={{
+        backgroundColor: colors.primary[400],
+      }}
+      renderRightActions={renderRightActions}
+      overshootFriction={9}
+      friction={2}
+    >
+      <TouchableHighlight
+        delayPressIn={400}
+        onLongPress={handlePress}
+        activeOpacity={0.9}
       >
-        <TouchableHighlight
-          delayPressIn={400}
-          onLongPress={handlePress}
-          activeOpacity={0.9}
+        <Row
+          style={{
+            padding: 16,
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            backgroundColor: colors.white,
+          }}
         >
-          <Row
-            style={{
-              padding: 16,
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              backgroundColor: colors.white,
-            }}
-          >
-            <Stack>
-              <Typography variant='body-lg'>{name}</Typography>
-              <Typography>{date}</Typography>
-            </Stack>
-            <Typography variant='body-lg'>${amount}</Typography>
-          </Row>
-        </TouchableHighlight>
-      </Swipeable>
-    </GestureHandlerRootView>
+          <Stack>
+            <Typography variant='body-lg'>{name}</Typography>
+            <Typography>{date}</Typography>
+          </Stack>
+          <Typography variant='body-lg'>${amount}</Typography>
+        </Row>
+      </TouchableHighlight>
+    </Swipeable>
   );
 }
