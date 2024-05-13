@@ -1,7 +1,7 @@
 import { useSQLiteContext } from 'expo-sqlite';
-import Stack from '../components/Stack';
-import Typography from '../components/Typography';
 import { useEffect } from 'react';
+import Stack from '../components/common/Stack';
+import Typography from '../components/common/Typography';
 
 export default function HomeScreen() {
   const db = useSQLiteContext();
