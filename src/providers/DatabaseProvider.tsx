@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { ReactNode, Suspense } from 'react';
+import { ReactNode, Suspense, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import Typography from '../components/common/Typography';
 import { colors } from '../utils/theme/colors';
@@ -36,11 +36,7 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   const DATABASE_VERSION = Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
 
-  const pragma = await db.getFirstAsync<{
-    user_version: number;
-  }>('PRAGMA user_version');
-
-  console.log({ DATABASE_VERSION, pragma });
+  const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
 
   let currentDbVersion = pragma?.user_version || 0;
 
@@ -51,22 +47,27 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   }
 
   // Get the migrations
-  const migrationsForCurrentVersion = migrations.find(
-    migration => migration.version === DATABASE_VERSION,
+  const migrationsForCurrentVersion = migrations.filter(
+    migration => migration.version <= DATABASE_VERSION,
   );
-  if (!migrationsForCurrentVersion) {
-    throw new Error(`No migrations found for version ${DATABASE_VERSION}`);
+  if (migrationsForCurrentVersion.length === 0) {
+    throw new Error(`No migrations found up to ${DATABASE_VERSION}`);
   }
 
-  migrationsForCurrentVersion.dataMigrations.forEach(async ({ table, inserts }) => {
-    if (table) {
-      await db.execAsync(table);
+  for (const { dataMigrations } of migrationsForCurrentVersion) {
+    for (const { table, inserts, version } of dataMigrations) {
+      if (version > currentDbVersion) {
+        if (table) {
+          await db.execAsync(table);
+        }
+        if (inserts) {
+          await db.runAsync(inserts);
+        }
+        currentDbVersion = version;
+        await db.execAsync(`PRAGMA user_version = ${currentDbVersion}`);
+      }
     }
-    if (inserts) {
-      await db.runAsync(inserts);
-    }
-    currentDbVersion = DATABASE_VERSION;
-  });
+  }
 
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
 }

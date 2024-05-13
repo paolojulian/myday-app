@@ -17,12 +17,7 @@ export const expensesMigrations = [
     version: 2,
     table: /* sql */ `
       PRAGMA journal_mode = 'wal';
-      CREATE TABLE IF NOT EXISTS Expenses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        amount REAL NOT NULL,
-        name TEXT NOT NULL,
-        description TEXT NOT NULL
-      );
+      ALTER TABLE Expenses ADD COLUMN name TEXT;
     `,
     inserts: /* sql */ `
       DELETE FROM Expenses;
