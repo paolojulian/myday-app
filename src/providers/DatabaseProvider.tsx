@@ -36,6 +36,7 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   const DATABASE_VERSION = Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
 
+  // Get the current database version from the user's local database
   const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
 
   let currentDbVersion = pragma?.user_version || 0;
@@ -47,14 +48,14 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   }
 
   // Get the migrations
-  const migrationsForCurrentVersion = migrations.filter(
-    migration => migration.version <= DATABASE_VERSION,
-  );
-  if (migrationsForCurrentVersion.length === 0) {
+  const latestMigrations = migrations.filter(migration => migration.version <= DATABASE_VERSION);
+
+  if (latestMigrations.length === 0) {
     throw new Error(`No migrations found up to ${DATABASE_VERSION}`);
   }
 
-  for (const { dataMigrations } of migrationsForCurrentVersion) {
+  // Apply the migrations
+  for (const { dataMigrations } of latestMigrations) {
     for (const { table, inserts, version } of dataMigrations) {
       if (version > currentDbVersion) {
         if (table) {
