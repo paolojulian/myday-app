@@ -48,7 +48,9 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   }
 
   // Get the migrations
-  const latestMigrations = migrations.filter(migration => migration.version <= DATABASE_VERSION);
+  const latestMigrations = migrations.filter(
+    migration => migration.version > currentDbVersion && migration.version <= DATABASE_VERSION,
+  );
 
   if (latestMigrations.length === 0) {
     throw new Error(`No migrations found up to ${DATABASE_VERSION}`);
