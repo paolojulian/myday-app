@@ -1,6 +1,9 @@
 import * as SQLite from 'expo-sqlite';
-import { ReactNode, Suspense } from 'react';
-import { Text } from 'react-native';
+import { ReactNode, Suspense, useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import Typography from '../components/common/Typography';
+import { colors } from '../utils/theme/colors';
+import { migrations } from '../database/migrations';
 
 type DatabaseProviderProps = {
   children: ReactNode;
@@ -8,9 +11,16 @@ type DatabaseProviderProps = {
 
 export default function DatabaseProvider({ children }: DatabaseProviderProps) {
   return (
-    <Suspense fallback={<Text>Loading...</Text>}>
+    <Suspense
+      fallback={
+        <View style={{ flex: 1, backgroundColor: colors.white }}>
+          <ActivityIndicator size="large" />
+          <Typography>Loading...</Typography>
+        </View>
+      }
+    >
       <SQLite.SQLiteProvider
-        databaseName='myday.db'
+        databaseName="myday.db"
         assetSource={{
           assetId: require('../../assets/myday.db'),
         }}
@@ -24,28 +34,43 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 }
 
 async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
-  const DATABASE_VERSION = 1;
-  const pragma = await db.getFirstAsync<{
-    user_version: number;
-  }>('PRAGMA user_version');
+  const DATABASE_VERSION = Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
+
+  // Get the current database version from the user's local database
+  const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
+
   let currentDbVersion = pragma?.user_version || 0;
+
+  // Check if the database is already at the latest version
   if (currentDbVersion >= DATABASE_VERSION) {
+    // Database is already at the latest version
     return;
   }
 
-  if (currentDbVersion === 0) {
-    await db.execAsync(`
-      PRAGMA journal_mode = 'wal';
-      CREATE TABLE IF NOT EXISTS Expenses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        amount REAL NOT NULL,
-        description TEXT NOT NULL
-      );
-    `);
-    await db.runAsync(
-      "INSERT INTO Expenses (amount, description) VALUES (100000, 'Gambling allowance')"
-    );
-    currentDbVersion = 1;
+  // Get the migrations
+  const latestMigrations = migrations.filter(
+    migration => migration.version > currentDbVersion && migration.version <= DATABASE_VERSION,
+  );
+
+  if (latestMigrations.length === 0) {
+    throw new Error(`No migrations found up to ${DATABASE_VERSION}`);
   }
+
+  // Apply the migrations
+  for (const { dataMigrations } of latestMigrations) {
+    for (const { table, inserts, version } of dataMigrations) {
+      if (version > currentDbVersion) {
+        if (table) {
+          await db.execAsync(table);
+        }
+        if (inserts) {
+          await db.runAsync(inserts);
+        }
+        currentDbVersion = version;
+        await db.execAsync(`PRAGMA user_version = ${currentDbVersion}`);
+      }
+    }
+  }
+
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
 }
