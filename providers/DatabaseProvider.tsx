@@ -1,9 +1,10 @@
+import ThemedText from '@/components/common/ThemedText';
+import ThemedView from '@/components/common/ThemedView';
+import { colors } from '@/constants/Colors';
+import { migrations } from '@/database/migrations';
 import * as SQLite from 'expo-sqlite';
-import { ReactNode, Suspense, useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import Typography from '../components/common/Typography';
-import { colors } from '../utils/theme/colors';
-import { migrations } from '../database/migrations';
+import { ReactNode, Suspense } from 'react';
+import { ActivityIndicator } from 'react-native';
 
 type DatabaseProviderProps = {
   children: ReactNode;
@@ -13,16 +14,16 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
   return (
     <Suspense
       fallback={
-        <View style={{ flex: 1, backgroundColor: colors.white }}>
+        <ThemedView style={{ flex: 1, backgroundColor: colors.white }}>
           <ActivityIndicator size="large" />
-          <Typography>Loading...</Typography>
-        </View>
+          <ThemedText>Loading...</ThemedText>
+        </ThemedView>
       }
     >
       <SQLite.SQLiteProvider
         databaseName="myday.db"
         assetSource={{
-          assetId: require('../../assets/myday.db'),
+          assetId: require('../assets/myday.db'),
         }}
         onInit={migrateDbIfNeeded}
         useSuspense

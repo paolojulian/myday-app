@@ -1,7 +1,7 @@
 import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import Row from '../common/Row';
 import Stack from '../common/Stack';
-import Typography from '../common/Typography';
+import ThemedText from '../common/ThemedText';
 import { colors } from '../../utils/theme/colors';
 
 type TodoItemProps = {
@@ -39,9 +39,9 @@ export default function TodoItem({
           ></View>
         </TouchableOpacity>
         <Stack>
-          <Typography variant='body-lg'>{name}</Typography>
-          {!!notes && <Typography>{notes}</Typography>}
-          {!!reminderDate && <Typography>Reminder - {reminderDate}</Typography>}
+          <ThemedText variant='body-lg'>{name}</ThemedText>
+          {!!notes && <ThemedText>{notes}</ThemedText>}
+          {!!reminderDate && <ThemedText>Reminder - {reminderDate}</ThemedText>}
         </Stack>
       </Row>
     </TouchableHighlight>

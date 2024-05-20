@@ -1,15 +1,12 @@
 import { selectionAsync } from 'expo-haptics';
 import { ComponentProps } from 'react';
 import { TouchableHighlight } from 'react-native';
-import {
-  GestureHandlerRootView,
-  Swipeable,
-} from 'react-native-gesture-handler';
-import { colors } from '../../utils/theme/colors';
+import { Swipeable } from 'react-native-gesture-handler';
 import Row from '../common/Row';
 import Stack from '../common/Stack';
-import Typography from '../common/Typography';
+import ThemedText from '../common/ThemedText';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
+import { colors } from '@/constants/Colors';
 
 type ExpenseItemProps = {
   onDelete: (id: string) => void;
@@ -20,14 +17,7 @@ type ExpenseItemProps = {
   notes: string;
 };
 
-export default function ExpenseItem({
-  onDelete,
-  id,
-  amount,
-  date,
-  name,
-  notes,
-}: ExpenseItemProps) {
+export default function ExpenseItem({ onDelete, id, amount, date, name, notes }: ExpenseItemProps) {
   const handleDelete = () => {
     onDelete(id);
     selectionAsync();
@@ -36,9 +26,7 @@ export default function ExpenseItem({
   const handlePress = () => {
     selectionAsync();
   };
-  const renderRightActions: ComponentProps<
-    typeof Swipeable
-  >['renderRightActions'] = () => {
+  const renderRightActions: ComponentProps<typeof Swipeable>['renderRightActions'] = () => {
     return <ExpenseItemRightActions onDelete={handleDelete} />;
   };
 
@@ -51,11 +39,7 @@ export default function ExpenseItem({
       overshootFriction={9}
       friction={2}
     >
-      <TouchableHighlight
-        delayPressIn={400}
-        onLongPress={handlePress}
-        activeOpacity={0.9}
-      >
+      <TouchableHighlight delayPressIn={400} onLongPress={handlePress} activeOpacity={0.9}>
         <Row
           style={{
             padding: 16,
@@ -65,10 +49,10 @@ export default function ExpenseItem({
           }}
         >
           <Stack>
-            <Typography variant='body-lg'>{name}</Typography>
-            <Typography>{date}</Typography>
+            <ThemedText variant="body-lg">{name}</ThemedText>
+            <ThemedText>{date}</ThemedText>
           </Stack>
-          <Typography variant='body-lg'>${amount}</Typography>
+          <ThemedText variant="body-lg">${amount}</ThemedText>
         </Row>
       </TouchableHighlight>
     </Swipeable>

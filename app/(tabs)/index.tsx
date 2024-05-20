@@ -1,9 +1,9 @@
+import Stack from '@/components/common/Stack';
+import ThemedText from '@/components/common/ThemedText';
 import { useSQLiteContext } from 'expo-sqlite';
 import { useEffect } from 'react';
-import Stack from '../components/common/Stack';
-import Typography from '../components/common/Typography';
 
-export default function HomeScreen() {
+export default function Home() {
   const db = useSQLiteContext();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function HomeScreen() {
 
   return (
     <Stack>
-      <Typography variant='heading'>Home</Typography>
+      <ThemedText variant="heading">Home</ThemedText>
     </Stack>
   );
 }
