@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
 
-type ThemedText = {
+type ThemedTextProps = {
   variant?: 'heading' | 'body' | 'body-lg';
 } & TextProps;
 
-export default function ThemedText({ variant = 'body', ...props }: ThemedText) {
+export default function ThemedText({ variant = 'body', ...props }: ThemedTextProps) {
   const variantStyle = useMemo(() => {
     return styles[variant] || styles.body;
   }, [variant]);

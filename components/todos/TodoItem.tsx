@@ -2,7 +2,7 @@ import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import Row from '../common/Row';
 import Stack from '../common/Stack';
 import ThemedText from '../common/ThemedText';
-import { colors } from '../../utils/theme/colors';
+import { colors } from '@/constants/Colors';
 
 type TodoItemProps = {
   id: string;
@@ -11,12 +11,7 @@ type TodoItemProps = {
   reminderDate?: string;
 };
 
-export default function TodoItem({
-  id,
-  name,
-  notes,
-  reminderDate,
-}: TodoItemProps) {
+export default function TodoItem({ id, name, notes, reminderDate }: TodoItemProps) {
   return (
     <TouchableHighlight>
       <Row
@@ -39,7 +34,7 @@ export default function TodoItem({
           ></View>
         </TouchableOpacity>
         <Stack>
-          <ThemedText variant='body-lg'>{name}</ThemedText>
+          <ThemedText variant="body-lg">{name}</ThemedText>
           {!!notes && <ThemedText>{notes}</ThemedText>}
           {!!reminderDate && <ThemedText>Reminder - {reminderDate}</ThemedText>}
         </Stack>

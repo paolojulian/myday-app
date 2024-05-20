@@ -1,3 +1,4 @@
+/* eslint-env node */
 const { getDefaultConfig } = require('expo/metro-config');
 
 const defaultConfig = getDefaultConfig(__dirname);
@@ -5,4 +6,3 @@ const defaultConfig = getDefaultConfig(__dirname);
 defaultConfig.resolver.assetExts.push('db');
 
 module.exports = defaultConfig;
-

@@ -1,14 +1,5 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
-import {
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import ExpenseItem from './ExpenseItem';
-import Stack from '../common/Stack';
 
 const MOCK_EXPENSES = [
   {
@@ -43,13 +34,13 @@ export default function ExpensesList() {
           id={item.id}
           date={item.date}
           name={item.name}
-          notes=''
+          notes=""
           amount={item.amount}
         />
       )}
       style={styles.container}
       data={expenses}
-      keyExtractor={(item) => item.id}
+      keyExtractor={item => item.id}
     ></FlatList>
   );
 }

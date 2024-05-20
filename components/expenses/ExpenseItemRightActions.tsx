@@ -1,16 +1,14 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Row from '../common/Row';
-import { View } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from '../../utils/theme/colors';
+import { colors } from '@/constants/Colors';
 
 type ExpenseItemRightActionsProps = {
   onDelete: () => void;
 };
 
-export default function ExpenseItemRightActions({
-  onDelete,
-}: ExpenseItemRightActionsProps) {
+export default function ExpenseItemRightActions({ onDelete }: ExpenseItemRightActionsProps) {
   return (
     <Row
       style={{
@@ -30,7 +28,7 @@ export default function ExpenseItemRightActions({
           }}
         >
           <MaterialCommunityIcons
-            name='pencil'
+            name="pencil"
             size={32}
             color={colors.primary[800]}
           ></MaterialCommunityIcons>
@@ -47,7 +45,7 @@ export default function ExpenseItemRightActions({
           }}
         >
           <MaterialCommunityIcons
-            name='trash-can'
+            name="trash-can"
             size={32}
             color={colors.primary[100]}
           ></MaterialCommunityIcons>
