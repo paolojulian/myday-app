@@ -1,14 +1,11 @@
-import { ComponentProps, useMemo } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { useMemo } from 'react';
+import { StyleSheet, Text, TextProps } from 'react-native';
 
-type TypographyProps = {
+type ThemedText = {
   variant?: 'heading' | 'body' | 'body-lg';
-} & ComponentProps<typeof Text>;
+} & TextProps;
 
-export default function Typography({
-  variant = 'body',
-  ...props
-}: TypographyProps) {
+export default function ThemedText({ variant = 'body', ...props }: ThemedText) {
   const variantStyle = useMemo(() => {
     return styles[variant] || styles.body;
   }, [variant]);
