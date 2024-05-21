@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint .",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
@@ -38,7 +38,14 @@
     "eslint": "^8.57.0",
     "eslint-config-expo": "^7.0.0",
     "husky": "^9.0.11",
+    "prettier": "^3.2.5",
     "typescript": "~5.3.3"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "*.{js,tsx,ts}": [
+      "prettier --write --ignore-unknown",
+      "eslint --cache --fix"
+    ]
+  }
 }

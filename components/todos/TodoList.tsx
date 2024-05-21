@@ -40,7 +40,7 @@ export default function TodoList() {
         />
       )}
       data={todos}
-      keyExtractor={(item) => item.id}
+      keyExtractor={item => item.id}
     ></FlatList>
   );
 }

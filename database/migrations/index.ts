@@ -8,5 +8,5 @@ export const migrations = [
   {
     version: 2,
     dataMigrations: [expensesMigrations[1]],
-  }
+  },
 ];
