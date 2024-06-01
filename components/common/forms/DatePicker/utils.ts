@@ -1,18 +1,22 @@
+import dayjs from 'dayjs';
+
 /**
- * Returns an array of calendar days for the specified year and month.
- * Each day object contains the day number and a flag indicating whether it belongs to the current month.
+ * Returns a 2D array of calendar days for a given year and month.
+ * Each element in the array represents a week, and each week contains objects representing individual days.
+ * The objects contain the date and a flag indicating whether the day belongs to the current month.
  *
  * @param year - The year of the calendar.
  * @param month - The month of the calendar (1-12).
- * @returns An array of day objects.
+ * @returns A 2D array of calendar days.
  */
 export function getCalendarDays(
   year: number,
   month: number,
-): { day: number; isCurrentMonth: boolean }[] {
+): { date: Date; isCurrentMonth: boolean }[][] {
   const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
   const daysInMonth = new Date(year, month, 0).getDate();
-  const daysArray = [];
+  const weeksArray = [];
+  let week = [];
 
   // Add previous month days
   const previousMonth = month === 1 ? 12 : month - 1;
@@ -20,19 +24,36 @@ export function getCalendarDays(
   const daysInPreviousMonth = new Date(previousMonthYear, previousMonth, 0).getDate();
   const startDay = daysInPreviousMonth - firstDayOfMonth + 1;
   for (let i = startDay; i <= daysInPreviousMonth; i++) {
-    daysArray.push({ day: i, isCurrentMonth: false });
+    week.push({ date: new Date(previousMonthYear, previousMonth - 1, i), isCurrentMonth: false });
+    if (week.length === 7) {
+      weeksArray.push(week);
+      week = [];
+    }
   }
 
   // Add current month days
   for (let i = 1; i <= daysInMonth; i++) {
-    daysArray.push({ day: i, isCurrentMonth: true });
+    week.push({ date: new Date(year, month - 1, i), isCurrentMonth: true });
+    if (week.length === 7) {
+      weeksArray.push(week);
+      week = [];
+    }
   }
 
   // Add next month days
-  const remainingDays = 7 - (daysArray.length % 7);
+  const nextMonth = month === 12 ? 1 : month + 1;
+  const nextMonthYear = month === 12 ? year + 1 : year;
+  const remainingDays = 7 - (week.length % 7);
   for (let i = 1; i <= remainingDays; i++) {
-    daysArray.push({ day: i, isCurrentMonth: false });
+    week.push({ date: new Date(nextMonthYear, nextMonth - 1, i), isCurrentMonth: false });
+  }
+  if (week.length > 0) {
+    weeksArray.push(week);
   }
 
-  return daysArray;
+  return weeksArray;
+}
+
+export function isToday(date: Date) {
+  return dayjs().isSame(date, 'day');
 }

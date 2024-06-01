@@ -1,12 +1,13 @@
 import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 
 function AddExpenseForm() {
   const amountRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleCategorySubmit = () => {
     amountRef.current?.focus();
@@ -37,7 +38,7 @@ function AddExpenseForm() {
         returnKeyType="done"
       />
       <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." returnKeyType="next" />
-      <DatePicker variant="border" />
+      <DatePicker value={selectedDate} onSelectDate={setSelectedDate} variant="border" />
     </>
   );
 }

@@ -1,32 +1,57 @@
-import DatePickerNumber from '@/components/common/forms/DatePicker/DatePickerNumber';
-import { getCalendarDays } from '@/components/common/forms/DatePicker/utils';
+import DatePickerItem from '@/components/common/forms/DatePicker/DatePickerItem';
+import { getCalendarDays, isToday } from '@/components/common/forms/DatePicker/utils';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useMemo } from 'react';
+import dayjs from 'dayjs';
+import React, { useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 type DatePickerVariants = 'shadow' | 'border';
 
 type DatePickerProps = {
+  onSelectDate?: (date: Date) => void;
+  initialMonth?: number;
+  initialYear?: number;
+  value?: Date;
   variant?: DatePickerVariants;
-  year?: number;
-  month?: number;
 };
 
-function DatePicker({ variant = 'border', year, month }: DatePickerProps) {
-  const resolvedYear = year || new Date().getFullYear();
-  const resolvedMonth = month || new Date().getMonth() + 1;
+function DatePicker({
+  onSelectDate,
+  value,
+  variant = 'border',
+  initialYear,
+  initialMonth,
+}: DatePickerProps) {
+  const [year] = useState<number>(initialYear ?? new Date().getFullYear());
+  const [month] = useState<number>(initialMonth ?? new Date().getMonth() + 1);
 
-  const splitCalendarDays = useMemo(() => {
-    const calendarDays = getCalendarDays(resolvedYear, resolvedMonth);
-    const splitCalendarDays = [];
-    while (calendarDays.length > 0) {
-      splitCalendarDays.push(calendarDays.splice(0, 7));
+  const calendarDays = useMemo(() => {
+    return getCalendarDays(year, month);
+  }, [year, month]);
+
+  const isDayActive = (date: Date) => {
+    return dayjs(value).isSame(date, 'day');
+  };
+
+  const titleText = useMemo(() => {
+    if (!value) {
+      return 'Select a date';
     }
-    return splitCalendarDays;
-  }, [resolvedYear, resolvedMonth]);
+
+    if (value && isToday(value)) {
+      return 'Today';
+    }
+
+    const valueDayJS = dayjs(value);
+    if (value && valueDayJS.isSame(dayjs(), 'year')) {
+      return valueDayJS.format('MMM D');
+    }
+
+    return valueDayJS.format('MMM D YYYY');
+  }, [value]);
 
   return (
     <ThemedView
@@ -39,7 +64,7 @@ function DatePicker({ variant = 'border', year, month }: DatePickerProps) {
       ]}
     >
       <ThemedView style={styles.header}>
-        <ThemedText style={{ color: colors.black }}>March 2024</ThemedText>
+        <ThemedText style={{ color: colors.black }}>{titleText}</ThemedText>
         <ThemedView style={styles.monthNavigation}>
           <MaterialCommunityIcons size={24} name="chevron-left" color={colors.black} />
           <MaterialCommunityIcons size={24} name="chevron-right" color={colors.black} />
@@ -47,25 +72,28 @@ function DatePicker({ variant = 'border', year, month }: DatePickerProps) {
       </ThemedView>
       <ThemedView style={styles.body}>
         <ThemedView style={styles.weekContainer}>
-          <DatePickerNumber value="Sun" isActive={false} isToday={false} />
-          <DatePickerNumber value="Mon" isActive={false} isToday={false} />
-          <DatePickerNumber value="Tue" isActive={false} isToday={false} />
-          <DatePickerNumber value="Wed" isActive={false} isToday={false} />
-          <DatePickerNumber value="Thu" isActive={false} isToday={false} />
-          <DatePickerNumber value="Fri" isActive={false} isToday={false} />
-          <DatePickerNumber value="Sat" isActive={false} isToday={false} />
+          <DatePickerItem value="Sun" isActive={false} isToday={false} />
+          <DatePickerItem value="Mon" isActive={false} isToday={false} />
+          <DatePickerItem value="Tue" isActive={false} isToday={false} />
+          <DatePickerItem value="Wed" isActive={false} isToday={false} />
+          <DatePickerItem value="Thu" isActive={false} isToday={false} />
+          <DatePickerItem value="Fri" isActive={false} isToday={false} />
+          <DatePickerItem value="Sat" isActive={false} isToday={false} />
         </ThemedView>
-        {splitCalendarDays.map((week, index) => (
+        {calendarDays.map((week, index) => (
           <ThemedView key={index} style={styles.weekContainer}>
-            {week.map(({ day, isCurrentMonth }) => (
-              <DatePickerNumber
-                key={day}
-                value={day}
-                isActive={false}
-                isToday={false}
-                isCurrentMonth={isCurrentMonth}
-              />
-            ))}
+            {week.map(({ date, isCurrentMonth }) => {
+              return (
+                <DatePickerItem
+                  onPress={onSelectDate}
+                  key={date.getDate().toString()}
+                  value={date}
+                  isActive={isDayActive(date)}
+                  isToday={isToday(date)}
+                  isCurrentMonth={isCurrentMonth}
+                />
+              );
+            })}
           </ThemedView>
         ))}
       </ThemedView>
