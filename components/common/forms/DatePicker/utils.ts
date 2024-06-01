@@ -57,3 +57,23 @@ export function getCalendarDays(
 export function isToday(date: Date) {
   return dayjs().isSame(date, 'day');
 }
+
+export function getCalendarTitle(date?: Date) {
+  if (!date) {
+    return 'Select a date';
+  }
+
+  if (date && isToday(date)) {
+    const formattedDateToday = dayjs(date).format('MMM D,YYYY');
+    return `Today, ${formattedDateToday}`;
+  }
+
+  const tomorrow = dayjs().add(1, 'day');
+  if (date && dayjs(date).isSame(tomorrow, 'day')) {
+    const formattedDateTomorrow = dayjs(date).format('MMM D,YYYY');
+    return `Tomorrow, ${formattedDateTomorrow}`;
+  }
+
+  const valueDayJS = dayjs(date);
+  return valueDayJS.format('ddd, MMM D, YYYY');
+}

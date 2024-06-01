@@ -1,5 +1,4 @@
 import Button from '@/components/common/Button';
-import Container from '@/components/common/Container';
 import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
@@ -27,7 +26,7 @@ function AddExpenseForm() {
           onSubmitEditing={handleCategorySubmit}
           autoFocus
           label="Category"
-          placeholder="Grocery"
+          placeholder="Select or create a new category"
           keyboardType="default"
           returnKeyLabel="Next"
           returnKeyType="next"
@@ -41,7 +40,12 @@ function AddExpenseForm() {
           returnKeyLabel="Done"
           returnKeyType="done"
         />
-        <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." returnKeyType="next" />
+        <TextArea
+          ref={noteRef}
+          label="Note"
+          placeholder="Additional information about the expense"
+          returnKeyType="next"
+        />
         <DatePicker value={selectedDate} onSelectDate={setSelectedDate} variant="border" />
       </ThemedView>
       <ThemedView style={{ marginTop: 8 }}>
