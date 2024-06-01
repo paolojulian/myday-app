@@ -13,11 +13,8 @@ export default function Tabs<T extends string>({ onSelect, selectedItem, items }
   return (
     <ThemedView style={styles.container}>
       {items.map(item => (
-        <TouchableWithoutFeedback onPress={() => onSelect(item)}>
-          <ThemedView
-            key={item}
-            style={[styles.item, selectedItem === item ? styles.itemActive : {}]}
-          >
+        <TouchableWithoutFeedback key={item} onPress={() => onSelect(item)}>
+          <ThemedView style={[styles.item, selectedItem === item ? styles.itemActive : {}]}>
             <ThemedText style={selectedItem === item ? styles.itemTextActive : {}}>
               {item}
             </ThemedText>
