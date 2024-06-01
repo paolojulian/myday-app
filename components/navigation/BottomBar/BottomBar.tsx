@@ -27,12 +27,11 @@ export default function BottomBar({
   return (
     <SafeAreaView
       style={{
-        backgroundColor: colors.lightGrey,
+        backgroundColor: colors.whiteSmoke,
       }}
     >
       <Container
         style={{
-          backgroundColor: colors.whiteSmoke,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
