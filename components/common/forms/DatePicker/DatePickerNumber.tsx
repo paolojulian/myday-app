@@ -8,14 +8,14 @@ type DatePickerNumberProps = {
   value: string | number;
   isActive: boolean;
   isToday: boolean;
-  isNotCurrentMonth?: boolean;
+  isCurrentMonth?: boolean;
 };
 
 function DatePickerNumber({
   value,
   isActive,
   isToday,
-  isNotCurrentMonth = false,
+  isCurrentMonth = true,
 }: DatePickerNumberProps) {
   return (
     <ThemedView
@@ -24,7 +24,7 @@ function DatePickerNumber({
       <ThemedText
         style={{
           ...(isActive && styles.isActiveText),
-          ...(isNotCurrentMonth && styles.isNotCurrentMonth),
+          ...(!isCurrentMonth && styles.isNotCurrentMonth),
         }}
       >
         {value}
