@@ -1,10 +1,10 @@
+import DefaultTheme from '@/constants/Theme';
 import DatabaseProvider from '@/providers/DatabaseProvider';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
@@ -18,7 +18,6 @@ export enum RouteNames {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     Inter: require('../assets/fonts/Inter.ttf'),
   });
@@ -36,7 +35,7 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <DatabaseProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider value={DefaultTheme}>
           <Stack initialRouteName={RouteNames.Tabs}>
             <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
             <Stack.Screen
