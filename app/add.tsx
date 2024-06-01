@@ -1,12 +1,22 @@
+import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-export default function Page() {
+type Items = 'Expense' | 'Todo' | 'Journal';
+
+export default function AddScreen() {
+  const [selectedItem, setSelectedItem] = useState<Items>('Expense');
+
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.main}>
+        <Tabs<Items>
+          onSelect={setSelectedItem}
+          selectedItem={selectedItem}
+          items={['Expense', 'Todo', 'Journal']}
+        />
         <ThemedText variant="heading">Add Screen</ThemedText>
         <ThemedText>This is a sample modal</ThemedText>
       </ThemedView>

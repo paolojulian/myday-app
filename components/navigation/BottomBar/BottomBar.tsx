@@ -32,7 +32,7 @@ export default function BottomBar({
     >
       <Container
         style={{
-          backgroundColor: colors.lightGrey,
+          backgroundColor: colors.whiteSmoke,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
