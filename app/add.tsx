@@ -22,22 +22,24 @@ export default function AddScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.main}>
-        <Container style={{ gap: 16 }}>
-          <ThemedView style={styles.header}>
-            <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
-            <ThemedText variant="body-lg">Add</ThemedText>
-            <MaterialCommunityIcons name={'chevron-left'} size={32} style={{ opacity: 0 }} />
-          </ThemedView>
-          <Tabs<SupportedAddItems>
-            onSelect={setSelectedItem}
-            selectedItem={selectedItem}
-            items={['Expense', 'Todo', 'Journal']}
-          />
-        </Container>
-
         <SafeAreaView style={{ flex: 1 }}>
+          <Container>
+            <ThemedView style={styles.header}>
+              <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
+              <ThemedText variant="body-lg">Add</ThemedText>
+              <MaterialCommunityIcons name={'chevron-left'} size={32} style={{ opacity: 0 }} />
+            </ThemedView>
+          </Container>
           <ScrollView>
-            <AddFactory type={selectedItem} />
+            <Container style={{ gap: 16 }}>
+              <Tabs<SupportedAddItems>
+                onSelect={setSelectedItem}
+                selectedItem={selectedItem}
+                items={['Expense', 'Todo', 'Journal']}
+              />
+
+              <AddFactory type={selectedItem} />
+            </Container>
           </ScrollView>
         </SafeAreaView>
       </ThemedView>
@@ -49,12 +51,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingVertical: 24,
+    paddingVertical: 12,
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical: 12,
   },
   main: {
     flex: 1,

@@ -22,38 +22,31 @@ function AddExpenseForm() {
 
   return (
     <>
-      <Container>
-        <ThemedView style={{ gap: 8, flex: 1 }}>
-          <TextField
-            onSubmitEditing={handleCategorySubmit}
-            autoFocus
-            label="Category"
-            placeholder="Grocery"
-            keyboardType="default"
-            returnKeyLabel="Next"
-            returnKeyType="next"
-          />
-          <TextField
-            ref={amountRef}
-            onSubmitEditing={handleAmountSubmit}
-            label="Amount"
-            placeholder="00.00"
-            keyboardType="numeric"
-            returnKeyLabel="Done"
-            returnKeyType="done"
-          />
-          <TextArea
-            ref={noteRef}
-            label="Note"
-            placeholder="Grocery items..."
-            returnKeyType="next"
-          />
-          <DatePicker value={selectedDate} onSelectDate={setSelectedDate} variant="border" />
-        </ThemedView>
-        <ThemedView style={{ marginTop: 8 }}>
-          <Button text={'Save'} />
-        </ThemedView>
-      </Container>
+      <ThemedView style={{ gap: 8, flex: 1 }}>
+        <TextField
+          onSubmitEditing={handleCategorySubmit}
+          autoFocus
+          label="Category"
+          placeholder="Grocery"
+          keyboardType="default"
+          returnKeyLabel="Next"
+          returnKeyType="next"
+        />
+        <TextField
+          ref={amountRef}
+          onSubmitEditing={handleAmountSubmit}
+          label="Amount"
+          placeholder="00.00"
+          keyboardType="numeric"
+          returnKeyLabel="Done"
+          returnKeyType="done"
+        />
+        <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." returnKeyType="next" />
+        <DatePicker value={selectedDate} onSelectDate={setSelectedDate} variant="border" />
+      </ThemedView>
+      <ThemedView style={{ marginTop: 8 }}>
+        <Button text={'Save'} />
+      </ThemedView>
     </>
   );
 }
