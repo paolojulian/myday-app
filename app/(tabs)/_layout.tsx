@@ -4,7 +4,7 @@ import React, { ComponentProps } from 'react';
 
 import { SafeAreaView } from 'react-native';
 
-enum TabName {
+export enum TabName {
   Home = 'index',
   Journal = 'journal',
   Add = 'add',
