@@ -1,39 +1,25 @@
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import React from 'react';
-import { StyleSheet, TextInput, TextInputProps, TouchableWithoutFeedback } from 'react-native';
+import React, { forwardRef } from 'react';
+import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
 type TextFieldProps = {
   label: string;
 } & TextInputProps;
 
-function TextField({ label, ...props }: TextFieldProps) {
-  const inputRef = React.useRef<TextInput>(null);
-
-  const handleContainerPress = () => {
-    inputRef.current?.focus();
-  };
-  const handleContainerBlur = () => {
-    inputRef.current?.blur();
-  };
-
+const TextField = forwardRef<TextInput, TextFieldProps>(({ label, ...props }, ref) => {
   return (
-    <TouchableWithoutFeedback onPress={handleContainerPress} onBlur={handleContainerBlur}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.label}>
-          <ThemedText>{label}</ThemedText>
-        </ThemedView>
-        <TextInput
-          {...props}
-          ref={inputRef}
-          placeholderTextColor={colors.grey}
-          style={styles.textInput}
-        />
+    <ThemedView style={styles.container}>
+      <ThemedView style={styles.label}>
+        <ThemedText>{label}</ThemedText>
       </ThemedView>
-    </TouchableWithoutFeedback>
+      <TextInput {...props} ref={ref} placeholderTextColor={colors.grey} style={styles.textInput} />
+    </ThemedView>
   );
-}
+});
+
+TextField.displayName = 'TextField';
 
 const styles = StyleSheet.create({
   container: {
