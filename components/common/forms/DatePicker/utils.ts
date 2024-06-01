@@ -70,7 +70,7 @@ export function getCalendarTitle(date?: Date) {
 
   const tomorrow = dayjs().add(1, 'day');
   if (date && dayjs(date).isSame(tomorrow, 'day')) {
-    const formattedDateTomorrow = dayjs(date).format('MMM D,YYYY');
+    const formattedDateTomorrow = dayjs(date).format('MMM D, YYYY');
     return `Tomorrow, ${formattedDateTomorrow}`;
   }
 

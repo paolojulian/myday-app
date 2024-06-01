@@ -48,9 +48,7 @@ function DatePicker({
     return getCalendarTitle(value);
   }, [value]);
   const currentMonthTitle = useMemo(() => {
-    const monthTitle = dayjs(new Date(year, month - 1))
-      .format('MMM')
-      .toUpperCase();
+    const monthTitle = dayjs(new Date(year, month - 1)).format('MMM');
 
     const currentYear = new Date().getFullYear();
     if (year !== currentYear) {
@@ -96,7 +94,7 @@ function DatePicker({
         <TouchableWithoutFeedback onPress={handleHeaderClick}>
           <ThemedView style={{ gap: 4, flex: 1 }}>
             <Label text={'Date'} />
-            <ThemedText variant="body2" style={{ color: colors.black }}>
+            <ThemedText variant="body1" style={{ color: colors.black }}>
               {titleText}
             </ThemedText>
           </ThemedView>
@@ -109,7 +107,7 @@ function DatePicker({
               color={colors.black}
               onPress={handlePrevMonth}
             />
-            <ThemedText style={{ width: 40, textAlign: 'center' }} variant="body2">
+            <ThemedText style={{ width: 40, textAlign: 'center' }} variant="body1">
               {currentMonthTitle}
             </ThemedText>
             <MaterialCommunityIcons

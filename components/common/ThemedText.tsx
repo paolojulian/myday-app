@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
 
 type ThemedTextProps = {
-  variant?: 'heading' | 'body' | 'body2' | 'body-lg' | 'small';
+  variant?: 'heading' | 'body' | 'body1' | 'body2' | 'small';
 } & TextProps;
 
 export default function ThemedText({ variant = 'body', style, ...props }: ThemedTextProps) {
@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 16,
   },
-  body2: {
+  body1: {
     fontSize: 20,
   },
   small: {
     fontSize: 12,
   },
-  ['body-lg']: {
-    fontSize: 24,
-    fontWeight: '500',
+  body2: {
+    fontSize: 20,
+    fontWeight: '600',
   },
 });

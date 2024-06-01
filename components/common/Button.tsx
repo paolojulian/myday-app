@@ -34,7 +34,7 @@ function Button({ text, variant = 'primary', ...props }: ButtonProps) {
   return (
     <TouchableOpacity activeOpacity={0.9} {...props}>
       <ThemedView style={[styles.container, containerVariantStyle]}>
-        <ThemedText style={[textVariantStyle]}>{text}</ThemedText>
+        <ThemedText style={[textVariantStyle, styles.text]}>{text}</ThemedText>
       </ThemedView>
     </TouchableOpacity>
   );
@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     color: colors.white,
+  },
+  text: {
+    fontWeight: 'bold',
   },
 });
 

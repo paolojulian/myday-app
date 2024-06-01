@@ -14,7 +14,7 @@ export default function NotFoundScreen() {
     <>
       <ThemedView style={styles.container}>
         <ThemedText variant="heading">404</ThemedText>
-        <ThemedText variant="body-lg">This screen doesn't exist.</ThemedText>
+        <ThemedText variant="body2">This screen doesn't exist.</ThemedText>
         <Link href="/" style={styles.link}>
           <ThemedText variant="body">Back to home screen</ThemedText>
         </Link>

@@ -49,10 +49,10 @@ export default function ExpenseItem({ onDelete, id, amount, date, name, notes }:
           }}
         >
           <Stack>
-            <ThemedText variant="body-lg">{name}</ThemedText>
+            <ThemedText variant="body2">{name}</ThemedText>
             <ThemedText>{date}</ThemedText>
           </Stack>
-          <ThemedText variant="body-lg">${amount}</ThemedText>
+          <ThemedText variant="body2">${amount}</ThemedText>
         </Row>
       </TouchableHighlight>
     </Swipeable>

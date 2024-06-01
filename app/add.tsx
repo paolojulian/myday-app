@@ -26,7 +26,7 @@ export default function AddScreen() {
           <Container>
             <ThemedView style={styles.header}>
               <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
-              <ThemedText variant="body-lg">Add</ThemedText>
+              <ThemedText variant="body2">Add</ThemedText>
               <MaterialCommunityIcons name={'chevron-left'} size={32} style={{ opacity: 0 }} />
             </ThemedView>
           </Container>

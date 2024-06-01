@@ -34,7 +34,7 @@ export default function TodoItem({ id, name, notes, reminderDate }: TodoItemProp
           ></View>
         </TouchableOpacity>
         <Stack>
-          <ThemedText variant="body-lg">{name}</ThemedText>
+          <ThemedText variant="body2">{name}</ThemedText>
           {!!notes && <ThemedText>{notes}</ThemedText>}
           {!!reminderDate && <ThemedText>Reminder - {reminderDate}</ThemedText>}
         </Stack>

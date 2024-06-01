@@ -52,7 +52,7 @@ function DatePickerItem({
             },
             textStyle,
           ]}
-          variant="body2"
+          variant="body1"
         >
           {typeof value === 'string' ? value : value.getDate()}
         </ThemedText>
