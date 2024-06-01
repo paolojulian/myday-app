@@ -1,12 +1,10 @@
-import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
-import { colors } from '@/constants/Colors';
+import BottomBar from '@/components/navigation/BottomBar/BottomBar';
 import { router, Tabs } from 'expo-router';
-import React from 'react';
+import React, { ComponentProps } from 'react';
 
-import { SafeAreaView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
-enum TabName {
+export enum TabName {
   Home = 'index',
   Journal = 'journal',
   Add = 'add',
@@ -20,46 +18,7 @@ export default function TabLayout() {
       screenOptions={{
         header: () => <SafeAreaView></SafeAreaView>,
       }}
-      tabBar={props => (
-        <ThemedView
-          style={{
-            backgroundColor: colors.primary[400],
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: 8,
-          }}
-        >
-          <TouchableOpacity onPress={() => props.navigation.navigate(TabName.Home)}>
-            <ThemedText>Home</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate(TabName.Expense)}>
-            <ThemedText>Expenses</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={e => {
-              e.preventDefault();
-              router.push('add');
-            }}
-            style={{
-              bottom: 40, // space from bottombar
-              backgroundColor: '#7d7d7d',
-              width: 70,
-              height: 70,
-              borderRadius: 9999,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <ThemedText>Add</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate(TabName.Todo)}>
-            <ThemedText>Todo</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate(TabName.Journal)}>
-            <ThemedText>Journal</ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
-      )}
+      tabBar={TabBar}
     >
       <Tabs.Screen name={TabName.Home}></Tabs.Screen>
       <Tabs.Screen name={TabName.Journal}></Tabs.Screen>
@@ -69,3 +28,23 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const TabBar: ComponentProps<typeof Tabs>['tabBar'] = props => {
+  const { navigation } = props;
+
+  const handleAddPress = () => router.push('add');
+  const handleHomePress = () => navigation.navigate(TabName.Home);
+  const handleTodoPress = () => navigation.navigate(TabName.Todo);
+  const handleJournalPress = () => navigation.navigate(TabName.Journal);
+  const handleExpensePress = () => navigation.navigate(TabName.Expense);
+
+  return (
+    <BottomBar
+      onAddPress={handleAddPress}
+      onHomePress={handleHomePress}
+      onTodoPress={handleTodoPress}
+      onJournalPress={handleJournalPress}
+      onExpensePress={handleExpensePress}
+    />
+  );
+};
