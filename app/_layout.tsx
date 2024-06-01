@@ -20,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded] = useFonts({
     Inter: require('../assets/fonts/Inter.ttf'),
+    Livic: require('../assets/fonts/Livvic-Regular.ttf'),
   });
 
   useEffect(() => {
