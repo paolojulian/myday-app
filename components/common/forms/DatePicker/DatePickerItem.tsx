@@ -7,16 +7,16 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 type DatePickerItemProps = {
   onPress?: (date: Date) => void;
   value: Date | string;
-  isActive: boolean;
-  isToday: boolean;
+  isActive?: boolean;
+  isToday?: boolean;
   isCurrentMonth?: boolean;
 };
 
 function DatePickerItem({
   onPress,
   value,
-  isActive,
-  isToday,
+  isActive = false,
+  isToday = false,
   isCurrentMonth = true,
 }: DatePickerItemProps) {
   const handlePress = () => {
@@ -54,8 +54,8 @@ function DatePickerItem({
 
 const styles = StyleSheet.create({
   container: {
-    width: 32,
-    height: 32,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 9999,
