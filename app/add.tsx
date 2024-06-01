@@ -1,14 +1,44 @@
+import AddFactory from '@/components/add/AddFactory';
+import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
+import React, { useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
-export default function Page() {
+export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
+
+export default function AddScreen() {
+  const [selectedItem, setSelectedItem] = useState<SupportedAddItems>('Expense');
+  const navigation = useNavigation();
+  const handleBackPress = () => {
+    if (navigation.canGoBack()) {
+      return navigation.goBack();
+    }
+  };
+
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.main}>
-        <ThemedText variant="heading">Add Screen</ThemedText>
-        <ThemedText>This is a sample modal</ThemedText>
+        <ThemedView style={styles.header}>
+          <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
+          <ThemedText variant="body-lg">Add</ThemedText>
+          <MaterialCommunityIcons name={'chevron-left'} size={32} style={{ opacity: 0 }} />
+        </ThemedView>
+        <Tabs<SupportedAddItems>
+          onSelect={setSelectedItem}
+          selectedItem={selectedItem}
+          items={['Expense', 'Todo', 'Journal']}
+        />
+
+        <SafeAreaView style={{ flex: 1 }}>
+          <ScrollView>
+            <ThemedView style={styles.formContainer}>
+              <AddFactory type={selectedItem} />
+            </ThemedView>
+          </ScrollView>
+        </SafeAreaView>
       </ThemedView>
     </ThemedView>
   );
@@ -17,14 +47,20 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    flexDirection: 'column',
     padding: 24,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   main: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxWidth: 960,
-    marginHorizontal: 'auto',
+    gap: 16,
+  },
+  formContainer: {
+    marginTop: 16,
+    gap: 8,
   },
 });
