@@ -2,7 +2,7 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
 type DatePickerItemProps = {
   onPress?: (date: Date) => void;
@@ -10,6 +10,8 @@ type DatePickerItemProps = {
   isActive?: boolean;
   isToday?: boolean;
   isCurrentMonth?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
 
 function DatePickerItem({
@@ -18,6 +20,8 @@ function DatePickerItem({
   isActive = false,
   isToday = false,
   isCurrentMonth = true,
+  containerStyle = {},
+  textStyle = {},
 }: DatePickerItemProps) {
   const handlePress = () => {
     if (typeof value === 'string') {
@@ -37,13 +41,18 @@ function DatePickerItem({
             ...(isToday && styles.isToday),
             ...(isActive && styles.isActive),
           },
+          containerStyle,
         ]}
       >
         <ThemedText
-          style={{
-            ...(isActive && styles.isActiveText),
-            ...(!isCurrentMonth && styles.isNotCurrentMonth),
-          }}
+          style={[
+            {
+              ...(isActive && styles.isActiveText),
+              ...(!isCurrentMonth && styles.isNotCurrentMonth),
+            },
+            textStyle,
+          ]}
+          variant="body2"
         >
           {typeof value === 'string' ? value : value.getDate()}
         </ThemedText>

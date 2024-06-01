@@ -10,7 +10,7 @@ export default function ThemedText({ variant = 'body', style, ...props }: Themed
     return styles[variant] || styles.body;
   }, [variant]);
 
-  return <Text {...props} style={[style, variantStyle, styles.baseStyle]}></Text>;
+  return <Text {...props} style={[variantStyle, styles.baseStyle, style]}></Text>;
 }
 
 const styles = StyleSheet.create({

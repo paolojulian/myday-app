@@ -23,6 +23,8 @@ type DatePickerProps = {
   variant?: DatePickerVariants;
 };
 
+const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 function DatePicker({
   onSelectDate,
   value,
@@ -122,13 +124,13 @@ function DatePicker({
       {isExpanded && (
         <ThemedView style={styles.body}>
           <ThemedView style={styles.weekContainer}>
-            <DatePickerItem value="SUN" />
-            <DatePickerItem value="MON" />
-            <DatePickerItem value="TUE" />
-            <DatePickerItem value="WED" />
-            <DatePickerItem value="THU" />
-            <DatePickerItem value="FRI" />
-            <DatePickerItem value="SAT" />
+            {DAY_OF_WEEK.map(day => (
+              <DatePickerItem
+                key={day}
+                value={day}
+                textStyle={{ color: colors.grey, fontSize: 12 }}
+              />
+            ))}
           </ThemedView>
           {calendarDays.map((week, index) => (
             <ThemedView key={index} style={styles.weekContainer}>
