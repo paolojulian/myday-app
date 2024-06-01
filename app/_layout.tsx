@@ -41,7 +41,7 @@ export default function RootLayout() {
             <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
             <Stack.Screen
               name={RouteNames.Add}
-              options={{ headerShown: false, presentation: 'modal' }}
+              options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
             />
             <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
           </Stack>

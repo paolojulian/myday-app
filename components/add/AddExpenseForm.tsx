@@ -36,7 +36,7 @@ function AddExpenseForm() {
         returnKeyLabel="Done"
         returnKeyType="done"
       />
-      <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." />
+      <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." returnKeyType="next" />
       <DatePicker variant="border" />
     </>
   );
