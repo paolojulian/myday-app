@@ -1,3 +1,4 @@
+import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import React, { useRef } from 'react';
@@ -36,6 +37,7 @@ function AddExpenseForm() {
         returnKeyType="done"
       />
       <TextArea ref={noteRef} label="Note" placeholder="Grocery items..." />
+      <DatePicker variant="border" />
     </>
   );
 }
