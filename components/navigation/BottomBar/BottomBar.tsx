@@ -2,8 +2,9 @@ import Container from '@/components/common/Container';
 import AddButton from '@/components/navigation/BottomBar/AddButton';
 import BottomBarItem from '@/components/navigation/BottomBar/BottomBarItem';
 import { colors } from '@/constants/Colors';
-import { Foundation, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation, usePathname, useRouter } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { usePathname } from 'expo-router';
+import { ComponentProps } from 'react';
 import { SafeAreaView } from 'react-native';
 
 export type BottomBarProps = {
@@ -42,19 +43,15 @@ export default function BottomBar({
           name="Home"
           onPress={onHomePress}
           isActive={pathname === '/'}
-          ActiveIcon={<MaterialCommunityIcons name="home-variant" size={24} color={colors.black} />}
-          InactiveIcon={
-            <MaterialCommunityIcons name="home-variant-outline" size={24} color={colors.darkGrey} />
-          }
+          ActiveIcon={<WrappedIcon name="home-variant" color={colors.black} />}
+          InactiveIcon={<WrappedIcon name="home-variant-outline" color={colors.darkGrey} />}
         />
         <BottomBarItem
           name="Expenses"
           onPress={onExpensePress}
           isActive={pathname === '/expenses'}
-          ActiveIcon={<MaterialCommunityIcons name="credit-card" size={24} color={colors.black} />}
-          InactiveIcon={
-            <MaterialCommunityIcons name="credit-card-outline" size={24} color={colors.darkGrey} />
-          }
+          ActiveIcon={<WrappedIcon name="credit-card" color={colors.black} />}
+          InactiveIcon={<WrappedIcon name="credit-card-outline" color={colors.darkGrey} />}
         />
 
         <AddButton onPress={onAddPress} />
@@ -63,28 +60,22 @@ export default function BottomBar({
           name="Todo"
           onPress={onTodoPress}
           isActive={pathname === '/todos'}
-          ActiveIcon={
-            <MaterialCommunityIcons name="clipboard-list" size={24} color={colors.black} />
-          }
-          InactiveIcon={
-            <MaterialCommunityIcons
-              name="clipboard-list-outline"
-              size={24}
-              color={colors.darkGrey}
-            />
-          }
+          ActiveIcon={<WrappedIcon name="format-list-bulleted" color={colors.black} />}
+          InactiveIcon={<WrappedIcon name="format-list-bulleted" color={colors.darkGrey} />}
         />
 
         <BottomBarItem
           name="Journal"
           onPress={onJournalPress}
           isActive={pathname === '/journal'}
-          ActiveIcon={<MaterialCommunityIcons name="notebook" size={24} color={colors.black} />}
-          InactiveIcon={
-            <MaterialCommunityIcons name="notebook-outline" size={24} color={colors.darkGrey} />
-          }
+          ActiveIcon={<WrappedIcon name="notebook" color={colors.black} />}
+          InactiveIcon={<WrappedIcon name="notebook-outline" color={colors.darkGrey} />}
         />
       </Container>
     </SafeAreaView>
   );
+}
+
+function WrappedIcon(props: ComponentProps<typeof MaterialCommunityIcons>) {
+  return <MaterialCommunityIcons {...props} size={28} />;
 }
