@@ -40,13 +40,13 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   // Get the current database version from the user's local database
   const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
 
-  let currentDbVersion = pragma?.user_version || 0;
+  let currentDbVersion = 0;
 
   // Check if the database is already at the latest version
-  if (currentDbVersion >= DATABASE_VERSION) {
-    // Database is already at the latest version
-    return;
-  }
+  // if (currentDbVersion >= DATABASE_VERSION) {
+  // Database is already at the latest version
+  // return;
+  // }
 
   // Get the migrations
   const latestMigrations = migrations.filter(
@@ -59,14 +59,15 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
 
   // Apply the migrations
   for (const { dataMigrations } of latestMigrations) {
-    for (const { table, inserts, version } of dataMigrations) {
-      if (version > currentDbVersion) {
+    for (const { table, version } of dataMigrations) {
+      if (true) {
+        // if (version > currentDbVersion) {
         if (table) {
           await db.execAsync(table);
         }
-        if (inserts) {
-          await db.runAsync(inserts);
-        }
+        // if (inserts) {
+        //   await db.runAsync(inserts);
+        // }
         currentDbVersion = version;
         await db.execAsync(`PRAGMA user_version = ${currentDbVersion}`);
       }

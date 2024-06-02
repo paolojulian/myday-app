@@ -6,18 +6,11 @@ import { taskMigrations } from './task';
 export const migrations = [
   {
     version: 1,
-    dataMigrations: [expenseMigrations[0]],
-  },
-  {
-    version: 1,
-    dataMigrations: [categoryMigrations[0]],
-  },
-  {
-    version: 1,
-    dataMigrations: [journalMigrations[0]],
-  },
-  {
-    version: 1,
-    dataMigrations: [taskMigrations[0]],
+    dataMigrations: [
+      expenseMigrations[0],
+      categoryMigrations[0],
+      journalMigrations[0],
+      taskMigrations[0],
+    ],
   },
 ];
