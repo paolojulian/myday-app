@@ -6,9 +6,9 @@ export const categoryMigrations = [
       CREATE TABLE IF NOT EXISTS category (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         category_name TEXT NOT NULL,
-        created_at TEXT,
-        updated_at TEXT,
-        deleted_at TEXT
+        created_at INTEGER,
+        updated_at INTEGER,
+        deleted_at INTEGER
       );
     `,
   },

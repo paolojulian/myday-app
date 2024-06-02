@@ -8,11 +8,11 @@ export const taskMigrations = [
         title TEXT NOT NULL,
         description TEXT,
         category_id INTEGER,
-        started_at TEXT,
-        ended_at TEXT,
-        created_at TEXT,
-        updated_at TEXT,
-        deleted_at TEXT,
+        started_at INTEGER,
+        ended_at INTEGER,
+        created_at INTEGER,
+        updated_at INTEGER,
+        deleted_at INTEGER,
         FOREIGN KEY(category_id) REFERENCES category(id)
       );
     `,

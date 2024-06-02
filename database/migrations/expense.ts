@@ -9,10 +9,10 @@ export const expenseMigrations = [
         amount REAL NOT NULL,
         description TEXT,
         category_id INTEGER,
-        transaction_date TEXT,
-        created_at TEXT,
-        updated_at TEXT,
-        deleted_at TEXT,
+        transaction_date INTEGER,
+        created_at INTEGER,
+        updated_at INTEGER,
+        deleted_at INTEGER,
         FOREIGN KEY(category_id) REFERENCES category(id)
       );
     `,
