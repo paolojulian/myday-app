@@ -3,7 +3,8 @@ export const taskMigrations = [
     version: 1,
     table: /* sql */ `
       PRAGMA journal_mode = 'wal';
-      CREATE TABLE IF NOT EXISTS task (
+      DROP TABLE IF EXISTS task;
+      CREATE TABLE task (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         description TEXT,
