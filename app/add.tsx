@@ -6,7 +6,7 @@ import ThemedView from '@/components/common/ThemedView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 
 export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
 
@@ -22,7 +22,10 @@ export default function AddScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.main}>
-        <KeyboardAvoidingView style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+        >
           <Container>
             <ThemedView style={styles.header}>
               <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />

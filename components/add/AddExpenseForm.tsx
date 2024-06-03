@@ -13,10 +13,15 @@ function AddExpenseForm() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [form, setForm] = useState({
     category: '',
+    amount: '',
   });
 
-  const handleCategorySubmit = () => {
+  const focusAmount = () => {
     amountRef.current?.focus();
+  };
+
+  const handleCategorySubmit = () => {
+    focusAmount();
   };
 
   const handleChangeCategory = (value: string) => {
@@ -25,11 +30,11 @@ function AddExpenseForm() {
 
   const handleSelectCategory = (value: string) => {
     handleChangeCategory(value);
-    amountRef.current?.focus();
+    focusAmount();
   };
 
-  const handleAmountSubmit = () => {
-    noteRef.current?.focus();
+  const handleChangeAmount = (value: string) => {
+    setForm(prev => ({ ...prev, amount: value }));
   };
 
   return (
@@ -50,7 +55,8 @@ function AddExpenseForm() {
         />
         <TextField
           ref={amountRef}
-          onSubmitEditing={handleAmountSubmit}
+          onChangeText={handleChangeAmount}
+          value={form.amount}
           label="Amount"
           placeholder="00.00"
           keyboardType="numeric"
