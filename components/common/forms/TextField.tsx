@@ -1,22 +1,28 @@
 import Label from '@/components/common/forms/Label';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import React, { forwardRef, useState } from 'react';
+import React, { ComponentProps, forwardRef, useState } from 'react';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
-type TextFieldProps = {
+export type TextFieldProps = {
   label: string;
 } & TextInputProps;
 
 const TextField = forwardRef<TextInput, TextFieldProps>(({ label, ...props }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => {
+  const handleFocus: ComponentProps<typeof TextInput>['onFocus'] = e => {
     setIsFocused(true);
+    if (props.onFocus) {
+      props.onFocus(e);
+    }
   };
 
-  const handleBlur = () => {
+  const handleBlur: ComponentProps<typeof TextInput>['onBlur'] = e => {
     setIsFocused(false);
+    if (props.onBlur) {
+      props.onBlur(e);
+    }
   };
 
   return (

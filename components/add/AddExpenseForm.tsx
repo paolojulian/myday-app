@@ -1,4 +1,5 @@
 import Button from '@/components/common/Button';
+import ComboBox from '@/components/common/forms/ComboBox';
 import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
@@ -10,8 +11,20 @@ function AddExpenseForm() {
   const amountRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [form, setForm] = useState({
+    category: '',
+  });
 
   const handleCategorySubmit = () => {
+    amountRef.current?.focus();
+  };
+
+  const handleChangeCategory = (value: string) => {
+    setForm(prev => ({ ...prev, category: value }));
+  };
+
+  const handleSelectCategory = (value: string) => {
+    handleChangeCategory(value);
     amountRef.current?.focus();
   };
 
@@ -22,9 +35,13 @@ function AddExpenseForm() {
   return (
     <>
       <ThemedView style={{ gap: 8, flex: 1 }}>
-        <TextField
+        <ComboBox
           onSubmitEditing={handleCategorySubmit}
+          onSelect={handleSelectCategory}
+          onChangeText={handleChangeCategory}
           autoFocus
+          options={['Food', 'Grocery', 'Transport', 'Entertainment', 'Other']}
+          value={form.category}
           label="Category"
           placeholder="Select or create a new category"
           keyboardType="default"
