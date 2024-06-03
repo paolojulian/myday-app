@@ -4,19 +4,23 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import React from 'react';
 
-type ExpensesStatisticsVariant = 'daily' | 'monthly' | 'yearly';
+export enum ExpensesStatisticsVariantEnum {
+  daily = 'Daily',
+  monthly = 'Monthly',
+  yearly = 'Yearly',
+}
 type ExpensesStatisticsProps = {
-  variant?: ExpensesStatisticsVariant;
+  variant?: ExpensesStatisticsVariantEnum;
   selectedDate: Date;
   onSelectDate?: (date: Date) => void;
 };
 
 function ExpensesStatistics({
   onSelectDate,
-  variant = 'daily',
+  variant = ExpensesStatisticsVariantEnum.daily,
   selectedDate,
 }: ExpensesStatisticsProps) {
-  if (variant === 'daily') {
+  if (variant === ExpensesStatisticsVariantEnum.daily) {
     return (
       <DatePicker
         canShrink={false}
@@ -41,5 +45,11 @@ function ExpensesStatistics({
     </Card>
   );
 }
+
+export const EXPENSES_STATISTICS_VARIANTS: ExpensesStatisticsVariantEnum[] = [
+  ExpensesStatisticsVariantEnum.daily,
+  ExpensesStatisticsVariantEnum.monthly,
+  ExpensesStatisticsVariantEnum.yearly,
+];
 
 export default ExpensesStatistics;

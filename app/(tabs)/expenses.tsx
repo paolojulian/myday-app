@@ -6,11 +6,18 @@ import ThemedView from '@/components/common/ThemedView';
 import ExpensesList from '@/components/expenses/ExpensesList';
 import ExpensesListHeader from '@/components/expenses/ExpensesList/ExpensesListHeader/ExpensesListHeader';
 import ExpensesStatistics from '@/components/expenses/ExpensesStatistics';
+import {
+  EXPENSES_STATISTICS_VARIANTS,
+  ExpensesStatisticsVariantEnum,
+} from '@/components/expenses/ExpensesStatistics/ExpensesStatistics';
 import { colors } from '@/constants/Colors';
 import { useState } from 'react';
 
 export default function ExpensesScreen() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [filter, setFilter] = useState<ExpensesStatisticsVariantEnum>(
+    ExpensesStatisticsVariantEnum.daily,
+  );
 
   return (
     <ParallaxScrollView headerBackgroundColor={colors.black} headerContent={<ExpensesListHeader />}>
@@ -24,13 +31,17 @@ export default function ExpensesScreen() {
           <ThemedText variant="heading" style={{ color: colors.white }}>
             Expenses
           </ThemedText>
-          <Tabs
-            items={['Daily', 'Monthly', 'Yearly']}
-            onSelect={() => {}}
-            selectedItem="Daily"
+          <Tabs<ExpensesStatisticsVariantEnum>
+            items={EXPENSES_STATISTICS_VARIANTS}
+            onSelect={setFilter}
+            selectedItem={filter}
             variant="inverted"
           />
-          <ExpensesStatistics selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+          <ExpensesStatistics
+            selectedDate={selectedDate}
+            variant={filter}
+            onSelectDate={setSelectedDate}
+          />
         </Container>
         <ExpensesList />
       </ThemedView>
