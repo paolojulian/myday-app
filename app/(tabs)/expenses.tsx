@@ -3,6 +3,7 @@ import ParallaxScrollView, { HEADER_HEIGHT } from '@/components/common/ParallaxS
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
+import BudgetCard from '@/components/expenses/BudgetCard';
 import ExpensesList from '@/components/expenses/ExpensesList';
 import ExpensesListHeader from '@/components/expenses/ExpensesList/ExpensesListHeader/ExpensesListHeader';
 import ExpensesStatistics from '@/components/expenses/ExpensesStatistics';
@@ -42,6 +43,7 @@ export default function ExpensesScreen() {
             variant={filter}
             onSelectDate={setSelectedDate}
           />
+          <BudgetCard />
         </Container>
         <ExpensesList />
       </ThemedView>

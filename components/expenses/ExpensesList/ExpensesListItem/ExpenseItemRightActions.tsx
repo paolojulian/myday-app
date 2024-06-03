@@ -24,7 +24,7 @@ export default function ExpenseItemRightActions({ onDelete }: ExpenseItemRightAc
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.whiteSmoke,
           }}
         >
           <MaterialCommunityIcons

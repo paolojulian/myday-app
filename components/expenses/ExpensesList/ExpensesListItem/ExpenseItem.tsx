@@ -33,7 +33,7 @@ export default function ExpenseItem({ onDelete, id, amount, date, name, notes }:
   return (
     <Swipeable
       containerStyle={{
-        backgroundColor: colors.primary[400],
+        backgroundColor: colors.whiteSmoke,
       }}
       renderRightActions={renderRightActions}
       overshootFriction={9}
