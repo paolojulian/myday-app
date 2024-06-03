@@ -86,7 +86,7 @@ const MOCK_EXPENSES = [
 ];
 
 export default function ExpensesList() {
-  const expenses = [...MOCK_EXPENSES, ...MOCK_EXPENSES];
+  const expenses = MOCK_EXPENSES;
 
   return (
     <Container style={{ backgroundColor: colors.white }}>

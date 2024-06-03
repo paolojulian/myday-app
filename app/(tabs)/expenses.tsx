@@ -1,14 +1,17 @@
 import Container from '@/components/common/Container';
-import DatePicker from '@/components/common/forms/DatePicker';
 import ParallaxScrollView, { HEADER_HEIGHT } from '@/components/common/ParallaxScrollView';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import ExpensesList from '@/components/expenses/ExpensesList';
 import ExpensesListHeader from '@/components/expenses/ExpensesList/ExpensesListHeader/ExpensesListHeader';
+import ExpensesStatistics from '@/components/expenses/ExpensesStatistics';
 import { colors } from '@/constants/Colors';
+import { useState } from 'react';
 
 export default function ExpensesScreen() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   return (
     <ParallaxScrollView headerBackgroundColor={colors.black} headerContent={<ExpensesListHeader />}>
       <ThemedView
@@ -27,7 +30,7 @@ export default function ExpensesScreen() {
             selectedItem="Daily"
             variant="inverted"
           />
-          <DatePicker variant="shadow" />
+          <ExpensesStatistics selectedDate={selectedDate} onSelectDate={setSelectedDate} />
         </Container>
         <ExpensesList />
       </ThemedView>
