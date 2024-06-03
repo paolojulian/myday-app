@@ -34,25 +34,40 @@ export default function ExpenseItem({ onDelete, id, amount, date, name, notes }:
     <Swipeable
       containerStyle={{
         backgroundColor: colors.whiteSmoke,
+        borderRadius: 8,
+        overflow: 'visible',
       }}
       renderRightActions={renderRightActions}
       overshootFriction={9}
       friction={2}
     >
-      <TouchableHighlight delayPressIn={400} onLongPress={handlePress} activeOpacity={0.9}>
+      <TouchableHighlight
+        style={{ borderRadius: 8 }}
+        delayPressIn={400}
+        onLongPress={handlePress}
+        activeOpacity={0.9}
+      >
         <Row
           style={{
             padding: 16,
             justifyContent: 'space-between',
             alignItems: 'flex-start',
+            borderRadius: 8,
+            elevation: 16,
+            shadowColor: colors.black,
+            shadowOpacity: 0.1,
+            shadowOffset: {
+              width: 0,
+              height: 3,
+            },
             backgroundColor: colors.white,
           }}
         >
           <Stack>
-            <ThemedText variant="body2">{name}</ThemedText>
-            <ThemedText>{date}</ThemedText>
+            <ThemedText>{name}</ThemedText>
+            <ThemedText style={{ color: colors.darkGrey }}>{date}</ThemedText>
           </Stack>
-          <ThemedText variant="body2">${amount}</ThemedText>
+          <ThemedText style={{ color: colors.red }}>-${amount}</ThemedText>
         </Row>
       </TouchableHighlight>
     </Swipeable>

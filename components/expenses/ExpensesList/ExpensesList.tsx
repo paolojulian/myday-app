@@ -89,7 +89,7 @@ export default function ExpensesList() {
   const expenses = MOCK_EXPENSES;
 
   return (
-    <Container style={{ backgroundColor: colors.white }}>
+    <Container style={{ gap: 8 }}>
       {expenses.map(item => (
         <ExpenseItem
           key={item.id}
