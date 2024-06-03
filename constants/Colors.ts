@@ -1,11 +1,13 @@
 export const colors = {
-  black: '#05141F',
-  white: '#FFFFFF',
   aliceBlue: '#E5ECF3',
-  whiteSmoke: '#f5f5f5',
-  lightGrey: '#f8fafc',
-  grey: '#a3a3a3',
+  black: '#05141F',
   darkGrey: '#737373',
+  green: '#009000',
+  grey: '#a3a3a3',
+  lightGrey: '#f8fafc',
+  red: '#CC3333',
+  white: '#FFFFFF',
+  whiteSmoke: '#f5f5f5',
   primary: {
     100: '#F8F9FA',
     200: '#E9ECEF',

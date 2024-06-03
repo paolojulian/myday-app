@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import Row from '../common/Row';
+import Row from '../../../common/Row';
 import { colors } from '@/constants/Colors';
 
 type ExpenseItemRightActionsProps = {
@@ -24,7 +24,7 @@ export default function ExpenseItemRightActions({ onDelete }: ExpenseItemRightAc
             height: '100%',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: colors.primary[400],
+            backgroundColor: colors.whiteSmoke,
           }}
         >
           <MaterialCommunityIcons

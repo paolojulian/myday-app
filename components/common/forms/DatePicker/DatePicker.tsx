@@ -19,6 +19,8 @@ type DatePickerProps = {
   onSelectDate?: (date: Date) => void;
   initialMonth?: number;
   initialYear?: number;
+  initialIsExpanded?: boolean;
+  canShrink?: boolean;
   value?: Date;
   variant?: DatePickerVariants;
 };
@@ -29,12 +31,14 @@ function DatePicker({
   onSelectDate,
   value,
   variant = 'border',
+  canShrink = true,
+  initialIsExpanded = false,
   initialYear,
   initialMonth,
 }: DatePickerProps) {
   const [year, setYear] = useState<number>(initialYear ?? new Date().getFullYear());
   const [month, setMonth] = useState<number>(initialMonth ?? new Date().getMonth() + 1);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(initialIsExpanded);
 
   const calendarDays = useMemo(() => {
     return getCalendarDays(year, month);
@@ -59,7 +63,11 @@ function DatePicker({
   }, [month, year]);
 
   const handleHeaderClick = () => {
-    setIsExpanded(prev => !prev);
+    if (canShrink) {
+      setIsExpanded(prev => !prev);
+    } else {
+      setIsExpanded(true);
+    }
   };
 
   const handlePrevMonth = () => {
