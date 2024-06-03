@@ -2,11 +2,11 @@ import { selectionAsync } from 'expo-haptics';
 import { ComponentProps } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
-import Row from '../common/Row';
-import Stack from '../common/Stack';
-import ThemedText from '../common/ThemedText';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
 import { colors } from '@/constants/Colors';
+import Row from '@/components/common/Row';
+import Stack from '@/components/common/Stack';
+import ThemedText from '@/components/common/ThemedText';
 
 type ExpenseItemProps = {
   onDelete: (id: string) => void;

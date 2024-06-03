@@ -1,9 +1,11 @@
+import { colors } from '@/constants/Colors';
 import DefaultTheme from '@/constants/Theme';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
@@ -37,6 +39,7 @@ export default function RootLayout() {
     <GestureHandlerRootView>
       <DatabaseProvider>
         <ThemeProvider value={DefaultTheme}>
+          <StatusBar backgroundColor={colors.black} />
           <Stack initialRouteName={RouteNames.Tabs}>
             <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
             <Stack.Screen
