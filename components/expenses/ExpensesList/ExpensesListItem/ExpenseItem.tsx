@@ -33,7 +33,6 @@ export default function ExpenseItem({ onDelete, id, amount, date, name, notes }:
   return (
     <Swipeable
       containerStyle={{
-        backgroundColor: colors.whiteSmoke,
         borderRadius: 8,
         overflow: 'visible',
       }}
