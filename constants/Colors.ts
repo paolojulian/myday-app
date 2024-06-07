@@ -1,5 +1,6 @@
 export const colors = {
   aliceBlue: '#E5ECF3',
+  backdrop: 'rgba(0, 0, 0, 0.3)',
   black: '#05141F',
   darkGrey: '#737373',
   green: '#009000',
