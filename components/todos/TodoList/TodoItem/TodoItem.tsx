@@ -1,7 +1,7 @@
 import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import Row from '../common/Row';
-import Stack from '../common/Stack';
-import ThemedText from '../common/ThemedText';
+import Row from '../../../common/Row';
+import Stack from '../../../common/Stack';
+import ThemedText from '../../../common/ThemedText';
 import { colors } from '@/constants/Colors';
 
 type TodoItemProps = {

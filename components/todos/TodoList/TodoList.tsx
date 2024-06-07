@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem/TodoItem';
 
 const MOCK_TODOS = [
   {
