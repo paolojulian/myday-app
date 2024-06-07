@@ -20,12 +20,12 @@ export default function AddScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <ThemedView style={styles.main}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{ flex: 1 }}
-        >
+        <ThemedView style={{ flex: 1 }}>
           <Container>
             <ThemedView style={styles.header}>
               <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
@@ -44,9 +44,9 @@ export default function AddScreen() {
               <AddFactory type={selectedItem} />
             </Container>
           </ScrollView>
-        </KeyboardAvoidingView>
+        </ThemedView>
       </ThemedView>
-    </ThemedView>
+    </KeyboardAvoidingView>
   );
 }
 
