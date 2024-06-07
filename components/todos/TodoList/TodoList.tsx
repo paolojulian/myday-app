@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import Container from '@/components/common/Container';
 import TodoItem from './TodoItem/TodoItem';
 
 const MOCK_TODOS = [
@@ -6,20 +6,20 @@ const MOCK_TODOS = [
     id: 't1',
     name: 'Buy milk',
     notes: 'From the store',
-    reminderDate: undefined,
+    dueDate: undefined,
   },
-  { id: 't2', name: 'Read a book', notes: '', reminderDate: '2024-07-14' },
+  { id: 't2', name: 'Read a book', notes: '', dueDate: '2024-07-14' },
   {
     id: 't3',
     name: 'Go to the gym',
     notes: 'Leg day',
-    reminderDate: '2024-07-14',
+    dueDate: '2024-07-14',
   },
   {
     id: 't4',
     name: 'Cook dinner',
     notes: 'Pasta',
-    reminderDate: '2024-07-14',
+    dueDate: '2024-07-14',
   },
 ];
 
@@ -27,20 +27,16 @@ export default function TodoList() {
   const todos = MOCK_TODOS;
 
   return (
-    <FlatList
-      style={{
-        flex: 1,
-      }}
-      renderItem={({ item }) => (
+    <Container style={{ gap: 8, paddingVertical: 16 }}>
+      {todos.map(item => (
         <TodoItem
+          key={item.id}
           id={item.id}
           name={item.name}
           notes={item.notes}
-          reminderDate={item.reminderDate}
+          dueDate={item.dueDate}
         />
-      )}
-      data={todos}
-      keyExtractor={item => item.id}
-    ></FlatList>
+      ))}
+    </Container>
   );
 }

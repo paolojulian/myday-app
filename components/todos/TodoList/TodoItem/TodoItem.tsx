@@ -1,42 +1,64 @@
-import { TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { colors } from '@/constants/Colors';
+import Checkbox from 'expo-checkbox';
+import { selectionAsync } from 'expo-haptics';
+import { ComponentProps, useState } from 'react';
+import { TouchableHighlight } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
-import { colors } from '@/constants/Colors';
 
 type TodoItemProps = {
   id: string;
   name: string;
   notes: string;
-  reminderDate?: string;
+  dueDate?: string;
 };
 
-export default function TodoItem({ id, name, notes, reminderDate }: TodoItemProps) {
+export default function TodoItem({ name, dueDate }: TodoItemProps) {
+  const [isChecked, setChecked] = useState(false);
+
+  const handlePress = () => {
+    setChecked(prev => !prev);
+  };
+
+  const handleLongPress = () => {
+    selectionAsync();
+  };
+
   return (
-    <TouchableHighlight>
+    <TouchableHighlight
+      style={{ borderRadius: 8 }}
+      delayPressIn={400}
+      onLongPress={handleLongPress}
+      onPress={handlePress}
+      activeOpacity={0.9}
+    >
       <Row
         style={{
           padding: 16,
-          alignItems: 'flex-start',
           gap: 16,
+          alignItems: 'center',
+          borderRadius: 8,
+          elevation: 16,
+          shadowColor: colors.black,
+          shadowOpacity: 0.1,
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          backgroundColor: colors.white,
         }}
       >
-        <TouchableOpacity>
-          <View
-            style={{
-              marginTop: 4,
-              width: 24,
-              height: 24,
-              borderWidth: 1,
-              borderColor: colors.primary[900],
-              borderRadius: 9999,
-            }}
-          ></View>
-        </TouchableOpacity>
-        <Stack>
-          <ThemedText variant="body2">{name}</ThemedText>
-          {!!notes && <ThemedText>{notes}</ThemedText>}
-          {!!reminderDate && <ThemedText>Reminder - {reminderDate}</ThemedText>}
+        <Checkbox
+          style={{ borderRadius: 6 }}
+          value={isChecked}
+          onValueChange={setChecked}
+          color={colors.black}
+        />
+        <Stack style={{ gap: 2, minHeight: 32, justifyContent: 'center' }}>
+          <ThemedText variant="body1">{name}</ThemedText>
+          {!!dueDate && <ThemedText style={{ color: colors.darkGrey }}>{dueDate}</ThemedText>}
         </Stack>
       </Row>
     </TouchableHighlight>
