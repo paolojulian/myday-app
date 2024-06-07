@@ -1,9 +1,8 @@
 import { colors } from '@/constants/Colors';
 import Checkbox from 'expo-checkbox';
 import { selectionAsync } from 'expo-haptics';
-import { ComponentProps, useState } from 'react';
+import { useState } from 'react';
 import { TouchableHighlight } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';

@@ -1,7 +1,5 @@
-import ThemedView from '@/components/common/ThemedView';
-import ExpenseItem from './ExpensesListItem/ExpenseItem';
 import Container from '@/components/common/Container';
-import { colors } from '@/constants/Colors';
+import ExpenseItem from './ExpensesListItem/ExpenseItem';
 
 const MOCK_EXPENSES = [
   {
