@@ -31,7 +31,6 @@ export default function TodoItem({ name, dueDate }: TodoItemProps) {
       delayPressIn={400}
       onLongPress={handleLongPress}
       onPress={handlePress}
-      activeOpacity={0.9}
     >
       <Row
         style={{
