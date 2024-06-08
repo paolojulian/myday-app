@@ -1,5 +1,7 @@
 import Container from '@/components/common/Container';
-import TodoItem from './TodoItem/TodoItem';
+import TodoItem, { TodoItemProps } from './TodoItem/TodoItem';
+import { Alert } from 'react-native';
+import { useState } from 'react';
 
 const MOCK_TODOS = [
   {
@@ -24,12 +26,18 @@ const MOCK_TODOS = [
 ];
 
 export default function TodoList() {
-  const todos = MOCK_TODOS;
+  const [todos, setTodos] = useState(MOCK_TODOS);
+
+  const handleRemoveItem: TodoItemProps['onRemove'] = id => {
+    Alert.alert(`Item with id ${id} has been removed`);
+    setTodos(prev => prev.filter(item => item.id !== id));
+  };
 
   return (
     <Container style={{ gap: 8, paddingVertical: 16 }}>
       {todos.map(item => (
         <TodoItem
+          onRemove={handleRemoveItem}
           key={item.id}
           id={item.id}
           name={item.name}
