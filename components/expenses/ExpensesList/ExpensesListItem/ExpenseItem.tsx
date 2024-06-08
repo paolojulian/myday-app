@@ -37,7 +37,7 @@ export default function ExpenseItem({ onDelete, id, amount, date, name, notes }:
         overflow: 'visible',
       }}
       renderRightActions={renderRightActions}
-      overshootFriction={9}
+      overshootFriction={8}
       friction={2}
     >
       <TouchableHighlight
