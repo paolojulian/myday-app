@@ -1,5 +1,6 @@
 import { useSQLiteContext } from 'expo-sqlite';
 import useQuery from '../useQuery';
+import { filtersToString } from '@/hooks/utils';
 
 const useCategory = (filters: Filter[]) => {
   const db = useSQLiteContext();
@@ -12,21 +13,6 @@ const useCategory = (filters: Filter[]) => {
   }
 
   return { data, isLoading, error };
-};
-
-const filtersToString = (filters: Filter[]) => {
-  if (filters.length < 1) {
-    return { whereString: '', values: [] };
-  }
-
-  let whereString = 'WHERE ';
-  let values: string[] = [];
-  filters.forEach(element => {
-    whereString += element.columnName + ' ' + element.condition + '?';
-    values.push(element.value);
-  });
-
-  return { whereString, values };
 };
 
 export default useCategory;
