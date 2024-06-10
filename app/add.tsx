@@ -1,17 +1,21 @@
 import AddFactory from '@/components/add/AddFactory';
+import { isSupportedAddType } from '@/components/add/utils';
 import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
 
 export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
 
 export default function AddScreen() {
-  const [selectedItem, setSelectedItem] = useState<SupportedAddItems>('Expense');
+  const { defaultType } = useLocalSearchParams<{ defaultType?: string }>();
+  const resolvedDefaultType = isSupportedAddType(defaultType) ? defaultType : 'Expense';
+  const [selectedItem, setSelectedItem] = useState<SupportedAddItems>(resolvedDefaultType);
+
   const navigation = useNavigation();
   const handleBackPress = () => {
     if (navigation.canGoBack()) {
