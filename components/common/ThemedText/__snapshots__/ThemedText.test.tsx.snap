@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TESTING ThemedText Component WHEN the component is rendered should match the snapshot 1`] = `
+<Text
+  style={
+    [
+      {
+        "fontSize": 16,
+      },
+      {
+        "fontFamily": "Inter",
+      },
+      undefined,
+    ]
+  }
+>
+  Test
+</Text>
+`;
+
+exports[`TESTING ThemedText Component WHEN the variant is set to heading should match the snapshot 1`] = `
+<Text
+  style={
+    [
+      {
+        "fontSize": 48,
+      },
+      {
+        "fontFamily": "Inter",
+      },
+      undefined,
+    ]
+  }
+>
+  Test
+</Text>
+`;
