@@ -1,5 +1,5 @@
-interface Filter {
-    columnName: string;
-    condition: string;
-    value: string;
+export interface Filter {
+  columnName: string;
+  condition: string;
+  value: string;
 }

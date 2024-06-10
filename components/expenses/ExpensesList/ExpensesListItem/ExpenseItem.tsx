@@ -1,12 +1,12 @@
+import Row from '@/components/common/Row';
+import Stack from '@/components/common/Stack';
+import ThemedText from '@/components/common/ThemedText';
+import { colors } from '@/constants/Colors';
 import { selectionAsync } from 'expo-haptics';
 import { ComponentProps } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
-import { colors } from '@/constants/Colors';
-import Row from '@/components/common/Row';
-import Stack from '@/components/common/Stack';
-import ThemedText from '@/components/common/ThemedText';
 
 type ExpenseItemProps = {
   onDelete: (id: string) => void;
@@ -17,7 +17,7 @@ type ExpenseItemProps = {
   notes: string;
 };
 
-export default function ExpenseItem({ onDelete, id, amount, date, name, notes }: ExpenseItemProps) {
+export default function ExpenseItem({ onDelete, id, amount, date, name }: ExpenseItemProps) {
   const handleDelete = () => {
     onDelete(id);
     selectionAsync();

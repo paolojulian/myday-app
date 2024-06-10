@@ -1,4 +1,4 @@
-interface Journal {
+export interface Journal {
   id: number;
   title: string;
   description: string;

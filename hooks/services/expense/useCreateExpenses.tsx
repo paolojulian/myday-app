@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
-import useMutation from '../useMutation';
+import { Expense } from '@/hooks/services/expense/expense.types';
 import { useSQLiteContext } from 'expo-sqlite';
+import useMutation from '../useMutation';
 
-//TODO
 const useCreateExpense = () => {
   const db = useSQLiteContext();
-  const { data, isLoading, error } = useMutation(mutate);
+  const { data, isLoading, error, mutate } = useMutation(setup);
 
-  async function mutate(expense: Expense) {
-    // const { whereString, values } = filtersToString(filters);
+  async function setup(expense: Expense) {
     const result = await db.runAsync(
       'INSERT INTO Expense (amount, description) VALUES (?, ?)',
       expense.description,
@@ -17,7 +15,7 @@ const useCreateExpense = () => {
     return result;
   }
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, mutate };
 };
 
 export default useCreateExpense;
