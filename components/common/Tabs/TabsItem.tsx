@@ -5,6 +5,11 @@ import { colors } from '@/constants/Colors';
 import React from 'react';
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
+export const TABS_ITEM_TEST_IDS = {
+  containerBtn: (id: string, isSelected: boolean) => `tabs-item-container-btn-${id}-${isSelected}`,
+  text: (id: string) => `tabs-item-text-${id}`,
+};
+
 type TabsItemProps<T> = {
   item: T;
   onSelect: (item: T) => void;
@@ -24,7 +29,10 @@ function TabsItem<T extends string>({
   const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
 
   return (
-    <TouchableWithoutFeedback onPress={handlePress}>
+    <TouchableWithoutFeedback
+      testID={TABS_ITEM_TEST_IDS.containerBtn(item, isSelected)}
+      onPress={handlePress}
+    >
       <ThemedView
         style={[
           styles.container,
@@ -39,6 +47,7 @@ function TabsItem<T extends string>({
             ...resolvedStyles.text,
             ...(isSelected && resolvedStyles.textActive),
           }}
+          testID={TABS_ITEM_TEST_IDS.text(item)}
         >
           {item}
         </ThemedText>

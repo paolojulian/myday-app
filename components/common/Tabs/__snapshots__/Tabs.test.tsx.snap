@@ -15,168 +15,165 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
     ]
   }
 >
-  <RNGestureHandlerButton
-    collapsable={false}
-    delayLongPress={600}
-    enabled={true}
-    exclusive={true}
-    handlerTag={1}
-    handlerType="NativeViewGestureHandler"
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-    touchSoundDisabled={false}
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "backgroundColor": "#05141F",
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item1-true"
   >
-    <View
-      accessible={true}
-      collapsable={false}
-      style={{}}
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#FFFFFF",
+          },
+        ]
+      }
+      testID="tabs-item-text-item1"
     >
-      <View
-        style={
-          [
-            {
-              "alignItems": "center",
-              "borderRadius": 100,
-              "justifyContent": "center",
-            },
-            {
-              "backgroundColor": "#05141F",
-              "flex": 1,
-              "padding": 16,
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontFamily": "Inter",
-              },
-              {
-                "color": "#FFFFFF",
-              },
-            ]
-          }
-        >
-          item1
-        </Text>
-      </View>
-    </View>
-  </RNGestureHandlerButton>
-  <RNGestureHandlerButton
-    collapsable={false}
-    delayLongPress={600}
-    enabled={true}
-    exclusive={true}
-    handlerTag={2}
-    handlerType="NativeViewGestureHandler"
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-    touchSoundDisabled={false}
+      item1
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item2-false"
   >
-    <View
-      accessible={true}
-      collapsable={false}
-      style={{}}
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#05141F",
+          },
+        ]
+      }
+      testID="tabs-item-text-item2"
     >
-      <View
-        style={
-          [
-            {
-              "alignItems": "center",
-              "borderRadius": 100,
-              "justifyContent": "center",
-            },
-            {
-              "flex": 1,
-              "padding": 16,
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontFamily": "Inter",
-              },
-              {
-                "color": "#05141F",
-              },
-            ]
-          }
-        >
-          item2
-        </Text>
-      </View>
-    </View>
-  </RNGestureHandlerButton>
-  <RNGestureHandlerButton
-    collapsable={false}
-    delayLongPress={600}
-    enabled={true}
-    exclusive={true}
-    handlerTag={3}
-    handlerType="NativeViewGestureHandler"
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-    touchSoundDisabled={false}
+      item2
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item3-false"
   >
-    <View
-      accessible={true}
-      collapsable={false}
-      style={{}}
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#05141F",
+          },
+        ]
+      }
+      testID="tabs-item-text-item3"
     >
-      <View
-        style={
-          [
-            {
-              "alignItems": "center",
-              "borderRadius": 100,
-              "justifyContent": "center",
-            },
-            {
-              "flex": 1,
-              "padding": 16,
-            },
-          ]
-        }
-      >
-        <Text
-          style={
-            [
-              {
-                "fontSize": 16,
-              },
-              {
-                "fontFamily": "Inter",
-              },
-              {
-                "color": "#05141F",
-              },
-            ]
-          }
-        >
-          item3
-        </Text>
-      </View>
-    </View>
-  </RNGestureHandlerButton>
+      item3
+    </Text>
+  </View>
 </View>
 `;
