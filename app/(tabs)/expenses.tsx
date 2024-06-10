@@ -50,6 +50,7 @@ export default function ExpensesScreen() {
               onSelect={setFilter}
               selectedItem={filter}
               variant="inverted"
+              isCompact
             />
             <ExpensesStatistics
               selectedDate={selectedDate}

@@ -10,6 +10,7 @@ type TabsProps<T> = {
   selectedItem: T;
   items: T[];
   variant?: TabsVariant;
+  isCompact?: boolean;
 };
 
 export default function Tabs<T extends string>({
@@ -17,6 +18,7 @@ export default function Tabs<T extends string>({
   selectedItem,
   items,
   variant = 'default',
+  isCompact = false,
 }: TabsProps<T>) {
   const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
 
@@ -29,6 +31,7 @@ export default function Tabs<T extends string>({
               styles.item,
               {
                 ...(selectedItem === item && resolvedStyles.itemActive),
+                ...(isCompact ? styles.itemCompact : styles.itemNotCompact),
               },
             ]}
           >
@@ -54,11 +57,17 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   item: {
-    flex: 1,
-    padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
+  },
+  itemNotCompact: {
+    flex: 1,
+    padding: 16,
+  },
+  itemCompact: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
 });
 
