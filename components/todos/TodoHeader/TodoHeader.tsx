@@ -39,6 +39,7 @@ export default function TodoHeader({ onSelectFilter, selectedItem }: TodoHeaderP
         onSelect={onSelectFilter}
         selectedItem={selectedItem}
         variant="inverted"
+        isCompact
       />
     </Container>
   );

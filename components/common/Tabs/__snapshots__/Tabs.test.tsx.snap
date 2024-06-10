@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 100,
+        "display": "flex",
+        "flexDirection": "row",
+      },
+      {
+        "backgroundColor": "#f5f5f5",
+      },
+    ]
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "backgroundColor": "#05141F",
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item1-true"
+  >
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#FFFFFF",
+          },
+        ]
+      }
+      testID="tabs-item-text-item1"
+    >
+      item1
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item2-false"
+  >
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#05141F",
+          },
+        ]
+      }
+      testID="tabs-item-text-item2"
+    >
+      item2
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 100,
+          "justifyContent": "center",
+        },
+        {
+          "flex": 1,
+          "padding": 16,
+        },
+      ]
+    }
+    testID="tabs-item-container-btn-item3-false"
+  >
+    <Text
+      style={
+        [
+          {
+            "fontSize": 16,
+          },
+          {
+            "fontFamily": "Inter",
+          },
+          {
+            "color": "#05141F",
+          },
+        ]
+      }
+      testID="tabs-item-text-item3"
+    >
+      item3
+    </Text>
+  </View>
+</View>
+`;
