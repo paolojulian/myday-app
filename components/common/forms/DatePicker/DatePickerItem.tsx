@@ -1,6 +1,8 @@
+import { DATE_PICKER_ITEM_TEST_IDS } from '@/components/common/forms/DatePicker/DatePickerItem.contants';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
+import dayjs from 'dayjs';
 import React from 'react';
 import { StyleProp, StyleSheet, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
 
@@ -32,8 +34,14 @@ function DatePickerItem({
       onPress(value);
     }
   };
+
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity
+      onPress={handlePress}
+      testID={DATE_PICKER_ITEM_TEST_IDS.containerBtn(
+        typeof value === 'string' ? value : dayjs(value).format('YYYY-MM-DD'),
+      )}
+    >
       <ThemedView
         style={[
           styles.container,

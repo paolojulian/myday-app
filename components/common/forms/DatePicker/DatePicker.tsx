@@ -1,3 +1,7 @@
+import {
+  DAY_OF_WEEK,
+  DATE_PICKER_TEST_IDS,
+} from '@/components/common/forms/DatePicker/DatePicker.constants';
 import DatePickerItem from '@/components/common/forms/DatePicker/DatePickerItem';
 import {
   getCalendarDays,
@@ -25,8 +29,6 @@ type DatePickerProps = {
   value?: Date;
   variant?: DatePickerVariants;
 };
-
-const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function DatePicker({
   onSelectDate,
@@ -92,6 +94,7 @@ function DatePicker({
 
   return (
     <ThemedView
+      testID={DATE_PICKER_TEST_IDS.container}
       style={[
         styles.container,
         {
@@ -101,10 +104,17 @@ function DatePicker({
       ]}
     >
       <ThemedView style={styles.header}>
-        <TouchableWithoutFeedback onPress={handleHeaderClick}>
+        <TouchableWithoutFeedback
+          testID={DATE_PICKER_TEST_IDS.headerBtn}
+          onPress={handleHeaderClick}
+        >
           <ThemedView style={{ gap: 4, flex: 1 }}>
             <Label text={label} />
-            <ThemedText variant="body1" style={{ color: !!value ? colors.black : colors.grey }}>
+            <ThemedText
+              testID={DATE_PICKER_TEST_IDS.value}
+              variant="body1"
+              style={{ color: !!value ? colors.black : colors.grey }}
+            >
               {titleText}
             </ThemedText>
           </ThemedView>
@@ -130,7 +140,7 @@ function DatePicker({
         )}
       </ThemedView>
       {isExpanded && (
-        <ThemedView style={styles.body}>
+        <ThemedView style={styles.body} testID={DATE_PICKER_TEST_IDS.calendar}>
           <ThemedView style={styles.weekContainer}>
             {DAY_OF_WEEK.map(day => (
               <DatePickerItem
@@ -146,7 +156,7 @@ function DatePicker({
                 return (
                   <DatePickerItem
                     onPress={onSelectDate}
-                    key={date.getDate().toString()}
+                    key={date.toString()}
                     value={date}
                     isActive={isDayActive(date)}
                     isToday={isToday(date)}
