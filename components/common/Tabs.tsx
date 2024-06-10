@@ -21,7 +21,7 @@ export default function Tabs<T extends string>({
   const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, resolvedStyles.container]}>
       {items.map(item => (
         <TouchableWithoutFeedback key={item} onPress={() => onSelect(item)}>
           <ThemedView
