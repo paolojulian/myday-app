@@ -1,3 +1,5 @@
+import { RouteNames } from '@/app/_layout';
+import { getDefaultTypeFromTabIndex } from '@/components/add/utils';
 import BottomBar from '@/components/navigation/BottomBar/BottomBar';
 import { router, Tabs } from 'expo-router';
 import React, { ComponentProps } from 'react';
@@ -7,10 +9,12 @@ import { SafeAreaView } from 'react-native';
 export enum TabName {
   Home = 'index',
   Journal = 'journal',
-  Add = 'add',
   Expense = 'expenses',
   Todo = 'todos',
 }
+
+/** Don't modify the arrangement of this array since it is used to get the current route from the navigation */
+const tabs = [TabName.Home, TabName.Expense, TabName.Todo, TabName.Journal];
 
 export default function TabLayout() {
   return (
@@ -20,11 +24,9 @@ export default function TabLayout() {
       }}
       tabBar={TabBar}
     >
-      <Tabs.Screen name={TabName.Home}></Tabs.Screen>
-      <Tabs.Screen name={TabName.Journal}></Tabs.Screen>
-      <Tabs.Screen name={TabName.Add}></Tabs.Screen>
-      <Tabs.Screen name={TabName.Expense}></Tabs.Screen>
-      <Tabs.Screen name={TabName.Todo}></Tabs.Screen>
+      {tabs.map(tab => (
+        <Tabs.Screen key={tab} name={tab}></Tabs.Screen>
+      ))}
     </Tabs>
   );
 }
@@ -32,7 +34,16 @@ export default function TabLayout() {
 const TabBar: ComponentProps<typeof Tabs>['tabBar'] = props => {
   const { navigation } = props;
 
-  const handleAddPress = () => router.push('add');
+  const handleAddPress = () => {
+    const defaultType = getDefaultTypeFromTabIndex(navigation.getState().index);
+    router.push({
+      pathname: RouteNames.Add,
+      params: {
+        defaultType: defaultType,
+      },
+    });
+  };
+
   const handleHomePress = () => navigation.navigate(TabName.Home);
   const handleTodoPress = () => navigation.navigate(TabName.Todo);
   const handleJournalPress = () => navigation.navigate(TabName.Journal);

@@ -17,10 +17,11 @@ type DatePickerVariants = 'shadow' | 'border';
 
 type DatePickerProps = {
   onSelectDate?: (date: Date) => void;
+  canShrink?: boolean;
+  initialIsExpanded?: boolean;
   initialMonth?: number;
   initialYear?: number;
-  initialIsExpanded?: boolean;
-  canShrink?: boolean;
+  label?: string;
   value?: Date;
   variant?: DatePickerVariants;
 };
@@ -29,12 +30,13 @@ const DAY_OF_WEEK = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 function DatePicker({
   onSelectDate,
-  value,
-  variant = 'border',
   canShrink = true,
   initialIsExpanded = false,
-  initialYear,
   initialMonth,
+  initialYear,
+  label = 'Date',
+  value,
+  variant = 'border',
 }: DatePickerProps) {
   const [year, setYear] = useState<number>(initialYear ?? new Date().getFullYear());
   const [month, setMonth] = useState<number>(initialMonth ?? new Date().getMonth() + 1);
@@ -101,8 +103,8 @@ function DatePicker({
       <ThemedView style={styles.header}>
         <TouchableWithoutFeedback onPress={handleHeaderClick}>
           <ThemedView style={{ gap: 4, flex: 1 }}>
-            <Label text={'Date'} />
-            <ThemedText variant="body1" style={{ color: colors.black }}>
+            <Label text={label} />
+            <ThemedText variant="body1" style={{ color: !!value ? colors.black : colors.grey }}>
               {titleText}
             </ThemedText>
           </ThemedView>
