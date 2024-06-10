@@ -10,7 +10,7 @@
     "lint": "expo lint",
     "prepare": "husky",
     "test": "jest --watch --coverage=false --changedSince=origin/dev",
-    "test-coverage": "jest --watch --coverage"
+    "test-coverage": "jest --coverage=false"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
