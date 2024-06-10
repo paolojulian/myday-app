@@ -1,9 +1,9 @@
-import ThemedText from '@/components/common/ThemedText';
+import TabsItem from '@/components/common/Tabs/TabsItem';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-type TabsVariant = 'default' | 'inverted';
+export type TabsVariant = 'default' | 'inverted';
 
 type TabsProps<T> = {
   onSelect: (item: T) => void;
@@ -25,26 +25,14 @@ export default function Tabs<T extends string>({
   return (
     <ThemedView style={[styles.container, resolvedStyles.container]}>
       {items.map(item => (
-        <TouchableWithoutFeedback key={item} onPress={() => onSelect(item)}>
-          <ThemedView
-            style={[
-              styles.item,
-              {
-                ...(selectedItem === item && resolvedStyles.itemActive),
-                ...(isCompact ? styles.itemCompact : styles.itemNotCompact),
-              },
-            ]}
-          >
-            <ThemedText
-              style={{
-                ...resolvedStyles.itemText,
-                ...(selectedItem === item && resolvedStyles.itemTextActive),
-              }}
-            >
-              {item}
-            </ThemedText>
-          </ThemedView>
-        </TouchableWithoutFeedback>
+        <TabsItem
+          key={item}
+          onSelect={onSelect}
+          isSelected={selectedItem === item}
+          isCompact={isCompact}
+          item={item}
+          variant={variant}
+        />
       ))}
     </ThemedView>
   );
@@ -56,47 +44,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 100,
   },
-  item: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 100,
-  },
-  itemNotCompact: {
-    flex: 1,
-    padding: 16,
-  },
-  itemCompact: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
 });
 
 const defaultStyles = StyleSheet.create({
   container: {
     backgroundColor: colors.whiteSmoke,
   },
-  itemText: {
-    color: colors.black,
-  },
-  itemActive: {
-    backgroundColor: colors.black,
-  },
-  itemTextActive: {
-    color: colors.white,
-  },
 });
 
 const invertedStyles = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
-  },
-  itemText: {
-    color: colors.white,
-  },
-  itemActive: {
-    backgroundColor: colors.white,
-  },
-  itemTextActive: {
-    color: colors.black,
   },
 });

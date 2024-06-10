@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
+<View
+  style={
+    [
+      {
+        "borderRadius": 100,
+        "display": "flex",
+        "flexDirection": "row",
+      },
+      {
+        "backgroundColor": "#f5f5f5",
+      },
+    ]
+  }
+>
+  <RNGestureHandlerButton
+    collapsable={false}
+    delayLongPress={600}
+    enabled={true}
+    exclusive={true}
+    handlerTag={1}
+    handlerType="NativeViewGestureHandler"
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    touchSoundDisabled={false}
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      style={{}}
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "borderRadius": 100,
+              "justifyContent": "center",
+            },
+            {
+              "backgroundColor": "#05141F",
+              "flex": 1,
+              "padding": 16,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 16,
+              },
+              {
+                "fontFamily": "Inter",
+              },
+              {
+                "color": "#FFFFFF",
+              },
+            ]
+          }
+        >
+          item1
+        </Text>
+      </View>
+    </View>
+  </RNGestureHandlerButton>
+  <RNGestureHandlerButton
+    collapsable={false}
+    delayLongPress={600}
+    enabled={true}
+    exclusive={true}
+    handlerTag={2}
+    handlerType="NativeViewGestureHandler"
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    touchSoundDisabled={false}
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      style={{}}
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "borderRadius": 100,
+              "justifyContent": "center",
+            },
+            {
+              "flex": 1,
+              "padding": 16,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 16,
+              },
+              {
+                "fontFamily": "Inter",
+              },
+              {
+                "color": "#05141F",
+              },
+            ]
+          }
+        >
+          item2
+        </Text>
+      </View>
+    </View>
+  </RNGestureHandlerButton>
+  <RNGestureHandlerButton
+    collapsable={false}
+    delayLongPress={600}
+    enabled={true}
+    exclusive={true}
+    handlerTag={3}
+    handlerType="NativeViewGestureHandler"
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    touchSoundDisabled={false}
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      style={{}}
+    >
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "borderRadius": 100,
+              "justifyContent": "center",
+            },
+            {
+              "flex": 1,
+              "padding": 16,
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 16,
+              },
+              {
+                "fontFamily": "Inter",
+              },
+              {
+                "color": "#05141F",
+              },
+            ]
+          }
+        >
+          item3
+        </Text>
+      </View>
+    </View>
+  </RNGestureHandlerButton>
+</View>
+`;
