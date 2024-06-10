@@ -33,7 +33,7 @@ export default function BottomBar({
       <Container
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'space-evenly',
           alignItems: 'center',
           paddingTop: 8,
         }}

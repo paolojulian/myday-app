@@ -11,6 +11,6 @@ export default function Container({ children, ...props }: ContainerProps) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
   },
 });

@@ -1,27 +1,26 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState } from 'react';
 
-export function useMutation<T>(callback: () => Promise<T>) {
-    const [data, setData] = useState<T>();
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setErrors] = useState<unknown>();
+export function useMutation<T, P>(callback: (params: P) => Promise<T>) {
+  const [data, setData] = useState<T>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setErrors] = useState<unknown>();
 
-    async function mutate() {
-        try {
-            setIsLoading(true);
-            const result = await callback();
-            setData(result);
-        } catch (e) {
-            setErrors(e);
-        } finally {
-            setIsLoading(false)
-        }
-    }
+  const mutate = useCallback(
+    async (params: P) => {
+      try {
+        setIsLoading(true);
+        const result = await callback(params);
+        setData(result);
+      } catch (e) {
+        setErrors(e);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [callback],
+  );
 
-    useEffect(() => {
-        mutate()
-    }, []);
-
-    return { isLoading, error, data, mutate }
-};
+  return { isLoading, error, data, mutate };
+}
 
 export default useMutation;

@@ -34,7 +34,7 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <DatabaseProvider>
         <ThemeProvider value={DefaultTheme}>
           <Stack initialRouteName={RouteNames.Tabs}>

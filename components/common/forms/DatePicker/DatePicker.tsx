@@ -1,32 +1,48 @@
+import {
+  DAY_OF_WEEK,
+  DATE_PICKER_TEST_IDS,
+} from '@/components/common/forms/DatePicker/DatePicker.constants';
 import DatePickerItem from '@/components/common/forms/DatePicker/DatePickerItem';
-import { getCalendarDays, isToday } from '@/components/common/forms/DatePicker/utils';
+import {
+  getCalendarDays,
+  getCalendarTitle,
+  isToday,
+} from '@/components/common/forms/DatePicker/utils';
+import Label from '@/components/common/forms/Label';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 type DatePickerVariants = 'shadow' | 'border';
 
 type DatePickerProps = {
   onSelectDate?: (date: Date) => void;
+  canShrink?: boolean;
+  initialIsExpanded?: boolean;
   initialMonth?: number;
   initialYear?: number;
+  label?: string;
   value?: Date;
   variant?: DatePickerVariants;
 };
 
 function DatePicker({
   onSelectDate,
+  canShrink = true,
+  initialIsExpanded = false,
+  initialMonth,
+  initialYear,
+  label = 'Date',
   value,
   variant = 'border',
-  initialYear,
-  initialMonth,
 }: DatePickerProps) {
-  const [year] = useState<number>(initialYear ?? new Date().getFullYear());
-  const [month] = useState<number>(initialMonth ?? new Date().getMonth() + 1);
+  const [year, setYear] = useState<number>(initialYear ?? new Date().getFullYear());
+  const [month, setMonth] = useState<number>(initialMonth ?? new Date().getMonth() + 1);
+  const [isExpanded, setIsExpanded] = useState<boolean>(initialIsExpanded);
 
   const calendarDays = useMemo(() => {
     return getCalendarDays(year, month);
@@ -37,24 +53,48 @@ function DatePicker({
   };
 
   const titleText = useMemo(() => {
-    if (!value) {
-      return 'Select a date';
-    }
-
-    if (value && isToday(value)) {
-      return 'Today';
-    }
-
-    const valueDayJS = dayjs(value);
-    if (value && valueDayJS.isSame(dayjs(), 'year')) {
-      return valueDayJS.format('MMM D');
-    }
-
-    return valueDayJS.format('MMM D YYYY');
+    return getCalendarTitle(value);
   }, [value]);
+  const currentMonthTitle = useMemo(() => {
+    const monthTitle = dayjs(new Date(year, month - 1)).format('MMM');
+
+    const currentYear = new Date().getFullYear();
+    if (year !== currentYear) {
+      return `${monthTitle} ${year}`;
+    } else {
+      return monthTitle;
+    }
+  }, [month, year]);
+
+  const handleHeaderClick = () => {
+    if (canShrink) {
+      setIsExpanded(prev => !prev);
+    } else {
+      setIsExpanded(true);
+    }
+  };
+
+  const handlePrevMonth = () => {
+    if (month === 1) {
+      setMonth(12);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (month === 12) {
+      setMonth(1);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  };
 
   return (
     <ThemedView
+      testID={DATE_PICKER_TEST_IDS.container}
       style={[
         styles.container,
         {
@@ -64,39 +104,70 @@ function DatePicker({
       ]}
     >
       <ThemedView style={styles.header}>
-        <ThemedText style={{ color: colors.black }}>{titleText}</ThemedText>
-        <ThemedView style={styles.monthNavigation}>
-          <MaterialCommunityIcons size={24} name="chevron-left" color={colors.black} />
-          <MaterialCommunityIcons size={24} name="chevron-right" color={colors.black} />
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.body}>
-        <ThemedView style={styles.weekContainer}>
-          <DatePickerItem value="Sun" isActive={false} isToday={false} />
-          <DatePickerItem value="Mon" isActive={false} isToday={false} />
-          <DatePickerItem value="Tue" isActive={false} isToday={false} />
-          <DatePickerItem value="Wed" isActive={false} isToday={false} />
-          <DatePickerItem value="Thu" isActive={false} isToday={false} />
-          <DatePickerItem value="Fri" isActive={false} isToday={false} />
-          <DatePickerItem value="Sat" isActive={false} isToday={false} />
-        </ThemedView>
-        {calendarDays.map((week, index) => (
-          <ThemedView key={index} style={styles.weekContainer}>
-            {week.map(({ date, isCurrentMonth }) => {
-              return (
-                <DatePickerItem
-                  onPress={onSelectDate}
-                  key={date.getDate().toString()}
-                  value={date}
-                  isActive={isDayActive(date)}
-                  isToday={isToday(date)}
-                  isCurrentMonth={isCurrentMonth}
-                />
-              );
-            })}
+        <TouchableWithoutFeedback
+          testID={DATE_PICKER_TEST_IDS.headerBtn}
+          onPress={handleHeaderClick}
+        >
+          <ThemedView style={{ gap: 4, flex: 1 }}>
+            <Label text={label} />
+            <ThemedText
+              testID={DATE_PICKER_TEST_IDS.value}
+              variant="body1"
+              style={{ color: !!value ? colors.black : colors.grey }}
+            >
+              {titleText}
+            </ThemedText>
           </ThemedView>
-        ))}
+        </TouchableWithoutFeedback>
+        {isExpanded && (
+          <ThemedView style={styles.monthNavigation}>
+            <MaterialCommunityIcons
+              size={40}
+              name="chevron-left"
+              color={colors.black}
+              onPress={handlePrevMonth}
+            />
+            <ThemedText style={{ width: 40, textAlign: 'center' }} variant="body1">
+              {currentMonthTitle}
+            </ThemedText>
+            <MaterialCommunityIcons
+              size={40}
+              name="chevron-right"
+              color={colors.black}
+              onPress={handleNextMonth}
+            />
+          </ThemedView>
+        )}
       </ThemedView>
+      {isExpanded && (
+        <ThemedView style={styles.body} testID={DATE_PICKER_TEST_IDS.calendar}>
+          <ThemedView style={styles.weekContainer}>
+            {DAY_OF_WEEK.map(day => (
+              <DatePickerItem
+                key={day}
+                value={day}
+                textStyle={{ color: colors.grey, fontSize: 12 }}
+              />
+            ))}
+          </ThemedView>
+          {calendarDays.map((week, index) => (
+            <ThemedView key={index} style={styles.weekContainer}>
+              {week.map(({ date, isCurrentMonth }) => {
+                return (
+                  <DatePickerItem
+                    onPress={onSelectDate}
+                    key={date.toString()}
+                    value={date}
+                    isActive={isDayActive(date)}
+                    isToday={isToday(date)}
+                    isCurrentMonth={isCurrentMonth}
+                  />
+                );
+              })}
+            </ThemedView>
+          ))}
+        </ThemedView>
+      )}
     </ThemedView>
   );
 }
@@ -127,19 +198,20 @@ const styles = StyleSheet.create({
 
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   monthNavigation: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   body: {
     borderBottomStartRadius: 12,
     borderBottomEndRadius: 12,
     backgroundColor: colors.white,
     padding: 16,
-    gap: 8,
   },
   weekContainer: {
     display: 'flex',

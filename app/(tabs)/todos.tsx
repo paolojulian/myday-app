@@ -1,10 +1,5 @@
-import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
+import TodoWorkArea from '@/components/todos/TodoWorkArea';
 
 export default function TodoScreen() {
-  return (
-    <ThemedView>
-      <ThemedText variant="heading">Todo</ThemedText>
-    </ThemedView>
-  );
+  return <TodoWorkArea />;
 }

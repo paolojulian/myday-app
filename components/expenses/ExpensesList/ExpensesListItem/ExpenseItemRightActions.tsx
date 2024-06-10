@@ -1,8 +1,7 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import Row from '../common/Row';
 import { colors } from '@/constants/Colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity, View } from 'react-native';
+import Row from '../../../common/Row';
 
 type ExpenseItemRightActionsProps = {
   onDelete: () => void;
@@ -14,43 +13,48 @@ export default function ExpenseItemRightActions({ onDelete }: ExpenseItemRightAc
       style={{
         height: '100%',
         justifyContent: 'center',
+        paddingVertical: 8,
+        paddingLeft: 24,
         alignItems: 'center',
+        gap: 16,
       }}
     >
-      <TouchableWithoutFeedback onPress={onDelete}>
+      <TouchableOpacity onPress={onDelete}>
         <View
           style={{
-            width: 62,
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: colors.primary[400],
-          }}
-        >
-          <MaterialCommunityIcons
-            name="pencil"
-            size={32}
-            color={colors.primary[800]}
-          ></MaterialCommunityIcons>
-        </View>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={onDelete}>
-        <View
-          style={{
-            width: 62,
-            height: '100%',
+            width: 48,
+            height: 48,
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: colors.danger,
+            borderRadius: 9999,
           }}
         >
           <MaterialCommunityIcons
             name="trash-can"
-            size={32}
-            color={colors.primary[100]}
+            size={28}
+            color={colors.white}
           ></MaterialCommunityIcons>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onDelete}>
+        <View
+          style={{
+            width: 48,
+            height: 48,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: colors.grey,
+            borderRadius: 9999,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="pencil"
+            size={28}
+            color={colors.white}
+          ></MaterialCommunityIcons>
+        </View>
+      </TouchableOpacity>
     </Row>
   );
 }
