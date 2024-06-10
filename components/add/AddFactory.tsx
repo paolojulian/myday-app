@@ -1,8 +1,8 @@
 import { SupportedAddItems } from '@/app/add';
 import AddExpenseForm from '@/components/add/AddExpenseForm';
+import AddJournalForm from '@/components/add/AddJournalForm';
 import AddTodoForm from '@/components/add/AddTodoForm';
 import React from 'react';
-import { View } from 'react-native';
 
 type AddFactoryProps = {
   type: SupportedAddItems;
@@ -15,7 +15,7 @@ function AddFactory({ type }: AddFactoryProps) {
     case 'Todo':
       return <AddTodoForm />;
     case 'Journal':
-      return <View></View>;
+      return <AddJournalForm />;
   }
 }
 

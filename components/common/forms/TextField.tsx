@@ -8,7 +8,7 @@ export type TextFieldProps = {
   label: string;
 } & TextInputProps;
 
-const TextField = forwardRef<TextInput, TextFieldProps>(({ label, ...props }, ref) => {
+const TextField = forwardRef<TextInput, TextFieldProps>(({ label, style, ...props }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus: ComponentProps<typeof TextInput>['onFocus'] = e => {
@@ -35,6 +35,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(({ label, ...props }, re
         ref={ref}
         placeholderTextColor={colors.grey}
         style={[
+          style,
           styles.textInput,
           {
             ...(isFocused && styles.textInputWithFocus),

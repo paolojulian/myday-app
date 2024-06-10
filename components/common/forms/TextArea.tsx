@@ -5,11 +5,23 @@ import { TextInput, TextInputProps } from 'react-native';
 type TextAreaProps = {
   label: string;
   numberOfLines?: number;
-} & TextInputProps;
+  minHeight?: number;
+} & Omit<TextInputProps, 'multiline'>;
 
 const TextArea = forwardRef<TextInput, TextAreaProps>(
-  ({ label, numberOfLines = 4, ...props }, ref) => {
-    return <TextField {...props} ref={ref} numberOfLines={numberOfLines} label={label} multiline />;
+  ({ label, numberOfLines = 4, minHeight = 120, ...props }, ref) => {
+    return (
+      <TextField
+        {...props}
+        style={{
+          minHeight,
+        }}
+        ref={ref}
+        numberOfLines={numberOfLines}
+        label={label}
+        multiline
+      />
+    );
   },
 );
 
