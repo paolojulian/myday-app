@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TESTING ThemedView Component WHEN the component is rendered should match the snapshot 1`] = `<View />`;
