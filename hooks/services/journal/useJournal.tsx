@@ -1,6 +1,8 @@
 import { useSQLiteContext } from 'expo-sqlite';
 import useQuery from '../useQuery';
 import { filtersToString } from '@/hooks/utils';
+import { Filter } from '../filter.types';
+import { Expense } from '../expense/expense.types';
 
 const useJournal = (filters: Filter[]) => {
   const db = useSQLiteContext();
