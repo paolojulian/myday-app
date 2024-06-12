@@ -1,3 +1,5 @@
+import { Migration } from '@/database/migrations/types';
+
 export const categoryMigrations = [
   {
     version: 1,
@@ -12,5 +14,6 @@ export const categoryMigrations = [
         deleted_at INTEGER
       );
     `,
+    inserts: null,
   },
-];
+] satisfies Migration;

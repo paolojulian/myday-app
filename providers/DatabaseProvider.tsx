@@ -35,43 +35,95 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 }
 
 async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
-  const DATABASE_VERSION = Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
-
-  // Get the current database version from the user's local database
-  const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
-
-  let currentDbVersion = pragma?.user_version || 0;
-
-  // Check if the database is already at the latest version
-  if (currentDbVersion >= DATABASE_VERSION) {
-    // Database is already at the latest version
+  console.log('Migrating database');
+  if (!shouldRunMigration(db)) {
+    console.log('No migrations to run');
     return;
   }
 
-  // Get the migrations
-  const latestMigrations = migrations.filter(
-    migration => migration.version > currentDbVersion && migration.version <= DATABASE_VERSION,
-  );
-
-  if (latestMigrations.length === 0) {
-    throw new Error(`No migrations found up to ${DATABASE_VERSION}`);
-  }
+  const migrationsToRun = getMigrationsToRun();
+  const userLocalDbVersion = await getUserLocalDbVersion(db);
+  console.log('Migrating database to version: ', getCurrentDbVersion());
+  console.log('User local database version: ', userLocalDbVersion);
+  console.log('Migrations to run: ', migrationsToRun);
 
   // Apply the migrations
-  for (const { dataMigrations } of latestMigrations) {
+  for (const { dataMigrations } of migrationsToRun) {
     for (const { table, inserts, version } of dataMigrations) {
-      if (version > currentDbVersion) {
-        if (table) {
-          await db.execAsync(table);
-        }
-        if (inserts) {
-          await db.runAsync(inserts);
-        }
-        currentDbVersion = version;
-        await db.execAsync(`PRAGMA user_version = ${currentDbVersion}`);
+      if (table) {
+        await db.execAsync(table);
       }
+      if (inserts) {
+        await db.runAsync(inserts);
+      }
+      await updateUserLocalDbVersion(db, version);
     }
   }
 
-  await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION}`);
+  const currentDbVersion = getCurrentDbVersion();
+  console.log('Database migrated successfully to version: ', currentDbVersion);
+  await updateUserLocalDbVersion(db, currentDbVersion);
+}
+
+async function updateUserLocalDbVersion(db: SQLite.SQLiteDatabase, version: number) {
+  await db.execAsync(`PRAGMA user_version = ${version}`);
+}
+
+async function shouldRunMigration(db: SQLite.SQLiteDatabase): Promise<boolean> {
+  if (shouldForceMigrate()) {
+    return true;
+  }
+
+  // Get the version to migrate to from the environment variables
+  const currentDbVersion = getCurrentDbVersion();
+  const userLocalDbVersion = await getUserLocalDbVersion(db);
+
+  if (userLocalDbVersion >= currentDbVersion) {
+    return false;
+  }
+
+  return true;
+}
+
+async function getUserLocalDbVersion(db: SQLite.SQLiteDatabase) {
+  // Get the current database version from the user's local database
+  const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
+  let userLocalDbVersion = pragma?.user_version || 0;
+  return userLocalDbVersion;
+}
+
+function getCurrentDbVersion() {
+  return Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
+}
+
+function getMigrationsToRun() {
+  // Get the version to migrate to from the environment variables
+  const currentDbVersion = getCurrentDbVersion();
+  if (shouldForceMigrate()) {
+    return migrations;
+  }
+
+  // Get the migrations
+  const latestMigrations = migrations
+    .filter(
+      migration => migration.version > currentDbVersion && migration.version <= currentDbVersion,
+    )
+    .filter(migration => {
+      migration.dataMigrations.forEach(({ version }) => {
+        if (version <= currentDbVersion) {
+          return false;
+        }
+        return true;
+      });
+    });
+
+  if (latestMigrations.length === 0) {
+    throw new Error(`No migrations found up to ${currentDbVersion}`);
+  }
+
+  return latestMigrations;
+}
+
+function shouldForceMigrate() {
+  return Boolean(process.env.EXPO_PUBLIC_FORCE_MIGRATION);
 }
