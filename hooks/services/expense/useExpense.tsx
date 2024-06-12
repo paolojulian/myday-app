@@ -17,7 +17,7 @@ const useExpense = (filters?: ExpenseQueryFilters) => {
   }, [db, filters]);
 
   return useQuery({
-    queryKey: [ExpenseQueryKeys.list],
+    queryKey: [ExpenseQueryKeys.list, filters?.filterType, filters?.transactionDate],
     queryFn: setup,
   });
 };
