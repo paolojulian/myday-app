@@ -43,20 +43,17 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
 
   const migrationsToRun = getMigrationsToRun();
   const userLocalDbVersion = await getUserLocalDbVersion(db);
-  console.log('Migrating database to version: ', getCurrentDbVersion());
   console.log('User local database version: ', userLocalDbVersion);
+  console.log('Migrating database to version: ', getCurrentDbVersion());
   console.log('Migrations to run: ', migrationsToRun);
 
   // Apply the migrations
-  for (const { dataMigrations } of migrationsToRun) {
-    for (const { table, inserts, version } of dataMigrations) {
-      if (table) {
-        await db.execAsync(table);
+  await db.execAsync(`PRAGMA journal_mode = 'wal'`);
+  for (const { queries } of migrationsToRun) {
+    for (const { query } of queries) {
+      if (query) {
+        await db.execAsync(query);
       }
-      if (inserts) {
-        await db.runAsync(inserts);
-      }
-      await updateUserLocalDbVersion(db, version);
     }
   }
 
@@ -104,18 +101,9 @@ function getMigrationsToRun() {
   }
 
   // Get the migrations
-  const latestMigrations = migrations
-    .filter(
-      migration => migration.version > currentDbVersion && migration.version <= currentDbVersion,
-    )
-    .filter(migration => {
-      migration.dataMigrations.forEach(({ version }) => {
-        if (version <= currentDbVersion) {
-          return false;
-        }
-        return true;
-      });
-    });
+  const latestMigrations = migrations.filter(
+    migration => migration.version > currentDbVersion && migration.version <= currentDbVersion,
+  );
 
   if (latestMigrations.length === 0) {
     throw new Error(`No migrations found up to ${currentDbVersion}`);
