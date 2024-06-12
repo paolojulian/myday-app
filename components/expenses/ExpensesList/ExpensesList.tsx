@@ -7,6 +7,7 @@ export default function ExpensesList() {
   const { data: expenses, isLoading } = useExpense();
 
   if (isLoading) {
+    // TODO: add loading skeleton
     return <ThemedText>Loading...</ThemedText>;
   }
 
