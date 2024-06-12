@@ -9,17 +9,15 @@ import ExpensesList from '@/components/expenses/ExpensesList';
 import ExpensesListHeader from '@/components/expenses/ExpensesList/ExpensesListHeader/ExpensesListHeader';
 import ExpensesStatistics, {
   EXPENSES_STATISTICS_VARIANTS,
-  ExpensesStatisticsVariantEnum,
 } from '@/components/expenses/ExpensesStatistics/ExpensesStatistics';
 import { colors } from '@/constants/Colors';
+import { ExpenseFilterEnum } from '@/hooks/services/expense/expense.types';
 import ModalProvider, { ModalTypes } from '@/providers/ModalProvider';
 import React, { useState } from 'react';
 
 function ExpensesWorkArea() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [filter, setFilter] = useState<ExpensesStatisticsVariantEnum>(
-    ExpensesStatisticsVariantEnum.daily,
-  );
+  const [filter, setFilter] = useState<ExpenseFilterEnum>(ExpenseFilterEnum.daily);
 
   return (
     <ModalProvider
@@ -44,7 +42,7 @@ function ExpensesWorkArea() {
             <ThemedText variant="heading" style={{ color: colors.white }}>
               Expenses
             </ThemedText>
-            <Tabs<ExpensesStatisticsVariantEnum>
+            <Tabs<ExpenseFilterEnum>
               items={EXPENSES_STATISTICS_VARIANTS}
               onSelect={setFilter}
               selectedItem={filter}

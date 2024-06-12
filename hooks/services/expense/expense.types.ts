@@ -13,3 +13,14 @@ export interface Expense {
 export enum ExpenseQueryKeys {
   list = 'expenses-list',
 }
+
+export enum ExpenseFilterEnum {
+  daily = 'Daily',
+  monthly = 'Monthly',
+  yearly = 'Yearly',
+}
+
+export type ExpenseQueryFilters = {
+  transactionDate: Date;
+  filterType: ExpenseFilterEnum;
+};

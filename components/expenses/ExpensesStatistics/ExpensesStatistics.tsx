@@ -2,25 +2,21 @@ import Card from '@/components/common/Card';
 import DatePicker from '@/components/common/forms/DatePicker';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
+import { ExpenseFilterEnum } from '@/hooks/services/expense/expense.types';
 import React from 'react';
 
-export enum ExpensesStatisticsVariantEnum {
-  daily = 'Daily',
-  monthly = 'Monthly',
-  yearly = 'Yearly',
-}
 type ExpensesStatisticsProps = {
-  variant?: ExpensesStatisticsVariantEnum;
+  variant?: ExpenseFilterEnum;
   selectedDate: Date;
   onSelectDate?: (date: Date) => void;
 };
 
 function ExpensesStatistics({
   onSelectDate,
-  variant = ExpensesStatisticsVariantEnum.daily,
+  variant = ExpenseFilterEnum.daily,
   selectedDate,
 }: ExpensesStatisticsProps) {
-  if (variant === ExpensesStatisticsVariantEnum.daily) {
+  if (variant === ExpenseFilterEnum.daily) {
     return (
       <DatePicker
         canShrink={false}
@@ -46,10 +42,10 @@ function ExpensesStatistics({
   );
 }
 
-export const EXPENSES_STATISTICS_VARIANTS: ExpensesStatisticsVariantEnum[] = [
-  ExpensesStatisticsVariantEnum.daily,
-  ExpensesStatisticsVariantEnum.monthly,
-  ExpensesStatisticsVariantEnum.yearly,
+export const EXPENSES_STATISTICS_VARIANTS: ExpenseFilterEnum[] = [
+  ExpenseFilterEnum.daily,
+  ExpenseFilterEnum.monthly,
+  ExpenseFilterEnum.yearly,
 ];
 
 export default ExpensesStatistics;
