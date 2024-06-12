@@ -56,7 +56,7 @@ function ExpensesWorkArea() {
             />
             <BudgetCard />
           </Container>
-          <ExpensesList />
+          <ExpensesList filterType={ExpenseFilterEnum.daily} transactionDate={selectedDate} />
         </ThemedView>
       </ParallaxScrollView>
     </ModalProvider>

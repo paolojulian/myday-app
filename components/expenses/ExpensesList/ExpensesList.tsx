@@ -1,15 +1,22 @@
 import Container from '@/components/common/Container';
-import ExpenseItem from './ExpensesListItem/ExpenseItem';
+import { Expense, ExpenseFilterEnum } from '@/hooks/services/expense/expense.types';
 import useExpense from '@/hooks/services/expense/useExpense';
-import ThemedText from '@/components/common/ThemedText';
-import { Expense } from '@/hooks/services/expense/expense.types';
+import ExpenseItem from './ExpensesListItem/ExpenseItem';
 
-export default function ExpensesList() {
-  const { data: expenses, isLoading } = useExpense();
+type ExpenseListProps = {
+  filterType: ExpenseFilterEnum;
+  transactionDate: Date;
+};
+
+export default function ExpensesList({ filterType, transactionDate }: ExpenseListProps) {
+  const { data: expenses, isLoading } = useExpense({
+    filterType,
+    transactionDate,
+  });
 
   if (isLoading) {
     // TODO: add loading skeleton
-    return <ThemedText>Loading...</ThemedText>;
+    return null;
   }
 
   const handleDeleteItem = (id: Expense['id']) => {
