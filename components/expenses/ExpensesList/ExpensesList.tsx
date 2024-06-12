@@ -1,5 +1,6 @@
 import Container from '@/components/common/Container';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
+import useExpense from '@/hooks/services/expense/useExpense';
 
 const MOCK_EXPENSES = [
   {
@@ -85,6 +86,8 @@ const MOCK_EXPENSES = [
 
 export default function ExpensesList() {
   const expenses = MOCK_EXPENSES;
+  const { data, isLoading } = useExpense();
+  console.log({ isLoading, data });
 
   return (
     <Container style={{ gap: 8 }}>

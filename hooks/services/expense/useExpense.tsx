@@ -1,10 +1,11 @@
 import { useSQLiteContext } from 'expo-sqlite';
-import useQuery from '../useQuery';
 import { filtersToString } from '@/hooks/utils';
+import { useQuery } from '@tanstack/react-query';
+import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
+import { Filter } from '@/hooks/services/filter.types';
 
-const useExpense = (filters: Filter[]) => {
+const useExpense = (filters: Filter[] = []) => {
   const db = useSQLiteContext();
-  const { data, isLoading, error } = useQuery(setup);
 
   async function setup() {
     const { whereString, values } = filtersToString(filters);
@@ -12,7 +13,10 @@ const useExpense = (filters: Filter[]) => {
     return result;
   }
 
-  return { data, isLoading, error };
+  return useQuery({
+    queryKey: [ExpenseQueryKeys.list],
+    queryFn: setup,
+  });
 };
 
 export default useExpense;

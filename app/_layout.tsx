@@ -1,6 +1,7 @@
 import DefaultTheme from '@/constants/Theme';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -16,6 +17,8 @@ export enum RouteNames {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -36,16 +39,18 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <DatabaseProvider>
-        <ThemeProvider value={DefaultTheme}>
-          <Stack initialRouteName={RouteNames.Tabs}>
-            <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
-            <Stack.Screen
-              name={RouteNames.Add}
-              options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
-            />
-            <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
-          </Stack>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider value={DefaultTheme}>
+            <Stack initialRouteName={RouteNames.Tabs}>
+              <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
+              <Stack.Screen
+                name={RouteNames.Add}
+                options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
+              />
+              <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
+            </Stack>
+          </ThemeProvider>
+        </QueryClientProvider>
       </DatabaseProvider>
     </GestureHandlerRootView>
   );

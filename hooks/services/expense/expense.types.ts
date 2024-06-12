@@ -9,3 +9,7 @@ export interface Expense {
   updated_at: number;
   deleted_at: number;
 }
+
+export enum ExpenseQueryKeys {
+  list = 'expenses-list',
+}
