@@ -18,7 +18,7 @@ export default function ExpensesList() {
   };
 
   return (
-    <Container style={{ gap: 8 }}>
+    <Container style={{ gap: 8, paddingBottom: 16 }}>
       {expenses?.map(item => (
         <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
       ))}

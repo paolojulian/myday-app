@@ -1,17 +1,17 @@
-import { Migrations } from '@/database/migrations/types';
-import { categoryMigrations } from './category';
+import { Migration } from '@/database/migrations/migration.types';
 import { expenseMigrations } from './expense';
-import { journalMigrations } from './journal';
-import { taskMigrations } from './task';
+import { categoryMigrations } from '@/database/migrations/category';
+import { journalMigrations } from '@/database/migrations/journal';
+import { taskMigrations } from '@/database/migrations/task';
 
-export const migrations: Migrations[] = [
+export const migrations: Migration[] = [
   {
     version: 1,
-    dataMigrations: [
-      expenseMigrations[0],
-      categoryMigrations[0],
-      journalMigrations[0],
-      taskMigrations[0],
+    queries: [
+      ...expenseMigrations[0].queries,
+      ...categoryMigrations[0].queries,
+      ...journalMigrations[0].queries,
+      ...taskMigrations[0].queries,
     ],
   },
 ];
