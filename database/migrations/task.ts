@@ -1,3 +1,5 @@
+import { Migration } from '@/database/migrations/types';
+
 export const taskMigrations = [
   {
     version: 1,
@@ -17,5 +19,6 @@ export const taskMigrations = [
         FOREIGN KEY(category_id) REFERENCES category(id)
       );
     `,
+    inserts: null,
   },
-];
+] satisfies Migration;

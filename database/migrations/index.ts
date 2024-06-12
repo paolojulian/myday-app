@@ -1,9 +1,10 @@
-import { expenseMigrations } from './expense';
+import { Migrations } from '@/database/migrations/types';
 import { categoryMigrations } from './category';
+import { expenseMigrations } from './expense';
 import { journalMigrations } from './journal';
 import { taskMigrations } from './task';
 
-export const migrations = [
+export const migrations: Migrations[] = [
   {
     version: 1,
     dataMigrations: [
