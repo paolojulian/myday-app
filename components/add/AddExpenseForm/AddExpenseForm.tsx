@@ -4,6 +4,9 @@ import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import ThemedView from '@/components/common/ThemedView';
+import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
+import useCreateExpense from '@/hooks/services/expense/useCreateExpenses';
+import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { Formik } from 'formik';
 import React, { useRef } from 'react';
 import { TextInput } from 'react-native';
@@ -14,13 +17,16 @@ const validationSchema = Yup.object().shape({
   category: Yup.string().max(100),
   amount: Yup.string().required('Amount is required'),
   description: Yup.string().max(255),
-  transactionDate: Yup.date(),
+  transactionDate: Yup.date().required('Transaction date is required'),
 });
 export type ExpenseFormValues = Yup.InferType<typeof validationSchema>;
 
 function AddExpenseForm() {
   const amountRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
+  const [, setError] = React.useState<string | null>(null);
+  const { mutate: createExpenseMutate } = useCreateExpense();
+  const getOrCreateCategory = useGetOrCreateCategory();
 
   const focusAmount = () => {
     amountRef.current?.focus();
@@ -34,7 +40,22 @@ function AddExpenseForm() {
     // focusCategory();
   };
 
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = async (values: ExpenseFormValues) => {
+    setError(null);
+    try {
+      const categoryId = values.category ? await getOrCreateCategory(values.category) : null;
+
+      await createExpenseMutate({
+        category_id: categoryId,
+        amount: parseFloat(values.amount),
+        description: values.description ?? '',
+        title: values.title,
+        transaction_date: convertDateToEpoch(values.transactionDate),
+      });
+    } catch {
+      setError('Failed to create expense');
+    }
+  };
 
   return (
     <Formik<ExpenseFormValues>
@@ -43,6 +64,7 @@ function AddExpenseForm() {
         title: '',
         category: '',
         description: '',
+        transactionDate: new Date(),
       }}
       validationSchema={validationSchema}
       onSubmit={handleFormSubmit}
@@ -71,7 +93,7 @@ function AddExpenseForm() {
               options={['Food', 'Grocery', 'Transport', 'Entertainment', 'Other']}
               value={values.category}
               label="Category"
-              placeholder="Select or create a new category"
+              placeholder="Restaurant"
               keyboardType="default"
               returnKeyLabel="Next"
               returnKeyType="next"
