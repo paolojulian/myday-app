@@ -5,7 +5,10 @@ import { colors } from '@/constants/Colors';
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 
-type ComboBoxProps<T> = { onSelect: (value: T) => void; options?: T[] } & TextFieldProps;
+type ComboBoxProps<T extends string> = {
+  onSelect: (value: T) => void;
+  options?: T[];
+} & TextFieldProps;
 
 function ComboBox<T extends string = string>({
   onSelect,
