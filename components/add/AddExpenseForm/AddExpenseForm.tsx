@@ -11,7 +11,7 @@ import TextField from '@/components/common/forms/TextField';
 import ThemedView from '@/components/common/ThemedView';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
-import { Snackbar } from '@/managers/SnackbarManager';
+import { Snackbar, SnackbarTypeEnum } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { Formik } from 'formik';
 import React, { useEffect, useRef } from 'react';
@@ -43,10 +43,15 @@ function AddExpenseForm() {
       if (timeout) {
         clearTimeout(timeout);
       }
-      Snackbar.show(error);
+      const duration = Snackbar.LENGTH_SHORT;
+      Snackbar.show({
+        message: error,
+        duration: duration,
+        type: SnackbarTypeEnum.error,
+      });
       timeout = setTimeout(() => {
         setError(null);
-      }, Snackbar.LENGTH_SHORT);
+      }, duration);
     }
 
     return () => {
@@ -61,13 +66,14 @@ function AddExpenseForm() {
     try {
       const categoryId = values.category ? await getOrCreateCategory(values.category) : null;
 
-      await createExpenseMutate({
+      const result = await createExpenseMutate({
         category_id: categoryId,
         amount: parseFloat(values.amount),
         description: values.description ?? '',
         title: values.title,
         transaction_date: convertDateToEpoch(values.transactionDate),
       });
+      console.log(result);
     } catch {
       setError('Failed to create expense');
     }

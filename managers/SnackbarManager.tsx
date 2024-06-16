@@ -1,19 +1,34 @@
 import ThemedText from '@/components/common/ThemedText';
-import EventEmitter from 'events';
-import React, { useEffect, useState } from 'react';
-import { Animated } from 'react-native';
+import ThemedView from '@/components/common/ThemedView';
+import { colors } from '@/constants/Colors';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Animated, KeyboardAvoidingView, Modal, Platform, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
 export const SNACKBAR_TEST_IDS = {
   container: 'snackbar-container',
 };
 
-export const snakbarEventEmitter = new EventEmitter();
+export const snackbarEventEmitter = new EventEmitter();
 
-function show(message: string) {
-  snakbarEventEmitter.emit('show', message);
+export enum SnackbarTypeEnum {
+  error = 'error',
+  success = 'success',
+  info = 'info',
+}
+
+type ShowSnackbarParams = {
+  message: string;
+  duration?: number;
+  type?: SnackbarTypeEnum;
+};
+
+function show(params: ShowSnackbarParams) {
+  snackbarEventEmitter.emit('show', params);
 }
 function hide() {
-  snakbarEventEmitter.emit('hide');
+  snackbarEventEmitter.emit('hide');
 }
 
 export const Snackbar = {
@@ -25,13 +40,48 @@ export const Snackbar = {
 
 function SnackbarManager() {
   const [message, setMessage] = useState<string | null>(null);
+  const [duration, setDuration] = useState<number>(Snackbar.LENGTH_SHORT);
+  const [type, setType] = useState<SnackbarTypeEnum>(SnackbarTypeEnum.info);
   const [fadeAnim] = useState(new Animated.Value(0));
 
+  const resolvedContainerStyle = useMemo(() => {
+    switch (type) {
+      case SnackbarTypeEnum.error:
+        return errorStyles.container;
+      case SnackbarTypeEnum.success:
+        return successStyles.container;
+      default:
+        return infoStyles.container;
+    }
+  }, [type]);
+
+  const resolvedTextStyle = useMemo(() => {
+    switch (type) {
+      case SnackbarTypeEnum.error:
+        return errorStyles.text;
+      case SnackbarTypeEnum.success:
+        return successStyles.text;
+      default:
+        return infoStyles.text;
+    }
+  }, [type]);
+
+  const handleHide = () => {
+    setMessage(null);
+  };
+  const handleShow = (params: ShowSnackbarParams) => {
+    setMessage(params.message);
+    setDuration(params.duration || Snackbar.LENGTH_SHORT);
+    setType(params.type || SnackbarTypeEnum.info);
+  };
+
   useEffect(() => {
-    snakbarEventEmitter.on('show', setMessage);
+    snackbarEventEmitter.addListener('show', handleShow);
+    snackbarEventEmitter.addListener('hide', handleHide);
 
     return () => {
-      snakbarEventEmitter.off('show', setMessage);
+      snackbarEventEmitter.removeAllListeners('show');
+      snackbarEventEmitter.removeAllListeners('hide');
     };
   }, []);
 
@@ -49,20 +99,78 @@ function SnackbarManager() {
           duration: 200,
           useNativeDriver: true,
         }).start(() => setMessage(null));
-      }, 2000);
+      }, duration);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
+  }, [message, duration]);
 
   if (!message) {
     return null;
   }
 
   return (
-    <Animated.View style={{ opacity: fadeAnim }} testID={SNACKBAR_TEST_IDS.container}>
-      <ThemedText>{message}</ThemedText>
-    </Animated.View>
+    <Modal onRequestClose={handleHide} visible={!!message} animationType="slide" transparent>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          margin: 0,
+        }}
+      >
+        <SafeAreaView style={{ alignSelf: 'stretch' }}>
+          <ThemedView style={[styles.container, resolvedContainerStyle]}>
+            <ThemedText style={[resolvedTextStyle]}>{message}</ThemedText>
+          </ThemedView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: 'auto',
+    alignSelf: 'stretch',
+    elevation: 8,
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    borderRadius: 8,
+    padding: 16,
+    backgroundColor: colors.red,
+    marginHorizontal: 16,
+    marginBottom: 24,
+  },
+});
+
+const infoStyles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.grey,
+  },
+  text: {
+    color: colors.black,
+  },
+});
+
+const successStyles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.green,
+  },
+  text: {
+    color: colors.white,
+  },
+});
+
+const errorStyles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.red,
+  },
+  text: {
+    color: colors.white,
+  },
+});
 
 export default SnackbarManager;

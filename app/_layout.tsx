@@ -37,21 +37,23 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <DatabaseProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={DefaultTheme}>
-            <Stack initialRouteName={RouteNames.Tabs}>
-              <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
-              <Stack.Screen
-                name={RouteNames.Add}
-                options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
-              />
-              <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
-            </Stack>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </DatabaseProvider>
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <DatabaseProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider value={DefaultTheme}>
+              <Stack initialRouteName={RouteNames.Tabs}>
+                <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
+                <Stack.Screen
+                  name={RouteNames.Add}
+                  options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
+                />
+                <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
+              </Stack>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </DatabaseProvider>
+      </GestureHandlerRootView>
+    </>
   );
 }

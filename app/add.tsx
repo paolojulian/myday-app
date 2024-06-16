@@ -4,6 +4,7 @@ import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
+import SnackbarManager from '@/managers/SnackbarManager';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
@@ -28,6 +29,7 @@ export default function AddScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
+      <SnackbarManager />
       <ThemedView style={styles.main}>
         <ThemedView style={{ flex: 1 }}>
           <Container>
