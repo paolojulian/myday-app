@@ -15,11 +15,13 @@ import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreate
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
+import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
 import React, { Fragment, useRef } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
 function AddExpenseForm() {
+  const navigation = useNavigation();
   const amountRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
   const [error, setError] = React.useState<string | null>(null);
@@ -40,18 +42,25 @@ function AddExpenseForm() {
 
   const handleFormSubmit = async (values: ExpenseFormValues) => {
     setError(null);
+    let categoryId: number | null = null;
     try {
-      const categoryId = values.category ? await getOrCreateCategory(values.category) : null;
+      categoryId = values.category ? await getOrCreateCategory(values.category) : null;
+    } catch {
+      setError('Failed to get or create category');
+    }
 
-      const result = await createExpenseMutate({
+    try {
+      await createExpenseMutate({
         category_id: categoryId,
         amount: parseFloat(values.amount),
         description: values.description ?? '',
         title: values.title,
         transaction_date: convertDateToEpoch(values.transactionDate),
       });
-      console.log(result);
+
+      navigation.goBack();
     } catch {
+      console.error(error);
       setError('Failed to create expense');
     }
   };
@@ -145,6 +154,8 @@ function AddExpenseForm() {
           </Formik>
         </Container>
       </ScrollView>
+
+      {/* Error snackbar */}
       <Snackbar onDismiss={() => setError('')} message={error} type="error" />
     </Fragment>
   );

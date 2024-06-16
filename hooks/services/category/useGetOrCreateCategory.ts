@@ -6,11 +6,15 @@ export function useGetOrCreateCategory() {
   const db = useSQLiteContext();
 
   const getExistingCategory = async (categoryName: string) => {
-    const existingCategory = await db.getFirstAsync<Category>(GET_CATEGORY_BY_NAME_STATEMENT, {
-      $name: `%${categoryName}%`,
-    });
-
-    return existingCategory;
+    try {
+      const existingCategory = await db.getFirstAsync<Category>(GET_CATEGORY_BY_NAME_STATEMENT, {
+        $categoryName: `%${categoryName}%`,
+      });
+      return existingCategory;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   };
 
   const createNewCategory = async (categoryName: string) => {
@@ -39,7 +43,7 @@ export function useGetOrCreateCategory() {
 }
 
 const GET_CATEGORY_BY_NAME_STATEMENT = `
-  SELECT id FROM category WHERE LOWER(name) LIKE LOWER($name) LIMIT 1
+  SELECT id FROM category WHERE LOWER(category_name) LIKE LOWER($categoryName) LIMIT 1
 `;
 
 const CREATE_CATEGORY_STATEMENT = `

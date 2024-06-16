@@ -1,7 +1,7 @@
-import { Expense } from '@/hooks/services/expense/expense.types';
+import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
 import { useSQLiteContext } from 'expo-sqlite';
-import useMutation from '../useMutation';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
@@ -10,7 +10,7 @@ export type SupportedCreateExpenseFields = Pick<
 
 export const useCreateExpense = () => {
   const db = useSQLiteContext();
-  const { data, isLoading, error, mutate } = useMutation(setup);
+  const queryClient = useQueryClient();
 
   async function setup(expense: SupportedCreateExpenseFields) {
     const now_epoch = convertDateToEpoch(new Date());
@@ -27,7 +27,18 @@ export const useCreateExpense = () => {
     return result;
   }
 
-  return { data, isLoading, error, mutate };
+  const { data, error, mutate, isPending } = useMutation({
+    mutationFn: setup,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate(query) {
+          return query.queryKey[0] === ExpenseQueryKeys.list;
+        },
+      });
+    },
+  });
+
+  return { data, isLoading: isPending, error, mutate };
 };
 
 const ADD_EXPENSE_STATEMENT = `
