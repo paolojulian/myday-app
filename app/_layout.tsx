@@ -1,4 +1,5 @@
 import DefaultTheme from '@/constants/Theme';
+import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -42,6 +43,7 @@ export default function RootLayout() {
         <DatabaseProvider>
           <QueryClientProvider client={queryClient}>
             <ThemeProvider value={DefaultTheme}>
+              <SnackbarManager />
               <Stack initialRouteName={RouteNames.Tabs}>
                 <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
                 <Stack.Screen
