@@ -14,6 +14,7 @@ import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
 import { useNavigation } from 'expo-router';
@@ -41,6 +42,14 @@ function AddExpenseForm() {
     // focusCategory();
   };
 
+  const showSuccessMessage = () => {
+    GlobalSnackbar.show({
+      message: 'Expense created successfully',
+      duration: GlobalSnackbar.LENGTH_LONG,
+      type: 'success',
+    });
+  };
+
   const handleFormSubmit = async (values: ExpenseFormValues) => {
     setError(null);
     let categoryId: number | null = null;
@@ -59,6 +68,7 @@ function AddExpenseForm() {
         transaction_date: convertDateToEpoch(values.transactionDate),
       });
 
+      showSuccessMessage();
       navigation.navigate(TabName.Expense as never);
     } catch {
       console.error(error);

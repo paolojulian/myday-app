@@ -37,6 +37,7 @@ function SnackbarManager() {
   const handleHide = () => {
     setMessage(null);
   };
+
   const handleShow = (params: ShowSnackbarParams) => {
     setMessage(params.message);
     setDuration(params.duration || GlobalSnackbar.LENGTH_SHORT);
