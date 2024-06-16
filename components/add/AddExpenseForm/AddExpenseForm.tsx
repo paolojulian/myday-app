@@ -1,3 +1,8 @@
+import {
+  ADD_EXPENSE_FORM_TEST_IDS,
+  addExpenseValidationSchema,
+  ExpenseFormValues,
+} from '@/components/add/AddExpenseForm/AddExpenseForm.utils';
 import Button from '@/components/common/Button';
 import ComboBox from '@/components/common/forms/ComboBox';
 import DatePicker from '@/components/common/forms/DatePicker';
@@ -6,25 +11,18 @@ import TextField from '@/components/common/forms/TextField';
 import ThemedView from '@/components/common/ThemedView';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import useCreateExpense from '@/hooks/services/expense/useCreateExpenses';
+import { Snackbar } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { Formik } from 'formik';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
-import * as Yup from 'yup';
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().max(40).required('Title is required'),
-  category: Yup.string().max(100),
-  amount: Yup.string().required('Amount is required'),
-  description: Yup.string().max(255),
-  transactionDate: Yup.date().required('Transaction date is required'),
-});
-export type ExpenseFormValues = Yup.InferType<typeof validationSchema>;
+let timeout: NodeJS.Timeout | null = null;
 
 function AddExpenseForm() {
   const amountRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
-  const [, setError] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
   const { mutate: createExpenseMutate } = useCreateExpense();
   const getOrCreateCategory = useGetOrCreateCategory();
 
@@ -39,6 +37,24 @@ function AddExpenseForm() {
   const handleTitleSubmitEditing = () => {
     // focusCategory();
   };
+
+  useEffect(() => {
+    if (error) {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      Snackbar.show(error);
+      timeout = setTimeout(() => {
+        setError(null);
+      }, Snackbar.LENGTH_SHORT);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [error]);
 
   const handleFormSubmit = async (values: ExpenseFormValues) => {
     setError(null);
@@ -66,13 +82,14 @@ function AddExpenseForm() {
         description: '',
         transactionDate: new Date(),
       }}
-      validationSchema={validationSchema}
+      validationSchema={addExpenseValidationSchema}
       onSubmit={handleFormSubmit}
     >
       {({ handleChange, handleBlur, setFieldValue, values, handleSubmit }) => (
         <>
           <ThemedView style={{ gap: 8, flex: 1 }}>
             <TextField
+              testID={ADD_EXPENSE_FORM_TEST_IDS.title}
               autoFocus
               onSubmitEditing={handleTitleSubmitEditing}
               onChangeText={handleChange('title')}
@@ -84,6 +101,7 @@ function AddExpenseForm() {
               returnKeyType="next"
             />
             <ComboBox
+              testID={ADD_EXPENSE_FORM_TEST_IDS.category}
               onSubmitEditing={handleCategorySubmit}
               onSelect={value => {
                 setFieldValue('category', value);
@@ -99,6 +117,7 @@ function AddExpenseForm() {
               returnKeyType="next"
             />
             <TextField
+              testID={ADD_EXPENSE_FORM_TEST_IDS.amount}
               ref={amountRef}
               onChangeText={handleChange('amount')}
               value={values.amount}
@@ -109,6 +128,7 @@ function AddExpenseForm() {
               returnKeyType="done"
             />
             <TextArea
+              testID={ADD_EXPENSE_FORM_TEST_IDS.description}
               ref={noteRef}
               onChangeText={handleChange('description')}
               value={values.description}
@@ -125,7 +145,11 @@ function AddExpenseForm() {
             />
           </ThemedView>
           <ThemedView style={{ marginTop: 8 }}>
-            <Button text={'Save'} onPress={() => handleSubmit()} />
+            <Button
+              testID={ADD_EXPENSE_FORM_TEST_IDS.saveButton}
+              text={'Save'}
+              onPress={() => handleSubmit()}
+            />
           </ThemedView>
         </>
       )}
