@@ -2,7 +2,14 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, KeyboardAvoidingView, Modal, Platform, StyleSheet } from 'react-native';
+import {
+  Animated,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
@@ -120,6 +127,19 @@ function SnackbarManager() {
           margin: 0,
         }}
       >
+        {/* Backdrop */}
+        <Pressable
+          style={{
+            ...StyleSheet.absoluteFillObject,
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'transparent',
+          }}
+          onPress={handleHide}
+        />
         <SafeAreaView style={{ alignSelf: 'stretch' }}>
           <ThemedView style={[styles.container, resolvedContainerStyle]}>
             <ThemedText style={[resolvedTextStyle]}>{message}</ThemedText>

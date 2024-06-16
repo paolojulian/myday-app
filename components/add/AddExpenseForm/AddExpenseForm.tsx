@@ -13,6 +13,7 @@ import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreate
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { Snackbar, SnackbarTypeEnum } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
+import { selectionAsync } from 'expo-haptics';
 import { Formik } from 'formik';
 import React, { useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
@@ -154,7 +155,10 @@ function AddExpenseForm() {
             <Button
               testID={ADD_EXPENSE_FORM_TEST_IDS.saveButton}
               text={'Save'}
-              onPress={() => handleSubmit()}
+              onPress={() => {
+                selectionAsync();
+                handleSubmit();
+              }}
             />
           </ThemedView>
         </>
