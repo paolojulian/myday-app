@@ -17,6 +17,10 @@ function ComboBox<T extends string = string>({
 }: ComboBoxProps<T>) {
   const [willShowOptions, setWillShowOptions] = useState(false);
 
+  const filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(props.value?.toLowerCase() ?? ''),
+  );
+
   const handleFocus = () => setWillShowOptions(true);
   const handleBlur = () => setWillShowOptions(false);
   const handlePressItem = (value: T) => {
@@ -44,7 +48,7 @@ function ComboBox<T extends string = string>({
             borderColor: colors.black,
           }}
         >
-          {options.map(item => (
+          {filteredOptions.map(item => (
             <TouchableOpacity key={item} onPress={() => handlePressItem(item)}>
               <ThemedView
                 style={{
@@ -56,6 +60,24 @@ function ComboBox<T extends string = string>({
               </ThemedView>
             </TouchableOpacity>
           ))}
+          {filteredOptions.length === 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                if (props.value) {
+                  handlePressItem(props.value as T);
+                }
+              }}
+            >
+              <ThemedView
+                style={{
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                }}
+              >
+                <ThemedText>Create new category "{props.value}"</ThemedText>
+              </ThemedView>
+            </TouchableOpacity>
+          )}
 
           {/* <FlatList<T>
             data={options}

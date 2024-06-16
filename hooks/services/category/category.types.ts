@@ -7,5 +7,6 @@ export interface Category {
 }
 
 export enum CategoryQueryKeys {
+  list = 'category-list',
   getByName = 'category-get-by-name',
 }

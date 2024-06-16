@@ -1,18 +1,19 @@
+import { Category, CategoryQueryKeys } from '@/hooks/services/category/category.types';
+import { useQuery } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
-import useQuery from '../useQuery';
-import { filtersToString } from '@/hooks/utils';
 
-const useCategory = (filters: Filter[]) => {
+const useCategory = () => {
   const db = useSQLiteContext();
-  const { data, isLoading, error } = useQuery(setup);
 
   async function setup() {
-    const { whereString, values } = filtersToString(filters);
-    const result = await db.getAllAsync<Expense>('SELECT * FROM category ' + whereString, values);
+    const result = await db.getAllAsync<Category>('SELECT * FROM category');
     return result;
   }
 
-  return { data, isLoading, error };
+  return useQuery({
+    queryKey: [CategoryQueryKeys.list],
+    queryFn: setup,
+  });
 };
 
 export default useCategory;

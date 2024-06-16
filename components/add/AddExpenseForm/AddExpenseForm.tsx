@@ -12,6 +12,7 @@ import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
+import useCategory from '@/hooks/services/category/useCategory';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
@@ -29,6 +30,7 @@ function AddExpenseForm() {
   const [error, setError] = React.useState<string | null>(null);
   const { mutate: createExpenseMutate } = useCreateExpense();
   const getOrCreateCategory = useGetOrCreateCategory();
+  const { data: categories } = useCategory();
 
   const focusAmount = () => {
     amountRef.current?.focus();
@@ -78,7 +80,7 @@ function AddExpenseForm() {
 
   return (
     <Fragment>
-      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled" directionalLockEnabled>
         <Container style={{ flex: 1 }}>
           <Formik<ExpenseFormValues>
             initialValues={{
@@ -114,7 +116,7 @@ function AddExpenseForm() {
                       focusAmount();
                     }}
                     onChangeText={handleChange('category')}
-                    options={['Food', 'Grocery', 'Transport', 'Entertainment', 'Other']}
+                    options={categories?.map(({ category_name }) => category_name) ?? []}
                     value={values.category}
                     label="Category"
                     placeholder="Restaurant"
