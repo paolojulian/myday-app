@@ -15,7 +15,7 @@ export default function ThemedText({ variant = 'body', style, ...props }: Themed
 
 const styles = StyleSheet.create({
   baseStyle: {
-    fontFamily: 'Inter',
+    fontFamily: 'Livvic',
   },
   heading: {
     fontSize: 48,
@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
   body2: {
     fontSize: 20,
     fontWeight: '600',
+    fontFamily: 'Livvic-SemiBold',
   },
 });

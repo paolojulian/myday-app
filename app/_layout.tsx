@@ -24,7 +24,10 @@ const queryClient = new QueryClient();
 export default function RootLayout() {
   const [loaded] = useFonts({
     Inter: require('../assets/fonts/Inter.ttf'),
-    Livic: require('../assets/fonts/Livvic-Regular.ttf'),
+    Livvic: require('../assets/fonts/Livvic-Regular.ttf'),
+    'Livvic-Medium': require('../assets/fonts/Livvic-Medium.ttf'),
+    'Livvic-SemiBold': require('../assets/fonts/Livvic-SemiBold.ttf'),
+    'Livvic-Bold': require('../assets/fonts/Livvic-Bold.ttf'),
   });
 
   useEffect(() => {
