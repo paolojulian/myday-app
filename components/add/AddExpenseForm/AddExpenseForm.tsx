@@ -26,6 +26,7 @@ import { ScrollView, TextInput } from 'react-native';
 function AddExpenseForm() {
   const navigation = useNavigation();
   const amountRef = useRef<TextInput>(null);
+  const categoryRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
   const [error, setError] = React.useState<string | null>(null);
   const { mutate: createExpenseMutate } = useCreateExpense();
@@ -35,13 +36,14 @@ function AddExpenseForm() {
   const focusAmount = () => {
     amountRef.current?.focus();
   };
-
+  const focusCategory = () => {
+    categoryRef.current?.focus();
+  };
   const handleCategorySubmit = () => {
     focusAmount();
   };
-
   const handleTitleSubmitEditing = () => {
-    // focusCategory();
+    focusCategory();
   };
 
   const showSuccessMessage = () => {
@@ -109,6 +111,7 @@ function AddExpenseForm() {
                     returnKeyType="next"
                   />
                   <ComboBox
+                    ref={categoryRef}
                     testID={ADD_EXPENSE_FORM_TEST_IDS.category}
                     onSubmitEditing={handleCategorySubmit}
                     onSelect={value => {
