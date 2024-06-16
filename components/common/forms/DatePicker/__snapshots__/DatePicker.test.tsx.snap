@@ -24,7 +24,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingHorizontal": 24,
+        "paddingHorizontal": 16,
         "paddingVertical": 16,
       }
     }
@@ -50,48 +50,60 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
       onStartShouldSetResponder={[Function]}
       style={
         {
+          "alignItems": "center",
           "flex": 1,
-          "gap": 4,
+          "flexDirection": "row",
+          "gap": 16,
         }
       }
       testID="date-picker-header-btn"
     >
-      <Text
+      <Text />
+      <View
         style={
-          [
-            {
-              "fontSize": 16,
-            },
-            {
-              "fontFamily": "Inter",
-            },
-            {
-              "color": "#05141F",
-              "fontWeight": "500",
-            },
-          ]
+          {
+            "flex": 1,
+            "gap": 4,
+          }
         }
       >
-        Date
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontSize": 20,
-            },
-            {
-              "fontFamily": "Inter",
-            },
-            {
-              "color": "#a3a3a3",
-            },
-          ]
-        }
-        testID="date-picker-value"
-      >
-        Select a date
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontSize": 16,
+              },
+              {
+                "fontFamily": "Livvic",
+              },
+              {
+                "color": "#05141F",
+                "fontWeight": "500",
+              },
+            ]
+          }
+        >
+          Date
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontSize": 20,
+              },
+              {
+                "fontFamily": "Livvic",
+              },
+              {
+                "color": "#a3a3a3",
+              },
+            ]
+          }
+          testID="date-picker-value"
+        >
+          Select a date
+        </Text>
+      </View>
     </View>
   </View>
 </View>

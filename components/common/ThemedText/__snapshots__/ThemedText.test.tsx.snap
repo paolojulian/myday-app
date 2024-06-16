@@ -8,7 +8,7 @@ exports[`TESTING ThemedText Component WHEN the component is rendered should matc
         "fontSize": 16,
       },
       {
-        "fontFamily": "Inter",
+        "fontFamily": "Livvic",
       },
       undefined,
     ]
@@ -26,7 +26,7 @@ exports[`TESTING ThemedText Component WHEN the variant is set to heading should 
         "fontSize": 48,
       },
       {
-        "fontFamily": "Inter",
+        "fontFamily": "Livvic",
       },
       undefined,
     ]

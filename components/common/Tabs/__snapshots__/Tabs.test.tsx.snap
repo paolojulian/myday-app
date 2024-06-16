@@ -57,7 +57,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
             "fontSize": 16,
           },
           {
-            "fontFamily": "Inter",
+            "fontFamily": "Livvic",
           },
           {
             "color": "#FFFFFF",
@@ -110,7 +110,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
             "fontSize": 16,
           },
           {
-            "fontFamily": "Inter",
+            "fontFamily": "Livvic",
           },
           {
             "color": "#05141F",
@@ -163,7 +163,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
             "fontSize": 16,
           },
           {
-            "fontFamily": "Inter",
+            "fontFamily": "Livvic",
           },
           {
             "color": "#05141F",
