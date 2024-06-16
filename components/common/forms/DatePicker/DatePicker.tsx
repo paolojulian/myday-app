@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 12,
     backgroundColor: colors.whiteSmoke,
     paddingVertical: 16,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
 
     display: 'flex',
     flexDirection: 'row',
