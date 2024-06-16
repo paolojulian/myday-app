@@ -4,11 +4,10 @@ import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import SnackbarManager from '@/managers/SnackbarManager';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet } from 'react-native';
 
 export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
 
@@ -25,13 +24,13 @@ export default function AddScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      <SnackbarManager />
-      <ThemedView style={styles.main}>
-        <ThemedView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        {/* <SnackbarManager /> */}
+        <ThemedView style={styles.main}>
           <Container>
             <ThemedView style={styles.header}>
               <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={handleBackPress} />
@@ -39,20 +38,21 @@ export default function AddScreen() {
               <MaterialCommunityIcons name={'chevron-left'} size={32} style={{ opacity: 0 }} />
             </ThemedView>
           </Container>
-          <ScrollView keyboardShouldPersistTaps="handled">
-            <Container style={{ gap: 16 }}>
+
+          <ThemedView style={{ flex: 1, gap: 16 }}>
+            <Container>
               <Tabs<SupportedAddItems>
                 onSelect={setSelectedItem}
                 selectedItem={selectedItem}
                 items={['Expense', 'Todo', 'Journal']}
               />
-
-              <AddFactory type={selectedItem} />
             </Container>
-          </ScrollView>
+
+            <AddFactory type={selectedItem} />
+          </ThemedView>
         </ThemedView>
-      </ThemedView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -60,20 +60,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    paddingVertical: 12,
+    height: 'auto',
+    paddingTop: 16,
+    position: 'relative',
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    alignItems: 'center',
+    marginBottom: 16,
   },
   main: {
     flex: 1,
-    gap: 16,
-  },
-  formContainer: {
-    marginTop: 16,
-    gap: 8,
   },
 });

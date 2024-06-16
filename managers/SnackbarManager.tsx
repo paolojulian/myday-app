@@ -105,7 +105,7 @@ function SnackbarManager() {
           toValue: 0,
           duration: 200,
           useNativeDriver: true,
-        }).start(() => setMessage(null));
+        }).start();
       }, duration);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
