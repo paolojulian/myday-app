@@ -3,6 +3,10 @@ import EventEmitter from 'events';
 import React, { useEffect, useState } from 'react';
 import { Animated } from 'react-native';
 
+export const SNACKBAR_TEST_IDS = {
+  container: 'snackbar-container',
+};
+
 export const snakbarEventEmitter = new EventEmitter();
 
 function show(message: string) {
@@ -55,7 +59,7 @@ function SnackbarManager() {
   }
 
   return (
-    <Animated.View style={{ opacity: fadeAnim }}>
+    <Animated.View style={{ opacity: fadeAnim }} testID={SNACKBAR_TEST_IDS.container}>
       <ThemedText>{message}</ThemedText>
     </Animated.View>
   );

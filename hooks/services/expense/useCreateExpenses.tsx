@@ -8,7 +8,7 @@ export type SupportedCreateExpenseFields = Pick<
   'title' | 'transaction_date' | 'amount' | 'description' | 'category_id'
 >;
 
-const useCreateExpense = () => {
+export const useCreateExpense = () => {
   const db = useSQLiteContext();
   const { data, isLoading, error, mutate } = useMutation(setup);
 
@@ -34,5 +34,3 @@ const ADD_EXPENSE_STATEMENT = `
   INSERT INTO Expense (title, amount, description, category_id, transaction_date, created_at, updated_at)
   VALUES ($title, $amount, $description, $category_id, $transaction_date, $created_at, $updated_at)
 `;
-
-export default useCreateExpense;

@@ -10,7 +10,7 @@ import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import ThemedView from '@/components/common/ThemedView';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
-import useCreateExpense from '@/hooks/services/expense/useCreateExpenses';
+import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { Snackbar } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { Formik } from 'formik';
