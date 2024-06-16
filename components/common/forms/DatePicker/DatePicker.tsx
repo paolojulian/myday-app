@@ -108,15 +108,18 @@ function DatePicker({
           testID={DATE_PICKER_TEST_IDS.headerBtn}
           onPress={handleHeaderClick}
         >
-          <ThemedView style={{ gap: 4, flex: 1 }}>
-            <Label text={label} />
-            <ThemedText
-              testID={DATE_PICKER_TEST_IDS.value}
-              variant="body1"
-              style={{ color: !!value ? colors.black : colors.grey }}
-            >
-              {titleText}
-            </ThemedText>
+          <ThemedView style={{ flex: 1, flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            <MaterialCommunityIcons name="calendar-month" size={28} />
+            <ThemedView style={{ gap: 4, flex: 1 }}>
+              <Label text={label} />
+              <ThemedText
+                testID={DATE_PICKER_TEST_IDS.value}
+                variant="body1"
+                style={{ color: !!value ? colors.black : colors.grey }}
+              >
+                {titleText}
+              </ThemedText>
+            </ThemedView>
           </ThemedView>
         </TouchableWithoutFeedback>
         {isExpanded && (
