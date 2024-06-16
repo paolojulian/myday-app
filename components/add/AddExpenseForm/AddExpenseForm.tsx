@@ -1,3 +1,4 @@
+import { TabName } from '@/app/(tabs)/_layout';
 import {
   ADD_EXPENSE_FORM_TEST_IDS,
   addExpenseValidationSchema,
@@ -58,7 +59,7 @@ function AddExpenseForm() {
         transaction_date: convertDateToEpoch(values.transactionDate),
       });
 
-      navigation.goBack();
+      navigation.navigate(TabName.Expense as never);
     } catch {
       console.error(error);
       setError('Failed to create expense');

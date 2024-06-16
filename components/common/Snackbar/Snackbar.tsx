@@ -8,7 +8,7 @@ export const SNACKBAR = {
   DURATION_LONG: 4000,
 };
 
-type SnackbarType = 'error' | 'success' | 'info';
+export type SnackbarType = 'error' | 'success' | 'info';
 
 type SnackbarProps = {
   onDismiss: () => void;
@@ -102,6 +102,8 @@ function Snackbar({
         flex: 1,
         opacity: fadeAnim,
         zIndex: 999,
+        marginBottom: 24,
+        pointerEvents: message ? 'auto' : 'none',
       }}
     >
       <Animated.View style={[styles.container, resolvedContainerStyle]}>

@@ -29,12 +29,14 @@ export const useCreateExpense = () => {
 
   const { data, error, mutate, isPending } = useMutation({
     mutationFn: setup,
-    onSuccess: () => {
+    onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
           return query.queryKey[0] === ExpenseQueryKeys.list;
         },
       });
+
+      return response;
     },
   });
 

@@ -29,7 +29,6 @@ export default function AddScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        {/* <SnackbarManager /> */}
         <ThemedView style={styles.main}>
           <Container>
             <ThemedView style={styles.header}>
