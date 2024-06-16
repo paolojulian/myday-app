@@ -1,4 +1,5 @@
 import DefaultTheme from '@/constants/Theme';
+import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -37,21 +38,24 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <DatabaseProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider value={DefaultTheme}>
-            <Stack initialRouteName={RouteNames.Tabs}>
-              <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
-              <Stack.Screen
-                name={RouteNames.Add}
-                options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
-              />
-              <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
-            </Stack>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </DatabaseProvider>
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <DatabaseProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider value={DefaultTheme}>
+              <SnackbarManager />
+              <Stack initialRouteName={RouteNames.Tabs}>
+                <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
+                <Stack.Screen
+                  name={RouteNames.Add}
+                  options={{ headerShown: false, presentation: 'fullScreenModal' }}
+                />
+                <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
+              </Stack>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </DatabaseProvider>
+      </GestureHandlerRootView>
+    </>
   );
 }

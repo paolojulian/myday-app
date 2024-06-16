@@ -3,11 +3,11 @@ export interface Expense {
   title: string;
   amount: number;
   description: string;
-  category_id: number;
+  category_id: number | null;
   transaction_date: number;
   created_at: number;
   updated_at: number;
-  deleted_at: number;
+  deleted_at: number | null;
 }
 
 export enum ExpenseQueryKeys {
