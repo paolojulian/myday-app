@@ -41,7 +41,6 @@ export default function BottomBar({
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           alignItems: 'center',
-          paddingTop: 16,
         }}
       >
         <BottomBarItem

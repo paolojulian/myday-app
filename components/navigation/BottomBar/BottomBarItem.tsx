@@ -1,7 +1,8 @@
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
+import { selectionAsync } from 'expo-haptics';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 
 export type BottomBarItemProps = {
   ActiveIcon: React.ReactElement;
@@ -18,21 +19,38 @@ export default function BottomBarItem({
   name,
   onPress,
 }: BottomBarItemProps) {
+  const handlePress = () => {
+    if (!isActive) {
+      onPress();
+      selectionAsync();
+    }
+  };
+
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={{ gap: 4, alignItems: 'center', flex: 1 }}
-      activeOpacity={isActive ? 1 : 0.1}
+    <TouchableHighlight
+      onPress={handlePress}
+      disabled={isActive}
+      style={{
+        gap: 4,
+        alignItems: 'center',
+        flex: 1,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        paddingVertical: 16,
+      }}
+      underlayColor={colors.whiteSmoke}
     >
-      {isActive ? ActiveIcon : InactiveIcon}
-      <ThemedText
-        style={{
-          color: isActive ? colors.black : colors.darkGrey,
-        }}
-        variant="small"
-      >
-        {name}
-      </ThemedText>
-    </TouchableOpacity>
+      <>
+        {isActive ? ActiveIcon : InactiveIcon}
+        <ThemedText
+          style={{
+            color: isActive ? colors.black : colors.darkGrey,
+          }}
+          variant="small"
+        >
+          {name}
+        </ThemedText>
+      </>
+    </TouchableHighlight>
   );
 }

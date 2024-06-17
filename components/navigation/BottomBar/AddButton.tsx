@@ -1,6 +1,8 @@
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import { selectionAsync } from 'expo-haptics';
+import { ComponentProps } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 export type AddButtonProps = {
@@ -8,13 +10,16 @@ export type AddButtonProps = {
 };
 
 export default function AddButton({ onPress: onAddPress }: AddButtonProps) {
+  const handlePress: ComponentProps<typeof TouchableOpacity>['onPress'] = e => {
+    e.preventDefault();
+    onAddPress();
+    selectionAsync();
+  };
+
   return (
     <ThemedView style={{ flex: 1, alignItems: 'center' }}>
       <TouchableOpacity
-        onPress={e => {
-          e.preventDefault();
-          onAddPress();
-        }}
+        onPress={handlePress}
         style={{
           backgroundColor: colors.grey,
           width: 64,
