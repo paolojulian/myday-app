@@ -1,8 +1,8 @@
 import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
+import { selectionAsync } from 'expo-haptics';
 import React from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 
 export type BottomBarItemProps = {
   ActiveIcon: React.ReactElement;
@@ -19,9 +19,28 @@ export default function BottomBarItem({
   name,
   onPress,
 }: BottomBarItemProps) {
+  const handlePress = () => {
+    if (!isActive) {
+      onPress();
+      selectionAsync();
+    }
+  };
+
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <ThemedView style={{ gap: 4, alignItems: 'center' }}>
+    <TouchableHighlight
+      onPress={handlePress}
+      disabled={isActive}
+      style={{
+        gap: 4,
+        alignItems: 'center',
+        flex: 1,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        paddingVertical: 16,
+      }}
+      underlayColor={colors.whiteSmoke}
+    >
+      <>
         {isActive ? ActiveIcon : InactiveIcon}
         <ThemedText
           style={{
@@ -31,7 +50,7 @@ export default function BottomBarItem({
         >
           {name}
         </ThemedText>
-      </ThemedView>
-    </TouchableWithoutFeedback>
+      </>
+    </TouchableHighlight>
   );
 }

@@ -59,7 +59,8 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
             "fontWeight": "600",
           },
           {
-            "fontFamily": "Livvic",
+            "fontFamily": "Livvic-Medium",
+            "fontWeight": "500",
           },
           [
             {
