@@ -2,10 +2,8 @@ import Container from '@/components/common/Container';
 import AddButton from '@/components/navigation/BottomBar/AddButton';
 import BottomBarItem from '@/components/navigation/BottomBar/BottomBarItem';
 import { colors } from '@/constants/Colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { usePathname } from 'expo-router';
-import { ComponentProps } from 'react';
-import { SafeAreaView } from 'react-native';
+import { Image, SafeAreaView } from 'react-native';
 
 export type BottomBarProps = {
   onAddPress: () => void;
@@ -27,7 +25,15 @@ export default function BottomBar({
   return (
     <SafeAreaView
       style={{
-        backgroundColor: colors.whiteSmoke,
+        elevation: 8,
+        shadowColor: colors.black,
+        shadowOpacity: 0.1,
+        shadowRadius: 24,
+        shadowOffset: {
+          width: 0,
+          height: -3,
+        },
+        backgroundColor: colors.white,
       }}
     >
       <Container
@@ -35,22 +41,26 @@ export default function BottomBar({
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           alignItems: 'center',
-          paddingTop: 8,
+          paddingTop: 16,
         }}
       >
         <BottomBarItem
           name="Home"
           onPress={onHomePress}
           isActive={pathname === '/'}
-          ActiveIcon={<WrappedIcon name="home-variant" color={colors.black} />}
-          InactiveIcon={<WrappedIcon name="home-variant-outline" color={colors.darkGrey} />}
+          ActiveIcon={<WrappedImage source={require('../../../assets/icons/home-active.png')} />}
+          InactiveIcon={
+            <WrappedImage source={require('../../../assets/icons/home-inactive.png')} />
+          }
         />
         <BottomBarItem
           name="Expenses"
           onPress={onExpensePress}
           isActive={pathname === '/expenses'}
-          ActiveIcon={<WrappedIcon name="credit-card" color={colors.black} />}
-          InactiveIcon={<WrappedIcon name="credit-card-outline" color={colors.darkGrey} />}
+          ActiveIcon={<WrappedImage source={require('../../../assets/icons/expense-active.png')} />}
+          InactiveIcon={
+            <WrappedImage source={require('../../../assets/icons/expense-inactive.png')} />
+          }
         />
 
         <AddButton onPress={onAddPress} />
@@ -59,22 +69,27 @@ export default function BottomBar({
           name="Todo"
           onPress={onTodoPress}
           isActive={pathname === '/todos'}
-          ActiveIcon={<WrappedIcon name="format-list-bulleted" color={colors.black} />}
-          InactiveIcon={<WrappedIcon name="format-list-bulleted" color={colors.darkGrey} />}
+          ActiveIcon={<WrappedImage source={require('../../../assets/icons/todo-active.png')} />}
+          InactiveIcon={
+            <WrappedImage source={require('../../../assets/icons/todo-inactive.png')} />
+          }
         />
 
         <BottomBarItem
           name="Journal"
           onPress={onJournalPress}
           isActive={pathname === '/journal'}
-          ActiveIcon={<WrappedIcon name="notebook" color={colors.black} />}
-          InactiveIcon={<WrappedIcon name="notebook-outline" color={colors.darkGrey} />}
+          ActiveIcon={<WrappedImage source={require('../../../assets/icons/journal-active.png')} />}
+          InactiveIcon={
+            <WrappedImage source={require('../../../assets/icons/journal-inactive.png')} />
+          }
         />
       </Container>
     </SafeAreaView>
   );
 }
 
-function WrappedIcon(props: ComponentProps<typeof MaterialCommunityIcons>) {
-  return <MaterialCommunityIcons {...props} size={28} />;
+const ICON_SIZE = 24;
+function WrappedImage(props: { source: number }) {
+  return <Image style={{ width: ICON_SIZE, height: ICON_SIZE }} {...props} />;
 }
