@@ -7,13 +7,13 @@ type ThemedTextProps = {
 
 export default function ThemedText({ variant = 'body', style, ...props }: ThemedTextProps) {
   const variantStyle = useMemo(() => {
-    return styles[variant] || styles.body;
+    return themedTextStyles[variant] || themedTextStyles.body;
   }, [variant]);
 
-  return <Text {...props} style={[variantStyle, styles.baseStyle, style]}></Text>;
+  return <Text {...props} style={[variantStyle, themedTextStyles.baseStyle, style]}></Text>;
 }
 
-const styles = StyleSheet.create({
+export const themedTextStyles = StyleSheet.create({
   baseStyle: {
     fontWeight: 400,
   },
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   },
   body2: {
     fontSize: 16,
-    fontFamily: 'LivvicSemiBold',
+    fontFamily: 'LivvicMedium',
   },
 });

@@ -71,15 +71,14 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
           style={
             [
               {
-                "fontFamily": "LivvicRegular",
-                "fontSize": 14,
+                "fontFamily": "LivvicMedium",
+                "fontSize": 16,
               },
               {
                 "fontWeight": 400,
               },
               {
                 "color": "#05141F",
-                "fontWeight": "500",
               },
             ]
           }

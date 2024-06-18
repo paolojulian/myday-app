@@ -1,4 +1,5 @@
 import Label from '@/components/common/forms/Label';
+import { themedTextStyles } from '@/components/common/ThemedText/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { ComponentProps, forwardRef, useState } from 'react';
@@ -37,6 +38,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(({ label, style, ...prop
         style={[
           style,
           styles.textInput,
+          themedTextStyles.body1,
           {
             ...(isFocused && styles.textInputWithFocus),
           },
@@ -61,7 +63,6 @@ const styles = StyleSheet.create({
     left: 16,
   },
   textInput: {
-    fontSize: 20,
     paddingTop: 36,
     paddingBottom: 12,
     paddingHorizontal: 16,
