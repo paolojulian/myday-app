@@ -5,11 +5,11 @@ exports[`TESTING ThemedText Component WHEN the component is rendered should matc
   style={
     [
       {
-        "fontSize": 16,
+        "fontFamily": "LivvicRegular",
+        "fontSize": 14,
       },
       {
-        "fontFamily": "Livvic-Medium",
-        "fontWeight": "500",
+        "fontWeight": 400,
       },
       undefined,
     ]
@@ -24,11 +24,12 @@ exports[`TESTING ThemedText Component WHEN the variant is set to heading should 
   style={
     [
       {
-        "fontSize": 48,
+        "fontFamily": "LivvicSemiBold",
+        "fontSize": 20,
+        "fontWeight": 600,
       },
       {
-        "fontFamily": "Livvic-Medium",
-        "fontWeight": "500",
+        "fontWeight": 400,
       },
       undefined,
     ]

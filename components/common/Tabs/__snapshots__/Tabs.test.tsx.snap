@@ -54,11 +54,11 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontSize": 16,
+            "fontFamily": "LivvicRegular",
+            "fontSize": 14,
           },
           {
-            "fontFamily": "Livvic-Medium",
-            "fontWeight": "500",
+            "fontWeight": 400,
           },
           {
             "color": "#FFFFFF",
@@ -108,11 +108,11 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontSize": 16,
+            "fontFamily": "LivvicRegular",
+            "fontSize": 14,
           },
           {
-            "fontFamily": "Livvic-Medium",
-            "fontWeight": "500",
+            "fontWeight": 400,
           },
           {
             "color": "#05141F",
@@ -162,11 +162,11 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontSize": 16,
+            "fontFamily": "LivvicRegular",
+            "fontSize": 14,
           },
           {
-            "fontFamily": "Livvic-Medium",
-            "fontWeight": "500",
+            "fontWeight": 400,
           },
           {
             "color": "#05141F",
