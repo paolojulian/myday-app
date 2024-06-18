@@ -41,12 +41,12 @@ export default function ParallaxScrollView({
       borderBottomEndRadius: interpolate(
         scrollOffset.value,
         [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-        [40, 40, 0],
+        [24, 24, 0],
       ),
       borderBottomStartRadius: interpolate(
         scrollOffset.value,
         [-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-        [40, 40, 0],
+        [24, 24, 0],
       ),
     };
   });
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: HEADER_HEIGHT,
-    borderBottomEndRadius: 40,
-    borderBottomStartRadius: 40,
+    borderBottomEndRadius: 24,
+    borderBottomStartRadius: 24,
   },
   content: {
     flex: 1,

@@ -84,7 +84,7 @@ export default function TodoItem({ onRemove, id, name, dueDate }: TodoItemProps)
         />
         <Stack style={{ gap: 2, minHeight: 32, justifyContent: 'center' }}>
           <ThemedText
-            variant="body1"
+            variant="body2"
             style={{
               textDecorationLine: isChecked ? 'line-through' : 'none',
               color: isChecked ? colors.grey : colors.black,
@@ -96,7 +96,6 @@ export default function TodoItem({ onRemove, id, name, dueDate }: TodoItemProps)
             <ThemedText
               style={{
                 color: isChecked ? colors.grey : colors.darkGrey,
-                textDecorationLine: isChecked ? 'line-through' : 'none',
               }}
             >
               {dueDate}

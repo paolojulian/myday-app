@@ -1,16 +1,19 @@
 import Container from '@/components/common/Container';
+import { HEADER_HEIGHT } from '@/components/common/ParallaxScrollView';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
 
 export enum TodoFilters {
   today = 'Today',
-  future = 'Future',
+  scheduled = 'Scheduled',
+  all = 'All',
   completed = 'Completed',
 }
 export const TODO_FILTERS: TodoFilters[] = [
   TodoFilters.today,
-  TodoFilters.future,
+  TodoFilters.all,
+  TodoFilters.scheduled,
   TodoFilters.completed,
 ];
 
@@ -25,13 +28,12 @@ export default function TodoHeader({ onSelectFilter, selectedItem }: TodoHeaderP
       style={{
         flexDirection: 'column',
         backgroundColor: colors.black,
-        paddingVertical: 24,
-        gap: 32,
-        justifyContent: 'flex-end',
+        gap: 24,
+        height: HEADER_HEIGHT / 2,
       }}
     >
       <ThemedText variant="heading" style={{ color: colors.white }}>
-        Todo
+        Todo list
       </ThemedText>
 
       <Tabs<TodoFilters>
