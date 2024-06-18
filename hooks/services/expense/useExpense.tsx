@@ -59,11 +59,14 @@ async function fetchExpense(
 const BASE_GET_EXPENSES_STATEMENT = `
   SELECT expense.*, category.category_name as category_name FROM expense
   LEFT JOIN category ON expense.category_id = category.id
+  ORDER BY expense.transaction_date DESC
 `;
 
 const GET_FILTERED_EXPENSES_STATEMENT = `
-  ${BASE_GET_EXPENSES_STATEMENT}
+  SELECT expense.*, category.category_name as category_name FROM expense
+  LEFT JOIN category ON expense.category_id = category.id
   WHERE expense.transaction_date BETWEEN $start AND $end
+  ORDER BY expense.transaction_date DESC
 `;
 
 export default useExpense;

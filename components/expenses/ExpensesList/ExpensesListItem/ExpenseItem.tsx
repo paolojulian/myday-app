@@ -72,15 +72,17 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
           }}
         >
           <Stack>
-            <ThemedText variant="body1">{title}</ThemedText>
-            <ThemedText variant="body" style={{ color: colors.darkGrey }}>
-              {categoryName}
-            </ThemedText>
+            <ThemedText variant="body2">{title}</ThemedText>
+            {!!categoryName && (
+              <ThemedText variant="body" style={{ color: colors.darkGrey }}>
+                {categoryName}
+              </ThemedText>
+            )}
             <ThemedText variant="body" style={{ color: colors.darkGrey }}>
               {formattedTransactionDate}
             </ThemedText>
           </Stack>
-          <ThemedText variant="body1" style={{ color: colors.red }}>
+          <ThemedText variant="body2" style={{ color: colors.red }}>
             - {toLocaleCurrencyFormat(amount)}
           </ThemedText>
         </Row>
