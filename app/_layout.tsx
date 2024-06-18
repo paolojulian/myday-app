@@ -23,11 +23,14 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    Inter: require('../assets/fonts/Inter.ttf'),
-    Livvic: require('../assets/fonts/Livvic-Regular.ttf'),
-    'Livvic-Medium': require('../assets/fonts/Livvic-Medium.ttf'),
-    'Livvic-SemiBold': require('../assets/fonts/Livvic-SemiBold.ttf'),
-    'Livvic-Bold': require('../assets/fonts/Livvic-Bold.ttf'),
+    PoppinsRegular: require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
+    PoppinsMedium: require('../assets/fonts/Poppins/Poppins-Medium.ttf'),
+    PoppinsSemiBold: require('../assets/fonts/Poppins/Poppins-SemiBold.ttf'),
+    PoppinsBold: require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
+    LivvicRegular: require('../assets/fonts/Livvic/Livvic-Regular.ttf'),
+    LivvicMedium: require('../assets/fonts/Livvic/Livvic-Medium.ttf'),
+    LivvicSemiBold: require('../assets/fonts/Livvic/Livvic-SemiBold.ttf'),
+    LivvicBold: require('../assets/fonts/Livvic/Livvic-Bold.ttf'),
   });
 
   useEffect(() => {
