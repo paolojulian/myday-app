@@ -37,7 +37,8 @@
             "./assets/fonts/Livvic-Regular.ttf"
           ]
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

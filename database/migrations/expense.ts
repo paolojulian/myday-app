@@ -25,16 +25,16 @@ export const expenseMigrations = [
           );
           INSERT INTO expense (title, amount, description, category_id, transaction_date, created_at, updated_at, deleted_at)
           VALUES
-            ('Expense 1', 10.99, 'Dummy expense 1', 1, 1717526400, 1635724800, 1635724800, NULL),
-            ('Expense 2', 20.99, 'Dummy expense 2', 2, 1717612800, 1635724800, 1635724800, NULL),
-            ('Expense 3', 30.99, 'Dummy expense 3', 3, 1717699200, 1635724800, 1635724800, NULL),
-            ('Expense 4', 40.99, 'Dummy expense 4', 4, 1717785600, 1635724800, 1635724800, NULL),
-            ('Expense 5', 50.99, 'Dummy expense 5', 5, 1717872000, 1635724800, 1635724800, NULL),
-            ('Expense 6', 60.99, 'Dummy expense 6', 6, 1717958400, 1635724800, 1635724800, NULL),
-            ('Expense 7', 70.99, 'Dummy expense 7', 7, 1718044800, 1635724800, 1635724800, NULL),
-            ('Expense 8', 80.99, 'Dummy expense 8', 8, 1718131200, 1635724800, 1635724800, NULL),
-            ('Expense 9', 90.99, 'Dummy expense 9', 9, 1718217600, 1635724800, 1635724800, NULL),
-            ('Expense 10', 100.99, 'Dummy expense 10', 10, 1718304000, 1635724800, 1635724800, NULL);
+            ('Coffee', 150, 'Coffee at Starbucks', 1, 1717526400, 1635724800, 1635724800, NULL),
+            ('Lunch', 200, 'Lunch at Jollibee', 1, 1717612800, 1635724800, 1635724800, NULL),
+            ('Groceries', 3000, 'Groceries from SM Supermarket', 2, 1717699200, 1635724800, 1635724800, NULL),
+            ('Gas', 2000, 'Gas from Petron', 4, 1717785600, 1635724800, 1635724800, NULL),
+            ('Utilities', 2500, 'Utility bill payment', 5, 1717872000, 1635724800, 1635724800, NULL),
+            ('Dinner', 500, 'Dinner at Mang Inasal', 1, 1717958400, 1635724800, 1635724800, NULL),
+            ('Movie', 300, 'Movie at SM Cinema', 5, 1718044800, 1635724800, 1635724800, NULL),
+            ('Books', 800, 'Books from National Bookstore', 5, 1718131200, 1635724800, 1635724800, NULL),
+            ('Gym', 1000, 'Gym membership', 5, 1718217600, 1635724800, 1635724800, NULL),
+            ('Rent', 8000, 'Monthly rent', 5, 1718304000, 1635724800, 1635724800, NULL);
         `,
       },
     ],

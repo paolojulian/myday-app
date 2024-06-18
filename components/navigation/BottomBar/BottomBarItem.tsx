@@ -46,7 +46,6 @@ export default function BottomBarItem({
           style={{
             color: isActive ? colors.black : colors.darkGrey,
           }}
-          variant="small"
         >
           {name}
         </ThemedText>

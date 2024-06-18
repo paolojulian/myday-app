@@ -1,8 +1,8 @@
 import {
-  Expense,
   ExpenseFilterEnum,
   ExpenseQueryFilters,
   ExpenseQueryKeys,
+  ExpenseWithCategoryName,
 } from '@/hooks/services/expense/expense.types';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -22,9 +22,12 @@ const useExpense = (filters?: ExpenseQueryFilters) => {
   });
 };
 
-async function fetchExpense(db: SQLiteDatabase, filters?: ExpenseQueryFilters): Promise<Expense[]> {
+async function fetchExpense(
+  db: SQLiteDatabase,
+  filters?: ExpenseQueryFilters,
+): Promise<ExpenseWithCategoryName[]> {
   if (!filters) {
-    return await db.getAllAsync<Expense>('SELECT * FROM expense');
+    return await db.getAllAsync<ExpenseWithCategoryName>(BASE_GET_EXPENSES_STATEMENT);
   }
 
   const { filterType, transactionDate } = filters;
@@ -47,10 +50,23 @@ async function fetchExpense(db: SQLiteDatabase, filters?: ExpenseQueryFilters): 
     throw new Error(`Invalid filter type: ${filterType}`);
   }
 
-  return await db.getAllAsync<Expense>(
-    'SELECT * FROM expense WHERE transaction_date BETWEEN $start AND $end',
+  return await db.getAllAsync<ExpenseWithCategoryName>(
+    GET_FILTERED_EXPENSES_STATEMENT,
     filterFunctions[filterType](),
   );
 }
+
+const BASE_GET_EXPENSES_STATEMENT = `
+  SELECT expense.*, category.category_name as category_name FROM expense
+  LEFT JOIN category ON expense.category_id = category.id
+  ORDER BY expense.transaction_date DESC
+`;
+
+const GET_FILTERED_EXPENSES_STATEMENT = `
+  SELECT expense.*, category.category_name as category_name FROM expense
+  LEFT JOIN category ON expense.category_id = category.id
+  WHERE expense.transaction_date BETWEEN $start AND $end
+  ORDER BY expense.transaction_date DESC
+`;
 
 export default useExpense;

@@ -10,6 +10,8 @@ export interface Expense {
   deleted_at: number | null;
 }
 
+export type ExpenseWithCategoryName = Expense & { category_name: string };
+
 export enum ExpenseQueryKeys {
   list = 'expenses-list',
 }
