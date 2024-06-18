@@ -106,7 +106,7 @@ function AddExpenseForm() {
                     onBlur={handleBlur('title')}
                     value={values.title}
                     label="Title"
-                    placeholder="Dinner at Jollibee..."
+                    placeholder="e.g. Lunch at Jollibee..."
                     returnKeyLabel="Next"
                     returnKeyType="next"
                   />
@@ -122,7 +122,7 @@ function AddExpenseForm() {
                     options={categories?.map(({ category_name }) => category_name) ?? []}
                     value={values.category}
                     label="Category"
-                    placeholder="Restaurant"
+                    placeholder="e.g. Restaurant, Grocery"
                     keyboardType="default"
                     returnKeyLabel="Next"
                     returnKeyType="next"
