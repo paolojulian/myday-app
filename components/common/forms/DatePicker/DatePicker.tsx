@@ -15,7 +15,7 @@ import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 type DatePickerVariants = 'shadow' | 'border';
 
@@ -109,7 +109,10 @@ function DatePicker({
           onPress={handleHeaderClick}
         >
           <ThemedView style={{ flex: 1, flexDirection: 'row', gap: 16, alignItems: 'center' }}>
-            <MaterialCommunityIcons name="calendar-month" size={28} />
+            <Image
+              source={require('@/assets/icons/calendar-lines.png')}
+              style={{ width: 24, height: 24 }}
+            />
             <ThemedView style={{ gap: 4, flex: 1 }}>
               <Label text={label} />
               <ThemedText
