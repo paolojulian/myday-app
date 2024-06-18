@@ -34,7 +34,7 @@ export default function TodoList() {
   };
 
   return (
-    <Container style={{ gap: 8, paddingVertical: 16 }}>
+    <Container style={{ gap: 8, paddingBottom: 16 }}>
       {todos.map(item => (
         <TodoItem
           onRemove={handleRemoveItem}

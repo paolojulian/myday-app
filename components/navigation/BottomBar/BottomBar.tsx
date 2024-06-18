@@ -88,7 +88,7 @@ export default function BottomBar({
   );
 }
 
-const ICON_SIZE = 24;
+const ICON_SIZE = 20;
 function WrappedImage(props: { source: number }) {
   return <Image style={{ width: ICON_SIZE, height: ICON_SIZE }} {...props} />;
 }
