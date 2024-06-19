@@ -22,3 +22,9 @@ export function convertTaskFormToTask(taskForm: TaskFormValues): SupportedCreate
     reminder_date: taskForm.reminderDate ? convertDateToEpoch(taskForm.reminderDate) : null,
   };
 }
+
+export const NOTE_PLACEHOLDER = `e.g.
+Dish soap
+Soy sauce
+Toilet paper
+etc..`;

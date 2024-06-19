@@ -10,7 +10,6 @@ type TaskListProps = {
 
 export default function TaskList({ filterType }: TaskListProps) {
   const { data: tasks } = useTasks({ filterType });
-  console.log({ tasks });
 
   const handleRemoveItem: TodoItemProps['onRemove'] = id => {
     Alert.alert(`Item with id ${id} has been removed`);

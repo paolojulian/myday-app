@@ -3,6 +3,7 @@ import {
   TaskFormValues,
   ADD_TASK_VALIDATION_SCHEMA,
   convertTaskFormToTask,
+  NOTE_PLACEHOLDER,
 } from '@/components/add/AddTaskForm/AddTaskForm.utils';
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
@@ -18,12 +19,6 @@ import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
 import { Fragment, useRef, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native';
-
-const NOTE_PLACEHOLDER = `e.g.
-Dish soap
-Soy sauce
-Toilet paper
-etc..`;
 
 export default function AddTaskForm() {
   const noteRef = useRef<TextInput>(null);
@@ -118,7 +113,7 @@ export default function AddTaskForm() {
                     />
                   )}
                 </ThemedView>
-                <ThemedView style={{ marginTop: 8 }}>
+                <ThemedView style={{ marginVertical: 16 }}>
                   <Button text={'Save'} onPress={() => handleSubmit()} />
                 </ThemedView>
               </>
