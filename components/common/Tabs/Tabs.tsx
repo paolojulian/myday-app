@@ -23,7 +23,9 @@ export default function Tabs<T extends string>({
   const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
 
   return (
-    <ThemedView style={[styles.container, resolvedStyles.container]}>
+    <ThemedView
+      style={[styles.container, resolvedStyles.container, { ...(isCompact ? styles.compact : {}) }]}
+    >
       {items.map(item => (
         <TabsItem
           key={item}
@@ -43,6 +45,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     borderRadius: 100,
+  },
+  compact: {
+    gap: 8,
   },
 });
 
