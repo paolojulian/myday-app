@@ -1,14 +1,23 @@
+import { TabName } from '@/app/(tabs)/_layout';
+import {
+  TaskFormValues,
+  ADD_TASK_VALIDATION_SCHEMA,
+  convertTaskFormToTask,
+} from '@/components/add/AddTaskForm/AddTaskForm.utils';
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
 import CheckboxField from '@/components/common/forms/CheckboxField';
 import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
+import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
+import { useCreateTask } from '@/hooks/services/task/useCreateTask';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
-import { Fragment, useRef } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native';
-import * as Yup from 'yup';
 
 const NOTE_PLACEHOLDER = `e.g.
 Dish soap
@@ -16,20 +25,31 @@ Soy sauce
 Toilet paper
 etc..`;
 
-const validationSchema = Yup.object().shape({
-  title: Yup.string().max(40).required('Title is required'),
-  description: Yup.string().max(255),
-  category: Yup.string(),
-  reminderDate: Yup.date().optional(),
-  toBuy: Yup.boolean().optional(),
-  amount: Yup.string().optional(),
-});
-export type TodoFormValues = Yup.InferType<typeof validationSchema>;
-
-export default function AddTodoForm() {
+export default function AddTaskForm() {
   const noteRef = useRef<TextInput>(null);
   const amountRef = useRef<TextInput>(null);
-  const handleSubmitForm = () => {};
+  const navigation = useNavigation();
+  const [error, setError] = useState<string | null>(null);
+  const { mutate: createTaskMutate } = useCreateTask();
+
+  const showSuccessMessage = () => {
+    GlobalSnackbar.show({
+      message: 'Todo created successfully',
+      duration: GlobalSnackbar.LENGTH_LONG,
+      type: 'success',
+    });
+  };
+
+  const handleSubmitForm = async (values: TaskFormValues) => {
+    const insertValues = convertTaskFormToTask(values);
+    try {
+      await createTaskMutate(insertValues);
+      showSuccessMessage();
+      navigation.navigate(TabName.Todo as never);
+    } catch {
+      setError('Failed to create expense');
+    }
+  };
 
   const handleTitleSubmitEditing = () => {
     noteRef.current?.focus();
@@ -46,7 +66,7 @@ export default function AddTodoForm() {
     <Fragment>
       <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled" directionalLockEnabled>
         <Container style={{ flex: 1 }}>
-          <Formik<TodoFormValues>
+          <Formik<TaskFormValues>
             onSubmit={handleSubmitForm}
             initialValues={{
               title: '',
@@ -54,7 +74,7 @@ export default function AddTodoForm() {
               description: '',
               toBuy: false,
             }}
-            validationSchema={validationSchema}
+            validationSchema={ADD_TASK_VALIDATION_SCHEMA}
           >
             {({ handleSubmit, handleChange, handleBlur, values, setFieldValue }) => (
               <>
@@ -106,6 +126,9 @@ export default function AddTodoForm() {
           </Formik>
         </Container>
       </ScrollView>
+
+      {/* Error snackbar */}
+      <Snackbar onDismiss={() => setError('')} message={error} type="error" />
     </Fragment>
   );
 }
