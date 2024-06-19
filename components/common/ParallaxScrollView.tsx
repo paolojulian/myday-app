@@ -8,7 +8,7 @@ import Animated, {
   useScrollViewOffset,
 } from 'react-native-reanimated';
 
-export const HEADER_HEIGHT = 200;
+export const HEADER_HEIGHT = 170;
 
 type Props = PropsWithChildren<{
   headerContent?: ReactElement;
