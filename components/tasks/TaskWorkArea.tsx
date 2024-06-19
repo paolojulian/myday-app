@@ -1,12 +1,13 @@
 import ParallaxScrollView, { HEADER_HEIGHT } from '@/components/common/ParallaxScrollView';
 import ThemedView from '@/components/common/ThemedView';
-import TodoHeader, { TodoFilters } from '@/components/todos/TodoHeader/TodoHeader';
-import TodoList from '@/components/todos/TodoList';
+import TodoList from '@/components/tasks/TaskList';
+import TaskHeader from '@/components/tasks/TaskHeader/TaskHeader';
 import { colors } from '@/constants/Colors';
+import { TaskFilters } from '@/hooks/services/task/task.types';
 import { useState } from 'react';
 
-export default function TodoWorkArea() {
-  const [selectedFilter, setSelectedFilter] = useState<TodoFilters>(TodoFilters.today);
+export default function TaskWorkArea() {
+  const [selectedFilter, setSelectedFilter] = useState<TaskFilters>('Today');
 
   return (
     <ParallaxScrollView headerBackgroundColor={colors.black}>
@@ -16,9 +17,9 @@ export default function TodoWorkArea() {
           gap: 32,
         }}
       >
-        <TodoHeader onSelectFilter={setSelectedFilter} selectedItem={selectedFilter} />
+        <TaskHeader onSelectFilter={setSelectedFilter} selectedItem={selectedFilter} />
 
-        <TodoList />
+        <TodoList filterType={selectedFilter} />
       </ThemedView>
     </ParallaxScrollView>
   );

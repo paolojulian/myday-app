@@ -1,7 +1,7 @@
 import { TabName } from '@/app/(tabs)/_layout';
 import {
   ADD_EXPENSE_FORM_TEST_IDS,
-  addExpenseValidationSchema,
+  ADD_EXPENSE_VALIDATION_SCHEMA,
   ExpenseFormValues,
 } from '@/components/add/AddExpenseForm/AddExpenseForm.utils';
 import Button from '@/components/common/Button';
@@ -92,7 +92,7 @@ function AddExpenseForm() {
               description: '',
               transactionDate: new Date(),
             }}
-            validationSchema={addExpenseValidationSchema}
+            validationSchema={ADD_EXPENSE_VALIDATION_SCHEMA}
             onSubmit={handleFormSubmit}
           >
             {({ handleChange, handleBlur, setFieldValue, values, handleSubmit }) => (
