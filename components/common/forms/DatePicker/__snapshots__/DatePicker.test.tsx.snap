@@ -58,7 +58,15 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
       }
       testID="date-picker-header-btn"
     >
-      <Text />
+      <Image
+        source={1}
+        style={
+          {
+            "height": 24,
+            "width": 24,
+          }
+        }
+      />
       <View
         style={
           {
