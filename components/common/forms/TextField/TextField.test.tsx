@@ -1,5 +1,5 @@
 import TextField, { TEXT_FIELD_TEST_IDS } from '@/components/common/forms/TextField/TextField';
-import { render, screen } from '@testing-library/react-native';
+import { act, render, screen } from '@testing-library/react-native';
 
 describe('TESTING TextField component', () => {
   describe('WHEN the TextField component is rendered', () => {
@@ -41,7 +41,9 @@ describe('TESTING TextField component', () => {
       );
       const textInput = screen.getByTestId(TEXT_FIELD_TEST_IDS.textInput);
       expect(textInput).toBeTruthy();
-      textInput.props.onFocus();
+      act(() => {
+        textInput.props.onFocus();
+      });
 
       expect(spyFocus).toHaveBeenCalled();
     });
