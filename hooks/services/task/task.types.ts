@@ -3,6 +3,7 @@ export interface Task {
   title: string;
   description: string;
   category_id: number;
+  is_completed: number;
   to_buy: number;
   expected_amount: number | null;
   reminder_date: number | null;
@@ -12,3 +13,13 @@ export interface Task {
   updated_at: number;
   deleted_at: number;
 }
+
+export enum TaskQueryKeys {
+  list = 'task-list',
+}
+
+type TaskFilters = 'Today' | 'All' | 'Scheduled' | 'Completed';
+
+export type TaskQueryFilters = {
+  filterType: TaskFilters;
+};

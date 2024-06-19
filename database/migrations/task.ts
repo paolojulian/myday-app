@@ -16,6 +16,7 @@ export const taskMigrations = [
             title TEXT NOT NULL,
             description TEXT,
             category_id INTEGER,
+            is_completed INTEGER,
             to_buy INTEGER,
             expected_amount REAL,
             reminder_date INTEGER,

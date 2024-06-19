@@ -6,7 +6,7 @@ import { useSQLiteContext } from 'expo-sqlite';
 
 export type SupportedCreateTaskFields = Pick<
   Task,
-  'title' | 'description' | 'reminder_date' | 'to_buy' | 'expected_amount'
+  'title' | 'description' | 'is_completed' | 'reminder_date' | 'to_buy' | 'expected_amount'
 >;
 
 export const useCreateTask = () => {

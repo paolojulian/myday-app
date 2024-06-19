@@ -16,6 +16,7 @@ export function convertTaskFormToTask(taskForm: TaskFormValues): SupportedCreate
   return {
     title: taskForm.title,
     description: taskForm.description ?? '',
+    is_completed: 0,
     to_buy: taskForm.toBuy ? 1 : 0,
     expected_amount: taskForm.amount ? parseFloat(taskForm.amount) : null,
     reminder_date: taskForm.reminderDate ? convertDateToEpoch(taskForm.reminderDate) : null,

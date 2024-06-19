@@ -1,20 +1,53 @@
-import { useSQLiteContext } from 'expo-sqlite';
-import useQuery from '../useQuery';
-import { filtersToString } from '@/hooks/utils';
-import { Filter } from '@/hooks/services/filter.types';
-import { Expense } from '@/hooks/services/expense/expense.types';
+import { Task, TaskQueryFilters, TaskQueryKeys } from '@/hooks/services/task/task.types';
+import { convertDateToEpoch } from '@/utils/date/date.utils';
+import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
+import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
 
-const useTask = (filters: Filter[]) => {
+const useTask = (filters: TaskQueryFilters) => {
   const db = useSQLiteContext();
-  const { data, isLoading, error } = useQuery(setup);
 
   async function setup() {
-    const { whereString, values } = filtersToString(filters);
-    const result = await db.getAllAsync<Expense>('SELECT * FROM task ' + whereString, values);
+    const query = buildQuery(filters);
+    const variables = buildVariables(filters);
+    const result = await db.getAllAsync<Task>(query, variables);
     return result;
   }
 
-  return { data, isLoading, error };
+  return useQuery({
+    queryKey: [TaskQueryKeys.list, filters.filterType],
+    queryFn: setup,
+  });
 };
+
+function buildQuery(filters: TaskQueryFilters) {
+  switch (filters.filterType) {
+    case 'Today':
+      return `
+        SELECT * FROM task 
+        WHERE task.reminder_date BETWEEN $start AND $end
+        ORDER BY reminder_date ASC
+      `;
+    case 'All':
+      return 'SELECT * FROM task ORDER BY reminder_date ASC';
+    case 'Scheduled':
+      return 'SELECT * FROM task WHERE reminder_date IS NOT NULL ORDER BY reminder_date ASC';
+    case 'Completed':
+      return 'SELECT * FROM task WHERE is_completed = 1 ORDER BY reminder_date ASC';
+    default:
+      throw new Error(`Invalid filter type: ${filters.filterType}`);
+  }
+}
+
+function buildVariables(filters: TaskQueryFilters): SQLiteBindParams {
+  if (filters.filterType === 'Today') {
+    return {
+      $start: convertDateToEpoch(dayjs().startOf('day').toDate()),
+      $end: convertDateToEpoch(dayjs().endOf('day').toDate()),
+    };
+  }
+
+  return {};
+}
 
 export default useTask;
