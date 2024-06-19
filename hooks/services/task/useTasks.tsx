@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
 
-const useTask = (filters: TaskQueryFilters) => {
+const useTasks = (filters: TaskQueryFilters) => {
   const db = useSQLiteContext();
 
   async function setup() {
@@ -50,4 +50,4 @@ function buildVariables(filters: TaskQueryFilters): SQLiteBindParams {
   return {};
 }
 
-export default useTask;
+export default useTasks;

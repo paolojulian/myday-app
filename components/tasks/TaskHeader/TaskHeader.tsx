@@ -3,26 +3,16 @@ import { HEADER_HEIGHT } from '@/components/common/ParallaxScrollView';
 import Tabs from '@/components/common/Tabs';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
+import { TaskFilters } from '@/hooks/services/task/task.types';
 
-export enum TodoFilters {
-  today = 'Today',
-  scheduled = 'Scheduled',
-  all = 'All',
-  completed = 'Completed',
-}
-export const TODO_FILTERS: TodoFilters[] = [
-  TodoFilters.today,
-  TodoFilters.all,
-  TodoFilters.scheduled,
-  TodoFilters.completed,
-];
+export const TASK_FILTERS: TaskFilters[] = ['Today', 'All', 'Scheduled', 'Completed'];
 
 type TodoHeaderProps = {
-  onSelectFilter: (filter: TodoFilters) => void;
-  selectedItem: TodoFilters;
+  onSelectFilter: (filter: TaskFilters) => void;
+  selectedItem: TaskFilters;
 };
 
-export default function TodoHeader({ onSelectFilter, selectedItem }: TodoHeaderProps) {
+export default function TaskHeader({ onSelectFilter, selectedItem }: TodoHeaderProps) {
   return (
     <Container
       style={{
@@ -36,8 +26,8 @@ export default function TodoHeader({ onSelectFilter, selectedItem }: TodoHeaderP
         Todo list
       </ThemedText>
 
-      <Tabs<TodoFilters>
-        items={TODO_FILTERS}
+      <Tabs<TaskFilters>
+        items={TASK_FILTERS}
         onSelect={onSelectFilter}
         selectedItem={selectedItem}
         variant="inverted"

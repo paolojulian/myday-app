@@ -6,20 +6,25 @@ import { TouchableOpacity } from 'react-native';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
+import dayjs from 'dayjs';
 
 export type TodoItemProps = {
-  onRemove: (id: string) => void;
-  id: string;
+  onRemove: (id: number) => void;
+  id: number;
   name: string;
   notes: string;
-  dueDate?: string;
+  reminderDate?: number | null;
 };
 
 const TIME_BEFORE_REMOVED_MS = 3000;
 
-export default function TodoItem({ onRemove, id, name, dueDate }: TodoItemProps) {
+export default function TaskItem({ onRemove, id, name, reminderDate }: TodoItemProps) {
   const [isChecked, setChecked] = useState(false);
   const isBeingRemovedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const formattedReminderDate = reminderDate
+    ? dayjs.unix(reminderDate).format('MMM D, YYYY')
+    : null;
 
   const prepareForRemoval = () => {
     cancelRemoval();
@@ -92,13 +97,13 @@ export default function TodoItem({ onRemove, id, name, dueDate }: TodoItemProps)
           >
             {name}
           </ThemedText>
-          {!!dueDate && (
+          {!!formattedReminderDate && (
             <ThemedText
               style={{
                 color: isChecked ? colors.grey : colors.darkGrey,
               }}
             >
-              {dueDate}
+              {formattedReminderDate}
             </ThemedText>
           )}
         </Stack>

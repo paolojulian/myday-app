@@ -1,5 +1,4 @@
-import { ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
-import { Task } from '@/hooks/services/task/task.types';
+import { Task, TaskQueryKeys } from '@/hooks/services/task/task.types';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
@@ -33,7 +32,7 @@ export const useCreateTask = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          return query.queryKey[0] === ExpenseQueryKeys.list;
+          return query.queryKey[0] === TaskQueryKeys.list;
         },
       });
 
@@ -45,6 +44,6 @@ export const useCreateTask = () => {
 };
 
 const ADD_TASK_STATEMENT = `
-  INSERT INTO Task (title, description, reminder_date, to_buy, expected_amount, created_at, updated_at)
+  INSERT INTO task (title, description, reminder_date, to_buy, expected_amount, created_at, updated_at)
   VALUES ($title, $description, $reminder_date, $to_buy, $expected_amount, $created_at, $updated_at)
 `;

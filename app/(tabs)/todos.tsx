@@ -1,5 +1,5 @@
-import TodoWorkArea from '@/components/todos/TodoWorkArea';
+import TaskWorkArea from '@/components/tasks/TaskWorkArea';
 
 export default function TodoScreen() {
-  return <TodoWorkArea />;
+  return <TaskWorkArea />;
 }
