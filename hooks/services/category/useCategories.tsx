@@ -2,7 +2,7 @@ import { Category, CategoryQueryKeys } from '@/hooks/services/category/category.
 import { useQuery } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
 
-const useCategory = () => {
+const useCategories = () => {
   const db = useSQLiteContext();
 
   async function setup() {
@@ -16,4 +16,4 @@ const useCategory = () => {
   });
 };
 
-export default useCategory;
+export default useCategories;

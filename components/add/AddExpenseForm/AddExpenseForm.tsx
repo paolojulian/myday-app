@@ -12,7 +12,7 @@ import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
-import useCategory from '@/hooks/services/category/useCategory';
+import useCategories from '@/hooks/services/category/useCategories';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
@@ -31,7 +31,7 @@ function AddExpenseForm() {
   const [error, setError] = React.useState<string | null>(null);
   const { mutate: createExpenseMutate } = useCreateExpense();
   const getOrCreateCategory = useGetOrCreateCategory();
-  const { data: categories } = useCategory();
+  const { data: categories } = useCategories();
 
   const focusAmount = () => {
     amountRef.current?.focus();
