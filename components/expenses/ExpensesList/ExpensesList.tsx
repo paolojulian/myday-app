@@ -1,16 +1,15 @@
 import Container from '@/components/common/Container';
-import { Expense, ExpenseFilterEnum } from '@/hooks/services/expense/expense.types';
+import { Expense } from '@/hooks/services/expense/expense.types';
 import useExpense from '@/hooks/services/expense/useExpense';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
 
 type ExpenseListProps = {
-  filterType: ExpenseFilterEnum;
   transactionDate: Date;
 };
 
-export default function ExpensesList({ filterType, transactionDate }: ExpenseListProps) {
+export default function ExpensesList({ transactionDate }: ExpenseListProps) {
   const { data: expenses, isLoading } = useExpense({
-    filterType,
+    filterType: 'monthly',
     transactionDate,
   });
 

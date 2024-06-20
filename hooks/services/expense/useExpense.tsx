@@ -1,72 +1,68 @@
 import {
-  ExpenseFilterEnum,
   ExpenseQueryFilters,
   ExpenseQueryKeys,
   ExpenseWithCategoryName,
 } from '@/hooks/services/expense/expense.types';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { SQLiteDatabase, useSQLiteContext } from 'expo-sqlite';
+import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
 import { useCallback } from 'react';
 
-const useExpense = (filters?: ExpenseQueryFilters) => {
+const useExpense = (filter: ExpenseQueryFilters) => {
   const db = useSQLiteContext();
 
   const setup = useCallback(async () => {
-    return fetchExpense(db, filters);
-  }, [db, filters]);
+    if (!filter) {
+      throw new Error('Invalid filters provided');
+    }
+    const query = buildQuery(filter);
+    const variables = buildVariables(filter);
+
+    return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
+  }, [db, filter]);
 
   return useQuery({
-    queryKey: [ExpenseQueryKeys.list, filters?.filterType, filters?.transactionDate],
+    queryKey: [ExpenseQueryKeys.list, filter],
     queryFn: setup,
   });
 };
 
-async function fetchExpense(
-  db: SQLiteDatabase,
-  filters?: ExpenseQueryFilters,
-): Promise<ExpenseWithCategoryName[]> {
-  if (!filters) {
-    return await db.getAllAsync<ExpenseWithCategoryName>(BASE_GET_EXPENSES_STATEMENT);
+function buildQuery(filter: ExpenseQueryFilters) {
+  switch (filter.filterType) {
+    case 'monthly':
+      return /* sql */ `
+        SELECT * FROM expense
+        WHERE transaction_date BETWEEN $start AND $end
+        ORDER BY expense.transaction_date DESC
+      `;
+    case 'category':
+      return /* sql */ `
+        SELECT * FROM expense
+        WHERE category_id = $categoryId
+          AND transaction_date BETWEEN $start AND $end
+        ORDER BY expense.transaction_date DESC
+      `;
+    default:
+      throw new Error(`Invalid filter type: ${(filter as any).filterType}`);
   }
-
-  const { filterType, transactionDate } = filters;
-
-  const filterFunctions: Record<ExpenseFilterEnum, () => { $start: string; $end: string }> = {
-    [ExpenseFilterEnum.daily]: () => ({
-      $start: dayjs(transactionDate).startOf('day').unix().toString(),
-      $end: dayjs(transactionDate).endOf('day').unix().toString(),
-    }),
-    [ExpenseFilterEnum.monthly]: () => ({
-      $start: dayjs(transactionDate).startOf('month').unix().toString(),
-      $end: dayjs(transactionDate).endOf('month').unix().toString(),
-    }),
-    [ExpenseFilterEnum.yearly]: () => ({
-      $start: dayjs(transactionDate).startOf('year').unix().toString(),
-      $end: dayjs(transactionDate).endOf('year').unix().toString(),
-    }),
-  };
-  if (!filterFunctions[filterType]) {
-    throw new Error(`Invalid filter type: ${filterType}`);
-  }
-
-  return await db.getAllAsync<ExpenseWithCategoryName>(
-    GET_FILTERED_EXPENSES_STATEMENT,
-    filterFunctions[filterType](),
-  );
 }
 
-const BASE_GET_EXPENSES_STATEMENT = `
-  SELECT expense.*, category.category_name as category_name FROM expense
-  LEFT JOIN category ON expense.category_id = category.id
-  ORDER BY expense.transaction_date DESC
-`;
-
-const GET_FILTERED_EXPENSES_STATEMENT = `
-  SELECT expense.*, category.category_name as category_name FROM expense
-  LEFT JOIN category ON expense.category_id = category.id
-  WHERE expense.transaction_date BETWEEN $start AND $end
-  ORDER BY expense.transaction_date DESC
-`;
+function buildVariables(filter: ExpenseQueryFilters): SQLiteBindParams {
+  switch (filter.filterType) {
+    case 'monthly':
+      return {
+        $start: dayjs(filter.transactionDate).startOf('month').unix().toString(),
+        $end: dayjs(filter.transactionDate).endOf('month').unix().toString(),
+      };
+    case 'category':
+      return {
+        $categoryId: filter.categoryId,
+        $start: dayjs(filter.transactionDate).startOf('month').unix().toString(),
+        $end: dayjs(filter.transactionDate).endOf('month').unix().toString(),
+      };
+    default:
+      throw new Error(`Invalid filter type: ${(filter as any).filterType}`);
+  }
+}
 
 export default useExpense;
