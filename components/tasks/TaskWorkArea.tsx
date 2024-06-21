@@ -7,7 +7,7 @@ import { TaskFilters } from '@/hooks/services/task/task.types';
 import { useState } from 'react';
 
 export default function TaskWorkArea() {
-  const [selectedFilter, setSelectedFilter] = useState<TaskFilters>('Today');
+  const [selectedFilter, setSelectedFilter] = useState<TaskFilters>('All');
 
   return (
     <ParallaxScrollView headerBackgroundColor={colors.black}>

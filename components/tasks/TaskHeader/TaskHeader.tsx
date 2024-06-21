@@ -8,12 +8,12 @@ import { TaskFilters } from '@/hooks/services/task/task.types';
 
 export const TASK_FILTERS: TabItem<TaskFilters>[] = [
   {
-    key: 'Today',
-    value: 'Today',
-  },
-  {
     key: 'All',
     value: 'All',
+  },
+  {
+    key: 'Today',
+    value: 'Today',
   },
   {
     key: 'Scheduled',
