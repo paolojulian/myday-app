@@ -1,20 +1,25 @@
 import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
 import { Category } from '@/hooks/services/category/category.types';
-import useCategories from '@/hooks/services/category/useCategories';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 
 type ExpensesListCategoriesProps = {
   onSelectCategory: (category: Category['id'] | null) => void;
+  categories: {
+    category_id: Category['id'];
+    category_name: Category['category_name'];
+  }[];
 };
 
-export default function ExpensesListCategories({ onSelectCategory }: ExpensesListCategoriesProps) {
+export default function ExpensesListCategories({
+  onSelectCategory,
+  categories,
+}: ExpensesListCategoriesProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category['id'] | null>(null);
-  const { data: categories } = useCategories();
   const categoryItems =
-    categories?.map(({ id, category_name }) => ({
-      key: id,
+    categories?.map(({ category_id, category_name }) => ({
+      key: category_id,
       value: category_name,
     })) ?? [];
 

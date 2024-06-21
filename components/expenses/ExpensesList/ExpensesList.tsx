@@ -5,6 +5,7 @@ import ExpenseItem from './ExpensesListItem/ExpenseItem';
 import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
 import { useState } from 'react';
 import { Category } from '@/hooks/services/category/category.types';
+import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
 
 type ExpenseListProps = {
   transactionDate: Date;
@@ -27,6 +28,7 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
   const filteredExpenses = selectedCategory
     ? expenses?.filter(item => item.category_id === selectedCategory)
     : expenses;
+  const categories = getCategoriesFromExpenses(expenses);
 
   const handleDeleteItem = (id: Expense['id']) => {
     // TODO: add delete function
@@ -35,7 +37,7 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
 
   return (
     <>
-      <ExpensesListCategories onSelectCategory={setSelectedCategory} />
+      <ExpensesListCategories onSelectCategory={setSelectedCategory} categories={categories} />
       <Container style={{ gap: 8, paddingBottom: 16 }}>
         {filteredExpenses?.map(item => (
           <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />

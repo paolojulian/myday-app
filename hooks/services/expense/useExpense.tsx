@@ -31,14 +31,14 @@ function buildQuery(filter: ExpenseQueryFilters) {
   switch (filter.filterType) {
     case 'monthly':
       return /* sql */ `
-        SELECT expense.*, category.category_name as category_name FROM expense
+        SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
         LEFT JOIN category ON expense.category_id = category.id
         WHERE transaction_date BETWEEN $start AND $end
         ORDER BY expense.transaction_date DESC
       `;
     case 'category':
       return /* sql */ `
-        SELECT expense.*, category.category_name as category_name FROM expense
+        SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
         LEFT JOIN category ON expense.category_id = category.id
         WHERE category_id = $categoryId
           AND transaction_date BETWEEN $start AND $end
