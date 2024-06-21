@@ -1,11 +1,16 @@
 import Container from '@/components/common/Container';
-import { Expense } from '@/hooks/services/expense/expense.types';
-import useExpense from '@/hooks/services/expense/useExpense';
-import ExpenseItem from './ExpensesListItem/ExpenseItem';
-import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
-import { useState } from 'react';
-import { Category } from '@/hooks/services/category/category.types';
+import ThemedText from '@/components/common/ThemedText';
+import ThemedView from '@/components/common/ThemedView';
+import BudgetCard from '@/components/expenses/BudgetCard';
 import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
+import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
+import { colors } from '@/constants/Colors';
+import { Category } from '@/hooks/services/category/category.types';
+import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import useExpense from '@/hooks/services/expense/useExpense';
+import { useState } from 'react';
+import { FlatList } from 'react-native';
+import ExpenseItem from './ExpensesListItem/ExpenseItem';
 
 type ExpenseListProps = {
   transactionDate: Date;
@@ -36,13 +41,51 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
   };
 
   return (
-    <>
-      <ExpensesListCategories onSelectCategory={setSelectedCategory} categories={categories} />
-      <Container style={{ gap: 8, paddingBottom: 16 }}>
-        {filteredExpenses?.map(item => (
-          <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
-        ))}
-      </Container>
-    </>
+    <FlatList
+      data={[{ isFilters: true }, ...(filteredExpenses ?? [])]}
+      renderItem={({ item }) => {
+        if (isFilterItem(item)) {
+          return (
+            <ThemedView style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
+              <ExpensesListCategories
+                onSelectCategory={setSelectedCategory}
+                categories={categories}
+              />
+            </ThemedView>
+          );
+        }
+
+        if (!isExpenseWithCategoryName(item)) {
+          return null;
+        }
+
+        return (
+          <Container>
+            <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
+          </Container>
+        );
+      }}
+      ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
+      ListHeaderComponent={() => (
+        <ThemedView style={{ backgroundColor: colors.black, gap: 24, paddingVertical: 24 }}>
+          <Container style={{ gap: 24 }}>
+            <ThemedText variant="heading" style={{ color: colors.white }}>
+              Monthly Expenses
+            </ThemedText>
+            <BudgetCard />
+          </Container>
+        </ThemedView>
+      )}
+      ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
+      stickyHeaderIndices={[1]}
+    />
   );
+}
+
+function isFilterItem(item?: any): item is { isFilters: true } {
+  return item?.isFilters;
+}
+
+function isExpenseWithCategoryName(item?: any): item is ExpenseWithCategoryName {
+  return (item as ExpenseWithCategoryName)?.category_name !== undefined;
 }

@@ -1,17 +1,15 @@
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
+import { BudgetModalManager } from '@/components/expenses/BudgetCard/BudgetModal';
 import { colors } from '@/constants/Colors';
-import { ModalTypes, useModalContext } from '@/providers/ModalProvider';
 import { selectionAsync } from 'expo-haptics';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 function BudgetCard() {
-  const { handleOpenModal } = useModalContext();
-
   const handlePress = () => {
     selectionAsync();
-    handleOpenModal(ModalTypes.updateBudgetModal);
+    BudgetModalManager.show();
   };
 
   return (
