@@ -164,7 +164,7 @@ function DatePicker({
                     onPress={onSelectDate}
                     key={date.toString()}
                     value={date}
-                    isActive={isDayActive(date)}
+                    isActive={value ? isDayActive(date) : false}
                     isToday={isToday(date)}
                     isCurrentMonth={isCurrentMonth}
                   />
