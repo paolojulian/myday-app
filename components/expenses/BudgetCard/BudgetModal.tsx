@@ -2,23 +2,53 @@ import BottomSheetModal from '@/components/common/BottomSheetModal';
 import Button from '@/components/common/Button';
 import TextField from '@/components/common/forms/TextField';
 import ThemedView from '@/components/common/ThemedView';
-import { ModalTypes, useModalContext } from '@/providers/ModalProvider';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
+
+const budgetModalManager = new EventEmitter();
+
+enum BudgetModalEvent {
+  SHOW = 'show',
+  HIDE = 'hide',
+}
+
+function show() {
+  budgetModalManager.emit(BudgetModalEvent.SHOW);
+}
+function hide() {
+  budgetModalManager.emit(BudgetModalEvent.HIDE);
+}
+
+export const BudgetModalManager = {
+  show,
+  hide,
+};
 
 function BudgetModal() {
-  const { modalsState, handleCloseModal } = useModalContext();
-  const isOpen = !!modalsState.updateBudgetModal;
+  const [isOpen, setIsOpen] = useState(false);
   const currentMonthlyBudget = null;
   const saveButtonText = currentMonthlyBudget ? 'Update' : 'Save';
 
   const handleSavePressed = () => {};
-  const handleClose = () => {
-    handleCloseModal(ModalTypes.updateBudgetModal);
+  const handleHide = () => {
+    setIsOpen(false);
   };
+  const handleShow = () => {
+    setIsOpen(true);
+  };
+
+  useEffect(() => {
+    budgetModalManager.addListener(BudgetModalEvent.SHOW, handleShow);
+    budgetModalManager.addListener(BudgetModalEvent.SHOW, handleHide);
+    return () => {
+      budgetModalManager.removeAllListeners(BudgetModalEvent.SHOW);
+      budgetModalManager.removeAllListeners(BudgetModalEvent.HIDE);
+    };
+  }, []);
 
   return (
     <>
-      <BottomSheetModal onClose={handleClose} isOpen={isOpen}>
+      <BottomSheetModal onClose={handleHide} isOpen={isOpen}>
         <ThemedView style={{ gap: 16, paddingVertical: 16 }}>
           <TextField
             autoFocus
