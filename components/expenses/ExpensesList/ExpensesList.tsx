@@ -1,17 +1,23 @@
 import Container from '@/components/common/Container';
-import { Expense, ExpenseFilterEnum } from '@/hooks/services/expense/expense.types';
+import { Expense } from '@/hooks/services/expense/expense.types';
 import useExpense from '@/hooks/services/expense/useExpense';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
+import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
+import { useState } from 'react';
+import { Category } from '@/hooks/services/category/category.types';
+import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
 
 type ExpenseListProps = {
-  filterType: ExpenseFilterEnum;
   transactionDate: Date;
 };
 
-export default function ExpensesList({ filterType, transactionDate }: ExpenseListProps) {
+export default function ExpensesList({ transactionDate }: ExpenseListProps) {
+  const [selectedCategory, setSelectedCategory] = useState<Category['id'] | null>(null);
+  // const filterType = selectedCategory === null ? 'monthly' : 'category';
   const { data: expenses, isLoading } = useExpense({
-    filterType,
+    filterType: 'monthly',
     transactionDate,
+    // categoryId: filterType === 'monthly' ? undefined : selectedCategory,
   });
 
   if (isLoading) {
@@ -19,16 +25,24 @@ export default function ExpensesList({ filterType, transactionDate }: ExpenseLis
     return null;
   }
 
+  const filteredExpenses = selectedCategory
+    ? expenses?.filter(item => item.category_id === selectedCategory)
+    : expenses;
+  const categories = getCategoriesFromExpenses(expenses);
+
   const handleDeleteItem = (id: Expense['id']) => {
     // TODO: add delete function
     console.log('Deleting item with id: ', id);
   };
 
   return (
-    <Container style={{ gap: 8, paddingBottom: 16 }}>
-      {expenses?.map(item => (
-        <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
-      ))}
-    </Container>
+    <>
+      <ExpensesListCategories onSelectCategory={setSelectedCategory} categories={categories} />
+      <Container style={{ gap: 8, paddingBottom: 16 }}>
+        {filteredExpenses?.map(item => (
+          <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
+        ))}
+      </Container>
+    </>
   );
 }

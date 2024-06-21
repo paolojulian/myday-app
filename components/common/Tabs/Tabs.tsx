@@ -1,36 +1,36 @@
-import TabsItem from '@/components/common/Tabs/TabsItem';
+import TabsItem, { TabItem } from '@/components/common/Tabs/TabsItem';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { StyleSheet } from 'react-native';
 
-export type TabsVariant = 'default' | 'inverted';
+export type TabsVariant = 'default' | 'inverted' | 'default-separated';
 
-type TabsProps<T> = {
+type TabsProps<T extends string | number> = {
   onSelect: (item: T) => void;
   selectedItem: T;
-  items: T[];
+  items: TabItem<T>[];
   variant?: TabsVariant;
   isCompact?: boolean;
 };
 
-export default function Tabs<T extends string>({
+export default function Tabs<T extends string | number>({
   onSelect,
   selectedItem,
   items,
   variant = 'default',
   isCompact = false,
 }: TabsProps<T>) {
-  const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
+  const resolvedStyles = getResolvedStyles(variant);
 
   return (
     <ThemedView
       style={[styles.container, resolvedStyles.container, { ...(isCompact ? styles.compact : {}) }]}
     >
       {items.map(item => (
-        <TabsItem
-          key={item}
+        <TabsItem<T>
+          key={item.key}
           onSelect={onSelect}
-          isSelected={selectedItem === item}
+          isSelected={selectedItem === item.key}
           isCompact={isCompact}
           item={item}
           variant={variant}
@@ -39,6 +39,18 @@ export default function Tabs<T extends string>({
     </ThemedView>
   );
 }
+
+const getResolvedStyles = (variant: TabsVariant) => {
+  const variantMap: Record<TabsVariant, any> = {
+    default: defaultStyles,
+    inverted: invertedStyles,
+    'default-separated': defaultSeparatedStyles,
+  };
+
+  if (!variantMap[variant]) throw new Error(`Invalid variant: ${variant}`);
+
+  return variantMap[variant];
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -60,5 +72,11 @@ const defaultStyles = StyleSheet.create({
 const invertedStyles = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
+  },
+});
+
+const defaultSeparatedStyles = StyleSheet.create({
+  container: {
+    backgroundColor: 'transparent',
   },
 });

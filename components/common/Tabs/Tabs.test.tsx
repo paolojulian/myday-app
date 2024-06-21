@@ -1,9 +1,23 @@
 import Tabs from '@/components/common/Tabs/Tabs';
-import { TABS_ITEM_TEST_IDS } from '@/components/common/Tabs/TabsItem';
+import { TabItem, TABS_ITEM_TEST_IDS } from '@/components/common/Tabs/TabsItem';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
 describe('TESTING Tabs', () => {
-  const items: string[] = ['item1', 'item2', 'item3'];
+  const items: TabItem<string>[] = [
+    {
+      key: 'item1',
+      value: 'item1',
+    },
+    {
+      key: 'item2',
+      value: 'item2',
+    },
+    {
+      key: 'item3',
+      value: 'item3',
+    },
+  ];
+
   describe('WHEN rendering', () => {
     it('should match snapshot', () => {
       const component = render(

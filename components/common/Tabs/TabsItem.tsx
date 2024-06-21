@@ -10,57 +10,79 @@ export const TABS_ITEM_TEST_IDS = {
   text: (id: string) => `tabs-item-text-${id}`,
 };
 
-type TabsItemProps<T> = {
-  item: T;
-  onSelect: (item: T) => void;
+export type TabItem<T extends string | number> = {
+  key: T;
+  value: string;
+};
+
+type TabsItemProps<T extends string | number> = {
+  item: TabItem<T>;
+  onSelect: (key: T) => void;
   isSelected: boolean;
   isCompact: boolean;
   variant: TabsVariant;
 };
 
-function TabsItem<T extends string>({
+function TabsItem<T extends string | number>({
   onSelect,
   isCompact,
   isSelected,
   item,
   variant,
 }: TabsItemProps<T>) {
-  const handlePress = () => onSelect(item);
-  const resolvedStyles = variant === 'default' ? defaultStyles : invertedStyles;
+  const handlePress = () => onSelect(item.key);
+  const resolvedStyles = getResolvedStyles(variant);
 
   return (
     <TouchableWithoutFeedback
-      testID={TABS_ITEM_TEST_IDS.containerBtn(item, isSelected)}
+      testID={TABS_ITEM_TEST_IDS.containerBtn(item.value, isSelected)}
       onPress={handlePress}
     >
       <ThemedView
         style={[
           styles.container,
+          resolvedStyles.container,
           {
-            ...(isSelected && resolvedStyles.container),
+            ...(isSelected && resolvedStyles.containerSelected),
             ...(isCompact ? compactStyles.container : nonCompactStyles.container),
           },
         ]}
       >
         <ThemedText
           style={{
+            ...styles.text,
             ...resolvedStyles.text,
             ...(isSelected && resolvedStyles.textActive),
           }}
-          testID={TABS_ITEM_TEST_IDS.text(item)}
+          testID={TABS_ITEM_TEST_IDS.text(item.value)}
         >
-          {item}
+          {item.value}
         </ThemedText>
       </ThemedView>
     </TouchableWithoutFeedback>
   );
 }
 
+const getResolvedStyles = (variant: TabsVariant) => {
+  const variantMap = {
+    default: defaultStyles,
+    inverted: invertedStyles,
+    'default-separated': defaultSeparatedStyles,
+  } satisfies Record<TabsVariant, any>;
+
+  if (!variantMap[variant]) throw new Error(`Invalid variant: ${variant}`);
+
+  return variantMap[variant];
+};
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
+  },
+  text: {
+    textTransform: 'capitalize',
   },
 });
 
@@ -80,6 +102,9 @@ const nonCompactStyles = StyleSheet.create({
 
 const defaultStyles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
+  },
+  containerSelected: {
     backgroundColor: colors.black,
   },
   text: {
@@ -92,6 +117,9 @@ const defaultStyles = StyleSheet.create({
 
 const invertedStyles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
+  },
+  containerSelected: {
     backgroundColor: colors.white,
   },
   text: {
@@ -99,6 +127,21 @@ const invertedStyles = StyleSheet.create({
   },
   textActive: {
     color: colors.black,
+  },
+});
+
+const defaultSeparatedStyles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.whiteSmoke,
+  },
+  containerSelected: {
+    backgroundColor: colors.black,
+  },
+  text: {
+    color: colors.black,
+  },
+  textActive: {
+    color: colors.white,
   },
 });
 

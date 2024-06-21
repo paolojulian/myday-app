@@ -1,3 +1,5 @@
+import { Category } from '@/hooks/services/category/category.types';
+
 export interface Expense {
   id: number;
   title: string;
@@ -10,19 +12,22 @@ export interface Expense {
   deleted_at: number | null;
 }
 
-export type ExpenseWithCategoryName = Expense & { category_name: string };
+export type ExpenseWithCategoryName = Expense & {
+  category_id: Category['id'];
+  category_name: string;
+};
 
 export enum ExpenseQueryKeys {
   list = 'expenses-list',
 }
 
-export enum ExpenseFilterEnum {
-  daily = 'Daily',
-  monthly = 'Monthly',
-  yearly = 'Yearly',
-}
-
-export type ExpenseQueryFilters = {
-  transactionDate: Date;
-  filterType: ExpenseFilterEnum;
-};
+export type ExpenseQueryFilters =
+  | {
+      transactionDate: Date;
+      filterType: 'monthly';
+    }
+  | {
+      transactionDate: Date;
+      categoryId: Category['id'];
+      filterType: 'category';
+    };
