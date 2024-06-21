@@ -2,6 +2,7 @@ import AddFactory from '@/components/add/AddFactory';
 import { isSupportedAddType } from '@/components/add/utils';
 import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
+import { TabItem } from '@/components/common/Tabs/TabsItem';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,6 +11,21 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet } from 'react-native';
 
 export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
+
+const ADD_TAB_ITEMS: TabItem<SupportedAddItems>[] = [
+  {
+    key: 'Expense',
+    value: 'Expense',
+  },
+  {
+    key: 'Todo',
+    value: 'Todo',
+  },
+  {
+    key: 'Journal',
+    value: 'Journal',
+  },
+];
 
 export default function AddScreen() {
   const { defaultType } = useLocalSearchParams<{ defaultType?: string }>();
@@ -43,7 +59,7 @@ export default function AddScreen() {
               <Tabs<SupportedAddItems>
                 onSelect={setSelectedItem}
                 selectedItem={selectedItem}
-                items={['Expense', 'Todo', 'Journal']}
+                items={ADD_TAB_ITEMS}
               />
             </Container>
 
