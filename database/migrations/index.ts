@@ -3,6 +3,7 @@ import { expenseMigrations } from './expense';
 import { categoryMigrations } from '@/database/migrations/category';
 import { journalMigrations } from '@/database/migrations/journal';
 import { taskMigrations } from '@/database/migrations/task';
+import { budgetMigrations } from './budget';
 
 export const migrations: Migration[] = [
   {
@@ -12,6 +13,7 @@ export const migrations: Migration[] = [
       ...categoryMigrations[0].queries,
       ...journalMigrations[0].queries,
       ...taskMigrations[0].queries,
+      ...budgetMigrations[0].queries,
     ],
   },
 ];
