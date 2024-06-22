@@ -1,12 +1,10 @@
 import Container from '@/components/common/Container';
-import { HEADER_HEIGHT } from '@/components/common/ParallaxScrollView';
-import Tabs from '@/components/common/Tabs';
 import { TabItem } from '@/components/common/Tabs/TabsItem';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
-import { TaskFilters } from '@/hooks/services/task/task.types';
+import { TaskFilterTypes } from '@/hooks/services/task/task.types';
 
-export const TASK_FILTERS: TabItem<TaskFilters>[] = [
+export const TASK_FILTERS: TabItem<TaskFilterTypes>[] = [
   {
     key: 'All',
     value: 'All',
@@ -25,32 +23,12 @@ export const TASK_FILTERS: TabItem<TaskFilters>[] = [
   },
 ];
 
-type TodoHeaderProps = {
-  onSelectFilter: (filter: TaskFilters) => void;
-  selectedItem: TaskFilters;
-};
-
-export default function TaskHeader({ onSelectFilter, selectedItem }: TodoHeaderProps) {
+export default function TaskHeader() {
   return (
-    <Container
-      style={{
-        flexDirection: 'column',
-        backgroundColor: colors.black,
-        gap: 24,
-        height: HEADER_HEIGHT / 2,
-      }}
-    >
+    <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
       <ThemedText variant="heading" style={{ color: colors.white }}>
         Todo list
       </ThemedText>
-
-      <Tabs<TaskFilters>
-        items={TASK_FILTERS}
-        onSelect={onSelectFilter}
-        selectedItem={selectedItem}
-        variant="inverted"
-        isCompact
-      />
     </Container>
   );
 }

@@ -18,8 +18,8 @@ export enum TaskQueryKeys {
   list = 'task-list',
 }
 
-export type TaskFilters = 'Today' | 'All' | 'Scheduled' | 'Completed';
+export type TaskFilterTypes = 'Today' | 'All' | 'Scheduled' | 'Completed';
 
 export type TaskQueryFilters = {
-  filterType: TaskFilters;
+  filterType: TaskFilterTypes;
 };

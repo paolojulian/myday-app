@@ -67,14 +67,12 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
       }}
       ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
       ListHeaderComponent={() => (
-        <ThemedView style={{ backgroundColor: colors.black, gap: 24, paddingVertical: 24 }}>
-          <Container style={{ gap: 24 }}>
-            <ThemedText variant="heading" style={{ color: colors.white }}>
-              Monthly Expenses
-            </ThemedText>
-            <BudgetCard />
-          </Container>
-        </ThemedView>
+        <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
+          <ThemedText variant="heading" style={{ color: colors.white }}>
+            Monthly Expenses
+          </ThemedText>
+          <BudgetCard />
+        </Container>
       )}
       ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
       stickyHeaderIndices={[1]}
