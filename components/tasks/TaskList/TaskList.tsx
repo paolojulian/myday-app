@@ -45,6 +45,7 @@ export default function TaskList() {
       ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
       ListHeaderComponent={<TaskHeader />}
       ListFooterComponent={() => <View style={{ height: 16 }} />}
+      stickyHeaderIndices={[1]}
     />
   );
 }
