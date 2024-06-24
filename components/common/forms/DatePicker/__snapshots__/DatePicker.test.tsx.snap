@@ -79,8 +79,9 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
           style={
             [
               {
-                "fontFamily": "LivvicMedium",
+                "fontFamily": "Open_SansMedium",
                 "fontSize": 16,
+                "fontWeight": 500,
               },
               {
                 "fontWeight": 400,
@@ -97,7 +98,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
           style={
             [
               {
-                "fontFamily": "LivvicRegular",
+                "fontFamily": "Open_SansRegular",
                 "fontSize": 16,
               },
               {

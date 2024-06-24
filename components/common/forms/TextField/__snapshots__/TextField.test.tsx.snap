@@ -24,8 +24,9 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
       style={
         [
           {
-            "fontFamily": "LivvicMedium",
+            "fontFamily": "Open_SansMedium",
             "fontSize": 16,
+            "fontWeight": 500,
           },
           {
             "fontWeight": 400,
@@ -57,7 +58,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
           "paddingTop": 36,
         },
         {
-          "fontFamily": "LivvicRegular",
+          "fontFamily": "Open_SansRegular",
           "fontSize": 16,
         },
         {
@@ -95,8 +96,9 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
       style={
         [
           {
-            "fontFamily": "LivvicMedium",
+            "fontFamily": "Open_SansMedium",
             "fontSize": 16,
+            "fontWeight": 500,
           },
           {
             "fontWeight": 400,
@@ -128,7 +130,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
           "paddingTop": 36,
         },
         {
-          "fontFamily": "LivvicRegular",
+          "fontFamily": "Open_SansRegular",
           "fontSize": 16,
         },
         {
@@ -143,7 +145,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     style={
       [
         {
-          "fontFamily": "LivvicRegular",
+          "fontFamily": "Open_SansRegular",
           "fontSize": 14,
         },
         {
