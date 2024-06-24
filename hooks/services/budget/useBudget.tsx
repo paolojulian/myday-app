@@ -8,7 +8,7 @@ const useBudget = (date: Date = new Date()) => {
 
   const getBudgetByDateMonth = async () => {
     const result = await db.getAllAsync<Budget>(GET_BUDGET_BY_DATE_MONTH_QUERY, {
-      lastDayOfMonth: dayjs(date).endOf('month').unix().toString(),
+      $lastDayOfMonth: dayjs(date).endOf('month').unix().toString(),
     });
     return result;
   };
