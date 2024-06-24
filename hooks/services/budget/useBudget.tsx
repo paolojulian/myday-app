@@ -22,5 +22,5 @@ const useBudget = (date: Date = new Date()) => {
 export default useBudget;
 
 const GET_BUDGET_BY_DATE_MONTH_QUERY = `
-  SELECT * FROM Budget WHERE created_at = $lastDayOfMonth ORDER BY created_at DESC LIMIT 1;
+  SELECT * FROM Budget WHERE created_at <= $lastDayOfMonth ORDER BY created_at DESC LIMIT 1;
 `;
