@@ -58,7 +58,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "LivvicRegular",
+            "fontFamily": "Open_SansRegular",
             "fontSize": 14,
           },
           {
@@ -116,7 +116,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "LivvicRegular",
+            "fontFamily": "Open_SansRegular",
             "fontSize": 14,
           },
           {
@@ -174,7 +174,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "LivvicRegular",
+            "fontFamily": "Open_SansRegular",
             "fontSize": 14,
           },
           {

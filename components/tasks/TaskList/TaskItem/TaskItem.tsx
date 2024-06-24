@@ -8,7 +8,7 @@ import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
 import dayjs from 'dayjs';
 
-export type TodoItemProps = {
+export type TaskItemProps = {
   onRemove: (id: number) => void;
   id: number;
   name: string;
@@ -18,7 +18,7 @@ export type TodoItemProps = {
 
 const TIME_BEFORE_REMOVED_MS = 3000;
 
-export default function TaskItem({ onRemove, id, name, reminderDate }: TodoItemProps) {
+export default function TaskItem({ onRemove, id, name, reminderDate }: TaskItemProps) {
   const [isChecked, setChecked] = useState(false);
   const isBeingRemovedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 

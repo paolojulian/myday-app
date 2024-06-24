@@ -54,8 +54,9 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
       style={
         [
           {
-            "fontFamily": "LivvicMedium",
+            "fontFamily": "Open_SansMedium",
             "fontSize": 16,
+            "fontWeight": 500,
           },
           {
             "fontWeight": 400,
