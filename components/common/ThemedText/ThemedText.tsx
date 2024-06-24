@@ -18,20 +18,21 @@ export const themedTextStyles = StyleSheet.create({
     fontWeight: 400,
   },
   heading: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 600,
-    fontFamily: 'LivvicSemiBold',
+    fontFamily: 'Open_SansSemiBold',
   },
   body: {
     fontSize: 14,
-    fontFamily: 'LivvicRegular',
+    fontFamily: 'Open_SansRegular',
   },
   body1: {
     fontSize: 16,
-    fontFamily: 'LivvicRegular',
+    fontFamily: 'Open_SansRegular',
   },
   body2: {
     fontSize: 16,
-    fontFamily: 'LivvicMedium',
+    fontWeight: 500,
+    fontFamily: 'Open_SansMedium',
   },
 });
