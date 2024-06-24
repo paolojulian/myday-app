@@ -25,9 +25,9 @@ export const TASK_FILTERS: TabItem<TaskFilterTypes>[] = [
 
 export default function TaskHeader() {
   return (
-    <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
-      <ThemedText variant="heading" style={{ color: colors.white }}>
-        Todo list
+    <Container style={{ gap: 24, backgroundColor: colors.white, paddingTop: 24 }}>
+      <ThemedText variant="heading" style={{ color: colors.black }}>
+        Tasks
       </ThemedText>
     </Container>
   );

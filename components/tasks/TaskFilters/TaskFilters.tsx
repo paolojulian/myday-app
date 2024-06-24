@@ -11,12 +11,12 @@ type TaskFilterProps = {
 
 export default function TaskFilters({ onSelectFilter, selectedItem }: TaskFilterProps) {
   return (
-    <Container style={{ backgroundColor: colors.black, paddingVertical: 16 }}>
+    <Container style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
       <Tabs<TaskFilterTypes>
         items={TASK_FILTERS}
         onSelect={onSelectFilter}
         selectedItem={selectedItem}
-        variant="inverted"
+        variant="default-separated"
         isCompact
       />
     </Container>
