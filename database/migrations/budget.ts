@@ -1,0 +1,23 @@
+import { Migration } from '@/database/migrations/migration.types';
+
+export const budgetMigrations = [
+  {
+    version: 1,
+    queries: [
+      {
+        query: /* sql */ `
+          DROP TABLE IF EXISTS budget;
+        `,
+      },
+      {
+        query: /* sql */ `
+          CREATE TABLE budget (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            amount INTEGER NOT NULL,
+            created_at INTEGER
+          );
+        `,
+      },
+    ],
+  },
+] satisfies Migration[];
