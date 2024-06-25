@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
-  'title' | 'transaction_date' | 'amount' | 'description' | 'category_id'
+  'title' | 'transaction_date' | 'amount' | 'description' | 'category_id' | 'recurrence'
 >;
 
 export const useCreateExpense = () => {
@@ -20,6 +20,7 @@ export const useCreateExpense = () => {
       $description: expense.description,
       $category_id: expense.category_id,
       $transaction_date: expense.transaction_date,
+      $recurrence: expense.recurrence,
       $created_at: now_epoch,
       $updated_at: now_epoch,
     });
@@ -44,6 +45,6 @@ export const useCreateExpense = () => {
 };
 
 const ADD_EXPENSE_STATEMENT = `
-  INSERT INTO Expense (title, amount, description, category_id, transaction_date, created_at, updated_at)
-  VALUES ($title, $amount, $description, $category_id, $transaction_date, $created_at, $updated_at)
+  INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, created_at, updated_at)
+  VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $created_at, $updated_at)
 `;
