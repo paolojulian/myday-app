@@ -54,7 +54,7 @@ export class RecurringExpenses {
           $amount: recurringExpense.amount,
           $description: recurringExpense.description,
           $category_id: recurringExpense.category_id,
-          $transaction_date: latestRecurredTransactionDate.add(i, interval).unix(),
+          $transaction_date: dayjs(latestRecurredTransactionDate).add(i, interval).unix(),
           $recurrence_id: recurringExpense.id,
           $created_at: this.now.unix(),
           $updated_at: this.now.unix(),

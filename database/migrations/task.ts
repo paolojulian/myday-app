@@ -1,9 +1,61 @@
 import { Migration } from '@/database/migrations/migration.types';
+import TaskFactory from '@/hooks/services/task/TaskFactory';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import dayjs from 'dayjs';
 
 const today = dayjs();
 const today_unix = convertDateToEpoch(today.toDate());
+
+const tasksWithReccurence = [
+  new TaskFactory({
+    title: 'Task 21',
+    description: 'Description 21',
+    category_id: 1,
+    is_completed: 0,
+    to_buy: 0,
+    expected_amount: 0,
+    reminder_date: today_unix,
+    started_at: null,
+    ended_at: null,
+    created_at: today.subtract(4, 'months').unix(),
+    updated_at: today.subtract(4, 'months').unix(),
+    recurrence_type: 'monthly',
+    recurrence_days: null,
+    recurrence_id: null,
+  }),
+  new TaskFactory({
+    title: 'Task 21',
+    description: 'Description 21',
+    category_id: 1,
+    is_completed: 0,
+    to_buy: 0,
+    expected_amount: 0,
+    reminder_date: today_unix,
+    started_at: null,
+    ended_at: null,
+    created_at: today.subtract(3, 'months').unix(),
+    updated_at: today.subtract(3, 'months').unix(),
+    recurrence_type: null,
+    recurrence_days: null,
+    recurrence_id: 21,
+  }),
+  new TaskFactory({
+    title: 'Task 21',
+    description: 'Description 21',
+    category_id: 1,
+    is_completed: 0,
+    to_buy: 0,
+    expected_amount: 0,
+    reminder_date: today_unix,
+    started_at: null,
+    ended_at: null,
+    created_at: today.subtract(2, 'months').unix(),
+    updated_at: today.subtract(2, 'months').unix(),
+    recurrence_type: null,
+    recurrence_days: null,
+    recurrence_id: 21,
+  }),
+];
 
 export const taskMigrations = [
   {
@@ -25,6 +77,9 @@ export const taskMigrations = [
             to_buy INTEGER,
             expected_amount REAL,
             reminder_date INTEGER,
+            recurrence_type TEXT, -- 'daily', 'weekly', 'monthly', 'yearly', 'custom'
+            recurrence_days TEXT, -- '1,3,5' for Monday, Wednesday, Friday
+            last_completed_date INTEGER, -- For recurring tasks, the last time it was completed.
             started_at INTEGER,
             ended_at INTEGER,
             created_at INTEGER,
@@ -53,7 +108,13 @@ export const taskMigrations = [
             ('Task 17', 'Description 7', 1, 1, 1, 700.0, 1633545600, 1633545600, 1633545600, 1633545600, 1633545600),
             ('Task 18', 'Description 8', 2, 0, 0, 800.0, 1633632000, 1633632000, null, 1633632000, 1633632000),
             ('Task 19', 'Description 9', 1, 1, 1, 900.0, 1633718400, 1633718400, 1633718400, 1633718400, 1633718400),
-            ('Task 110', 'Description 10', 2, 0, 0, 1000.0, 1633804800, 1633804800, null, 1633804800, 1633804800);
+            ('Task 20', 'Description 10', 2, 0, 0, 1000.0, 1633804800, 1633804800, null, 1633804800, 1633804800);
+
+          -- Recurring tasks
+          ${tasksWithReccurence[0].toQuery()}
+          VALUES 
+            ${tasksWithReccurence[0].toInsertValues()};
+            ${tasksWithReccurence[1].toInsertValues()};
         `,
       },
     ],

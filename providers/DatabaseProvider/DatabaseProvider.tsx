@@ -2,7 +2,8 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { migrateDbIfNeeded } from '@/providers/DatabaseProvider/utils/migrateDbIfNeeded.util';
-import { RecurringEvents } from '@/providers/DatabaseProvider/utils/runRecurringEvents.util';
+import { RecurringExpenses } from '@/providers/DatabaseProvider/utils/runRecurringExpenses.util';
+import dayjs from 'dayjs';
 import * as SQLite from 'expo-sqlite';
 import { ReactNode, Suspense } from 'react';
 import { ActivityIndicator } from 'react-native';
@@ -37,5 +38,5 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 
 async function onInit(db: SQLite.SQLiteDatabase) {
   await migrateDbIfNeeded(db);
-  await new RecurringEvents(db).populate();
+  await new RecurringExpenses(db, dayjs()).populate();
 }
