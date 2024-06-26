@@ -2,7 +2,7 @@ import { Expense } from '@/hooks/services/expense/expense.types';
 import dayjs, { type Dayjs } from 'dayjs';
 import { type SQLiteDatabase } from 'expo-sqlite';
 
-export type RecurringExpense = Expense & { latest_recurred_transaction_date: number };
+export type RecurringExpense = Expense & { latest_recurred_transaction_date: number | null };
 
 export class RecurringExpenses {
   db: SQLiteDatabase;
