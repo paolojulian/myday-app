@@ -2,7 +2,7 @@ import { Expense } from '@/hooks/services/expense/expense.types';
 import dayjs, { type Dayjs } from 'dayjs';
 import { type SQLiteDatabase } from 'expo-sqlite';
 
-type RecurringExpense = Expense & { latest_recurred_transaction_date: number };
+export type RecurringExpense = Expense & { latest_recurred_transaction_date: number };
 
 export class RecurringExpenses {
   db: SQLiteDatabase;
@@ -15,7 +15,9 @@ export class RecurringExpenses {
 
   async populate() {
     const recurringExpenses = await this.fetchRecurringExpenses();
-    recurringExpenses.forEach(this.processRecurringExpense);
+    recurringExpenses.forEach(expense => {
+      this.processRecurringExpense(expense);
+    });
   }
 
   private async fetchRecurringExpenses() {
@@ -54,7 +56,10 @@ export class RecurringExpenses {
           $amount: recurringExpense.amount,
           $description: recurringExpense.description,
           $category_id: recurringExpense.category_id,
-          $transaction_date: dayjs(latestRecurredTransactionDate).add(i, interval).unix(),
+          $transaction_date: dayjs(latestRecurredTransactionDate)
+            .startOf('day')
+            .add(i, interval)
+            .unix(),
           $recurrence_id: recurringExpense.id,
           $created_at: this.now.unix(),
           $updated_at: this.now.unix(),
