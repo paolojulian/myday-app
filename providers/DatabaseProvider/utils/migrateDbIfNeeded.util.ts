@@ -3,8 +3,9 @@ import { type SQLiteDatabase } from 'expo-sqlite';
 
 export async function migrateDbIfNeeded(db: SQLiteDatabase) {
   console.log('Migrating database');
-  if (!shouldRunMigration(db)) {
-    console.log('No migrations to run');
+  const shouldMigrate = await shouldRunMigration(db);
+  if (!shouldMigrate) {
+    console.log('Up-to-date');
     return;
   }
 
@@ -25,8 +26,8 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
   }
 
   const currentDbVersion = getCurrentDbVersion();
-  console.log('Database migrated successfully to version: ', currentDbVersion);
   await updateUserLocalDbVersion(db, currentDbVersion);
+  console.log('Database migrated successfully to version: ', currentDbVersion);
 }
 
 async function updateUserLocalDbVersion(db: SQLiteDatabase, version: number) {
@@ -80,5 +81,5 @@ function getMigrationsToRun() {
 }
 
 function shouldForceMigrate() {
-  return Boolean(process.env.EXPO_PUBLIC_FORCE_MIGRATION);
+  return process.env.EXPO_PUBLIC_FORCE_MIGRATION === 'true';
 }
