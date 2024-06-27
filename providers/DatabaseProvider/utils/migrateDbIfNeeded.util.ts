@@ -1,87 +1,96 @@
 import { migrations } from '@/database/migrations';
+import { getEnv } from '@/utils/config';
 import { type SQLiteDatabase } from 'expo-sqlite';
 
-export async function migrateDbIfNeeded(db: SQLiteDatabase) {
-  console.log('Migrating database');
-  const shouldMigrate = await shouldRunMigration(db);
-  if (!shouldMigrate) {
-    console.log('Up-to-date');
-    return;
+const env = getEnv();
+export class Migration {
+  private db: SQLiteDatabase;
+
+  constructor(db: SQLiteDatabase) {
+    this.db = db;
   }
 
-  const migrationsToRun = await getMigrationsToRun(db);
-  const userLocalDbVersion = await getUserLocalDbVersion(db);
-  console.log('User local database version: ', userLocalDbVersion);
-  console.log('Migrating database to version: ', getCurrentDbVersion());
-  console.log('Migrations to run: ', migrationsToRun);
+  migrateDbIfNeeded = async () => {
+    console.log('Migrating database');
+    const shouldMigrate = await this.shouldRunMigration();
+    if (!shouldMigrate) {
+      console.log('Up-to-date');
+      return;
+    }
 
-  // Apply the migrations
-  await db.execAsync(`PRAGMA journal_mode = 'wal'`);
-  for (const { queries } of migrationsToRun) {
-    for (const { query } of queries) {
-      if (query) {
-        await db.execAsync(query);
+    const migrationsToRun = await this.getMigrationsToRun();
+    const userLocalDbVersion = await this.getUserLocalDbVersion();
+    console.log('User local database version: ', userLocalDbVersion);
+    console.log('Migrating database to version: ', this.getCurrentDbVersion());
+
+    // Apply the migrations
+    await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
+    for (const { queries } of migrationsToRun) {
+      for (const { query } of queries) {
+        if (query) {
+          await this.db.execAsync(query);
+        }
       }
     }
-  }
 
-  const currentDbVersion = getCurrentDbVersion();
-  await updateUserLocalDbVersion(db, currentDbVersion);
-  console.log('Database migrated successfully to version: ', currentDbVersion);
-}
+    const currentDbVersion = this.getCurrentDbVersion();
+    await this.updateUserLocalDbVersion(currentDbVersion);
+  };
 
-async function updateUserLocalDbVersion(db: SQLiteDatabase, version: number) {
-  await db.execAsync(`PRAGMA user_version = ${version}`);
-}
+  private shouldRunMigration = async (): Promise<boolean> => {
+    if (this.shouldForceMigrate()) {
+      return true;
+    }
 
-async function shouldRunMigration(db: SQLiteDatabase): Promise<boolean> {
-  if (shouldForceMigrate()) {
+    // Get the version to migrate to from the environment variables
+    const currentDbVersion = this.getCurrentDbVersion();
+    const userLocalDbVersion = await this.getUserLocalDbVersion();
+
+    if (userLocalDbVersion >= currentDbVersion) {
+      return false;
+    }
+
     return true;
+  };
+
+  private async getMigrationsToRun() {
+    // Get the version to migrate to from the environment variables
+    const currentDbVersion = this.getCurrentDbVersion();
+    if (this.shouldForceMigrate()) {
+      return migrations;
+    }
+
+    const userLocalDbVersion = await this.getUserLocalDbVersion();
+
+    // Get the migrations
+    const latestMigrations = migrations.filter(
+      migration => migration.version > userLocalDbVersion && migration.version <= currentDbVersion,
+    );
+
+    if (latestMigrations.length === 0) {
+      throw new Error(`No migrations found up to ${currentDbVersion}`);
+    }
+
+    return latestMigrations;
   }
 
-  // Get the version to migrate to from the environment variables
-  const currentDbVersion = getCurrentDbVersion();
-  const userLocalDbVersion = await getUserLocalDbVersion(db);
+  private getUserLocalDbVersion = async () => {
+    // Get the current database version from the user's local database
+    const pragma = await this.db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
+    let userLocalDbVersion = pragma?.user_version || 0;
+    return userLocalDbVersion;
+  };
 
-  if (userLocalDbVersion >= currentDbVersion) {
-    return false;
+  private getCurrentDbVersion() {
+    return env.DATABASE_VERSION;
   }
 
-  return true;
-}
-
-async function getUserLocalDbVersion(db: SQLiteDatabase) {
-  // Get the current database version from the user's local database
-  const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
-  let userLocalDbVersion = pragma?.user_version || 0;
-  return userLocalDbVersion;
-}
-
-function getCurrentDbVersion() {
-  return Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
-}
-
-async function getMigrationsToRun(db: SQLiteDatabase) {
-  // Get the version to migrate to from the environment variables
-  const currentDbVersion = getCurrentDbVersion();
-  if (shouldForceMigrate()) {
-    return migrations;
+  private shouldForceMigrate() {
+    return env.FORCE_MIGRATION;
   }
 
-  const userLocalDbVersion = await getUserLocalDbVersion(db);
-
-  // Get the migrations
-  const latestMigrations = migrations.filter(
-    migration => migration.version > userLocalDbVersion && migration.version <= currentDbVersion,
-  );
-
-  if (latestMigrations.length === 0) {
-    throw new Error(`No migrations found up to ${currentDbVersion}`);
-  }
-
-  return latestMigrations;
-}
-
-function shouldForceMigrate() {
-  return process.env.EXPO_PUBLIC_FORCE_MIGRATION === 'true';
+  private updateUserLocalDbVersion = async (version: number) => {
+    await this.db.execAsync(`PRAGMA user_version = ${version}`);
+    console.log('Database migrated successfully to version: ', version);
+  };
 }
