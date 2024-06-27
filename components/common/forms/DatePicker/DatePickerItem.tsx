@@ -43,6 +43,10 @@ function DatePickerItem({
       )}
     >
       <ThemedView
+        testID={DATE_PICKER_ITEM_TEST_IDS.isActive(
+          typeof value === 'string' ? value : dayjs(value).format('YYYY-MM-DD'),
+          isActive,
+        )}
         style={[
           styles.container,
           {

@@ -12,9 +12,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "fetch"
+        ]
+      },
+      "bundleIdentifier": "com.chefpipz.myapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,9 +33,31 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-asset", "expo-router"],
+    "plugins": [
+      "expo-asset",
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Open_Sans/static/OpenSans-Regular.ttf",
+            "./assets/fonts/Open_Sans/static/OpenSans-Medium.ttf",
+            "./assets/fonts/Open_Sans/static/OpenSans-SemiBold.ttf"
+          ]
+        }
+      ],
+      "expo-localization"
+    ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a08b8fa1-7b5b-4794-9c2c-d7227afaf7e3"
+      }
     }
   }
 }

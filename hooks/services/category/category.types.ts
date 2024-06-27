@@ -5,3 +5,8 @@ export interface Category {
   updated_at: number;
   deleted_at: number;
 }
+
+export enum CategoryQueryKeys {
+  list = 'category-list',
+  getByName = 'category-get-by-name',
+}

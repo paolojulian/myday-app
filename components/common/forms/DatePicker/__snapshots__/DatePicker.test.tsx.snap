@@ -24,7 +24,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
         "display": "flex",
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "paddingHorizontal": 24,
+        "paddingHorizontal": 16,
         "paddingVertical": 16,
       }
     }
@@ -50,48 +50,70 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
       onStartShouldSetResponder={[Function]}
       style={
         {
+          "alignItems": "center",
           "flex": 1,
-          "gap": 4,
+          "flexDirection": "row",
+          "gap": 16,
         }
       }
       testID="date-picker-header-btn"
     >
-      <Text
+      <Image
+        source={1}
         style={
-          [
-            {
-              "fontSize": 16,
-            },
-            {
-              "fontFamily": "Inter",
-            },
-            {
-              "color": "#05141F",
-              "fontWeight": "500",
-            },
-          ]
+          {
+            "height": 24,
+            "width": 24,
+          }
+        }
+      />
+      <View
+        style={
+          {
+            "flex": 1,
+            "gap": 4,
+          }
         }
       >
-        Date
-      </Text>
-      <Text
-        style={
-          [
-            {
-              "fontSize": 20,
-            },
-            {
-              "fontFamily": "Inter",
-            },
-            {
-              "color": "#a3a3a3",
-            },
-          ]
-        }
-        testID="date-picker-value"
-      >
-        Select a date
-      </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Open_SansMedium",
+                "fontSize": 16,
+                "fontWeight": 500,
+              },
+              {
+                "fontWeight": 400,
+              },
+              {
+                "color": "#05141F",
+              },
+            ]
+          }
+        >
+          Date
+        </Text>
+        <Text
+          style={
+            [
+              {
+                "fontFamily": "Open_SansRegular",
+                "fontSize": 16,
+              },
+              {
+                "fontWeight": 400,
+              },
+              {
+                "color": "#a3a3a3",
+              },
+            ]
+          }
+          testID="date-picker-value"
+        >
+          Select a date
+        </Text>
+      </View>
     </View>
   </View>
 </View>

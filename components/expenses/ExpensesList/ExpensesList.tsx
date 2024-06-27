@@ -1,104 +1,89 @@
 import Container from '@/components/common/Container';
+import ThemedText from '@/components/common/ThemedText';
+import ThemedView from '@/components/common/ThemedView';
+import BudgetCard from '@/components/expenses/BudgetCard';
+import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
+import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
+import { colors } from '@/constants/Colors';
+import { Category } from '@/hooks/services/category/category.types';
+import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import useExpense from '@/hooks/services/expense/useExpense';
+import { useState } from 'react';
+import { FlatList } from 'react-native';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
 
-const MOCK_EXPENSES = [
-  {
-    id: 'e1',
-    name: 'Toilet Paper',
-    amount: 94.12,
-    date: '2024-07-14',
-  },
-  { id: 'e2', name: 'New TV', amount: 799.49, date: '2024-07-14' },
-  {
-    id: 'e3',
-    name: 'Car Insurance',
-    amount: 294.67,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e4',
-    name: 'New Desk (Wooden)',
-    amount: 450,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e5',
-    name: 'Groceries',
-    amount: 150.25,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e6',
-    name: 'Movie Tickets',
-    amount: 50.75,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e7',
-    name: 'Restaurant Dinner',
-    amount: 80.99,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e8',
-    name: 'Gym Membership',
-    amount: 200,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e9',
-    name: 'Phone Bill',
-    amount: 75.5,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e10',
-    name: 'Vacation',
-    amount: 1500,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e11',
-    name: 'Books',
-    amount: 120.75,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e12',
-    name: 'Clothes',
-    amount: 250.99,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e13',
-    name: 'Home Decor',
-    amount: 300,
-    date: '2024-07-14',
-  },
-  {
-    id: 'e14',
-    name: 'Gifts',
-    amount: 100.5,
-    date: '2024-07-14',
-  },
-];
+type ExpenseListProps = {
+  transactionDate: Date;
+};
 
-export default function ExpensesList() {
-  const expenses = MOCK_EXPENSES;
+export default function ExpensesList({ transactionDate }: ExpenseListProps) {
+  const [selectedCategory, setSelectedCategory] = useState<Category['id'] | null>(null);
+  // const filterType = selectedCategory === null ? 'monthly' : 'category';
+  const { data: expenses, isLoading } = useExpense({
+    filterType: 'monthly',
+    transactionDate,
+    // categoryId: filterType === 'monthly' ? undefined : selectedCategory,
+  });
+
+  if (isLoading) {
+    // TODO: add loading skeleton
+    return null;
+  }
+
+  const filteredExpenses = selectedCategory
+    ? expenses?.filter(item => item.category_id === selectedCategory)
+    : expenses;
+  const categories = getCategoriesFromExpenses(expenses);
+
+  const handleDeleteItem = (id: Expense['id']) => {
+    // TODO: add delete function
+    console.log('Deleting item with id: ', id);
+  };
 
   return (
-    <Container style={{ gap: 8 }}>
-      {expenses.map(item => (
-        <ExpenseItem
-          key={item.id}
-          onDelete={() => {}}
-          id={item.id}
-          date={item.date}
-          name={item.name}
-          notes=""
-          amount={item.amount}
-        />
-      ))}
-    </Container>
+    <FlatList
+      data={[{ isFilters: true }, ...(filteredExpenses ?? [])]}
+      renderItem={({ item }) => {
+        if (isFilterItem(item)) {
+          return (
+            <ThemedView style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
+              <ExpensesListCategories
+                onSelectCategory={setSelectedCategory}
+                categories={categories}
+              />
+            </ThemedView>
+          );
+        }
+
+        if (!isExpenseWithCategoryName(item)) {
+          return null;
+        }
+
+        return (
+          <Container>
+            <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
+          </Container>
+        );
+      }}
+      ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
+      ListHeaderComponent={() => (
+        <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
+          <ThemedText variant="heading" style={{ color: colors.white }}>
+            Monthly Expenses
+          </ThemedText>
+          <BudgetCard />
+        </Container>
+      )}
+      ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
+      stickyHeaderIndices={[1]}
+    />
   );
+}
+
+function isFilterItem(item?: any): item is { isFilters: true } {
+  return item?.isFilters;
+}
+
+function isExpenseWithCategoryName(item?: any): item is ExpenseWithCategoryName {
+  return (item as ExpenseWithCategoryName)?.category_name !== undefined;
 }

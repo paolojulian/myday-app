@@ -54,11 +54,12 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
       style={
         [
           {
-            "fontSize": 20,
-            "fontWeight": "600",
+            "fontFamily": "Open_SansMedium",
+            "fontSize": 16,
+            "fontWeight": 500,
           },
           {
-            "fontFamily": "Inter",
+            "fontWeight": 400,
           },
           [
             {

@@ -5,8 +5,12 @@ export type ContainerProps = {
   children: React.ReactNode;
 } & React.ComponentProps<typeof ThemedView>;
 
-export default function Container({ children, ...props }: ContainerProps) {
-  return <ThemedView style={[props.style, styles.container]}>{children}</ThemedView>;
+export default function Container({ children, style, ...props }: ContainerProps) {
+  return (
+    <ThemedView {...props} style={[styles.container, style]}>
+      {children}
+    </ThemedView>
+  );
 }
 
 const styles = StyleSheet.create({

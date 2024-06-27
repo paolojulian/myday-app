@@ -1,3 +1,5 @@
+import { Filter } from '@/hooks/services/filter.types';
+
 export function filtersToString(filters: Filter[]) {
   if (filters.length < 1) {
     return { whereString: '', values: [] };

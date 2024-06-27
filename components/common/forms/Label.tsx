@@ -7,7 +7,11 @@ type LabelProps = {
 };
 
 function Label({ text }: LabelProps) {
-  return <ThemedText style={{ color: colors.black, fontWeight: '500' }}>{text}</ThemedText>;
+  return (
+    <ThemedText variant="body2" style={{ color: colors.black }}>
+      {text}
+    </ThemedText>
+  );
 }
 
 export default Label;

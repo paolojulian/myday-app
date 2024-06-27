@@ -2,22 +2,30 @@ import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
+import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { convertEpochToDate } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
 import { ComponentProps } from 'react';
 import { TouchableHighlight } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
+import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 
 type ExpenseItemProps = {
-  onDelete: (id: string) => void;
-  id: string;
-  amount: number;
-  date: string;
-  name: string;
-  notes: string;
+  onDelete: (id: Expense['id']) => void;
+  expense: ExpenseWithCategoryName;
 };
 
-export default function ExpenseItem({ onDelete, id, amount, date, name }: ExpenseItemProps) {
+export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
+  const {
+    id,
+    title,
+    amount,
+    transaction_date: transactionDateEpoch,
+    category_name: categoryName,
+  } = expense;
+  const formattedTransactionDate = convertEpochToDate(transactionDateEpoch).format('MMM D, YYYY');
+
   const handleDelete = () => {
     onDelete(id);
     selectionAsync();
@@ -26,6 +34,7 @@ export default function ExpenseItem({ onDelete, id, amount, date, name }: Expens
   const handlePress = () => {
     selectionAsync();
   };
+
   const renderRightActions: ComponentProps<typeof Swipeable>['renderRightActions'] = () => {
     return <ExpenseItemRightActions onDelete={handleDelete} />;
   };
@@ -50,7 +59,7 @@ export default function ExpenseItem({ onDelete, id, amount, date, name }: Expens
           style={{
             padding: 16,
             justifyContent: 'space-between',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             borderRadius: 8,
             elevation: 16,
             shadowColor: colors.black,
@@ -63,10 +72,19 @@ export default function ExpenseItem({ onDelete, id, amount, date, name }: Expens
           }}
         >
           <Stack>
-            <ThemedText>{name}</ThemedText>
-            <ThemedText style={{ color: colors.darkGrey }}>{date}</ThemedText>
+            <ThemedText variant="body2">{title}</ThemedText>
+            {!!categoryName && (
+              <ThemedText variant="body" style={{ color: colors.darkGrey }}>
+                {categoryName}
+              </ThemedText>
+            )}
+            <ThemedText variant="body" style={{ color: colors.darkGrey }}>
+              {formattedTransactionDate}
+            </ThemedText>
           </Stack>
-          <ThemedText style={{ color: colors.red }}>-${amount}</ThemedText>
+          <ThemedText variant="body2" style={{ color: colors.red }}>
+            - {toLocaleCurrencyFormat(amount)}
+          </ThemedText>
         </Row>
       </TouchableHighlight>
     </Swipeable>

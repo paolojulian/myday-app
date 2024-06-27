@@ -15,7 +15,7 @@ import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 type DatePickerVariants = 'shadow' | 'border';
 
@@ -108,15 +108,21 @@ function DatePicker({
           testID={DATE_PICKER_TEST_IDS.headerBtn}
           onPress={handleHeaderClick}
         >
-          <ThemedView style={{ gap: 4, flex: 1 }}>
-            <Label text={label} />
-            <ThemedText
-              testID={DATE_PICKER_TEST_IDS.value}
-              variant="body1"
-              style={{ color: !!value ? colors.black : colors.grey }}
-            >
-              {titleText}
-            </ThemedText>
+          <ThemedView style={{ flex: 1, flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+            <Image
+              source={require('@/assets/icons/calendar-lines.png')}
+              style={{ width: 24, height: 24 }}
+            />
+            <ThemedView style={{ gap: 4, flex: 1 }}>
+              <Label text={label} />
+              <ThemedText
+                testID={DATE_PICKER_TEST_IDS.value}
+                variant="body1"
+                style={{ color: !!value ? colors.black : colors.grey }}
+              >
+                {titleText}
+              </ThemedText>
+            </ThemedView>
           </ThemedView>
         </TouchableWithoutFeedback>
         {isExpanded && (
@@ -158,7 +164,7 @@ function DatePicker({
                     onPress={onSelectDate}
                     key={date.toString()}
                     value={date}
-                    isActive={isDayActive(date)}
+                    isActive={value ? isDayActive(date) : false}
                     isToday={isToday(date)}
                     isCurrentMonth={isCurrentMonth}
                   />
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 12,
     backgroundColor: colors.whiteSmoke,
     paddingVertical: 16,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
 
     display: 'flex',
     flexDirection: 'row',

@@ -2,17 +2,23 @@ import TextField, { type TextFieldProps } from '@/components/common/forms/TextFi
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import React, { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { forwardRef, useState } from 'react';
+import { TextInput, TouchableOpacity } from 'react-native';
 
-type ComboBoxProps<T> = { onSelect: (value: T) => void; options?: T[] } & TextFieldProps;
+type ComboBoxProps<T extends string> = {
+  onSelect: (value: T) => void;
+  options?: T[];
+} & TextFieldProps;
 
-function ComboBox<T extends string = string>({
-  onSelect,
-  options = [],
-  ...props
-}: ComboBoxProps<T>) {
+function ComboBox<T extends string = string>(
+  { onSelect, options = [], ...props }: ComboBoxProps<T>,
+  ref: React.Ref<TextInput>,
+) {
   const [willShowOptions, setWillShowOptions] = useState(false);
+
+  const filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(props.value?.toLowerCase() ?? ''),
+  );
 
   const handleFocus = () => setWillShowOptions(true);
   const handleBlur = () => setWillShowOptions(false);
@@ -28,7 +34,7 @@ function ComboBox<T extends string = string>({
         zIndex: 10,
       }}
     >
-      <TextField {...props} onFocus={handleFocus} onBlur={handleBlur} />
+      <TextField ref={ref} {...props} onFocus={handleFocus} onBlur={handleBlur} />
       {willShowOptions && (
         <ThemedView
           style={{
@@ -41,7 +47,7 @@ function ComboBox<T extends string = string>({
             borderColor: colors.black,
           }}
         >
-          {options.map(item => (
+          {filteredOptions.map(item => (
             <TouchableOpacity key={item} onPress={() => handlePressItem(item)}>
               <ThemedView
                 style={{
@@ -53,6 +59,24 @@ function ComboBox<T extends string = string>({
               </ThemedView>
             </TouchableOpacity>
           ))}
+          {filteredOptions.length === 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                if (props.value) {
+                  handlePressItem(props.value as T);
+                }
+              }}
+            >
+              <ThemedView
+                style={{
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                }}
+              >
+                <ThemedText>Create new category "{props.value}"</ThemedText>
+              </ThemedView>
+            </TouchableOpacity>
+          )}
 
           {/* <FlatList<T>
             data={options}
@@ -77,4 +101,6 @@ function ComboBox<T extends string = string>({
   );
 }
 
-export default ComboBox;
+export default forwardRef(ComboBox) as <T extends string>(
+  props: ComboBoxProps<T> & { ref?: React.Ref<TextInput> },
+) => React.ReactElement;

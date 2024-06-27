@@ -53,6 +53,17 @@ describe('TESTING DatePicker', () => {
     });
   });
 
+  describe('WHEN there is no date selected', () => {
+    it('should not display a selected date', () => {
+      render(<DatePicker value={undefined} />);
+      expandDatePicker();
+
+      const today = dayjs().format('YYYY-MM-DD');
+      const isActive = false;
+      expect(screen.getByTestId(DATE_PICKER_ITEM_TEST_IDS.isActive(today, isActive)));
+    });
+  });
+
   describe('WHEN the date picker is collapsed', () => {
     it('should hide the calendar', () => {
       render(<DatePicker />);

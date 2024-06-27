@@ -1,7 +1,10 @@
 import DefaultTheme from '@/constants/Theme';
+import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
+import { useCustomFonts } from '@/hooks/useCustomFonts';
+import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -17,36 +20,42 @@ export enum RouteNames {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+const queryClient = new QueryClient();
+
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    Inter: require('../assets/fonts/Inter.ttf'),
-    Livic: require('../assets/fonts/Livvic-Regular.ttf'),
-  });
+  const { loaded: isFontsLoaded } = useCustomFonts();
+
+  useBackgroundFetch();
 
   useEffect(() => {
-    if (loaded) {
+    if (isFontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [isFontsLoaded]);
 
-  if (!loaded) {
+  if (!isFontsLoaded) {
     return null;
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <DatabaseProvider>
-        <ThemeProvider value={DefaultTheme}>
-          <Stack initialRouteName={RouteNames.Tabs}>
-            <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
-            <Stack.Screen
-              name={RouteNames.Add}
-              options={{ headerShown: false, presentation: 'modal', gestureEnabled: false }}
-            />
-            <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
-          </Stack>
-        </ThemeProvider>
-      </DatabaseProvider>
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <DatabaseProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider value={DefaultTheme}>
+              <SnackbarManager />
+              <Stack initialRouteName={RouteNames.Tabs}>
+                <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
+                <Stack.Screen
+                  name={RouteNames.Add}
+                  options={{ headerShown: false, presentation: 'fullScreenModal' }}
+                />
+                <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
+              </Stack>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </DatabaseProvider>
+      </GestureHandlerRootView>
+    </>
   );
 }

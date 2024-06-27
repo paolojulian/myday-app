@@ -3,9 +3,26 @@ export interface Task {
   title: string;
   description: string;
   category_id: number;
-  started_at: number;
-  ended_at: number;
+  is_completed: number;
+  to_buy: number;
+  expected_amount: number | null;
+  reminder_date: number | null;
+  recurrence_type: 'daily' | 'weekly' | 'monthly' | 'yearly' | 'custom' | null;
+  recurrence_days: string | null;
+  recurrence_id: number | null;
+  started_at: number | null;
+  ended_at: number | null;
   created_at: number;
   updated_at: number;
-  deleted_at: number;
+  deleted_at: number | null;
 }
+
+export enum TaskQueryKeys {
+  list = 'task-list',
+}
+
+export type TaskFilterTypes = 'Today' | 'All' | 'Scheduled' | 'Completed';
+
+export type TaskQueryFilters = {
+  filterType: TaskFilterTypes;
+};
