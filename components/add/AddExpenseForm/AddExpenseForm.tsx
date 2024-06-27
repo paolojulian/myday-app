@@ -70,6 +70,7 @@ function AddExpenseForm() {
         description: values.description ?? '',
         title: values.title,
         transaction_date: convertDateToEpoch(values.transactionDate),
+        recurrence: null,
       });
 
       showSuccessMessage();

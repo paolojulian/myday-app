@@ -7,6 +7,8 @@ export interface Expense {
   description: string;
   category_id: number | null;
   transaction_date: number;
+  recurrence: 'weekly' | 'monthly' | 'yearly' | null;
+  recurrence_id: number | null;
   created_at: number;
   updated_at: number;
   deleted_at: number | null;
@@ -19,6 +21,7 @@ export type ExpenseWithCategoryName = Expense & {
 
 export enum ExpenseQueryKeys {
   list = 'expenses-list',
+  recurringExpenses = 'recurring-expenses',
 }
 
 export type ExpenseQueryFilters =

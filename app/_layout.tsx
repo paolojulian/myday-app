@@ -1,9 +1,10 @@
 import DefaultTheme from '@/constants/Theme';
+import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
+import { useCustomFonts } from '@/hooks/useCustomFonts';
 import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -22,23 +23,17 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    Open_SansRegular: require('../assets/fonts/Open_Sans/static/OpenSans-Regular.ttf'),
-    Open_SansMedium: require('../assets/fonts/Open_Sans/static/OpenSans-Medium.ttf'),
-    Open_SansSemiBold: require('../assets/fonts/Open_Sans/static/OpenSans-SemiBold.ttf'),
-    PoppinsRegular: require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
-    PoppinsMedium: require('../assets/fonts/Poppins/Poppins-Medium.ttf'),
-    PoppinsSemiBold: require('../assets/fonts/Poppins/Poppins-SemiBold.ttf'),
-    PoppinsBold: require('../assets/fonts/Poppins/Poppins-Bold.ttf'),
-  });
+  const { loaded: isFontsLoaded } = useCustomFonts();
+
+  useBackgroundFetch();
 
   useEffect(() => {
-    if (loaded) {
+    if (isFontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [isFontsLoaded]);
 
-  if (!loaded) {
+  if (!isFontsLoaded) {
     return null;
   }
 

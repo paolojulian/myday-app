@@ -34,6 +34,7 @@ function buildQuery(filter: ExpenseQueryFilters) {
         SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
         LEFT JOIN category ON expense.category_id = category.id
         WHERE transaction_date BETWEEN $start AND $end
+          AND recurrence IS NULL
         ORDER BY expense.transaction_date DESC
       `;
     case 'category':
@@ -42,6 +43,7 @@ function buildQuery(filter: ExpenseQueryFilters) {
         LEFT JOIN category ON expense.category_id = category.id
         WHERE category_id = $categoryId
           AND transaction_date BETWEEN $start AND $end
+          AND recurrence IS NULL
         ORDER BY expense.transaction_date DESC
       `;
     default:

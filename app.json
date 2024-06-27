@@ -16,7 +16,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "fetch"
+        ]
+      },
+      "bundleIdentifier": "com.chefpipz.myapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,7 +40,9 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/fonts/Livvic-Regular.ttf"
+            "./assets/fonts/Open_Sans/static/OpenSans-Regular.ttf",
+            "./assets/fonts/Open_Sans/static/OpenSans-Medium.ttf",
+            "./assets/fonts/Open_Sans/static/OpenSans-SemiBold.ttf"
           ]
         }
       ],
@@ -42,6 +50,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a08b8fa1-7b5b-4794-9c2c-d7227afaf7e3"
+      }
     }
   }
 }

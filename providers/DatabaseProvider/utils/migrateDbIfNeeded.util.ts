@@ -1,43 +1,11 @@
-import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
-import { colors } from '@/constants/Colors';
 import { migrations } from '@/database/migrations';
-import * as SQLite from 'expo-sqlite';
-import { ReactNode, Suspense } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { type SQLiteDatabase } from 'expo-sqlite';
 
-type DatabaseProviderProps = {
-  children: ReactNode;
-};
-
-export default function DatabaseProvider({ children }: DatabaseProviderProps) {
-  return (
-    <Suspense
-      fallback={
-        <ThemedView style={{ flex: 1, backgroundColor: colors.white }}>
-          <ActivityIndicator size="large" />
-          <ThemedText>Loading...</ThemedText>
-        </ThemedView>
-      }
-    >
-      <SQLite.SQLiteProvider
-        databaseName="myday.db"
-        assetSource={{
-          assetId: require('../assets/myday.db'),
-        }}
-        onInit={migrateDbIfNeeded}
-        useSuspense
-      >
-        {children}
-      </SQLite.SQLiteProvider>
-    </Suspense>
-  );
-}
-
-async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
+export async function migrateDbIfNeeded(db: SQLiteDatabase) {
   console.log('Migrating database');
-  if (!shouldRunMigration(db)) {
-    console.log('No migrations to run');
+  const shouldMigrate = await shouldRunMigration(db);
+  if (!shouldMigrate) {
+    console.log('Up-to-date');
     return;
   }
 
@@ -58,15 +26,15 @@ async function migrateDbIfNeeded(db: SQLite.SQLiteDatabase) {
   }
 
   const currentDbVersion = getCurrentDbVersion();
-  console.log('Database migrated successfully to version: ', currentDbVersion);
   await updateUserLocalDbVersion(db, currentDbVersion);
+  console.log('Database migrated successfully to version: ', currentDbVersion);
 }
 
-async function updateUserLocalDbVersion(db: SQLite.SQLiteDatabase, version: number) {
+async function updateUserLocalDbVersion(db: SQLiteDatabase, version: number) {
   await db.execAsync(`PRAGMA user_version = ${version}`);
 }
 
-async function shouldRunMigration(db: SQLite.SQLiteDatabase): Promise<boolean> {
+async function shouldRunMigration(db: SQLiteDatabase): Promise<boolean> {
   if (shouldForceMigrate()) {
     return true;
   }
@@ -82,7 +50,7 @@ async function shouldRunMigration(db: SQLite.SQLiteDatabase): Promise<boolean> {
   return true;
 }
 
-async function getUserLocalDbVersion(db: SQLite.SQLiteDatabase) {
+async function getUserLocalDbVersion(db: SQLiteDatabase) {
   // Get the current database version from the user's local database
   const pragma = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');
   let userLocalDbVersion = pragma?.user_version || 0;
@@ -113,5 +81,5 @@ function getMigrationsToRun() {
 }
 
 function shouldForceMigrate() {
-  return Boolean(process.env.EXPO_PUBLIC_FORCE_MIGRATION);
+  return process.env.EXPO_PUBLIC_FORCE_MIGRATION === 'true';
 }
