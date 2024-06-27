@@ -1,7 +1,7 @@
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import { Migration } from '@/providers/DatabaseProvider/utils/migrateDbIfNeeded.util';
+import { MigrateOnInit } from '@/providers/DatabaseProvider/utils/migrateDbIfNeeded.util';
 import { RecurringExpenses } from '@/providers/DatabaseProvider/utils/runRecurringExpenses.util';
 import dayjs from 'dayjs';
 import * as SQLite from 'expo-sqlite';
@@ -37,6 +37,6 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 }
 
 async function onInit(db: SQLite.SQLiteDatabase) {
-  await new Migration(db).migrateDbIfNeeded();
+  await new MigrateOnInit(db).migrateDbIfNeeded();
   await new RecurringExpenses(db, dayjs()).populate();
 }

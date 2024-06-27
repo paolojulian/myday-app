@@ -1,13 +1,15 @@
 import { migrations } from '@/database/migrations';
+import { Migration } from '@/database/migrations/migration.types';
 import { getEnv } from '@/utils/config';
 import { type SQLiteDatabase } from 'expo-sqlite';
 
-const env = getEnv();
-export class Migration {
+export class MigrateOnInit {
   private db: SQLiteDatabase;
+  private migrations: Migration[];
 
-  constructor(db: SQLiteDatabase) {
+  constructor(db: SQLiteDatabase, customMigrations: Migration[] = migrations) {
     this.db = db;
+    this.migrations = customMigrations;
   }
 
   migrateDbIfNeeded = async () => {
@@ -59,13 +61,13 @@ export class Migration {
     // Get the version to migrate to from the environment variables
     const currentDbVersion = this.getCurrentDbVersion();
     if (this.shouldForceMigrate()) {
-      return migrations;
+      return this.migrations;
     }
 
     const userLocalDbVersion = await this.getUserLocalDbVersion();
 
     // Get the migrations
-    const latestMigrations = migrations.filter(
+    const latestMigrations = this.migrations.filter(
       migration => migration.version > userLocalDbVersion && migration.version <= currentDbVersion,
     );
 
@@ -84,11 +86,12 @@ export class Migration {
   };
 
   private getCurrentDbVersion() {
-    return env.DATABASE_VERSION;
+    console.log('-- Env: ', getEnv());
+    return getEnv().DATABASE_VERSION;
   }
 
   private shouldForceMigrate() {
-    return env.FORCE_MIGRATION;
+    return getEnv().FORCE_MIGRATION;
   }
 
   private updateUserLocalDbVersion = async (version: number) => {
