@@ -9,7 +9,7 @@ export async function migrateDbIfNeeded(db: SQLiteDatabase) {
     return;
   }
 
-  const migrationsToRun = getMigrationsToRun();
+  const migrationsToRun = await getMigrationsToRun(db);
   const userLocalDbVersion = await getUserLocalDbVersion(db);
   console.log('User local database version: ', userLocalDbVersion);
   console.log('Migrating database to version: ', getCurrentDbVersion());
@@ -61,16 +61,18 @@ function getCurrentDbVersion() {
   return Number(process.env.EXPO_PUBLIC_DATABASE_VERSION) ?? 1;
 }
 
-function getMigrationsToRun() {
+async function getMigrationsToRun(db: SQLiteDatabase) {
   // Get the version to migrate to from the environment variables
   const currentDbVersion = getCurrentDbVersion();
   if (shouldForceMigrate()) {
     return migrations;
   }
 
+  const userLocalDbVersion = await getUserLocalDbVersion(db);
+
   // Get the migrations
   const latestMigrations = migrations.filter(
-    migration => migration.version > currentDbVersion && migration.version <= currentDbVersion,
+    migration => migration.version > userLocalDbVersion && migration.version <= currentDbVersion,
   );
 
   if (latestMigrations.length === 0) {
