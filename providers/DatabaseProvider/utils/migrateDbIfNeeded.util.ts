@@ -24,17 +24,19 @@ export class Migration {
     console.log('Migrating database to version: ', this.getCurrentDbVersion());
 
     // Apply the migrations
-    await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
-    for (const { queries } of migrationsToRun) {
-      for (const { query } of queries) {
-        if (query) {
-          await this.db.execAsync(query);
+    this.db.withTransactionAsync(async () => {
+      await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
+      for (const { queries } of migrationsToRun) {
+        for (const { query } of queries) {
+          if (query) {
+            await this.db.execAsync(query);
+          }
         }
       }
-    }
 
-    const currentDbVersion = this.getCurrentDbVersion();
-    await this.updateUserLocalDbVersion(currentDbVersion);
+      const currentDbVersion = this.getCurrentDbVersion();
+      await this.updateUserLocalDbVersion(currentDbVersion);
+    });
   };
 
   private shouldRunMigration = async (): Promise<boolean> => {
