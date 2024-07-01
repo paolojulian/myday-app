@@ -1,3 +1,4 @@
+import { colors } from '@/constants/Colors';
 import DefaultTheme from '@/constants/Theme';
 import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
 import { useCustomFonts } from '@/hooks/useCustomFonts';
@@ -7,7 +8,9 @@ import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { SafeAreaView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
@@ -39,6 +42,10 @@ export default function RootLayout() {
 
   return (
     <>
+      {/* ios */}
+      <SafeAreaView style={{ flex: 0, backgroundColor: colors.slateGrey[100] }} />
+      {/* android */}
+      <StatusBar backgroundColor={colors.slateGrey[100]} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <DatabaseProvider>
           <QueryClientProvider client={queryClient}>

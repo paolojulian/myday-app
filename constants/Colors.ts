@@ -25,6 +25,7 @@ export const colors = {
   slateGrey: {
     100: '#F1F5F9',
     200: '#E2E8F0',
+    300: '#CBD5E1',
   },
   black: '#0F172A',
 };

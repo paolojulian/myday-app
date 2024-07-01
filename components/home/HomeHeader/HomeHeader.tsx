@@ -16,16 +16,19 @@ function HomeHeader() {
     >
       <ThemedView
         style={{
-          width: '110%',
-          height: 218,
-          borderRadius: 800,
+          width: '180%',
+          height: 518,
+          borderBottomLeftRadius: 900,
+          borderBottomRightRadius: 900,
 
           backgroundColor: colors.slateGrey[100],
+          borderWidth: 1,
+          borderColor: colors.slateGrey[200],
           position: 'absolute',
-          top: -160,
+          top: -430,
         }}
       ></ThemedView>
-      <ThemedView>
+      <ThemedView style={{ marginTop: 24 }}>
         <ThemedText variant="caps">MY DAY</ThemedText>
       </ThemedView>
     </Container>
