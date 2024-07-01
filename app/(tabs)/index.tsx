@@ -1,10 +1,9 @@
-import Stack from '@/components/common/Stack';
-import ThemedText from '@/components/common/ThemedText';
+import HomeWorkArea from '@/components/home/HomeWorkArea';
 
 export default function Home() {
   return (
-    <Stack>
-      <ThemedText variant="heading">Home</ThemedText>
-    </Stack>
+    <>
+      <HomeWorkArea />
+    </>
   );
 }

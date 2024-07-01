@@ -24,7 +24,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
       style={
         [
           {
-            "fontFamily": "Open_SansMedium",
+            "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
           },
@@ -32,7 +32,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
             "fontWeight": 400,
           },
           {
-            "color": "#05141F",
+            "color": "#0F172A",
           },
         ]
       }
@@ -58,7 +58,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
           "paddingTop": 36,
         },
         {
-          "fontFamily": "Open_SansRegular",
+          "fontFamily": "PoppinsRegular",
           "fontSize": 16,
         },
         {
@@ -96,7 +96,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
       style={
         [
           {
-            "fontFamily": "Open_SansMedium",
+            "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
           },
@@ -104,7 +104,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
             "fontWeight": 400,
           },
           {
-            "color": "#05141F",
+            "color": "#0F172A",
           },
         ]
       }
@@ -130,7 +130,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
           "paddingTop": 36,
         },
         {
-          "fontFamily": "Open_SansRegular",
+          "fontFamily": "PoppinsRegular",
           "fontSize": 16,
         },
         {
@@ -145,7 +145,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     style={
       [
         {
-          "fontFamily": "Open_SansRegular",
+          "fontFamily": "PoppinsRegular",
           "fontSize": 14,
         },
         {

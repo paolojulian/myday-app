@@ -45,7 +45,7 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
           "padding": 16,
         },
         {
-          "backgroundColor": "#05141F",
+          "backgroundColor": "#0F172A",
         },
       ]
     }
@@ -54,7 +54,7 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
       style={
         [
           {
-            "fontFamily": "Open_SansMedium",
+            "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
           },
