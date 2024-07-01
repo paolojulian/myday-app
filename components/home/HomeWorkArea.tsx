@@ -1,16 +1,12 @@
-import BentoCard from '@/components/common/BentoCard';
 import ItemValueBentoCard from '@/components/common/BentoCard/ItemValueBentoCard';
 import Container from '@/components/common/Container';
-import PieChart from '@/components/common/PieChart';
 import Stack from '@/components/common/Stack';
-import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
+import BudgetDetails from '@/components/home/BudgetDetails';
 import HomeHeader from '@/components/home/HomeHeader';
 import PriorityTaskList from '@/components/home/PriorityTaskList';
 import RecentTransactions from '@/components/home/RecentTransactions';
-import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import React from 'react';
-import { Image, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 
 function HomeWorkArea() {
   return (
@@ -22,30 +18,7 @@ function HomeWorkArea() {
           <ItemValueBentoCard value={4} label="Due Today" />
           <ItemValueBentoCard value={2} label="Overdue" />
         </Container>
-        <Container style={{ flexDirection: 'row', gap: 8 }}>
-          <BentoCard>
-            <Stack style={{ gap: 16, alignItems: 'center', justifyContent: 'flex-end' }}>
-              <ThemedView style={{ marginTop: 16 }}>
-                <PieChart current={80} total={100} />
-              </ThemedView>
-              <Stack style={{ alignItems: 'center' }}>
-                <ThemedText variant="heading">{toLocaleCurrencyFormat(17000)}</ThemedText>
-                <ThemedText variant="body">Remaining Budget</ThemedText>
-              </Stack>
-            </Stack>
-          </BentoCard>
-          <BentoCard>
-            <Stack style={{ gap: 16, alignItems: 'center', justifyContent: 'flex-end' }}>
-              <ThemedView style={{ marginTop: 16 }}>
-                <Image source={require('../../assets/images/total-spent-today.png')} />
-              </ThemedView>
-              <Stack style={{ alignItems: 'center' }}>
-                <ThemedText variant="heading">{toLocaleCurrencyFormat(1200)}</ThemedText>
-                <ThemedText variant="body">Total Spent Today</ThemedText>
-              </Stack>
-            </Stack>
-          </BentoCard>
-        </Container>
+        <BudgetDetails />
         <PriorityTaskList />
         <RecentTransactions />
       </Stack>
