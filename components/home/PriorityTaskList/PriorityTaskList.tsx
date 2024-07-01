@@ -9,6 +9,7 @@ import React from 'react';
 
 function PriorityTaskList() {
   const handleViewAllPress = () => {};
+
   return (
     <Container>
       <BentoCard>

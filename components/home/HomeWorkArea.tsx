@@ -7,6 +7,7 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import HomeHeader from '@/components/home/HomeHeader';
 import PriorityTaskList from '@/components/home/PriorityTaskList';
+import RecentTransactions from '@/components/home/RecentTransactions';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import React from 'react';
 import { Image, ScrollView } from 'react-native';
@@ -46,6 +47,7 @@ function HomeWorkArea() {
           </BentoCard>
         </Container>
         <PriorityTaskList />
+        <RecentTransactions />
       </Stack>
     </ScrollView>
   );

@@ -16,7 +16,7 @@ export interface Expense {
 
 export type ExpenseWithCategoryName = Expense & {
   category_id: Category['id'];
-  category_name: string;
+  category_name?: string;
 };
 
 export enum ExpenseQueryKeys {
