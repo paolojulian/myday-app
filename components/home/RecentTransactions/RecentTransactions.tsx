@@ -28,6 +28,8 @@ function RecentTransactions() {
                 title: 'Test',
                 amount: 100,
                 transaction_date: convertDateToEpoch(dayjs().toDate()),
+                category_id: null,
+                category_name: null,
               }}
             />
             <ExpenseItem
@@ -37,6 +39,8 @@ function RecentTransactions() {
                 title: 'Test',
                 amount: 100,
                 transaction_date: convertDateToEpoch(dayjs().toDate()),
+                category_id: null,
+                category_name: null,
               }}
             />
             <ExpenseItem
@@ -46,6 +50,8 @@ function RecentTransactions() {
                 title: 'Test',
                 amount: 100,
                 transaction_date: convertDateToEpoch(dayjs().toDate()),
+                category_id: null,
+                category_name: null,
               }}
             />
           </Stack>

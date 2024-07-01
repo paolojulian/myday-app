@@ -13,7 +13,7 @@ import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 
 type SupportedExpenseFields = Pick<
   ExpenseWithCategoryName,
-  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name'
+  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id'
 >;
 
 type ExpenseItemProps = {
