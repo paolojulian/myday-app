@@ -18,7 +18,7 @@ function RecentTransactions() {
       <BentoCard>
         {/* Title */}
         <Stack style={{ gap: 16 }}>
-          <ThemedText variant="heading">Recent Transactions</ThemedText>
+          <ThemedText variant="body2">Recent Transactions</ThemedText>
           {/* List */}
           <Stack style={{ gap: 8 }}>
             <ExpenseItem

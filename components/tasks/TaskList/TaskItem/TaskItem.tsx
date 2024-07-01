@@ -67,17 +67,13 @@ export default function TaskItem({ onRemove, id, name, reminderDate }: TaskItemP
     >
       <Row
         style={{
-          padding: 16,
+          paddingHorizontal: 16,
+          paddingVertical: 12,
           gap: 16,
           alignItems: 'center',
           borderRadius: 8,
-          elevation: 16,
-          shadowColor: colors.black,
-          shadowOpacity: 0.1,
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
+          borderWidth: 1,
+          borderColor: colors.slateGrey[200],
           backgroundColor: colors.white,
         }}
       >

@@ -15,7 +15,7 @@ function PriorityTaskList() {
       <BentoCard>
         {/* Title */}
         <Stack style={{ gap: 16 }}>
-          <ThemedText variant="heading">Priority Tasks</ThemedText>
+          <ThemedText variant="body2">Priority Tasks</ThemedText>
           {/* List */}
           <Stack style={{ gap: 8 }}>
             <TaskItem id={2} name="Test" notes="Test" onRemove={() => {}} reminderDate={null} />
