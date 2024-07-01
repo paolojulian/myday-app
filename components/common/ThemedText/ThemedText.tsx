@@ -17,8 +17,13 @@ export const themedTextStyles = StyleSheet.create({
   baseStyle: {
     fontWeight: 400,
   },
+  caps: {
+    fontSize: 64,
+    fontWeight: 800,
+    fontFamily: 'Barlow_CondensedBold',
+  },
   heading: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 600,
     fontFamily: 'Open_SansSemiBold',
   },
