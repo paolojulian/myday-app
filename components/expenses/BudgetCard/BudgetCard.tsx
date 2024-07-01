@@ -2,36 +2,73 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { BudgetModalManager } from '@/components/expenses/BudgetCard/BudgetModal';
 import { colors } from '@/constants/Colors';
+import useBudget from '@/hooks/services/budget/useBudget';
+import useSetBudget from '@/hooks/services/budget/useSetBudget';
+import useExpense from '@/hooks/services/expense/useExpense';
+import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { selectionAsync } from 'expo-haptics';
-import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 function BudgetCard() {
   const handlePress = () => {
     selectionAsync();
     BudgetModalManager.show();
   };
+  const thisMonth = useMemo(() => new Date(), []);
+  const [isEditable, setIsEditable] = useState(false);
+  const { data: budget } = useBudget(thisMonth);
+  const [inputBudget, setInputBudget] = useState(budget?.amount ?? 0);
+  const { data: expenses } = useExpense({ transactionDate: thisMonth, filterType: 'monthly' });
+  const totalSpending = expenses?.reduce((total, expense) => total + expense.amount, 0) ?? 0;
+  const toggleEdit = () => {
+    setIsEditable(!isEditable);
+  };
+
+  const { mutate: setBudget } = useSetBudget();
+
+  //TODO update budget and refactor
+  const updateBudget = () => {
+    setBudget(inputBudget);
+    setIsEditable(!isEditable);
+  };
+
+  const handleOnchange = (event: any) => {
+    let value = event.value;
+    setInputBudget(parseInt(value));
+  };
 
   return (
     <>
       <TouchableOpacity delayPressIn={400} onLongPress={handlePress} activeOpacity={0.6}>
         <ThemedView style={styles.container}>
-          <ThemedView style={styles.item}>
-            <ThemedText variant="body1">Budget</ThemedText>
-            <ThemedText variant="body2" style={{ color: colors.green }}>
-              PHP 24,000
-            </ThemedText>
+          <ThemedText variant="body">Total spending</ThemedText>
+          <ThemedView style={styles.budgetSection}>
+            <ThemedView style={styles.budget}>
+              <ThemedText variant="body">{toLocaleCurrencyFormat(totalSpending)} /</ThemedText>
+              {isEditable ? (
+                <TextInput
+                  defaultValue={String(budget?.amount ?? 0)}
+                  editable={isEditable}
+                  onChangeText={handleOnchange}
+                ></TextInput>
+              ) : (
+                <ThemedText variant="body">
+                  {toLocaleCurrencyFormat(budget?.amount ?? 0)}
+                </ThemedText>
+              )}
+            </ThemedView>
           </ThemedView>
-          <ThemedView style={styles.item}>
-            <ThemedText variant="body1">Total spending</ThemedText>
-            <ThemedText variant="body2" style={{ color: colors.red }}>
-              -PHP 20,000
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.item}>
-            <ThemedText variant="body1">Available balance</ThemedText>
-            <ThemedText variant="body2">PHP 4,000</ThemedText>
-          </ThemedView>
+          {isEditable ? (
+            <TouchableOpacity style={styles.editButton} onPress={updateBudget}>
+              <MaterialCommunityIcons name="content-save" size={28}></MaterialCommunityIcons>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.editButton} onPress={toggleEdit}>
+              <MaterialCommunityIcons name="square-edit-outline" size={28}></MaterialCommunityIcons>
+            </TouchableOpacity>
+          )}
         </ThemedView>
       </TouchableOpacity>
     </>
@@ -40,19 +77,31 @@ function BudgetCard() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 16,
     gap: 4,
+    paddingVertical: 16,
     paddingHorizontal: 24,
-    backgroundColor: colors.aliceBlue,
+    backgroundColor: colors.white,
     elevation: 5,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.black,
+    display: 'flex',
+    flexDirection: 'column',
   },
-  item: {
+  budgetSection: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  budget: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    alignItems: 'center',
+  },
+  editButton: {
+    flexShrink: 1,
+    alignItems: 'center',
   },
 });
 
