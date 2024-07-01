@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
 
 type ThemedTextProps = {
-  variant?: 'heading' | 'body' | 'body1' | 'body2';
+  variant?: 'heading' | 'body' | 'body1' | 'body2' | 'caps';
 } & TextProps;
 
 export default function ThemedText({ variant = 'body', style, ...props }: ThemedTextProps) {

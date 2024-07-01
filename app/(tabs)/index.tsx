@@ -1,10 +1,5 @@
-import Stack from '@/components/common/Stack';
-import ThemedText from '@/components/common/ThemedText';
+import HomeHeader from '@/components/home/HomeHeader';
 
 export default function Home() {
-  return (
-    <Stack>
-      <ThemedText variant="heading">Home</ThemedText>
-    </Stack>
-  );
+  return <HomeHeader />;
 }
