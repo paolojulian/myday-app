@@ -23,26 +23,26 @@ export const themedTextStyles = StyleSheet.create({
     fontFamily: 'Barlow_CondensedBold',
   },
   heading: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 600,
-    fontFamily: 'Open_SansSemiBold',
+    fontFamily: 'PoppinsSemiBold',
   },
   large: {
     fontSize: 48,
     fontWeight: 800,
-    fontFamily: 'Open_SansBold',
+    fontFamily: 'PoppinsBold',
   },
   body: {
     fontSize: 14,
-    fontFamily: 'Open_SansRegular',
+    fontFamily: 'PoppinsRegular',
   },
   body1: {
     fontSize: 16,
-    fontFamily: 'Open_SansRegular',
+    fontFamily: 'PoppinsRegular',
   },
   body2: {
     fontSize: 16,
     fontWeight: 500,
-    fontFamily: 'Open_SansMedium',
+    fontFamily: 'PoppinsMedium',
   },
 });
