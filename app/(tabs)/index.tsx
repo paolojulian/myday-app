@@ -1,5 +1,5 @@
-import HomeHeader from '@/components/home/HomeHeader';
+import HomeWorkArea from '@/components/home/HomeWorkArea';
 
 export default function Home() {
-  return <HomeHeader />;
+  return <HomeWorkArea />;
 }

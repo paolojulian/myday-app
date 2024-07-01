@@ -14,6 +14,7 @@ function BentoCard({ children }: BentoCardProps) {
         borderColor: colors.slateGrey[200],
         borderRadius: 24,
         borderWidth: 1,
+        flex: 1,
         padding: 12,
       }}
     >
