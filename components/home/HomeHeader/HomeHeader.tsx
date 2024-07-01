@@ -8,7 +8,7 @@ function HomeHeader() {
   return (
     <Container
       style={{
-        paddingVertical: 16,
+        paddingVertical: 24,
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center',
@@ -25,11 +25,12 @@ function HomeHeader() {
           borderWidth: 1,
           borderColor: colors.slateGrey[200],
           position: 'absolute',
-          top: -430,
+          top: -420,
         }}
       ></ThemedView>
-      <ThemedView style={{ marginTop: 24 }}>
+      <ThemedView style={{ marginTop: 24, alignItems: 'center' }}>
         <ThemedText variant="caps">MY DAY</ThemedText>
+        <ThemedText variant="body">Friday, June 18, 2024</ThemedText>
       </ThemedView>
     </Container>
   );

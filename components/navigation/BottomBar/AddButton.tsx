@@ -21,7 +21,9 @@ export default function AddButton({ onPress: onAddPress }: AddButtonProps) {
       <TouchableOpacity
         onPress={handlePress}
         style={{
-          backgroundColor: colors.grey,
+          backgroundColor: colors.slateGrey[200],
+          borderWidth: 1,
+          borderColor: colors.slateGrey[300],
           width: 64,
           height: 64,
           padding: 8,
