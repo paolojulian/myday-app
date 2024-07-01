@@ -17,11 +17,8 @@ function HomeWorkArea() {
       <Stack style={{ gap: 8, flex: 1 }}>
         <Container style={{ flexDirection: 'row', gap: 8 }}>
           <ItemValueBentoCard value={14} label="Friday" />
-          <ItemValueBentoCard value={4} label="Tasks" />
-          <ItemValueBentoCard
-            value={<ThemedText variant="heading">40%</ThemedText>}
-            label="Tasks"
-          />
+          <ItemValueBentoCard value={4} label="Due Today" />
+          <ItemValueBentoCard value={2} label="Overdue" />
         </Container>
         <Container style={{ flexDirection: 'row', gap: 8 }}>
           <BentoCard>
