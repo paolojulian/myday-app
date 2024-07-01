@@ -1,6 +1,6 @@
-import { calculatePaths } from '@/components/common/PieChart/PieChart.utils';
+import { PieChartPaths } from '@/components/common/PieChart/PieChart.utils';
 import { colors } from '@/constants/Colors';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Circle, Path, Svg } from 'react-native-svg';
 
@@ -10,7 +10,9 @@ type PieChartProps = {
 };
 
 function PieChart({ total, current }: PieChartProps) {
-  const { currentPath, currentPathColor, totalPath } = calculatePaths({ total, current });
+  const { currentPath, currentPathColor, totalPath } = useMemo(() => {
+    return new PieChartPaths({ total, current }).calculatePaths();
+  }, [total, current]);
 
   return (
     <View style={styles.container}>

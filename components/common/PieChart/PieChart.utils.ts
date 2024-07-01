@@ -20,11 +20,11 @@ function polarToCartesian({
 }
 
 export function createPieArc({
-  radius,
+  radius = 50,
   startAngle,
   endAngle,
 }: {
-  radius: number;
+  radius?: number;
   startAngle: number;
   endAngle: number;
 }) {
@@ -42,31 +42,72 @@ export function createPieArc({
   return d;
 }
 
-export function calculatePaths({ total, current }: { total: number; current: number }) {
-  // Current Path Calculation
-  const isNegative = current < 0;
+export class PieChartPaths {
+  total: number;
+  current: number;
 
-  const currentStartAngle = isNegative ? 0 : ((total - current) / total) * 360;
-  const currentEndAngle = isNegative ? Math.min((Math.abs(current) / total) * 360, 359.9) : 360;
-  const currentPath = createPieArc({
-    endAngle: currentEndAngle,
-    startAngle: current === total ? 0.1 : currentStartAngle,
-    radius: 50,
-  });
-  const currentPathColor = isNegative ? colors.red : colors.black;
+  constructor({ total, current }: { total: number; current: number }) {
+    this.total = total;
+    this.current = current;
+  }
 
-  // Total Path Calculation
-  const totalStartAngle = isNegative ? currentEndAngle : 0;
-  const totalEndAngle = isNegative
-    ? 360
-    : current === total
+  calculatePaths() {
+    const currentPath = createPieArc({
+      ...this.getCurrentAngles(),
+    });
+
+    const totalPath = createPieArc({
+      ...this.getTotalAngles(),
+    });
+
+    const currentPathColor = this.getCurrentPathColor();
+
+    return {
+      currentPath,
+      currentPathColor,
+      totalPath,
+    };
+  }
+
+  getCurrentPathColor() {
+    return this.current < 0 ? colors.red : colors.black;
+  }
+
+  getCurrentAngles() {
+    if (this.current === this.total) {
+      return { startAngle: 0.1, endAngle: 360 };
+    }
+    if (this.current === 0) {
+      return { startAngle: 0, endAngle: 0 };
+    }
+
+    const isNegative = this.current < 0;
+
+    const startAngle = isNegative ? 0 : ((this.total - this.current) / this.total) * 360;
+    const endAngle = isNegative
+      ? Math.min((Math.abs(this.current) / this.total) * 360, 359.9)
+      : 360;
+
+    return { startAngle, endAngle };
+  }
+
+  getTotalAngles() {
+    if (this.current === 0) {
+      return { startAngle: 0, endAngle: 359.9 };
+    }
+    if (this.current === this.total) {
+      return { startAngle: 0, endAngle: 0 };
+    }
+
+    const isNegative = this.current < 0;
+
+    const startAngle = isNegative ? this.getCurrentAngles().endAngle : 0;
+    const endAngle = isNegative
       ? 360
-      : ((total - current) / total) * 360;
-  const totalPath = createPieArc({
-    endAngle: totalEndAngle,
-    startAngle: totalStartAngle,
-    radius: 50,
-  });
+      : this.current === this.total
+        ? 360
+        : ((this.total - this.current) / this.total) * 360;
 
-  return { currentPath, currentPathColor, totalPath };
+    return { startAngle, endAngle };
+  }
 }

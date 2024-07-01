@@ -79,7 +79,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
           style={
             [
               {
-                "fontFamily": "Open_SansMedium",
+                "fontFamily": "PoppinsMedium",
                 "fontSize": 16,
                 "fontWeight": 500,
               },
@@ -87,7 +87,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
                 "fontWeight": 400,
               },
               {
-                "color": "#05141F",
+                "color": "#0F172A",
               },
             ]
           }
@@ -98,7 +98,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
           style={
             [
               {
-                "fontFamily": "Open_SansRegular",
+                "fontFamily": "PoppinsRegular",
                 "fontSize": 16,
               },
               {

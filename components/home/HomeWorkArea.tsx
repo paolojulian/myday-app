@@ -27,7 +27,7 @@ function HomeWorkArea() {
           <BentoCard>
             <Stack style={{ gap: 16, alignItems: 'center', justifyContent: 'flex-end' }}>
               <ThemedView style={{ marginTop: 16 }}>
-                <PieChart current={70} total={100} />
+                <PieChart current={80} total={100} />
               </ThemedView>
               <Stack style={{ alignItems: 'center' }}>
                 <ThemedText variant="heading">{toLocaleCurrencyFormat(17000)}</ThemedText>
