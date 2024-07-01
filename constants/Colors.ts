@@ -27,5 +27,6 @@ export const colors = {
     200: '#E2E8F0',
     300: '#CBD5E1',
   },
+  link: '#2563EB',
   black: '#0F172A',
 };

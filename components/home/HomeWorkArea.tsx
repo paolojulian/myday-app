@@ -6,6 +6,7 @@ import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import HomeHeader from '@/components/home/HomeHeader';
+import PriorityTaskList from '@/components/home/PriorityTaskList';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import React from 'react';
 import { Image, ScrollView } from 'react-native';
@@ -14,7 +15,7 @@ function HomeWorkArea() {
   return (
     <ScrollView style={{ flex: 1 }}>
       <HomeHeader />
-      <Stack style={{ gap: 8, flex: 1 }}>
+      <Stack style={{ gap: 8, flex: 1, paddingBottom: 24 }}>
         <Container style={{ flexDirection: 'row', gap: 8 }}>
           <ItemValueBentoCard value={14} label="Total Tasks" />
           <ItemValueBentoCard value={4} label="Due Today" />
@@ -44,6 +45,7 @@ function HomeWorkArea() {
             </Stack>
           </BentoCard>
         </Container>
+        <PriorityTaskList />
       </Stack>
     </ScrollView>
   );
