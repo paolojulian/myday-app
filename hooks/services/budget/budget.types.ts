@@ -5,5 +5,5 @@ export interface Budget {
 }
 
 export enum BudgetQueryKeys {
-  month = 'month',
+  budget = 'budget',
 }

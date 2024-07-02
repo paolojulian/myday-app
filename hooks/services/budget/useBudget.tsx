@@ -1,4 +1,4 @@
-import { Budget } from '@/hooks/services/budget/budget.types';
+import { Budget, BudgetQueryKeys } from '@/hooks/services/budget/budget.types';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useSQLiteContext } from 'expo-sqlite';
@@ -14,7 +14,7 @@ const useBudget = (date: Date) => {
   };
 
   return useQuery({
-    queryKey: ['budget', dayjs(date).format('YYYY-MM')],
+    queryKey: [BudgetQueryKeys.budget, dayjs(date).format('YYYY-MM')],
     queryFn: getBudgetByDateMonth,
   });
 };

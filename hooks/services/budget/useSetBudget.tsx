@@ -19,9 +19,7 @@ const useSetBudget = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          //TODO query
-          console.log(query);
-          return true;
+          return query.queryKey[0] === 'budget';
         },
       });
       return response;
