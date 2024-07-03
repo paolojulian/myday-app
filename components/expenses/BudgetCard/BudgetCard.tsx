@@ -34,7 +34,9 @@ function BudgetCard() {
     setIsEditable(!isEditable);
   };
 
-  const handleOnchange = (value: any) => {
+const handleOnChange: TextInputProps['onChangeText'] = (value) => {
+    setInputBudget(parseInt(value));
+}
     setInputBudget(parseInt(value));
   };
 
