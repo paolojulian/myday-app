@@ -9,7 +9,7 @@ import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { selectionAsync } from 'expo-haptics';
 import React, { useMemo, useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, TouchableOpacity } from 'react-native';
 
 function BudgetCard() {
   const handlePress = () => {
@@ -34,9 +34,7 @@ function BudgetCard() {
     setIsEditable(!isEditable);
   };
 
-const handleOnChange: TextInputProps['onChangeText'] = (value) => {
-    setInputBudget(parseInt(value));
-}
+  const handleOnChange: TextInputProps['onChangeText'] = value => {
     setInputBudget(parseInt(value));
   };
 
@@ -52,7 +50,7 @@ const handleOnChange: TextInputProps['onChangeText'] = (value) => {
                 <TextInput
                   defaultValue={String(budget?.amount ?? 0)}
                   editable={isEditable}
-                  onChangeText={handleOnchange}
+                  onChangeText={handleOnChange}
                 ></TextInput>
               ) : (
                 <ThemedText variant="body">
