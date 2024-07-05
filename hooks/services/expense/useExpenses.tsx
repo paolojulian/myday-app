@@ -50,10 +50,8 @@ function buildQuery(filter: ExpenseQueryFilters) {
       return /* sql */ `
         SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
         LEFT JOIN category ON expense.category_id = category.id
-        WHERE transaction_date BETWEEN $start AND $end
-          AND recurrence IS NULL
         ORDER BY expense.transaction_date DESC
-        LIMIT 10 
+        LIMIT 5 
       `;
     default:
       throw new Error(`Invalid filter type: ${(filter as any).filterType}`);
@@ -63,10 +61,7 @@ function buildQuery(filter: ExpenseQueryFilters) {
 function buildVariables(filter: ExpenseQueryFilters): SQLiteBindParams {
   switch (filter.filterType) {
     case 'recent-transactions':
-      return {
-        $start: dayjs().startOf('day').unix().toString(),
-        $end: dayjs().endOf('day').unix().toString(),
-      };
+      return {};
     case 'monthly':
       return {
         $start: dayjs(filter.transactionDate).startOf('month').unix().toString(),

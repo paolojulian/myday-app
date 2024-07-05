@@ -26,6 +26,7 @@ export const colors = {
     100: '#F1F5F9',
     200: '#E2E8F0',
     300: '#CBD5E1',
+    500: '#64748B',
   },
   link: '#2563EB',
   black: '#0F172A',
