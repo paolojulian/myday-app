@@ -4,7 +4,7 @@ import { BudgetModalManager } from '@/components/expenses/BudgetCard/BudgetModal
 import { colors } from '@/constants/Colors';
 import useBudget from '@/hooks/services/budget/useBudget';
 import useSetBudget from '@/hooks/services/budget/useSetBudget';
-import useExpense from '@/hooks/services/expense/useExpense';
+import useExpenses from '@/hooks/services/expense/useExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { selectionAsync } from 'expo-haptics';
@@ -20,7 +20,7 @@ function BudgetCard() {
   const [isEditable, setIsEditable] = useState(false);
   const { data: budget } = useBudget(thisMonth);
   const [inputBudget, setInputBudget] = useState(budget?.amount ?? 0);
-  const { data: expenses } = useExpense({ transactionDate: thisMonth, filterType: 'monthly' });
+  const { data: expenses } = useExpenses({ transactionDate: thisMonth, filterType: 'monthly' });
   const totalSpending = expenses?.reduce((total, expense) => total + expense.amount, 0) ?? 0;
   const toggleEdit = () => {
     setIsEditable(!isEditable);
