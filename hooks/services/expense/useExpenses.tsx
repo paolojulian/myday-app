@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
 import { useCallback } from 'react';
 
-const useExpense = (filter: ExpenseQueryFilters) => {
+const useExpenses = (filter: ExpenseQueryFilters) => {
   const db = useSQLiteContext();
 
   const setup = useCallback(async () => {
@@ -46,6 +46,13 @@ function buildQuery(filter: ExpenseQueryFilters) {
           AND recurrence IS NULL
         ORDER BY expense.transaction_date DESC
       `;
+    case 'recent-transactions':
+      return /* sql */ `
+        SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
+        LEFT JOIN category ON expense.category_id = category.id
+        ORDER BY expense.transaction_date DESC
+        LIMIT 5 
+      `;
     default:
       throw new Error(`Invalid filter type: ${(filter as any).filterType}`);
   }
@@ -53,6 +60,8 @@ function buildQuery(filter: ExpenseQueryFilters) {
 
 function buildVariables(filter: ExpenseQueryFilters): SQLiteBindParams {
   switch (filter.filterType) {
+    case 'recent-transactions':
+      return {};
     case 'monthly':
       return {
         $start: dayjs(filter.transactionDate).startOf('month').unix().toString(),
@@ -69,4 +78,4 @@ function buildVariables(filter: ExpenseQueryFilters): SQLiteBindParams {
   }
 }
 
-export default useExpense;
+export default useExpenses;

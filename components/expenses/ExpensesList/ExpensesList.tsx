@@ -7,7 +7,7 @@ import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesL
 import { colors } from '@/constants/Colors';
 import { Category } from '@/hooks/services/category/category.types';
 import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
-import useExpense from '@/hooks/services/expense/useExpense';
+import useExpenses from '@/hooks/services/expense/useExpenses';
 import { useState } from 'react';
 import { FlatList } from 'react-native';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
@@ -19,7 +19,7 @@ type ExpenseListProps = {
 export default function ExpensesList({ transactionDate }: ExpenseListProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category['id'] | null>(null);
   // const filterType = selectedCategory === null ? 'monthly' : 'category';
-  const { data: expenses, isLoading } = useExpense({
+  const { data: expenses, isLoading } = useExpenses({
     filterType: 'monthly',
     transactionDate,
     // categoryId: filterType === 'monthly' ? undefined : selectedCategory,

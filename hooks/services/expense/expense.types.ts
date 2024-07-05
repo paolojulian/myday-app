@@ -33,4 +33,7 @@ export type ExpenseQueryFilters =
       transactionDate: Date;
       categoryId: Category['id'];
       filterType: 'category';
+    }
+  | {
+      filterType: 'recent-transactions';
     };
