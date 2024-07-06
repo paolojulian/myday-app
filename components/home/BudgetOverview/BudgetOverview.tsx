@@ -32,6 +32,14 @@ function BudgetOverview() {
 
   const remainingBudget = monthlyBudget - totalMonthlyExpenses;
 
+  const spentToday = {
+    color: totalExpensesToday > 0 ? colors.red : colors.black,
+    text:
+      totalExpensesToday > 0
+        ? `-${toLocaleCurrencyFormat(totalExpensesToday)}`
+        : toLocaleCurrencyFormat(totalExpensesToday),
+  };
+
   return (
     <Container style={{ flexDirection: 'row', gap: 8 }}>
       <BentoCard>
@@ -51,8 +59,8 @@ function BudgetOverview() {
             <Image source={require('../../../assets/images/total-spent-today.png')} />
           </ThemedView>
           <Stack style={{ alignItems: 'center' }}>
-            <ThemedText variant="heading" style={{ color: colors.red }}>
-              -{toLocaleCurrencyFormat(totalExpensesToday)}
+            <ThemedText variant="heading" style={{ color: spentToday.color }}>
+              {spentToday.text}
             </ThemedText>
             <ThemedText variant="body">Total Spent Today</ThemedText>
           </Stack>
