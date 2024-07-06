@@ -12,7 +12,7 @@ export function useCompleteTask() {
         $id: id,
       });
     },
-    onSuccess: async () => {
+    onSuccess: async response => {
       queryClient.invalidateQueries({
         predicate: query => {
           const firstQueryKey = query.queryKey[0];
@@ -28,6 +28,8 @@ export function useCompleteTask() {
           return invalidateQueries.includes(firstQueryKey);
         },
       });
+
+      return response;
     },
   });
 }

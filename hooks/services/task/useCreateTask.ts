@@ -14,7 +14,7 @@ export const useCreateTask = () => {
 
   const setup = async (task: SupportedCreateTaskFields) => {
     const now_epoch = convertDateToEpoch(new Date());
-    const result = await db.runAsync(ADD_TASK_STATEMENT, {
+    const variables = {
       $title: task.title,
       $description: task.description,
       $reminder_date: task.reminder_date,
@@ -22,7 +22,8 @@ export const useCreateTask = () => {
       $expected_amount: task.expected_amount,
       $created_at: now_epoch,
       $updated_at: now_epoch,
-    });
+    };
+    const result = await db.runAsync(ADD_TASK_STATEMENT, variables);
 
     return result;
   };
@@ -32,9 +33,17 @@ export const useCreateTask = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          return (
-            query.queryKey[0] === TaskQueryKeys.list || query.queryKey[0] === TaskQueryKeys.overview
-          );
+          const firstQueryKey = query.queryKey[0];
+          if (typeof firstQueryKey !== 'string') {
+            return false;
+          }
+
+          const invalidateQueries: string[] = [
+            TaskQueryKeys.list,
+            TaskQueryKeys.overview,
+            TaskQueryKeys.priority,
+          ];
+          return invalidateQueries.includes(firstQueryKey);
         },
       });
 
@@ -46,6 +55,6 @@ export const useCreateTask = () => {
 };
 
 const ADD_TASK_STATEMENT = `
-  INSERT INTO task (title, description, reminder_date, to_buy, expected_amount, created_at, updated_at)
-  VALUES ($title, $description, $reminder_date, $to_buy, $expected_amount, $created_at, $updated_at)
+  INSERT INTO task (title, description, reminder_date, is_completed, to_buy, expected_amount, created_at, updated_at)
+  VALUES ($title, $description, $reminder_date, 0, $to_buy, $expected_amount, $created_at, $updated_at)
 `;

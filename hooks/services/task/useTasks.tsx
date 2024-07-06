@@ -11,6 +11,7 @@ const useTasks = (filters: TaskQueryFilters) => {
     const query = buildQuery(filters);
     const variables = buildVariables(filters);
     const result = await db.getAllAsync<Task>(query, variables);
+
     return result;
   }
 
