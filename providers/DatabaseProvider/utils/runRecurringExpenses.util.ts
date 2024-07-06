@@ -19,9 +19,7 @@ export class RecurringExpenses {
       START OF ADDING RECURRING EXPENSES
     `);
     const recurringExpenses = await this.fetchRecurringExpenses();
-    recurringExpenses.forEach(expense => {
-      this.processRecurringExpense(expense);
-    });
+    await Promise.all(recurringExpenses.map(expense => this.processRecurringExpense(expense)));
   }
 
   private async fetchRecurringExpenses() {
@@ -34,13 +32,13 @@ export class RecurringExpenses {
     `);
     switch (recurringExpense.recurrence) {
       case 'weekly':
-        this.processRecurringExpenseByInterval(recurringExpense, 'weeks');
+        await this.processRecurringExpenseByInterval(recurringExpense, 'weeks');
         break;
       case 'monthly':
-        this.processRecurringExpenseByInterval(recurringExpense, 'months');
+        await this.processRecurringExpenseByInterval(recurringExpense, 'months');
         break;
       case 'yearly':
-        this.processRecurringExpenseByInterval(recurringExpense, 'years');
+        await this.processRecurringExpenseByInterval(recurringExpense, 'years');
         break;
       default:
     }
@@ -74,13 +72,12 @@ export class RecurringExpenses {
       }
     } catch (e: any) {
       throw new Error('Failed to add recurring expenses: ' + e.message);
-    } finally {
-      await addRecurringExpenseStatement.finalizeAsync();
-      console.log(`
+    }
+    await addRecurringExpenseStatement.finalizeAsync();
+    console.log(`
       END OF ADDING RECURRING EXPENSES
       ========================================
-      `);
-    }
+    `);
   }
 }
 
