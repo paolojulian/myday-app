@@ -28,6 +28,7 @@ export const colors = {
     300: '#CBD5E1',
     500: '#64748B',
   },
+  blueLink: '#3B82F6',
   link: '#2563EB',
   black: '#0F172A',
 };
