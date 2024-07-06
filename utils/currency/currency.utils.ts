@@ -8,5 +8,6 @@ export function toLocaleCurrencyFormat(amount: number): string {
   return Intl.NumberFormat(resolvedLocale.languageTag, {
     style: 'currency',
     currency: resolvedLocale.currencyCode ?? defaultLocale.currencyCode,
+    minimumFractionDigits: 0,
   }).format(amount);
 }

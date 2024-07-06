@@ -20,8 +20,8 @@ export const categoryMigrations = [
           );
           INSERT INTO category (category_name, created_at, updated_at, deleted_at)
           VALUES
-            ('Food', 1635724800, 1635724800, NULL),
             ('Grocery', 1635724800, 1635724800, NULL),
+            ('Restaurant', 1635724800, 1635724800, NULL),
             ('Bills', 1635724800, 1635724800, NULL),
             ('Transport', 1635724800, 1635724800, NULL),
             ('Entertainment', 1635724800, 1635724800, NULL),

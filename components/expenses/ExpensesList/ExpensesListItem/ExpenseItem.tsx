@@ -11,9 +11,14 @@ import { Swipeable } from 'react-native-gesture-handler';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 
+type SupportedExpenseFields = Pick<
+  ExpenseWithCategoryName,
+  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id'
+>;
+
 type ExpenseItemProps = {
   onDelete: (id: Expense['id']) => void;
-  expense: ExpenseWithCategoryName;
+  expense: SupportedExpenseFields;
 };
 
 export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {

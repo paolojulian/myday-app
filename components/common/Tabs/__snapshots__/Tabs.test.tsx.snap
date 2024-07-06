@@ -46,7 +46,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
           "backgroundColor": "transparent",
         },
         {
-          "backgroundColor": "#05141F",
+          "backgroundColor": "#0F172A",
           "flex": 1,
           "padding": 16,
         },
@@ -58,7 +58,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "Open_SansRegular",
+            "fontFamily": "PoppinsRegular",
             "fontSize": 14,
           },
           {
@@ -116,14 +116,14 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "Open_SansRegular",
+            "fontFamily": "PoppinsRegular",
             "fontSize": 14,
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#05141F",
+            "color": "#0F172A",
             "textTransform": "capitalize",
           },
         ]
@@ -174,14 +174,14 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "Open_SansRegular",
+            "fontFamily": "PoppinsRegular",
             "fontSize": 14,
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#05141F",
+            "color": "#0F172A",
             "textTransform": "capitalize",
           },
         ]

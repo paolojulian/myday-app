@@ -1,13 +1,11 @@
 export const colors = {
   aliceBlue: '#E5ECF3',
   backdrop: 'rgba(0, 0, 0, 0.3)',
-  black: '#05141F',
   darkGrey: '#737373',
   green: '#009000',
   grey: '#a3a3a3',
   lightGrey: '#f8fafc',
   red: '#CC3333',
-  white: '#FFFFFF',
   whiteSmoke: '#f5f5f5',
   primary: {
     100: '#F8F9FA',
@@ -21,4 +19,15 @@ export const colors = {
     900: '#212529',
   },
   danger: '#DC3545',
+
+  // Finalized Colors
+  white: '#FFFFFF',
+  slateGrey: {
+    100: '#F1F5F9',
+    200: '#E2E8F0',
+    300: '#CBD5E1',
+    500: '#64748B',
+  },
+  link: '#2563EB',
+  black: '#0F172A',
 };

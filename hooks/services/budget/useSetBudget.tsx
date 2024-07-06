@@ -1,20 +1,29 @@
 import { convertDateToEpoch } from '@/utils/date/date.utils';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
 
-const useSetBudget = (amount: number) => {
+const useSetBudget = () => {
   const db = useSQLiteContext();
+  const queryClient = useQueryClient();
 
-  async function setup() {
+  async function setBudget(amount: number) {
     const now_epoch = convertDateToEpoch(new Date());
     return await db.runAsync(INSERT_LATEST_BUDGET, {
-      $amount: amount,
+      $amount: String(amount),
       $created_at: now_epoch,
     });
   }
 
   return useMutation({
-    mutationFn: setup,
+    mutationFn: setBudget,
+    onSuccess: response => {
+      queryClient.invalidateQueries({
+        predicate(query) {
+          return query.queryKey[0] === 'budget';
+        },
+      });
+      return response;
+    },
   });
 };
 
