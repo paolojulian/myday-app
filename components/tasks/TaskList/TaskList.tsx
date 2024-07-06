@@ -12,7 +12,7 @@ import EmptyTaskList from './EmptyTaskList';
 
 export default function TaskList() {
   const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
-  const { data } = useTasks({ filterType: selectedFilter });
+  const { data, isLoading } = useTasks({ filterType: selectedFilter });
   const tasks = data || [];
 
   const { mutateAsync: completeTaskMutation } = useCompleteTask();
@@ -26,7 +26,7 @@ export default function TaskList() {
       data={tasks}
       contentContainerStyle={{ backgroundColor: colors.white }}
       ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-      ListEmptyComponent={<EmptyTaskList filterType={selectedFilter} />}
+      ListEmptyComponent={isLoading ? null : <EmptyTaskList filterType={selectedFilter} />}
       ListHeaderComponent={
         <>
           <TaskHeader />
