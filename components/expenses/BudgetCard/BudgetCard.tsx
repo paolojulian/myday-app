@@ -6,6 +6,7 @@ import useBudget from '@/hooks/services/budget/useBudget';
 import useSetBudget from '@/hooks/services/budget/useSetBudget';
 import useExpenses from '@/hooks/services/expense/useExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
+import { getTotalExpenseAmount } from '@/utils/expenses/getTotalExpenseAmount';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { selectionAsync } from 'expo-haptics';
 import React, { useMemo, useState } from 'react';
@@ -21,7 +22,7 @@ function BudgetCard() {
   const { data: budget } = useBudget(thisMonth);
   const [inputBudget, setInputBudget] = useState(budget?.amount ?? 0);
   const { data: expenses } = useExpenses({ transactionDate: thisMonth, filterType: 'monthly' });
-  const totalSpending = expenses?.reduce((total, expense) => total + expense.amount, 0) ?? 0;
+  const totalSpending = getTotalExpenseAmount(expenses);
   const toggleEdit = () => {
     setIsEditable(!isEditable);
   };

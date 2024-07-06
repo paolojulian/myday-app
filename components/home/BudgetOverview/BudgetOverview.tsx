@@ -4,11 +4,34 @@ import PieChart from '@/components/common/PieChart';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
+import { colors } from '@/constants/Colors';
+import useBudget from '@/hooks/services/budget/useBudget';
+import useExpenses from '@/hooks/services/expense/useExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
-import React from 'react';
+import { getTotalExpenseAmount } from '@/utils/expenses/getTotalExpenseAmount';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
 import { Image } from 'react-native';
 
-function BudgetDetails() {
+function BudgetOverview() {
+  const today = useMemo(() => new Date(), []);
+  const { data: budget } = useBudget(today);
+  const { data: expenses } = useExpenses({
+    filterType: 'monthly',
+    transactionDate: today,
+  });
+  const monthlyBudget = budget?.amount ?? 0;
+  const totalMonthlyExpenses = useMemo(() => getTotalExpenseAmount(expenses), [expenses]);
+  const totalExpensesToday = useMemo(
+    () =>
+      getTotalExpenseAmount(
+        expenses?.filter(expense => dayjs.unix(expense.transaction_date).isSame(today, 'day')),
+      ),
+    [expenses, today],
+  );
+
+  const remainingBudget = monthlyBudget - totalMonthlyExpenses;
+
   return (
     <Container style={{ flexDirection: 'row', gap: 8 }}>
       <BentoCard>
@@ -17,7 +40,7 @@ function BudgetDetails() {
             <PieChart current={80} total={100} />
           </ThemedView>
           <Stack style={{ alignItems: 'center' }}>
-            <ThemedText variant="heading">{toLocaleCurrencyFormat(17000)}</ThemedText>
+            <ThemedText variant="heading">{toLocaleCurrencyFormat(remainingBudget)}</ThemedText>
             <ThemedText variant="body">Remaining Budget</ThemedText>
           </Stack>
         </Stack>
@@ -28,7 +51,9 @@ function BudgetDetails() {
             <Image source={require('../../../assets/images/total-spent-today.png')} />
           </ThemedView>
           <Stack style={{ alignItems: 'center' }}>
-            <ThemedText variant="heading">{toLocaleCurrencyFormat(1200)}</ThemedText>
+            <ThemedText variant="heading" style={{ color: colors.red }}>
+              -{toLocaleCurrencyFormat(totalExpensesToday)}
+            </ThemedText>
             <ThemedText variant="body">Total Spent Today</ThemedText>
           </Stack>
         </Stack>
@@ -37,4 +62,4 @@ function BudgetDetails() {
   );
 }
 
-export default BudgetDetails;
+export default BudgetOverview;
