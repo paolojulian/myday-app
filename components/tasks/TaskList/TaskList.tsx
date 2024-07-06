@@ -28,14 +28,7 @@ export default function TaskList() {
         if (isTaskItem(item)) {
           return (
             <Container>
-              <TaskItem
-                onRemove={handleRemoveItem}
-                key={item.id}
-                id={item.id}
-                name={item.title}
-                notes={item.description}
-                reminderDate={item.reminder_date}
-              />
+              <TaskItem key={item.id} onRemove={handleRemoveItem} task={item} />
             </Container>
           );
         }

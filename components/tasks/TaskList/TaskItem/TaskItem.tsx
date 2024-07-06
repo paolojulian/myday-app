@@ -7,18 +7,19 @@ import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
 import dayjs from 'dayjs';
+import { Task } from '@/hooks/services/task/task.types';
+
+type SupportedTaskFields = Pick<Task, 'id' | 'title' | 'description' | 'reminder_date'>;
 
 export type TaskItemProps = {
   onRemove: (id: number) => void;
-  id: number;
-  name: string;
-  notes: string;
-  reminderDate?: number | null;
+  task: SupportedTaskFields;
 };
 
 const TIME_BEFORE_REMOVED_MS = 3000;
 
-export default function TaskItem({ onRemove, id, name, reminderDate }: TaskItemProps) {
+export default function TaskItem({ onRemove, task }: TaskItemProps) {
+  const { id, title, reminder_date: reminderDate } = task;
   const [isChecked, setChecked] = useState(false);
   const isBeingRemovedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -91,7 +92,7 @@ export default function TaskItem({ onRemove, id, name, reminderDate }: TaskItemP
               color: isChecked ? colors.grey : colors.black,
             }}
           >
-            {name}
+            {title}
           </ThemedText>
           {!!formattedReminderDate && (
             <ThemedText

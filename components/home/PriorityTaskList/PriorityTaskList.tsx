@@ -1,3 +1,4 @@
+import { TabName } from '@/app/(tabs)/_layout';
 import BentoCard from '@/components/common/BentoCard';
 import Container from '@/components/common/Container';
 import LinkText from '@/components/common/LinkText';
@@ -5,10 +6,17 @@ import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import TaskItem from '@/components/tasks/TaskList/TaskItem';
+import { usePriorityTasks } from '@/hooks/services/task/usePriorityTasks';
+import { useNavigation } from 'expo-router';
 import React from 'react';
 
 function PriorityTaskList() {
-  const handleViewAllPress = () => {};
+  const navigation = useNavigation();
+  const { data: tasks } = usePriorityTasks();
+
+  const handleViewAllPress = () => {
+    navigation.navigate(TabName.Todo as never);
+  };
 
   return (
     <Container>
@@ -18,9 +26,7 @@ function PriorityTaskList() {
           <ThemedText variant="body2">Priority Tasks</ThemedText>
           {/* List */}
           <Stack style={{ gap: 8 }}>
-            <TaskItem id={2} name="Test" notes="Test" onRemove={() => {}} reminderDate={null} />
-            <TaskItem id={2} name="Test" notes="Test" onRemove={() => {}} reminderDate={null} />
-            <TaskItem id={2} name="Test" notes="Test" onRemove={() => {}} reminderDate={null} />
+            {tasks?.map(task => <TaskItem key={task.id} onRemove={() => {}} task={task} />)}
           </Stack>
           {/* View All */}
           <Row style={{ justifyContent: 'center' }}>
