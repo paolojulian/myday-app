@@ -9,6 +9,7 @@ import TaskItem from '@/components/tasks/TaskList/TaskItem';
 import { usePriorityTasks } from '@/hooks/services/task/usePriorityTasks';
 import { useNavigation } from 'expo-router';
 import React from 'react';
+import EmptyPriorityTasks from './EmptyPriorityTasks';
 
 function PriorityTaskList() {
   const navigation = useNavigation();
@@ -18,20 +19,27 @@ function PriorityTaskList() {
     navigation.navigate(TabName.Todo as never);
   };
 
+  const isEmpty = !tasks || tasks.length === 0;
+
   return (
     <Container>
       <BentoCard>
         {/* Title */}
         <Stack style={{ gap: 16 }}>
           <ThemedText variant="body2">Priority Tasks</ThemedText>
-          {/* List */}
-          <Stack style={{ gap: 8 }}>
-            {tasks?.map(task => <TaskItem key={task.id} onRemove={() => {}} task={task} />)}
-          </Stack>
-          {/* View All */}
-          <Row style={{ justifyContent: 'center' }}>
-            <LinkText onPress={handleViewAllPress} text="View all" />
-          </Row>
+          {isEmpty ? <EmptyPriorityTasks /> : null}
+          {!isEmpty ? (
+            <>
+              {/* List */}
+              <Stack style={{ gap: 8 }}>
+                {tasks?.map(task => <TaskItem key={task.id} onRemove={() => {}} task={task} />)}
+              </Stack>
+              {/* View All */}
+              <Row style={{ justifyContent: 'center' }}>
+                <LinkText onPress={handleViewAllPress} text="View all" />
+              </Row>
+            </>
+          ) : null}
         </Stack>
       </BentoCard>
     </Container>
