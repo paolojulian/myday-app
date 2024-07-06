@@ -6,12 +6,11 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
-import { useCallback } from 'react';
 
 const useExpenses = (filter: ExpenseQueryFilters) => {
   const db = useSQLiteContext();
 
-  const setup = useCallback(async () => {
+  const setup = async () => {
     if (!filter) {
       throw new Error('Invalid filters provided');
     }
@@ -19,7 +18,7 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
     const variables = buildVariables(filter);
 
     return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
-  }, [db, filter]);
+  };
 
   return useQuery({
     queryKey: [ExpenseQueryKeys.list, filter],
