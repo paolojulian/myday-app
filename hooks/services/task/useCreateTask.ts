@@ -32,7 +32,9 @@ export const useCreateTask = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          return query.queryKey[0] === TaskQueryKeys.list;
+          return (
+            query.queryKey[0] === TaskQueryKeys.list || query.queryKey[0] === TaskQueryKeys.overview
+          );
         },
       });
 
