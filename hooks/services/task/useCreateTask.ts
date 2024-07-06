@@ -12,7 +12,7 @@ export const useCreateTask = () => {
   const db = useSQLiteContext();
   const queryClient = useQueryClient();
 
-  async function setup(task: SupportedCreateTaskFields) {
+  const setup = async (task: SupportedCreateTaskFields) => {
     const now_epoch = convertDateToEpoch(new Date());
     const result = await db.runAsync(ADD_TASK_STATEMENT, {
       $title: task.title,
@@ -25,7 +25,7 @@ export const useCreateTask = () => {
     });
 
     return result;
-  }
+  };
 
   const { data, error, mutate, isPending } = useMutation({
     mutationFn: setup,

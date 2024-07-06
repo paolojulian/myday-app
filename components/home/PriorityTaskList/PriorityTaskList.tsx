@@ -10,6 +10,8 @@ import { usePriorityTasks } from '@/hooks/services/task/usePriorityTasks';
 import { useNavigation } from 'expo-router';
 import React from 'react';
 import EmptyPriorityTasks from './EmptyPriorityTasks';
+import { useCompleteTask } from '@/hooks/services/task/useCompleteTask';
+import { TaskItemProps } from '@/components/tasks/TaskList/TaskItem/TaskItem';
 
 function PriorityTaskList() {
   const navigation = useNavigation();
@@ -17,6 +19,12 @@ function PriorityTaskList() {
 
   const handleViewAllPress = () => {
     navigation.navigate(TabName.Todo as never);
+  };
+
+  const { mutateAsync: completeTaskMutation } = useCompleteTask();
+
+  const handleRemoveItem: TaskItemProps['onRemove'] = id => {
+    completeTaskMutation(id);
   };
 
   const isEmpty = !tasks || tasks.length === 0;
@@ -32,7 +40,9 @@ function PriorityTaskList() {
             <>
               {/* List */}
               <Stack style={{ gap: 8 }}>
-                {tasks?.map(task => <TaskItem key={task.id} onRemove={() => {}} task={task} />)}
+                {tasks?.map(task => (
+                  <TaskItem key={task.id} onRemove={handleRemoveItem} task={task} />
+                ))}
               </Stack>
               {/* View All */}
               <Row style={{ justifyContent: 'center' }}>
