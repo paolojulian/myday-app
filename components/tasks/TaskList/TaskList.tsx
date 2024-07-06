@@ -1,20 +1,22 @@
 import Container from '@/components/common/Container';
 import TaskFilters from '@/components/tasks/TaskFilters';
+import TaskHeader from '@/components/tasks/TaskHeader';
 import { Task, type TaskFilterTypes } from '@/hooks/services/task/task.types';
+import { useCompleteTask } from '@/hooks/services/task/useCompleteTask';
 import useTasks from '@/hooks/services/task/useTasks';
 import { useState } from 'react';
-import { Alert, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
-import TaskHeader from '@/components/tasks/TaskHeader';
 
 export default function TaskList() {
   const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
   const { data } = useTasks({ filterType: selectedFilter });
   const tasks = data || [];
 
+  const { mutateAsync: completeTaskMutation } = useCompleteTask();
+
   const handleRemoveItem: TaskItemProps['onRemove'] = id => {
-    Alert.alert(`Item with id ${id} has been removed`);
-    // setTodos(prev => prev.filter(item => item.id !== id));
+    completeTaskMutation(id);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { colors } from '@/constants/Colors';
 import Checkbox from 'expo-checkbox';
 import { selectionAsync } from 'expo-haptics';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
@@ -23,9 +23,10 @@ export default function TaskItem({ onRemove, task }: TaskItemProps) {
   const [isChecked, setChecked] = useState(false);
   const isBeingRemovedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const formattedReminderDate = reminderDate
-    ? dayjs.unix(reminderDate).format('MMM D, YYYY')
-    : null;
+  const formattedReminderDate = useMemo(
+    () => (reminderDate ? dayjs.unix(reminderDate).format('MMM D, YYYY') : null),
+    [reminderDate],
+  );
 
   const prepareForRemoval = () => {
     cancelRemoval();

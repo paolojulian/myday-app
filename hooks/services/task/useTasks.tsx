@@ -11,6 +11,7 @@ const useTasks = (filters: TaskQueryFilters) => {
     const query = buildQuery(filters);
     const variables = buildVariables(filters);
     const result = await db.getAllAsync<Task>(query, variables);
+
     return result;
   }
 
@@ -26,6 +27,7 @@ function buildQuery(filters: TaskQueryFilters) {
       return /* sql */ `
         SELECT * FROM task 
         WHERE task.reminder_date BETWEEN $start AND $end
+          AND is_completed = 0
         ORDER BY reminder_date ASC
       `;
     case 'All':
