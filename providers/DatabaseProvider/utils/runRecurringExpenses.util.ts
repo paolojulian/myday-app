@@ -14,6 +14,10 @@ export class RecurringExpenses {
   }
 
   async populate() {
+    console.log(`
+      ========================================
+      START OF ADDING RECURRING EXPENSES
+    `);
     const recurringExpenses = await this.fetchRecurringExpenses();
     recurringExpenses.forEach(expense => {
       this.processRecurringExpense(expense);
@@ -25,6 +29,9 @@ export class RecurringExpenses {
   }
 
   private async processRecurringExpense(recurringExpense: RecurringExpense) {
+    console.log(`
+      -- Processing recurring expense: ${recurringExpense.title}(${recurringExpense.recurrence})
+    `);
     switch (recurringExpense.recurrence) {
       case 'weekly':
         this.processRecurringExpenseByInterval(recurringExpense, 'weeks');
@@ -69,7 +76,10 @@ export class RecurringExpenses {
       throw new Error('Failed to add recurring expenses: ' + e.message);
     } finally {
       await addRecurringExpenseStatement.finalizeAsync();
-      console.log('Successfully added recurring expenses.');
+      console.log(`
+      END OF ADDING RECURRING EXPENSES
+      ========================================
+      `);
     }
   }
 }

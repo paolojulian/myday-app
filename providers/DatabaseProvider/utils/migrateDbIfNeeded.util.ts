@@ -13,32 +13,54 @@ export class MigrateOnInit {
   }
 
   migrateDbIfNeeded = async () => {
-    console.log('Migrating database');
+    const userLocalDbVersion = await this.getUserLocalDbVersion();
+    console.log(`
+      ========================================
+      MIGRATION
+      Local version: ${userLocalDbVersion}
+      Update version: ${this.getCurrentDbVersion()}
+    `);
+
     const shouldMigrate = await this.shouldRunMigration();
     if (!shouldMigrate) {
-      console.log('Up-to-date');
+      console.log(`
+        END OF MIGRATION
+        Database is up-to-date
+        ========================================
+      `);
       return;
     }
 
     const migrationsToRun = await this.getMigrationsToRun();
-    const userLocalDbVersion = await this.getUserLocalDbVersion();
-    console.log('User local database version: ', userLocalDbVersion);
-    console.log('Migrating database to version: ', this.getCurrentDbVersion());
+    console.log(`
+      -- Migration versions to run: ${migrationsToRun.map(migration => migration.version).join(', ')}
+    `);
 
     // Apply the migrations
-    this.db.withTransactionAsync(async () => {
-      await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
-      for (const { queries } of migrationsToRun) {
-        for (const { query } of queries) {
-          if (query) {
-            await this.db.execAsync(query);
+    try {
+      await this.db.withTransactionAsync(async () => {
+        console.log('-- Setting journal mode to WAL');
+        await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
+        console.log('-- Done setting journal mode to WAL');
+        for (const { queries } of migrationsToRun) {
+          for (const { query } of queries) {
+            if (query) {
+              await this.db.execAsync(query);
+            }
           }
         }
-      }
 
-      const currentDbVersion = this.getCurrentDbVersion();
-      await this.updateUserLocalDbVersion(currentDbVersion);
-    });
+        const currentDbVersion = this.getCurrentDbVersion();
+        await this.updateUserLocalDbVersion(currentDbVersion);
+      });
+    } catch (e) {
+      console.error('Error migrating database: ', e);
+    }
+    console.log(`
+      END OF MIGRATION
+      Database migrated successfully to version: ${this.getCurrentDbVersion()}
+      ========================================
+    `);
   };
 
   private shouldRunMigration = async (): Promise<boolean> => {
@@ -86,7 +108,6 @@ export class MigrateOnInit {
   };
 
   private getCurrentDbVersion() {
-    console.log('-- Env: ', getEnv());
     return getEnv().DATABASE_VERSION;
   }
 
@@ -96,6 +117,5 @@ export class MigrateOnInit {
 
   private updateUserLocalDbVersion = async (version: number) => {
     await this.db.execAsync(`PRAGMA user_version = ${version}`);
-    console.log('Database migrated successfully to version: ', version);
   };
 }
