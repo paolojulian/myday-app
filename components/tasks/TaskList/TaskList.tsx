@@ -7,6 +7,7 @@ import useTasks from '@/hooks/services/task/useTasks';
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
+import { colors } from '@/constants/Colors';
 
 export default function TaskList() {
   const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
@@ -21,7 +22,9 @@ export default function TaskList() {
 
   return (
     <FlatList
+      style={{ backgroundColor: colors.slateGrey[100] }}
       data={[{ isFilter: true }, ...tasks]}
+      contentContainerStyle={{ backgroundColor: colors.white }}
       renderItem={({ item }) => {
         if (isFilterItem(item)) {
           return <TaskFilters onSelectFilter={setSelectedFilter} selectedItem={selectedFilter} />;
