@@ -45,7 +45,7 @@ function BudgetOverview() {
       <BentoCard>
         <Stack style={{ gap: 16, alignItems: 'center', justifyContent: 'flex-end' }}>
           <ThemedView style={{ marginTop: 16 }}>
-            <PieChart current={80} total={100} />
+            <PieChart current={remainingBudget} total={monthlyBudget} />
           </ThemedView>
           <Stack style={{ alignItems: 'center' }}>
             <ThemedText variant="heading">{toLocaleCurrencyFormat(remainingBudget)}</ThemedText>
