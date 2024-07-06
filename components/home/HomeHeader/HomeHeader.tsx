@@ -2,9 +2,12 @@ import Container from '@/components/common/Container';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import React from 'react';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
 
 function HomeHeader() {
+  const formattedDateToday = useMemo(() => dayjs().format('dddd, MMMM D, YYYY'), []);
+
   return (
     <Container
       style={{
@@ -30,7 +33,7 @@ function HomeHeader() {
       ></ThemedView>
       <ThemedView style={{ marginTop: 24, alignItems: 'center' }}>
         <ThemedText variant="caps">MY DAY</ThemedText>
-        <ThemedText variant="body">Friday, June 18, 2024</ThemedText>
+        <ThemedText variant="body">{formattedDateToday}</ThemedText>
       </ThemedView>
     </Container>
   );

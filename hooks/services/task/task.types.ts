@@ -19,6 +19,7 @@ export interface Task {
 
 export enum TaskQueryKeys {
   list = 'task-list',
+  overview = 'task-overview',
 }
 
 export type TaskFilterTypes = 'Today' | 'All' | 'Scheduled' | 'Completed';
