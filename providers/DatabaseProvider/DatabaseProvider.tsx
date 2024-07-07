@@ -1,4 +1,3 @@
-import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { MigrateOnInit } from '@/providers/DatabaseProvider/utils/migrateDbIfNeeded.util';
@@ -16,9 +15,15 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
   return (
     <Suspense
       fallback={
-        <ThemedView style={{ flex: 1, backgroundColor: colors.white }}>
+        <ThemedView
+          style={{
+            flex: 1,
+            backgroundColor: colors.white,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <ActivityIndicator size="large" />
-          <ThemedText>Loading...</ThemedText>
         </ThemedView>
       }
     >
@@ -37,6 +42,9 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 }
 
 async function onInit(db: SQLite.SQLiteDatabase) {
-  await new MigrateOnInit(db).migrateDbIfNeeded();
-  await new RecurringExpenses(db, dayjs()).populate();
+  const migrateOnInit = new MigrateOnInit(db);
+  await migrateOnInit.migrateDbIfNeeded();
+
+  const recurringExpenses = new RecurringExpenses(migrateOnInit.db, dayjs());
+  await recurringExpenses.populate();
 }

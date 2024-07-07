@@ -25,6 +25,8 @@ type DatePickerProps = {
   initialIsExpanded?: boolean;
   initialMonth?: number;
   initialYear?: number;
+  isError?: boolean;
+  errorMessage?: string;
   label?: string;
   value?: Date;
   variant?: DatePickerVariants;
@@ -36,6 +38,7 @@ function DatePicker({
   initialIsExpanded = false,
   initialMonth,
   initialYear,
+  isError,
   label = 'Date',
   value,
   variant = 'border',
@@ -100,6 +103,7 @@ function DatePicker({
         {
           ...(variant === 'shadow' && styles.containerShadow),
           ...(variant === 'border' && styles.containerBorder),
+          ...(isError && { borderColor: colors.red }),
         },
       ]}
     >

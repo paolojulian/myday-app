@@ -65,7 +65,7 @@ export default function BottomBar({
         <AddButton onPress={onAddPress} />
 
         <BottomBarItem
-          name="Todo"
+          name="Tasks"
           onPress={onTodoPress}
           isActive={pathname === '/todos'}
           ActiveIcon={<WrappedImage source={require('../../../assets/icons/todo-active.png')} />}

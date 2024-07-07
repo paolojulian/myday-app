@@ -102,7 +102,7 @@ function Snackbar({
         flex: 1,
         opacity: fadeAnim,
         zIndex: 999,
-        marginBottom: 24,
+        marginBottom: 120,
         pointerEvents: message ? 'auto' : 'none',
       }}
     >

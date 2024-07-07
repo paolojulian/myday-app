@@ -96,7 +96,15 @@ function AddExpenseForm() {
             validationSchema={ADD_EXPENSE_VALIDATION_SCHEMA}
             onSubmit={handleFormSubmit}
           >
-            {({ handleChange, handleBlur, setFieldValue, values, handleSubmit }) => (
+            {({
+              handleChange,
+              handleBlur,
+              setFieldValue,
+              values,
+              handleSubmit,
+              errors,
+              touched,
+            }) => (
               <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
                 <ThemedView style={{ gap: 8, flex: 1 }}>
                   <TextField
@@ -105,6 +113,8 @@ function AddExpenseForm() {
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
+                    isError={!!errors.title && !!touched.title}
+                    errorMessage={errors.title}
                     value={values.title}
                     label="Title"
                     placeholder="e.g. Lunch at Jollibee..."
@@ -120,6 +130,8 @@ function AddExpenseForm() {
                       focusAmount();
                     }}
                     onChangeText={handleChange('category')}
+                    isError={!!errors.category && !!touched.category}
+                    errorMessage={errors.category}
                     options={categories?.map(({ category_name }) => category_name) ?? []}
                     value={values.category}
                     label="Category"
@@ -129,6 +141,8 @@ function AddExpenseForm() {
                     returnKeyType="next"
                   />
                   <TextField
+                    isError={!!errors.amount && !!touched.amount}
+                    errorMessage={errors.amount}
                     testID={ADD_EXPENSE_FORM_TEST_IDS.amount}
                     ref={amountRef}
                     onChangeText={handleChange('amount')}
