@@ -55,7 +55,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
         <TextInput
           {...props}
           ref={ref}
-          testID={TEXT_FIELD_TEST_IDS.textInput}
+          testID={props.testID ? props.testID : TEXT_FIELD_TEST_IDS.textInput}
           placeholderTextColor={colors.grey}
           style={[style, styles.textInput, themedTextStyles.body1, resolvedTextInputStyle]}
           onFocus={handleFocus}

@@ -19,7 +19,7 @@ describe('TESTING AddTaskForm', () => {
         const component = renderComponent();
         expect(component).toMatchSnapshot();
       });
-      it('THEN it should display the form', () => {
+      it('THEN it should display the form', async () => {
         renderComponent();
 
         const title = screen.getByLabelText('Title');
@@ -33,12 +33,38 @@ describe('TESTING AddTaskForm', () => {
 
         expect(screen.getByLabelText('To Buy')).toBeDefined();
 
-        act(() => {
+        await act(() => {
           fireEvent(screen.getByLabelText('To Buy'), 'press');
         });
 
         const amount = screen.getByLabelText('Expected amount (Optional)');
         expect(amount).toBeDefined();
+      });
+    });
+
+    describe('WHEN the form is submitted', () => {
+      it('THEN it should show validation errors', async () => {
+        renderComponent();
+
+        const submitButton = screen.getByRole('button', { name: 'Save' });
+        fireEvent.press(submitButton);
+
+        expect(await screen.findByText('Title is required')).toBeDefined();
+      });
+    });
+
+    describe('WHEN the description is filled to 256 characters', () => {
+      it('THEN it should show validation errors', async () => {
+        renderComponent();
+
+        const description = screen.getByLabelText('Note (Optional)');
+        fireEvent(description, 'changeText', 'a'.repeat(256));
+        const submitButton = screen.getByRole('button', { name: 'Save' });
+        fireEvent.press(submitButton);
+
+        expect(
+          await screen.findByText('Description should be less than 255 characters'),
+        ).toBeDefined();
       });
     });
   });

@@ -20,6 +20,10 @@ import { Formik } from 'formik';
 import { Fragment, useRef, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
+export const ADD_TASK_FORM_TEST_IDS = {
+  title: 'add-task-form-title',
+};
+
 export default function AddTaskForm() {
   const noteRef = useRef<TextInput>(null);
   const amountRef = useRef<TextInput>(null);
@@ -86,6 +90,7 @@ export default function AddTaskForm() {
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
+                    testID={ADD_TASK_FORM_TEST_IDS.title}
                     isError={touched.title && !!errors.title}
                     errorMessage={errors.title}
                     autoFocus

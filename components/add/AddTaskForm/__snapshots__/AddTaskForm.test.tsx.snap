@@ -418,6 +418,7 @@ etc.."
           }
         >
           <View
+            accessibilityRole="button"
             accessibilityState={
               {
                 "busy": undefined,
