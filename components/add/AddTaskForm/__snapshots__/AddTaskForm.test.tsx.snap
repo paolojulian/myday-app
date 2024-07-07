@@ -1,0 +1,557 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered THEN should match the snapshot 1`] = `
+[
+  <RCTScrollView
+    directionalLockEnabled={true}
+    keyboardShouldPersistTaps="handled"
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          [
+            {
+              "paddingHorizontal": 16,
+            },
+            {
+              "flex": 1,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "flex": 1,
+              "gap": 8,
+            }
+          }
+        >
+          <View
+            style={
+              [
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "left": 16,
+                  "position": "absolute",
+                  "top": 12,
+                  "zIndex": 1,
+                }
+              }
+            >
+              <Text
+                aria-label="Title"
+                style={
+                  [
+                    {
+                      "fontFamily": "PoppinsMedium",
+                      "fontSize": 16,
+                      "fontWeight": 500,
+                    },
+                    {
+                      "fontWeight": 400,
+                    },
+                    {
+                      "color": "#0F172A",
+                    },
+                  ]
+                }
+              >
+                Title
+              </Text>
+            </View>
+            <TextInput
+              autoFocus={true}
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Buy groceries..."
+              placeholderTextColor="#a3a3a3"
+              returnKeyLabel="Next"
+              returnKeyType="next"
+              style={
+                [
+                  undefined,
+                  {
+                    "backgroundColor": "#f5f5f5",
+                    "borderRadius": 8,
+                    "borderWidth": 1,
+                    "paddingBottom": 12,
+                    "paddingHorizontal": 16,
+                    "paddingTop": 36,
+                  },
+                  {
+                    "fontFamily": "PoppinsRegular",
+                    "fontSize": 16,
+                  },
+                  {
+                    "borderColor": "transparent",
+                  },
+                ]
+              }
+              testID="textField__textInput"
+              value=""
+            />
+          </View>
+          <View
+            style={
+              [
+                {
+                  "position": "relative",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                {
+                  "left": 16,
+                  "position": "absolute",
+                  "top": 12,
+                  "zIndex": 1,
+                }
+              }
+            >
+              <Text
+                aria-label="Note (Optional)"
+                style={
+                  [
+                    {
+                      "fontFamily": "PoppinsMedium",
+                      "fontSize": 16,
+                      "fontWeight": 500,
+                    },
+                    {
+                      "fontWeight": 400,
+                    },
+                    {
+                      "color": "#0F172A",
+                    },
+                  ]
+                }
+              >
+                Note (Optional)
+              </Text>
+            </View>
+            <TextInput
+              multiline={true}
+              numberOfLines={4}
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              placeholder="e.g.
+Dish soap
+Soy sauce
+Toilet paper
+etc.."
+              placeholderTextColor="#a3a3a3"
+              style={
+                [
+                  {
+                    "minHeight": 120,
+                  },
+                  {
+                    "backgroundColor": "#f5f5f5",
+                    "borderRadius": 8,
+                    "borderWidth": 1,
+                    "paddingBottom": 12,
+                    "paddingHorizontal": 16,
+                    "paddingTop": 36,
+                  },
+                  {
+                    "fontFamily": "PoppinsRegular",
+                    "fontSize": 16,
+                  },
+                  {
+                    "borderColor": "transparent",
+                  },
+                ]
+              }
+              testID="textField__textInput"
+              value=""
+            />
+          </View>
+          <View
+            style={
+              [
+                {},
+                {
+                  "borderColor": "#f5f5f5",
+                  "borderRadius": 12,
+                  "borderWidth": 2,
+                },
+              ]
+            }
+            testID="date-picker-container"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "flex-end",
+                  "backgroundColor": "#f5f5f5",
+                  "borderTopEndRadius": 12,
+                  "borderTopStartRadius": 12,
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingHorizontal": 16,
+                  "paddingVertical": 16,
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "flex": 1,
+                    "flexDirection": "row",
+                    "gap": 16,
+                  }
+                }
+                testID="date-picker-header-btn"
+              >
+                <Image
+                  source={1}
+                  style={
+                    {
+                      "height": 24,
+                      "width": 24,
+                    }
+                  }
+                />
+                <View
+                  style={
+                    {
+                      "flex": 1,
+                      "gap": 4,
+                    }
+                  }
+                >
+                  <Text
+                    aria-label="Reminder Date (Optional)"
+                    style={
+                      [
+                        {
+                          "fontFamily": "PoppinsMedium",
+                          "fontSize": 16,
+                          "fontWeight": 500,
+                        },
+                        {
+                          "fontWeight": 400,
+                        },
+                        {
+                          "color": "#0F172A",
+                        },
+                      ]
+                    }
+                  >
+                    Reminder Date (Optional)
+                  </Text>
+                  <Text
+                    style={
+                      [
+                        {
+                          "fontFamily": "PoppinsRegular",
+                          "fontSize": 16,
+                        },
+                        {
+                          "fontWeight": 400,
+                        },
+                        {
+                          "color": "#a3a3a3",
+                        },
+                      ]
+                    }
+                    testID="date-picker-value"
+                  >
+                    Select a date
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <RNGestureHandlerButton
+            collapsable={false}
+            delayLongPress={600}
+            enabled={true}
+            exclusive={true}
+            handlerTag={1}
+            handlerType="NativeViewGestureHandler"
+            onGestureEvent={[Function]}
+            onGestureHandlerEvent={[Function]}
+            onGestureHandlerStateChange={[Function]}
+            onHandlerStateChange={[Function]}
+            rippleColor={0}
+            touchSoundDisabled={false}
+          >
+            <View
+              accessible={true}
+              collapsable={false}
+              style={
+                {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#f5f5f5",
+                    "flexDirection": "row",
+                    "gap": 8,
+                    "paddingHorizontal": 24,
+                    "paddingVertical": 16,
+                  }
+                }
+              >
+                <View
+                  accessibilityRole="checkbox"
+                  accessibilityState={
+                    {
+                      "busy": undefined,
+                      "checked": false,
+                      "disabled": undefined,
+                      "expanded": undefined,
+                      "selected": undefined,
+                    }
+                  }
+                  accessibilityValue={
+                    {
+                      "max": undefined,
+                      "min": undefined,
+                      "now": undefined,
+                      "text": undefined,
+                    }
+                  }
+                  accessible={true}
+                  collapsable={false}
+                  focusable={true}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    [
+                      {
+                        "borderColor": "#657786",
+                        "borderRadius": 2,
+                        "borderWidth": 2,
+                        "height": 20,
+                        "width": 20,
+                      },
+                      {
+                        "borderRadius": 4,
+                      },
+                      false,
+                      {
+                        "backgroundColor": undefined,
+                        "borderColor": "#0F172A",
+                      },
+                      undefined,
+                      false,
+                    ]
+                  }
+                />
+                <Text
+                  aria-label="To Buy"
+                  style={
+                    [
+                      {
+                        "fontFamily": "PoppinsRegular",
+                        "fontSize": 16,
+                      },
+                      {
+                        "fontWeight": 400,
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  To Buy
+                </Text>
+              </View>
+            </View>
+          </RNGestureHandlerButton>
+        </View>
+        <View
+          style={
+            {
+              "marginVertical": 16,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "borderRadius": 100,
+                    "justifyContent": "center",
+                    "padding": 16,
+                  },
+                  {
+                    "backgroundColor": "#0F172A",
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  [
+                    {
+                      "fontFamily": "PoppinsMedium",
+                      "fontSize": 16,
+                      "fontWeight": 500,
+                    },
+                    {
+                      "fontWeight": 400,
+                    },
+                    [
+                      {
+                        "color": "#FFFFFF",
+                      },
+                      {
+                        "fontWeight": "bold",
+                      },
+                    ],
+                  ]
+                }
+              >
+                Save
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>,
+  <View
+    collapsable={false}
+    style={
+      {
+        "bottom": 0,
+        "flex": 1,
+        "left": 0,
+        "marginBottom": 120,
+        "opacity": 0,
+        "pointerEvents": "none",
+        "position": "absolute",
+        "right": 0,
+        "zIndex": 999,
+      }
+    }
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#CC3333",
+          "borderRadius": 8,
+          "elevation": 8,
+          "flexDirection": "row",
+          "height": 56,
+          "marginHorizontal": 16,
+          "padding": 16,
+          "shadowColor": "#0F172A",
+          "shadowOffset": {
+            "height": 2,
+            "width": 0,
+          },
+          "shadowOpacity": 0.15,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontFamily": "PoppinsRegular",
+              "fontSize": 14,
+            },
+            {
+              "fontWeight": 400,
+            },
+            [
+              {
+                "color": "#FFFFFF",
+              },
+            ],
+          ]
+        }
+      />
+    </View>
+  </View>,
+]
+`;

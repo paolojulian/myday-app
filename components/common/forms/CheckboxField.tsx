@@ -27,7 +27,9 @@ export default function CheckboxField({ onValueChange, value, label }: CheckboxF
         }}
       >
         <Checkbox style={{ borderRadius: 4 }} value={value} color={colors.black} />
-        <ThemedText variant="body1">{label}</ThemedText>
+        <ThemedText aria-label={label} variant="body1">
+          {label}
+        </ThemedText>
       </ThemedView>
     </TouchableOpacity>
   );
