@@ -10,7 +10,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet } from 'react-native';
 
-export type SupportedAddItems = 'Expense' | 'Todo' | 'Journal';
+export type SupportedAddItems = 'Expense' | 'Todo';
 
 const ADD_TAB_ITEMS: TabItem<SupportedAddItems>[] = [
   {
@@ -20,10 +20,6 @@ const ADD_TAB_ITEMS: TabItem<SupportedAddItems>[] = [
   {
     key: 'Todo',
     value: 'Todo',
-  },
-  {
-    key: 'Journal',
-    value: 'Journal',
   },
 ];
 

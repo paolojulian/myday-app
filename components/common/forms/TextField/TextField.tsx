@@ -62,8 +62,11 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
           onBlur={handleBlur}
         />
 
-        {!!errorMessage && (
-          <ThemedText testID={TEXT_FIELD_TEST_IDS.errorMessage} style={{ color: colors.red }}>
+        {!!errorMessage && isError && (
+          <ThemedText
+            testID={TEXT_FIELD_TEST_IDS.errorMessage}
+            style={{ color: colors.red, paddingTop: 8 }}
+          >
             {errorMessage}
           </ThemedText>
         )}

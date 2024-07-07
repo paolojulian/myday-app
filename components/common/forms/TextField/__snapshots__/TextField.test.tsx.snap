@@ -153,6 +153,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
         },
         {
           "color": "#CC3333",
+          "paddingTop": 8,
         },
       ]
     }
