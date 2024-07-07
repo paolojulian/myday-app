@@ -1,6 +1,5 @@
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import { BudgetModalManager } from '@/components/expenses/BudgetCard/BudgetModal';
 import { colors } from '@/constants/Colors';
 import useBudget from '@/hooks/services/budget/useBudget';
 import useSetBudget from '@/hooks/services/budget/useSetBudget';
@@ -11,12 +10,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { selectionAsync } from 'expo-haptics';
 import React, { useMemo, useState } from 'react';
 import { StyleSheet, TextInput, TextInputProps, TouchableOpacity } from 'react-native';
+import { UpdateBudgetManager } from './UpdateBudgetBottomSheet';
 
 function BudgetCard() {
   const handlePress = () => {
     selectionAsync();
-    BudgetModalManager.show();
+    UpdateBudgetManager.show();
   };
+
   const thisMonth = useMemo(() => new Date(), []);
   const [isEditable, setIsEditable] = useState(false);
   const { data: budget } = useBudget(thisMonth);

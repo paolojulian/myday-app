@@ -1,5 +1,5 @@
 import Snackbar from '@/components/common/Snackbar';
-import { SnackbarType } from '@/components/common/Snackbar/Snackbar';
+import { SNACKBAR, SnackbarType } from '@/components/common/Snackbar/Snackbar';
 import React, { useEffect, useState } from 'react';
 import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
@@ -25,8 +25,8 @@ function hide() {
 export const GlobalSnackbar = {
   show,
   hide,
-  LENGTH_SHORT: 2000,
-  LENGTH_LONG: 4000,
+  LENGTH_SHORT: SNACKBAR.DURATION_SHORT,
+  LENGTH_LONG: SNACKBAR.DURATION_LONG,
 };
 
 function SnackbarManager() {

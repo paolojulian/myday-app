@@ -1,3 +1,4 @@
+import UpdateBudgetBottomSheet from '@/components/expenses/BudgetCard/UpdateBudgetBottomSheet';
 import { colors } from '@/constants/Colors';
 import DefaultTheme from '@/constants/Theme';
 import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
@@ -51,6 +52,7 @@ export default function RootLayout() {
           <QueryClientProvider client={queryClient}>
             <ThemeProvider value={DefaultTheme}>
               <SnackbarManager />
+              <UpdateBudgetBottomSheet />
               <Stack initialRouteName={RouteNames.Tabs}>
                 <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
                 <Stack.Screen

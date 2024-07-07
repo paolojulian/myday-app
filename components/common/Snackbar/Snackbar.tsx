@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Animated, StyleSheet } from 'react-native';
 
 export const SNACKBAR = {
-  DURATION_SHORT: 2000,
-  DURATION_LONG: 4000,
+  DURATION_SHORT: 20000,
+  DURATION_LONG: 40000,
 };
 
 export type SnackbarType = 'error' | 'success' | 'info';
@@ -102,7 +102,7 @@ function Snackbar({
         flex: 1,
         opacity: fadeAnim,
         zIndex: 999,
-        marginBottom: 24,
+        marginBottom: 120,
         pointerEvents: message ? 'auto' : 'none',
       }}
     >
