@@ -71,13 +71,23 @@ export default function AddTaskForm() {
             }}
             validationSchema={ADD_TASK_VALIDATION_SCHEMA}
           >
-            {({ handleSubmit, handleChange, handleBlur, values, setFieldValue }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              setFieldValue,
+              values,
+              touched,
+              errors,
+            }) => (
               <>
                 <ThemedView style={{ gap: 8, flex: 1 }}>
                   <TextField
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
+                    isError={touched.title && !!errors.title}
+                    errorMessage={errors.title}
                     autoFocus
                     value={values.title}
                     label="Title"
@@ -85,7 +95,16 @@ export default function AddTaskForm() {
                     returnKeyLabel="Next"
                     returnKeyType="next"
                   />
-                  <TextArea ref={noteRef} label="Note (Optional)" placeholder={NOTE_PLACEHOLDER} />
+                  <TextArea
+                    onChangeText={handleChange('description')}
+                    onBlur={handleBlur('description')}
+                    ref={noteRef}
+                    label="Note (Optional)"
+                    placeholder={NOTE_PLACEHOLDER}
+                    isError={touched.description && !!errors.description}
+                    errorMessage={errors.description}
+                    value={values.description}
+                  />
                   <DatePicker
                     label="Reminder Date (Optional)"
                     value={values.reminderDate}
