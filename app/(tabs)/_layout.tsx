@@ -4,8 +4,6 @@ import BottomBar from '@/components/navigation/BottomBar/BottomBar';
 import { router, Tabs } from 'expo-router';
 import React, { ComponentProps } from 'react';
 
-import { SafeAreaView } from 'react-native';
-
 export enum TabName {
   Home = 'index',
   Journal = 'journal',
@@ -20,7 +18,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        header: () => <SafeAreaView></SafeAreaView>,
+        header: () => <></>,
       }}
       tabBar={TabBar}
     >
