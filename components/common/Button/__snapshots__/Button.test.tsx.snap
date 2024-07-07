@@ -2,6 +2,7 @@
 
 exports[`TESTING Button Component GIVEN a text WHEN the component is rendered THEN it should match the snapshot 1`] = `
 <View
+  accessibilityRole="button"
   accessibilityState={
     {
       "busy": undefined,

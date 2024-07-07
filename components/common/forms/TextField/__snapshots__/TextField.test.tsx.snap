@@ -21,6 +21,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
     }
   >
     <Text
+      aria-label="Title"
       style={
         [
           {
@@ -93,6 +94,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     }
   >
     <Text
+      aria-label="Title"
       style={
         [
           {

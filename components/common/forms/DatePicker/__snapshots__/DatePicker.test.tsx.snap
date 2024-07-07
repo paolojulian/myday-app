@@ -76,6 +76,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
         }
       >
         <Text
+          aria-label="Date"
           style={
             [
               {

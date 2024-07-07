@@ -32,7 +32,7 @@ function Button({ text, variant = 'primary', ...props }: ButtonProps) {
   }, [variant]);
 
   return (
-    <TouchableOpacity activeOpacity={0.9} {...props}>
+    <TouchableOpacity role="button" accessibilityRole="button" activeOpacity={0.9} {...props}>
       <ThemedView style={[styles.container, containerVariantStyle]}>
         <ThemedText variant="body2" style={[textVariantStyle, styles.text]}>
           {text}
