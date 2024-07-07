@@ -1,7 +1,7 @@
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 export const SNACKBAR = {
   DURATION_SHORT: 2000,
@@ -17,8 +17,6 @@ type SnackbarProps = {
   duration?: number;
 };
 
-let timeout: NodeJS.Timeout | null = null;
-
 function Snackbar({
   onDismiss,
   message,
@@ -26,30 +24,8 @@ function Snackbar({
   type = 'info',
 }: SnackbarProps) {
   const [fadeAnim] = useState(new Animated.Value(0));
-
-  useEffect(() => {
-    if (message) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-      timeout = setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start(() => onDismiss());
-      }, duration);
-    }
-
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
+  const [translateYAnim] = useState(new Animated.Value(100));
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const resolvedContainerStyle = useMemo(() => {
     switch (type) {
@@ -73,43 +49,79 @@ function Snackbar({
     }
   }, [type]);
 
+  const enterAnimation = () => {
+    clearAllTimeout();
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(translateYAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const exitAnimation = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => onDismiss());
+    Animated.timing(translateYAnim, {
+      toValue: 100,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => onDismiss());
+  };
+
+  const clearAllTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
   useEffect(() => {
     if (message) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      enterAnimation();
 
-      setTimeout(() => {
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start(() => onDismiss());
+      timeoutRef.current = setTimeout(() => {
+        exitAnimation();
       }, duration);
     }
+
+    return () => {
+      clearAllTimeout();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message, duration]);
 
   return (
-    <Animated.View
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        flex: 1,
-        opacity: fadeAnim,
-        zIndex: 999,
-        marginBottom: 120,
-        pointerEvents: message ? 'auto' : 'none',
-      }}
-    >
-      <Animated.View style={[styles.container, resolvedContainerStyle]}>
-        <ThemedText style={[resolvedTextStyle]}>{message}</ThemedText>
+    <TouchableWithoutFeedback onPress={exitAnimation}>
+      <Animated.View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          flex: 1,
+          opacity: fadeAnim,
+          transform: [
+            {
+              translateY: translateYAnim,
+            },
+          ],
+          zIndex: 999,
+          marginBottom: 120,
+          pointerEvents: message ? 'auto' : 'none',
+        }}
+      >
+        <Animated.View style={[styles.container, resolvedContainerStyle]}>
+          <ThemedText style={[resolvedTextStyle]}>{message}</ThemedText>
+        </Animated.View>
       </Animated.View>
-    </Animated.View>
+    </TouchableWithoutFeedback>
   );
 }
 
