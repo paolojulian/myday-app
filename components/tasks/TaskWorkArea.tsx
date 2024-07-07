@@ -1,5 +1,10 @@
 import TodoList from '@/components/tasks/TaskList';
+import { SafeAreaView } from 'react-native';
 
 export default function TaskWorkArea() {
-  return <TodoList />;
+  return (
+    <SafeAreaView>
+      <TodoList />
+    </SafeAreaView>
+  );
 }
