@@ -8,7 +8,7 @@ type LabelProps = {
 
 function Label({ text }: LabelProps) {
   return (
-    <ThemedText variant="body2" style={{ color: colors.black }}>
+    <ThemedText aria-label={text} variant="body2" style={{ color: colors.black }}>
       {text}
     </ThemedText>
   );

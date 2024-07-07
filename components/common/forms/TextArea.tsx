@@ -1,12 +1,12 @@
-import TextField from '@/components/common/forms/TextField';
+import TextField, { TextFieldProps } from '@/components/common/forms/TextField';
 import React, { forwardRef } from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import { TextInput } from 'react-native';
 
 type TextAreaProps = {
   label: string;
   numberOfLines?: number;
   minHeight?: number;
-} & Omit<TextInputProps, 'multiline'>;
+} & Omit<TextFieldProps, 'multiline'>;
 
 const TextArea = forwardRef<TextInput, TextAreaProps>(
   ({ label, numberOfLines = 4, minHeight = 120, ...props }, ref) => {
