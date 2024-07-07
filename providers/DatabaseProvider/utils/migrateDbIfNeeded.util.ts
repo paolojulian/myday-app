@@ -4,7 +4,7 @@ import { getEnv } from '@/utils/config';
 import { type SQLiteDatabase } from 'expo-sqlite';
 
 export class MigrateOnInit {
-  private db: SQLiteDatabase;
+  db: SQLiteDatabase;
   private migrations: Migration[];
 
   constructor(db: SQLiteDatabase, customMigrations: Migration[] = migrations) {
@@ -37,10 +37,10 @@ export class MigrateOnInit {
     `);
 
     // Apply the migrations
+    console.log('-- Setting journal mode to WAL');
+    await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
     try {
       await this.db.withTransactionAsync(async () => {
-        console.log('-- Setting journal mode to WAL');
-        await this.db.execAsync(`PRAGMA journal_mode = 'wal'`);
         console.log('-- Done setting journal mode to WAL');
         for (const { queries } of migrationsToRun) {
           for (const { query } of queries) {

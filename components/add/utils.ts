@@ -4,7 +4,7 @@ export function isSupportedAddType(defaultType?: string): defaultType is Support
   if (!defaultType) {
     return false;
   }
-  const supportedTypes: SupportedAddItems[] = ['Expense', 'Todo', 'Journal'];
+  const supportedTypes: SupportedAddItems[] = ['Expense', 'Todo'];
 
   const isSupportedType = supportedTypes.includes(defaultType as SupportedAddItems);
 
@@ -17,8 +17,6 @@ export function getDefaultTypeFromTabIndex(index: number): SupportedAddItems | u
       return 'Expense';
     case 2:
       return 'Todo';
-    case 3:
-      return 'Journal';
     default:
       return undefined;
   }

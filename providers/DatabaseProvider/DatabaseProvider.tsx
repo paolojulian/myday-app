@@ -43,8 +43,8 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
 
 async function onInit(db: SQLite.SQLiteDatabase) {
   const migrateOnInit = new MigrateOnInit(db);
-  const recurringExpenses = new RecurringExpenses(db, dayjs());
-
   await migrateOnInit.migrateDbIfNeeded();
+
+  const recurringExpenses = new RecurringExpenses(migrateOnInit.db, dayjs());
   await recurringExpenses.populate();
 }

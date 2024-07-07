@@ -1,6 +1,5 @@
 import { SupportedAddItems } from '@/app/add';
 import AddExpenseForm from '@/components/add/AddExpenseForm';
-import AddJournalForm from '@/components/add/AddJournalForm';
 import AddTaskForm from '@/components/add/AddTaskForm/AddTaskForm';
 import React from 'react';
 
@@ -14,8 +13,6 @@ function AddFactory({ type }: AddFactoryProps) {
       return <AddExpenseForm />;
     case 'Todo':
       return <AddTaskForm />;
-    case 'Journal':
-      return <AddJournalForm />;
   }
 }
 
