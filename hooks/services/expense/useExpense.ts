@@ -6,9 +6,11 @@ export function useExpense(id: number) {
   const db = useSQLiteContext();
 
   const queryFn = async () => {
-    return await db.getFirstAsync<Expense>(GET_EXPENSE_BY_ID, {
+    const result = await db.getFirstAsync<Expense>(GET_EXPENSE_BY_ID, {
       $id: id,
     });
+
+    return result;
   };
 
   return useQuery({

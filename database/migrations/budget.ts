@@ -16,10 +16,8 @@ export const budgetMigrations = [
             amount INTEGER NOT NULL,
             created_at INTEGER
           );
-          /**
-           * INSERT INTO budget (amount, created_at)
-           * VALUES (20000, 1633804800);
-          */
+           INSERT INTO budget (amount, created_at)
+           VALUES (20000, 1633804800);
         `,
       },
     ],

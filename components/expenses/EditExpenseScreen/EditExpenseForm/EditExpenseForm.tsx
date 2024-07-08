@@ -14,6 +14,8 @@ import useCategories from '@/hooks/services/category/useCategories';
 import { Expense } from '@/hooks/services/expense/expense.types';
 import { useExpense } from '@/hooks/services/expense/useExpense';
 import dayjs from 'dayjs';
+import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
+import { useDebounceCallback } from 'usehooks-ts';
 
 type EditExpenseFormProps = {
   id: Expense['id'];
@@ -22,12 +24,28 @@ type EditExpenseFormProps = {
 export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
   const { data: expense, isLoading: isLoadingExpense } = useExpense(id);
+  const { mutateAsync: updateExpenseMutate } = useUpdateExpense(id);
+
+  const validateAndHandleFieldUpdate = async (
+    fieldName: keyof EditExpenseFormValues,
+    value: any,
+  ) => {
+    try {
+      await EDIT_EXPENSE_VALIDATION_SCHEMA.validateAt(fieldName, { [fieldName]: value });
+      updateExpenseMutate({ [fieldName]: value });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const handleChange = validateAndHandleFieldUpdate;
+  const debouncedHandleChange = useDebounceCallback(handleChange, 500);
 
   if (isLoadingCategories || isLoadingExpense) {
     return null;
   }
 
-  const handleFormSubmit = () => {};
   const categoryName =
     categories?.find(({ id }) => id === expense?.category_id)?.category_name || '';
 
@@ -44,14 +62,19 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
             : new Date(),
         }}
         validationSchema={EDIT_EXPENSE_VALIDATION_SCHEMA}
-        onSubmit={handleFormSubmit}
+        onSubmit={() => {
+          // No form submission needed, everything is inline editing
+        }}
       >
         {({ handleChange, handleBlur, setFieldValue, values, errors, touched }) => (
           <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
             <ThemedView style={{ gap: 8, flex: 1 }}>
               <TextField
                 testID={EDIT_EXPENSE_FORM_TEST_IDS.title}
-                onChangeText={handleChange('title')}
+                onChangeText={value => {
+                  setFieldValue('title', value);
+                  debouncedHandleChange('title', value);
+                }}
                 onBlur={handleBlur('title')}
                 isError={!!errors.title && !!touched.title}
                 errorMessage={errors.title}
@@ -87,6 +110,13 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 returnKeyLabel="Done"
                 returnKeyType="done"
               />
+              <DatePicker
+                value={values.transactionDate}
+                onSelectDate={value => {
+                  setFieldValue('transactionDate', value);
+                }}
+                variant="border"
+              />
               <TextArea
                 onChangeText={handleChange('description')}
                 value={values.description}
@@ -95,13 +125,6 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 numberOfLines={0}
                 returnKeyLabel="Next"
                 returnKeyType="done"
-              />
-              <DatePicker
-                value={values.transactionDate}
-                onSelectDate={value => {
-                  setFieldValue('transactionDate', value);
-                }}
-                variant="border"
               />
             </ThemedView>
           </ThemedView>
