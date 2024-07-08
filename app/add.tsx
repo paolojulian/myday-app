@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     height: 'auto',
-    paddingTop: 16,
     position: 'relative',
   },
   header: {

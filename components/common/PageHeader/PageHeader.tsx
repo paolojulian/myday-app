@@ -18,7 +18,7 @@ export default function PageHeader({ title, LeftComponent, RightComponent }: Pag
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingBottom: 16,
+          paddingVertical: 16,
           backgroundColor: colors.white,
         }}
       >

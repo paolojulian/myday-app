@@ -30,11 +30,7 @@ export default function EditExpenseScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView
-        style={{ paddingTop: 16, flex: 1 }}
-        stickyHeaderIndices={[0]}
-        keyboardShouldPersistTaps="never"
-      >
+      <ScrollView style={{ flex: 1 }} stickyHeaderIndices={[0]} keyboardShouldPersistTaps="never">
         <HeaderWithBackButton
           onBackPress={handleBackPress}
           title="Edit Expense"
