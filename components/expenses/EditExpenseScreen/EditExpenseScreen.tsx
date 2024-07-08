@@ -1,14 +1,20 @@
 import { RouteNames } from '@/app/_layout';
-import AddExpenseForm from '@/components/add/AddExpenseForm';
 import HeaderWithBackButton from '@/components/common/HeaderWithBackButton';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { SafeAreaView, ScrollView } from 'react-native';
+import EditExpenseForm from './EditExpenseForm';
+
+type SearchParams = {
+  id: string;
+};
 
 export default function EditExpenseScreen() {
   const router = useRouter();
+  const searchParams = useLocalSearchParams<SearchParams>();
+  const id = Number(searchParams.id);
 
   const handleBackPress = () => {
     if (router.canGoBack()) {
@@ -18,31 +24,34 @@ export default function EditExpenseScreen() {
     router.push(RouteNames.Tabs);
   };
 
+  if (!id) {
+    return null;
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ paddingTop: 16 }}
+      <ScrollView
+        style={{ paddingTop: 16, flex: 1 }}
+        stickyHeaderIndices={[0]}
+        keyboardShouldPersistTaps="never"
       >
-        <ThemedView style={{}}>
-          <HeaderWithBackButton
-            onBackPress={handleBackPress}
-            title="Edit Expense"
-            RightComponent={
-              <MaterialCommunityIcons
-                style={{ color: colors.red }}
-                name={'trash-can'}
-                size={32}
-                onPress={handleBackPress}
-              />
-            }
-          />
+        <HeaderWithBackButton
+          onBackPress={handleBackPress}
+          title="Edit Expense"
+          RightComponent={
+            <MaterialCommunityIcons
+              style={{ color: colors.red }}
+              name={'trash-can'}
+              size={32}
+              onPress={handleBackPress}
+            />
+          }
+        />
 
-          <ThemedView style={{ flex: 1, gap: 16 }}>
-            <AddExpenseForm />
-          </ThemedView>
+        <ThemedView style={{ flex: 1, gap: 16 }}>
+          <EditExpenseForm id={id} />
         </ThemedView>
-      </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   );
 }

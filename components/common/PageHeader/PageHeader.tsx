@@ -1,3 +1,4 @@
+import { colors } from '@/constants/Colors';
 import Container from '../Container';
 import ThemedText from '../ThemedText';
 import ThemedView from '../ThemedView';
@@ -17,7 +18,8 @@ export default function PageHeader({ title, LeftComponent, RightComponent }: Pag
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 16,
+          paddingBottom: 16,
+          backgroundColor: colors.white,
         }}
       >
         {LeftComponent}
