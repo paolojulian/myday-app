@@ -9,6 +9,7 @@ import {
   EDIT_EXPENSE_FORM_TEST_IDS,
   EDIT_EXPENSE_VALIDATION_SCHEMA,
   EditExpenseFormValues,
+  resolveFieldName,
 } from './EditExpenseForm.utils';
 import useCategories from '@/hooks/services/category/useCategories';
 import { Expense } from '@/hooks/services/expense/expense.types';
@@ -34,7 +35,7 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   ) => {
     try {
       await EDIT_EXPENSE_VALIDATION_SCHEMA.validateAt(fieldName, { [fieldName]: value });
-      const resolvedFieldName = fieldName === 'category' ? 'category_id' : fieldName;
+      const resolvedFieldName = resolveFieldName(fieldName);
       updateExpenseMutate({ [resolvedFieldName]: value });
       return true;
     } catch (e) {

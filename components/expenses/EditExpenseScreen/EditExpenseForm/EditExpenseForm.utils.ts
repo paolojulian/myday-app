@@ -16,3 +16,14 @@ export const EDIT_EXPENSE_VALIDATION_SCHEMA = Yup.object().shape({
   transactionDate: Yup.date().required('Transaction date is required'),
 });
 export type EditExpenseFormValues = Yup.InferType<typeof EDIT_EXPENSE_VALIDATION_SCHEMA>;
+
+export function resolveFieldName(fieldName: keyof EditExpenseFormValues) {
+  switch (fieldName) {
+    case 'category':
+      return 'category_id';
+    case 'transactionDate':
+      return 'transaction_date';
+    default:
+      return fieldName;
+  }
+}
