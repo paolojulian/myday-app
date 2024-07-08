@@ -16,6 +16,7 @@ import { useExpense } from '@/hooks/services/expense/useExpense';
 import dayjs from 'dayjs';
 import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
 import { useDebounceCallback } from 'usehooks-ts';
+import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 
 type EditExpenseFormProps = {
   id: Expense['id'];
@@ -25,6 +26,7 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
   const { data: expense, isLoading: isLoadingExpense } = useExpense(id);
   const { mutateAsync: updateExpenseMutate } = useUpdateExpense(id);
+  const getOrCreateCategory = useGetOrCreateCategory();
 
   const validateAndHandleFieldUpdate = async (
     fieldName: keyof EditExpenseFormValues,
@@ -32,15 +34,16 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   ) => {
     try {
       await EDIT_EXPENSE_VALIDATION_SCHEMA.validateAt(fieldName, { [fieldName]: value });
-      updateExpenseMutate({ [fieldName]: value });
+      const resolvedFieldName = fieldName === 'category' ? 'category_id' : fieldName;
+      updateExpenseMutate({ [resolvedFieldName]: value });
       return true;
-    } catch {
+    } catch (e) {
+      console.log(e);
       return false;
     }
   };
 
-  const handleChange = validateAndHandleFieldUpdate;
-  const debouncedHandleChange = useDebounceCallback(handleChange, 500);
+  const debouncedHandleChange = useDebounceCallback(validateAndHandleFieldUpdate, 500);
 
   if (isLoadingCategories || isLoadingExpense) {
     return null;
@@ -48,6 +51,12 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
 
   const categoryName =
     categories?.find(({ id }) => id === expense?.category_id)?.category_name || '';
+
+  const getCategoryIdByName = async (name: string) => {
+    const categoryId = await getOrCreateCategory(name);
+
+    return categoryId ?? null;
+  };
 
   return (
     <Container style={{ flex: 1 }}>
@@ -85,8 +94,15 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 returnKeyType="done"
               />
               <ComboBox
-                onSelect={value => {
+                onSelect={async value => {
                   setFieldValue('category', value);
+                  const categoryId = await getCategoryIdByName(value);
+                  updateExpenseMutate({ category_id: categoryId });
+                }}
+                onBlur={async () => {
+                  if (!values.category) return;
+                  const categoryId = await getCategoryIdByName(values.category);
+                  updateExpenseMutate({ category_id: categoryId });
                 }}
                 onChangeText={handleChange('category')}
                 isError={!!errors.category && !!touched.category}
@@ -102,7 +118,11 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
               <TextField
                 isError={!!errors.amount && !!touched.amount}
                 errorMessage={errors.amount}
-                onChangeText={handleChange('amount')}
+                onChangeText={value => {
+                  setFieldValue('amount', value);
+                  debouncedHandleChange('amount', value);
+                }}
+                onBlur={handleBlur('amount')}
                 value={values.amount}
                 label="Amount"
                 placeholder="00.00"
@@ -114,11 +134,16 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 value={values.transactionDate}
                 onSelectDate={value => {
                   setFieldValue('transactionDate', value);
+                  debouncedHandleChange('transactionDate', dayjs(value).unix());
                 }}
                 variant="border"
               />
               <TextArea
-                onChangeText={handleChange('description')}
+                onChangeText={value => {
+                  setFieldValue('description', value);
+                  debouncedHandleChange('description', value);
+                }}
+                onBlur={handleBlur('description')}
                 value={values.description}
                 label="Note"
                 placeholder="Additional information about the expense"

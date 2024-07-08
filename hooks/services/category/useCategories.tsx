@@ -13,6 +13,7 @@ const useCategories = () => {
   return useQuery({
     queryKey: [CategoryQueryKeys.list],
     queryFn: setup,
+    refetchOnMount: true,
   });
 };
 
