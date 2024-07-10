@@ -1,10 +1,9 @@
 import { RouteNames } from '@/app/_layout';
 import HeaderWithBackButton from '@/components/common/HeaderWithBackButton';
 import ThemedView from '@/components/common/ThemedView';
-import { colors } from '@/constants/Colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView, ScrollView } from 'react-native';
+import DeleteExpenseButton from './DeleteExpenseButton';
 import EditExpenseForm from './EditExpenseForm';
 
 type SearchParams = {
@@ -34,14 +33,7 @@ export default function EditExpenseScreen() {
         <HeaderWithBackButton
           onBackPress={handleBackPress}
           title="Expense"
-          RightComponent={
-            <MaterialCommunityIcons
-              style={{ color: colors.red }}
-              name={'trash-can'}
-              size={32}
-              onPress={handleBackPress}
-            />
-          }
+          RightComponent={<DeleteExpenseButton id={id} />}
         />
 
         <ThemedView style={{ flex: 1, gap: 16 }}>
