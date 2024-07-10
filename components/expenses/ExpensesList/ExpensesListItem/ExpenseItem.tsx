@@ -10,6 +10,8 @@ import { TouchableHighlight } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import ExpenseItemRightActions from './ExpenseItemRightActions';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
+import { RouteNames } from '@/app/_layout';
+import { useRouter } from 'expo-router';
 
 type SupportedExpenseFields = Pick<
   ExpenseWithCategoryName,
@@ -29,6 +31,7 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
     transaction_date: transactionDateEpoch,
     category_name: categoryName,
   } = expense;
+  const router = useRouter();
   const formattedTransactionDate = convertEpochToDate(transactionDateEpoch).format('MMM D, YYYY');
 
   const handleDelete = () => {
@@ -38,6 +41,10 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
 
   const handlePress = () => {
     selectionAsync();
+    router.push({
+      pathname: RouteNames.Edit,
+      params: { id },
+    });
   };
 
   const renderRightActions: ComponentProps<typeof Swipeable>['renderRightActions'] = () => {
@@ -57,7 +64,7 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
       <TouchableHighlight
         style={{ borderRadius: 8 }}
         delayPressIn={400}
-        onLongPress={handlePress}
+        onPress={handlePress}
         activeOpacity={0.9}
       >
         <Row
