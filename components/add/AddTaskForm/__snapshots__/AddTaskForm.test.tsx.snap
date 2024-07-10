@@ -498,7 +498,25 @@ etc.."
     </View>
   </RCTScrollView>,
   <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessible={true}
     collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
       {
         "bottom": 0,
@@ -509,6 +527,11 @@ etc.."
         "pointerEvents": "none",
         "position": "absolute",
         "right": 0,
+        "transform": [
+          {
+            "translateY": 100,
+          },
+        ],
         "zIndex": 999,
       }
     }
