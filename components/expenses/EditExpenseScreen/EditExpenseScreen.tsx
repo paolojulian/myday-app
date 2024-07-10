@@ -33,7 +33,7 @@ export default function EditExpenseScreen() {
       <ScrollView style={{ flex: 1 }} stickyHeaderIndices={[0]} keyboardShouldPersistTaps="never">
         <HeaderWithBackButton
           onBackPress={handleBackPress}
-          title="Edit Expense"
+          title="Expense"
           RightComponent={
             <MaterialCommunityIcons
               style={{ color: colors.red }}

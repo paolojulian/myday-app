@@ -27,8 +27,6 @@ export function useUpdateExpense(id: Expense['id']) {
       addVariableIfDefined(variables, 'transaction_date', expense?.transaction_date);
       addVariableIfDefined(variables, 'description', expense?.description);
 
-      console.log({ variables, expense });
-
       await db.runAsync(statement, variables);
     },
     onSuccess: () => {
