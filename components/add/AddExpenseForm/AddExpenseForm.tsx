@@ -23,7 +23,11 @@ import { Formik } from 'formik';
 import React, { Fragment, useRef } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
-function AddExpenseForm() {
+type AddExpenseFormProps = {
+  shouldAutoFocus?: boolean;
+};
+
+function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
   const navigation = useNavigation();
   const amountRef = useRef<TextInput>(null);
   const categoryRef = useRef<TextInput>(null);
@@ -109,7 +113,7 @@ function AddExpenseForm() {
                 <ThemedView style={{ gap: 8, flex: 1 }}>
                   <TextField
                     testID={ADD_EXPENSE_FORM_TEST_IDS.title}
-                    autoFocus
+                    autoFocus={shouldAutoFocus}
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}

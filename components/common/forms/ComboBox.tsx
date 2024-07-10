@@ -3,7 +3,7 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { forwardRef, useState } from 'react';
-import { TextInput, TouchableOpacity } from 'react-native';
+import { TextInput, TextInputProps, TouchableOpacity } from 'react-native';
 
 type ComboBoxProps<T extends string> = {
   onSelect: (value: T) => void;
@@ -21,7 +21,10 @@ function ComboBox<T extends string = string>(
   );
 
   const handleFocus = () => setWillShowOptions(true);
-  const handleBlur = () => setWillShowOptions(false);
+  const handleBlur: TextInputProps['onBlur'] = e => {
+    setWillShowOptions(false);
+    if (props.onBlur) props.onBlur(e);
+  };
   const handlePressItem = (value: T) => {
     onSelect(value);
     setWillShowOptions(false);
