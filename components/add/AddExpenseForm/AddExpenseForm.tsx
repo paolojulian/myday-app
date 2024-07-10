@@ -157,6 +157,13 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
                     returnKeyLabel="Done"
                     returnKeyType="done"
                   />
+                  <DatePicker
+                    value={values.transactionDate}
+                    onSelectDate={value => {
+                      setFieldValue('transactionDate', value);
+                    }}
+                    variant="border"
+                  />
                   <TextArea
                     testID={ADD_EXPENSE_FORM_TEST_IDS.description}
                     ref={noteRef}
@@ -165,13 +172,6 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
                     label="Note"
                     placeholder="Additional information about the expense"
                     returnKeyType="next"
-                  />
-                  <DatePicker
-                    value={values.transactionDate}
-                    onSelectDate={value => {
-                      setFieldValue('transactionDate', value);
-                    }}
-                    variant="border"
                   />
                 </ThemedView>
                 <ThemedView style={{ marginTop: 8 }}>
