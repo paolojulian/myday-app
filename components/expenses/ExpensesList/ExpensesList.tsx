@@ -1,7 +1,6 @@
 import Container from '@/components/common/Container';
 import ThemedView from '@/components/common/ThemedView';
 import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
-import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
 import { colors } from '@/constants/Colors';
 import { Category } from '@/hooks/services/category/category.types';
 import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
@@ -13,6 +12,7 @@ import ExpenseItem from './ExpensesListItem/ExpenseItem';
 import Row from '@/components/common/Row';
 import RemainingBudgetCard from '../RemainingBudgetCard';
 import EditBudgetCard from '../EditBudgetCard';
+import ExpensesListFilter from './ExpensesListFilter';
 
 type ExpenseListProps = {
   transactionDate: Date;
@@ -49,10 +49,7 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
         if (isFilterItem(item)) {
           return (
             <ThemedView style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
-              <ExpensesListCategories
-                onSelectCategory={setSelectedCategory}
-                categories={categories}
-              />
+              <ExpensesListFilter onSelectCategory={setSelectedCategory} categories={categories} />
             </ThemedView>
           );
         }

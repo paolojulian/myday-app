@@ -12,7 +12,7 @@ type ExpensesListCategoriesProps = {
   }[];
 };
 
-export default function ExpensesListCategories({
+export default function ExpensesListFilter({
   onSelectCategory,
   categories,
 }: ExpensesListCategoriesProps) {
