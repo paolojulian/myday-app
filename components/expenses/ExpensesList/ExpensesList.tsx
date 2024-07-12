@@ -1,16 +1,18 @@
 import Container from '@/components/common/Container';
-import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import BudgetCard from '@/components/expenses/BudgetCard';
 import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
-import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
 import { colors } from '@/constants/Colors';
 import { Category } from '@/hooks/services/category/category.types';
 import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
 import useExpenses from '@/hooks/services/expense/useExpenses';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { FlatList } from 'react-native';
+import ExpensesListHeader from './ExpensesListHeader/ExpensesListHeader';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
+import Row from '@/components/common/Row';
+import RemainingBudgetCard from '../RemainingBudgetCard';
+import EditBudgetCard from '../EditBudgetCard';
+import ExpensesListFilter from './ExpensesListFilter';
 
 type ExpenseListProps = {
   transactionDate: Date;
@@ -47,10 +49,7 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
         if (isFilterItem(item)) {
           return (
             <ThemedView style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
-              <ExpensesListCategories
-                onSelectCategory={setSelectedCategory}
-                categories={categories}
-              />
+              <ExpensesListFilter onSelectCategory={setSelectedCategory} categories={categories} />
             </ThemedView>
           );
         }
@@ -67,15 +66,19 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
       }}
       ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
       ListHeaderComponent={() => (
-        <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
-          <ThemedText variant="heading" style={{ color: colors.white }}>
-            Monthly Expenses
-          </ThemedText>
-          <BudgetCard />
-        </Container>
+        <>
+          <Fragment>
+            <ExpensesListHeader />
+            <Container>
+              <Row style={{ gap: 8 }}>
+                <RemainingBudgetCard variant="horizontal" />
+                <EditBudgetCard />
+              </Row>
+            </Container>
+          </Fragment>
+        </>
       )}
       ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
-      stickyHeaderIndices={[1]}
     />
   );
 }

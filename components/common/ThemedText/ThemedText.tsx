@@ -21,6 +21,7 @@ export const themedTextStyles = StyleSheet.create({
     fontSize: 64,
     fontWeight: 800,
     fontFamily: 'Barlow_CondensedBold',
+    lineHeight: 60,
   },
   heading: {
     fontSize: 24,
