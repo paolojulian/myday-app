@@ -1,21 +1,29 @@
 import Container from '@/components/common/Container';
-import ThemedView from '@/components/common/ThemedView';
+import Row from '@/components/common/Row';
+import ThemedText from '@/components/common/ThemedText';
+import { colors } from '@/constants/Colors';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 
 function ExpensesListHeader() {
   return (
-    <Container style={styles.container}>
-      <ThemedView style={{}}></ThemedView>
+    <Container>
+      <ThemedText variant="caps">Expenses</ThemedText>
+      <Row>
+        <ThemedText style={{ color: colors.slateGrey[300] }} variant="caps">
+          May~
+        </ThemedText>
+        <ThemedText style={{ color: colors.slateGrey[300] }} variant="caps">
+          June~
+        </ThemedText>
+        <ThemedText style={{ color: colors.black }} variant="caps">
+          July~
+        </ThemedText>
+        <ThemedText style={{ color: colors.slateGrey[300] }} variant="caps">
+          August~
+        </ThemedText>
+      </Row>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 32,
-    gap: 16,
-  },
-});
 
 export default ExpensesListHeader;
