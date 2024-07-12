@@ -12,6 +12,7 @@ import ExpensesListHeader from './ExpensesListHeader/ExpensesListHeader';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
 import Row from '@/components/common/Row';
 import RemainingBudgetCard from '../RemainingBudgetCard';
+import EditBudgetCard from '../EditBudgetCard';
 
 type ExpenseListProps = {
   transactionDate: Date;
@@ -72,8 +73,9 @@ export default function ExpensesList({ transactionDate }: ExpenseListProps) {
           <Fragment>
             <ExpensesListHeader />
             <Container>
-              <Row>
+              <Row style={{ gap: 8 }}>
                 <RemainingBudgetCard variant="horizontal" />
+                <EditBudgetCard />
               </Row>
             </Container>
           </Fragment>

@@ -4,18 +4,23 @@ import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Circle, Path, Svg } from 'react-native-svg';
 
+type PieChartVariants = 'default' | 'sm';
+
 type PieChartProps = {
   total: number;
   current: number;
+  variant?: PieChartVariants;
 };
 
-function PieChart({ total, current }: PieChartProps) {
+function PieChart({ total, current, variant = 'default' }: PieChartProps) {
   const { currentPath, currentPathColor, totalPath } = useMemo(() => {
     return new PieChartPaths({ total, current }).calculatePaths();
   }, [total, current]);
 
+  const resolvedStyles = variant === 'default' ? defaultStyles : smStyles;
+
   return (
-    <View style={styles.container}>
+    <View style={resolvedStyles.container}>
       <Svg
         width="100%"
         height="100%"
@@ -24,16 +29,22 @@ function PieChart({ total, current }: PieChartProps) {
       >
         <Path d={totalPath} fill={colors.slateGrey[300]}></Path>
         <Path d={currentPath} fill={currentPathColor}></Path>
-        <Circle cx="50" cy="50" r="40" fill={colors.slateGrey[100]} />
+        <Circle cx="50" cy="50" r="35" fill={colors.slateGrey[100]} />
       </Svg>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   container: {
     width: 86,
     height: 86,
+  },
+});
+const smStyles = StyleSheet.create({
+  container: {
+    width: 48,
+    height: 48,
   },
 });
 

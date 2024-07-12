@@ -29,6 +29,7 @@ export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingB
   const remainingBudget = monthlyBudget - totalMonthlyExpenses;
 
   const variantStyles = variant === 'horizontal' ? horizontalStyles : verticalStyles;
+  const pieChartVariant = variant === 'horizontal' ? 'sm' : 'default';
 
   if (!budget) {
     return <NoBudgetCard />;
@@ -42,9 +43,10 @@ export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingB
           ...variantStyles.container,
         }}
       >
-        <ThemedView style={{ marginTop: 16 }}>
-          <PieChart current={remainingBudget} total={monthlyBudget} />
+        <ThemedView style={{ ...variantStyles.pieChart }}>
+          <PieChart variant={pieChartVariant} current={remainingBudget} total={monthlyBudget} />
         </ThemedView>
+
         <Stack style={{ ...variantStyles.description }}>
           <ThemedText variant="heading">{toLocaleCurrencyFormat(remainingBudget)}</ThemedText>
           <ThemedText variant="body">Remaining Budget</ThemedText>
@@ -63,6 +65,9 @@ const horizontalStyles = StyleSheet.create({
   description: {
     alignItems: 'flex-start',
   },
+  pieChart: {
+    marginTop: 0,
+  },
 });
 
 const verticalStyles = StyleSheet.create({
@@ -73,5 +78,8 @@ const verticalStyles = StyleSheet.create({
   },
   description: {
     alignItems: 'center',
+  },
+  pieChart: {
+    marginTop: 16,
   },
 });
