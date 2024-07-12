@@ -28,7 +28,7 @@ function HomeHeader() {
           borderWidth: 1,
           borderColor: colors.slateGrey[200],
           position: 'absolute',
-          top: -420,
+          top: -440,
         }}
       ></ThemedView>
       <ThemedView style={{ marginTop: 24, alignItems: 'center' }}>
