@@ -19,7 +19,7 @@ type EasyDatePickerTypes = 'today' | 'tomorrow' | 'custom';
 type EasyDatePickerProps = {
   onSelectDate: (date: Date) => void;
   selectedDate?: Date;
-  label: string;
+  label?: string;
 };
 
 export default function EasyDatePicker({ onSelectDate, selectedDate, label }: EasyDatePickerProps) {
