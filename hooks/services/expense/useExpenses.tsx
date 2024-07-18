@@ -23,6 +23,7 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
   return useQuery({
     queryKey: [ExpenseQueryKeys.list, filter],
     queryFn: setup,
+    refetchOnWindowFocus: true,
   });
 };
 

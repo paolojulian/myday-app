@@ -1,23 +1,24 @@
 import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
-import { useState } from 'react';
+import { colors } from '@/constants/Colors';
 
 export type SupportedExpenseFilter = 'item' | 'category';
 
 type ExpensesListCategoriesProps = {
+  selectedFilter: SupportedExpenseFilter;
   onSelectFilter: (expenseFilter: SupportedExpenseFilter) => void;
 };
 
-export default function ExpensesListFilter({ onSelectFilter }: ExpensesListCategoriesProps) {
-  const [selectedCategory, setSelectedCategory] = useState<SupportedExpenseFilter>('item');
-
+export default function ExpensesListFilter({
+  selectedFilter,
+  onSelectFilter,
+}: ExpensesListCategoriesProps) {
   const handleSelectItem = (expenseFilter: SupportedExpenseFilter) => {
     onSelectFilter(expenseFilter);
-    setSelectedCategory(expenseFilter);
   };
 
   return (
-    <Container style={{ paddingVertical: 8 }}>
+    <Container style={{ paddingVertical: 8, backgroundColor: colors.white }}>
       <Tabs<SupportedExpenseFilter>
         items={[
           {
@@ -30,7 +31,7 @@ export default function ExpensesListFilter({ onSelectFilter }: ExpensesListCateg
           },
         ]}
         onSelect={handleSelectItem}
-        selectedItem={selectedCategory}
+        selectedItem={selectedFilter}
       ></Tabs>
     </Container>
   );
