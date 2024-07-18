@@ -7,7 +7,7 @@ import EditBudgetCard from '../../EditBudgetCard';
 
 export default function ListHeaderComponent() {
   return (
-    <Stack style={{ gap: 8, paddingBottom: 16 }}>
+    <Stack style={{ gap: 8, paddingBottom: 8 }}>
       <ExpensesListHeader />
       <Container>
         <Row style={{ gap: 8 }}>
