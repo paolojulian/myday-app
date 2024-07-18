@@ -208,7 +208,7 @@ etc.."
                   "flexDirection": "row",
                   "justifyContent": "space-between",
                   "paddingHorizontal": 16,
-                  "paddingVertical": 16,
+                  "paddingVertical": 12,
                 }
               }
             >

@@ -6,8 +6,8 @@ import {
 } from '@/components/add/AddExpenseForm/AddExpenseForm.utils';
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
+import EasyDatePicker from '@/components/common/EasyDatePicker';
 import ComboBox from '@/components/common/forms/ComboBox';
-import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
@@ -157,12 +157,11 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
                     returnKeyLabel="Done"
                     returnKeyType="done"
                   />
-                  <DatePicker
-                    value={values.transactionDate}
+                  <EasyDatePicker
+                    selectedDate={values.transactionDate}
                     onSelectDate={value => {
                       setFieldValue('transactionDate', value);
                     }}
-                    variant="border"
                   />
                   <TextArea
                     testID={ADD_EXPENSE_FORM_TEST_IDS.description}

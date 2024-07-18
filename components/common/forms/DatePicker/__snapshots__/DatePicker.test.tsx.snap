@@ -25,7 +25,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
         "flexDirection": "row",
         "justifyContent": "space-between",
         "paddingHorizontal": 16,
-        "paddingVertical": 16,
+        "paddingVertical": 12,
       }
     }
   >
