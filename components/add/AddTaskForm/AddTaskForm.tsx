@@ -1,14 +1,14 @@
 import { TabName } from '@/app/(tabs)/_layout';
 import {
-  TaskFormValues,
   ADD_TASK_VALIDATION_SCHEMA,
   convertTaskFormToTask,
   NOTE_PLACEHOLDER,
+  TaskFormValues,
 } from '@/components/add/AddTaskForm/AddTaskForm.utils';
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
+import EasyDatePicker from '@/components/common/EasyDatePicker';
 import CheckboxField from '@/components/common/forms/CheckboxField';
-import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
@@ -110,11 +110,10 @@ export default function AddTaskForm() {
                     errorMessage={errors.description}
                     value={values.description}
                   />
-                  <DatePicker
-                    label="Reminder Date (Optional)"
-                    value={values.reminderDate}
+                  <EasyDatePicker
                     onSelectDate={date => setFieldValue('reminderDate', date)}
-                    variant="border"
+                    selectedDate={values.reminderDate}
+                    label="Reminder Date"
                   />
                   <CheckboxField
                     onValueChange={value => {
