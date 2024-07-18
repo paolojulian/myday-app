@@ -10,6 +10,10 @@ import CalendarTomorrowIcon from '../icons/CalendarTomorrowIcon';
 import CalendarCustomIcon from '../icons/CalendarCustomIcon';
 import DatePicker from '../forms/DatePicker';
 
+export const EASY_DATE_PICKER_TEST_IDS = {
+  container: 'easy-date-picker__container',
+};
+
 type EasyDatePickerTypes = 'today' | 'tomorrow' | 'custom';
 
 type EasyDatePickerProps = {
@@ -54,6 +58,7 @@ export default function EasyDatePicker({ onSelectDate, selectedDate, label }: Ea
         gap: 8,
         flex: 1,
       }}
+      testID={EASY_DATE_PICKER_TEST_IDS.container}
     >
       {selectedType === 'custom' ? (
         <DatePicker
