@@ -86,9 +86,6 @@ export default function ExpensesList() {
       }}
       ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
       ListHeaderComponent={() => <ListHeaderComponent />}
-      // StickyHeaderComponent={() => (
-      //   <ExpensesListFilter selectedFilter={selectedFilter} onSelectFilter={setSelectedFilter} />
-      // )}
       ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
       ListEmptyComponent={() => <ThemedText>No Expenses</ThemedText>}
     />
