@@ -13,11 +13,12 @@ import DatePicker from '../forms/DatePicker';
 type EasyDatePickerTypes = 'today' | 'tomorrow' | 'custom';
 
 type EasyDatePickerProps = {
-  selectedDate: Date;
   onSelectDate: (date: Date) => void;
+  selectedDate?: Date;
+  label: string;
 };
 
-export default function EasyDatePicker({ selectedDate, onSelectDate }: EasyDatePickerProps) {
+export default function EasyDatePicker({ onSelectDate, selectedDate, label }: EasyDatePickerProps) {
   const [selectedType, setSelectedType] = useState<EasyDatePickerTypes | null>(null);
 
   const handlePressToday = () => {
@@ -35,9 +36,15 @@ export default function EasyDatePicker({ selectedDate, onSelectDate }: EasyDateP
   };
 
   const isToday = useMemo<boolean>(() => {
+    if (!selectedDate) {
+      return false;
+    }
     return dayjs(selectedDate).isSame(dayjs(), 'day');
   }, [selectedDate]);
   const isTomorrow = useMemo<boolean>(() => {
+    if (!selectedDate) {
+      return false;
+    }
     return dayjs(selectedDate).isSame(dayjs().add(1, 'day'), 'day');
   }, [selectedDate]);
 
@@ -54,6 +61,7 @@ export default function EasyDatePicker({ selectedDate, onSelectDate }: EasyDateP
           onSelectDate={onSelectDate}
           variant="border"
           initialIsExpanded={true}
+          label={label}
         />
       ) : (
         <>
