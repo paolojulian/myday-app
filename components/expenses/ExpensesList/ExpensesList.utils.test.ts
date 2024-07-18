@@ -1,9 +1,8 @@
 import {
-  buildCategoryList,
+  buildListByFilter,
   getCategoriesFromExpenses,
 } from '@/components/expenses/ExpensesList/ExpensesList.utils';
 import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
-import { mockExpensesWithCategoryName } from '@/utils/testUtils/mockExpenses';
 
 describe('TESTING getCategoriesFromExpenses', () => {
   describe('WHEN expenses is undefined', () => {
@@ -42,35 +41,71 @@ describe('TESTING getCategoriesFromExpenses', () => {
   });
 });
 
-describe('TESTING buildCategoryList', () => {
-  describe('GIVEN expenses with categories but some does not have', () => {
-    const expenses = mockExpensesWithCategoryName;
-    describe('WHEN buildCategoryList is called', () => {
-      it('THEN it should return a list of categories along with percent', () => {
-        const result = buildCategoryList(expenses);
-        expect(result).toEqual([
-          {
-            categoryId: 1,
-            categoryName: 'Food',
-            totalAmount: 62,
-          },
-          {
-            categoryId: 2,
-            categoryName: 'Transportation',
-            totalAmount: 22.5,
-          },
-          {
-            categoryId: 3,
-            categoryName: 'Entertainment',
-            totalAmount: 15,
-          },
-          {
-            categoryId: null,
-            categoryName: 'Uncategorized',
-            totalAmount: 30,
-          },
-        ]);
+describe('TESTING buildListByFilter', () => {
+  describe('WHEN expenses is undefined', () => {
+    it('THEN it should return an empty array', () => {
+      const result = buildListByFilter({ expenses: undefined, selectedFilter: 'item' });
+      expect(result).toStrictEqual([]);
+    });
+  });
+
+  describe('WHEN selectedFilter is item', () => {
+    it('THEN it should not modify the expenses', () => {
+      const expenses: ExpenseWithCategoryName[] = [
+        { id: 1, category_id: 1, category_name: 'Food', amount: 10 },
+      ] as ExpenseWithCategoryName[];
+
+      const result = buildListByFilter({
+        expenses,
+        selectedFilter: 'item',
       });
+
+      expect(result).toStrictEqual(expenses);
+    });
+  });
+
+  describe('WHEN selectedFilter is category', () => {
+    it('THEN it should group expenses by category', () => {
+      const expenses = [
+        {
+          id: 1,
+          category_id: 1,
+          category_name: 'Food',
+          amount: 10,
+        },
+        {
+          id: 2,
+          category_id: 1,
+          category_name: 'Food',
+          amount: 20,
+        },
+        {
+          id: 3,
+          category_id: 2,
+          category_name: 'Transportation',
+          amount: 30,
+        },
+      ] as ExpenseWithCategoryName[];
+
+      const result = buildListByFilter({
+        expenses,
+        selectedFilter: 'category',
+      });
+
+      expect(result).toEqual([
+        {
+          type: 'category',
+          categoryId: 1,
+          categoryName: 'Food',
+          totalAmount: 30,
+        },
+        {
+          type: 'category',
+          categoryId: 2,
+          categoryName: 'Transportation',
+          totalAmount: 30,
+        },
+      ]);
     });
   });
 });

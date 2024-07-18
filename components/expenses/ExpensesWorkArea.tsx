@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native';
 
 function ExpensesWorkArea() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ExpensesList />
     </SafeAreaView>
   );
