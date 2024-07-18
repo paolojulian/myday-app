@@ -183,7 +183,9 @@ function DatePicker({
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   containerShadow: {
     shadowColor: colors.black,
     shadowOpacity: 0.24,
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 12,
     borderTopEndRadius: 12,
     backgroundColor: colors.whiteSmoke,
-    paddingVertical: 16,
+    paddingVertical: 12,
     paddingHorizontal: 16,
 
     display: 'flex',

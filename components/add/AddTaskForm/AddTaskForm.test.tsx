@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import AddTaskForm from './AddTaskForm';
+import { EASY_DATE_PICKER_TEST_IDS } from '@/components/common/EasyDatePicker/EasyDatePicker';
 
 jest.mock('expo-router', () => ({
   ...jest.requireActual('expo-router'),
@@ -28,8 +29,8 @@ describe('TESTING AddTaskForm', () => {
         const description = screen.getByLabelText('Note (Optional)');
         expect(description).toBeDefined();
 
-        const reminderDate = screen.getByLabelText('Reminder Date (Optional)');
-        expect(reminderDate).toBeDefined();
+        const easyDatePicker = screen.getByTestId(EASY_DATE_PICKER_TEST_IDS.container);
+        expect(easyDatePicker).toBeDefined();
 
         expect(screen.getByLabelText('To Buy')).toBeDefined();
 

@@ -187,117 +187,393 @@ etc.."
           <View
             style={
               [
-                {},
                 {
-                  "borderColor": "#f5f5f5",
-                  "borderRadius": 12,
-                  "borderWidth": 2,
+                  "flex": 1,
+                  "gap": 8,
+                },
+                {
+                  "flexDirection": "row",
                 },
               ]
             }
-            testID="date-picker-container"
+            testID="easy-date-picker__container"
           >
             <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "alignItems": "flex-end",
-                  "backgroundColor": "#f5f5f5",
-                  "borderTopEndRadius": 12,
-                  "borderTopStartRadius": 12,
-                  "display": "flex",
-                  "flexDirection": "row",
-                  "justifyContent": "space-between",
-                  "paddingHorizontal": 16,
-                  "paddingVertical": 16,
+                  "flex": 1,
+                  "opacity": 1,
                 }
               }
             >
               <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessible={true}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
                 style={
-                  {
-                    "alignItems": "center",
-                    "flex": 1,
-                    "flexDirection": "row",
-                    "gap": 16,
-                  }
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "backgroundColor": "#f5f5f5",
+                        "borderColor": "#f5f5f5",
+                        "borderRadius": 8,
+                        "borderWidth": 1,
+                        "flex": 1,
+                        "gap": 8,
+                        "justifyContent": "center",
+                        "padding": 16,
+                      },
+                    ],
+                    {
+                      "flexDirection": "column",
+                    },
+                  ]
                 }
-                testID="date-picker-header-btn"
               >
-                <Image
-                  source={1}
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight="25"
+                  bbWidth="26"
+                  fill="none"
+                  focusable={false}
+                  height="25"
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
                   style={
-                    {
-                      "height": 24,
-                      "width": 24,
-                    }
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 25,
+                        "width": 26,
+                      },
+                    ]
                   }
-                />
-                <View
-                  style={
-                    {
-                      "flex": 1,
-                      "gap": 4,
+                  vbHeight={25}
+                  vbWidth={26}
+                  width="26"
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
+                      [
+                        "fill",
+                      ]
                     }
+                  >
+                    <RNSVGPath
+                      d="M2.39587 22.6562C2.39587 23.9502 3.44568 25 4.73962 25H21.9271C23.2211 25 24.2709 23.9502 24.2709 22.6562V9.375H2.39587V22.6562ZM5.52087 13.2812C5.52087 12.8516 5.87244 12.5 6.30212 12.5H10.9896C11.4193 12.5 11.7709 12.8516 11.7709 13.2812V17.9688C11.7709 18.3984 11.4193 18.75 10.9896 18.75H6.30212C5.87244 18.75 5.52087 18.3984 5.52087 17.9688V13.2812ZM21.9271 3.125H19.5834V0.78125C19.5834 0.351562 19.2318 0 18.8021 0H17.2396C16.8099 0 16.4584 0.351562 16.4584 0.78125V3.125H10.2084V0.78125C10.2084 0.351562 9.85681 0 9.42712 0H7.86462C7.43494 0 7.08337 0.351562 7.08337 0.78125V3.125H4.73962C3.44568 3.125 2.39587 4.1748 2.39587 5.46875V7.8125H24.2709V5.46875C24.2709 4.1748 23.2211 3.125 21.9271 3.125Z"
+                      fill={
+                        {
+                          "payload": 4279179050,
+                          "type": 0,
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                    />
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "PoppinsRegular",
+                        "fontSize": 14,
+                      },
+                      {
+                        "fontWeight": 400,
+                      },
+                      undefined,
+                    ]
                   }
                 >
-                  <Text
-                    aria-label="Reminder Date (Optional)"
-                    style={
+                  Today
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "flex": 1,
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "backgroundColor": "#f5f5f5",
+                        "borderColor": "#f5f5f5",
+                        "borderRadius": 8,
+                        "borderWidth": 1,
+                        "flex": 1,
+                        "gap": 8,
+                        "justifyContent": "center",
+                        "padding": 16,
+                      },
+                    ],
+                    {
+                      "flexDirection": "column",
+                    },
+                  ]
+                }
+              >
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight="25"
+                  bbWidth="26"
+                  fill="none"
+                  focusable={false}
+                  height="25"
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 25,
+                        "width": 26,
+                      },
+                    ]
+                  }
+                  vbHeight={25}
+                  vbWidth={26}
+                  width="26"
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
                       [
-                        {
-                          "fontFamily": "PoppinsMedium",
-                          "fontSize": 16,
-                          "fontWeight": 500,
-                        },
-                        {
-                          "fontWeight": 400,
-                        },
-                        {
-                          "color": "#0F172A",
-                        },
+                        "fill",
                       ]
                     }
                   >
-                    Reminder Date (Optional)
-                  </Text>
-                  <Text
-                    style={
+                    <RNSVGPath
+                      d="M2.0625 22.6562C2.0625 23.9502 3.1123 25 4.40625 25H21.5938C22.8877 25 23.9375 23.9502 23.9375 22.6562V9.375H2.0625V22.6562ZM5.1875 13.2812C5.1875 12.8516 5.53906 12.5 5.96875 12.5H20.0312C20.4609 12.5 20.8125 12.8516 20.8125 13.2812V16.4062C20.8125 16.8359 20.4609 17.1875 20.0312 17.1875H5.96875C5.53906 17.1875 5.1875 16.8359 5.1875 16.4062V13.2812ZM21.5938 3.125H19.25V0.78125C19.25 0.351562 18.8984 0 18.4688 0H16.9062C16.4766 0 16.125 0.351562 16.125 0.78125V3.125H9.875V0.78125C9.875 0.351562 9.52344 0 9.09375 0H7.53125C7.10156 0 6.75 0.351562 6.75 0.78125V3.125H4.40625C3.1123 3.125 2.0625 4.1748 2.0625 5.46875V7.8125H23.9375V5.46875C23.9375 4.1748 22.8877 3.125 21.5938 3.125Z"
+                      fill={
+                        {
+                          "payload": 4279179050,
+                          "type": 0,
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                    />
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "PoppinsRegular",
+                        "fontSize": 14,
+                      },
+                      {
+                        "fontWeight": 400,
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  Tomorrow
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "flex": 1,
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "backgroundColor": "#f5f5f5",
+                        "borderColor": "#f5f5f5",
+                        "borderRadius": 8,
+                        "borderWidth": 1,
+                        "flex": 1,
+                        "gap": 8,
+                        "justifyContent": "center",
+                        "padding": 16,
+                      },
+                    ],
+                    {
+                      "flexDirection": "column",
+                    },
+                  ]
+                }
+              >
+                <RNSVGSvgView
+                  align="xMidYMid"
+                  bbHeight="25"
+                  bbWidth="26"
+                  fill="none"
+                  focusable={false}
+                  height="25"
+                  meetOrSlice={0}
+                  minX={0}
+                  minY={0}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                        "borderWidth": 0,
+                      },
+                      {
+                        "flex": 0,
+                        "height": 25,
+                        "width": 26,
+                      },
+                    ]
+                  }
+                  vbHeight={25}
+                  vbWidth={26}
+                  width="26"
+                >
+                  <RNSVGGroup
+                    fill={null}
+                    propList={
                       [
-                        {
-                          "fontFamily": "PoppinsRegular",
-                          "fontSize": 16,
-                        },
-                        {
-                          "fontWeight": 400,
-                        },
-                        {
-                          "color": "#a3a3a3",
-                        },
+                        "fill",
                       ]
                     }
-                    testID="date-picker-value"
                   >
-                    Select a date
-                  </Text>
-                </View>
+                    <RNSVGPath
+                      d="M2.39587 22.6562C2.39587 23.9502 3.44568 25 4.73962 25H21.9271C23.2211 25 24.2709 23.9502 24.2709 22.6562V9.375H2.39587V22.6562ZM5.52087 13.2812C5.52087 12.8516 5.87244 12.5 6.30212 12.5H10.9896C11.4193 12.5 11.7709 12.8516 11.7709 13.2812V17.9688C11.7709 18.3984 11.4193 18.75 10.9896 18.75H6.30212C5.87244 18.75 5.52087 18.3984 5.52087 17.9688V13.2812ZM21.9271 3.125H19.5834V0.78125C19.5834 0.351562 19.2318 0 18.8021 0H17.2396C16.8099 0 16.4584 0.351562 16.4584 0.78125V3.125H10.2084V0.78125C10.2084 0.351562 9.85681 0 9.42712 0H7.86462C7.43494 0 7.08337 0.351562 7.08337 0.78125V3.125H4.73962C3.44568 3.125 2.39587 4.1748 2.39587 5.46875V7.8125H24.2709V5.46875C24.2709 4.1748 23.2211 3.125 21.9271 3.125Z"
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                      propList={
+                        [
+                          "fill",
+                        ]
+                      }
+                    />
+                  </RNSVGGroup>
+                </RNSVGSvgView>
+                <Text
+                  style={
+                    [
+                      {
+                        "fontFamily": "PoppinsRegular",
+                        "fontSize": 14,
+                      },
+                      {
+                        "fontWeight": 400,
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  Custom
+                </Text>
               </View>
             </View>
           </View>
