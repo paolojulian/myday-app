@@ -1,5 +1,6 @@
 import { Category } from '@/hooks/services/category/category.types';
-import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { SupportedExpenseFilter } from './ExpensesListFilter/ExpensesListFilter';
 
 export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) {
   if (!expenses) {
@@ -26,32 +27,59 @@ export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) 
   return reducedExpenses;
 }
 
-type ExpenseCategoryItem = {
-  categoryId: Category['id'] | null;
+export function buildListByFilter({
+  expenses,
+  selectedFilter,
+}: {
+  expenses?: ExpenseWithCategoryName[];
+  selectedFilter: SupportedExpenseFilter;
+}): ExpenseWithCategoryName[] | CategoryItemFields[] {
+  if (!expenses) {
+    return [];
+  }
+
+  if (selectedFilter === 'item') {
+    return expenses;
+  }
+
+  if (selectedFilter === 'category') {
+    return groupExpensesByCategory(expenses);
+  }
+
+  return [];
+}
+
+export type CategoryItemFields = {
+  type: 'category';
+  categoryId: Category['id'];
   categoryName: Category['category_name'];
-  totalAmount: Expense['amount'];
+  totalAmount: number;
 };
-export function buildCategoryList(expenses?: ExpenseWithCategoryName[]) {
-  if (!expenses) return [];
+function groupExpensesByCategory(expenses: ExpenseWithCategoryName[]): CategoryItemFields[] {
+  const categoryItems: CategoryItemFields[] = [];
 
-  const expenseCategories = expenses.reduce((acc: ExpenseCategoryItem[], currentValue) => {
-    const categoryIndex = acc.findIndex(expense => expense.categoryId === currentValue.category_id);
+  expenses.forEach(expense => {
+    const categoryIndex = categoryItems.findIndex(
+      category => category.categoryId === expense.category_id,
+    );
+    const doesCategoryExist = categoryIndex !== -1;
 
-    // No category yet
-    if (categoryIndex === -1) {
-      acc.push({
-        categoryId: currentValue.category_id ?? null,
-        categoryName: currentValue.category_name ?? 'Uncategorized',
-        totalAmount: currentValue.amount,
+    // Update existing category
+    if (doesCategoryExist) {
+      categoryItems[categoryIndex].totalAmount += expense.amount;
+    } else if (expense.category_id && expense.category_name) {
+      categoryItems.push({
+        type: 'category',
+        categoryId: expense.category_id,
+        categoryName: expense.category_name,
+        totalAmount: expense.amount,
       });
-
-      return acc;
     }
+  });
 
-    acc[categoryIndex].totalAmount += currentValue.amount;
+  return categoryItems.sort((a, b) => b.totalAmount - a.totalAmount);
+}
 
-    return acc;
-  }, []);
-
-  return expenseCategories;
+export function getTotalAmount(expenses: Pick<ExpenseWithCategoryName, 'amount'>[]): number {
+  return expenses.reduce((acc, { amount }) => acc + amount, 0);
 }
