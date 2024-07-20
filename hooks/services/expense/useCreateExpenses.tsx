@@ -7,6 +7,7 @@ import { useSQLiteContext } from 'expo-sqlite';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import dayjs from 'dayjs';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
@@ -35,7 +36,8 @@ export const useCreateExpense = () => {
       await db.withTransactionAsync(async () => {
         const result = await db.runAsync(ADD_EXPENSE_STATEMENT, variables);
 
-        if (expense.recurrence !== null) {
+        const isExpenseToday = dayjs.unix(expense.transaction_date).isSame(dayjs(), 'day');
+        if (expense.recurrence !== null && !!isExpenseToday) {
           // Add recurrence
           await db.runAsync(ADD_EXPENSE_STATEMENT, {
             ...variables,

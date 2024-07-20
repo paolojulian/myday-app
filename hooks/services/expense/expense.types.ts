@@ -24,6 +24,7 @@ export enum ExpenseQueryKeys {
   list = 'expenses-list',
   recurringExpenses = 'recurring-expenses',
   totalExpenses = 'total-expenses',
+  expenseCategoryList = 'expense-category-list',
 }
 export const expenseQueryKeys = Object.values(ExpenseQueryKeys);
 

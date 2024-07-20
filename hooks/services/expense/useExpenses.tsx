@@ -21,6 +21,7 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
 
       return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
     },
+    initialData: [],
   });
 };
 

@@ -42,10 +42,6 @@ export function buildListByFilter({
     return expenses;
   }
 
-  if (selectedFilter === 'category') {
-    return groupExpensesByCategory(expenses);
-  }
-
   return [];
 }
 
@@ -55,7 +51,9 @@ export type CategoryItemFields = {
   categoryName: Category['category_name'];
   totalAmount: number;
 };
-function groupExpensesByCategory(expenses: ExpenseWithCategoryName[]): CategoryItemFields[] {
+export function groupExpensesByCategory(
+  expenses: Pick<ExpenseWithCategoryName, 'category_id' | 'category_name' | 'amount'>[],
+): CategoryItemFields[] {
   const categoryItems: CategoryItemFields[] = [];
 
   expenses.forEach(expense => {
