@@ -10,6 +10,7 @@ import EasyDatePicker from '@/components/common/EasyDatePicker';
 import ComboBox from '@/components/common/forms/ComboBox';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
+import RecurringExpenseField from '@/components/common/RecurringExpenseBottomSheet/RecurringExpenseField';
 import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
 import useCategories from '@/hooks/services/category/useCategories';
@@ -96,18 +97,19 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
               category: '',
               description: '',
               transactionDate: new Date(),
+              recurrence: null,
             }}
             validationSchema={ADD_EXPENSE_VALIDATION_SCHEMA}
             onSubmit={handleFormSubmit}
           >
             {({
-              handleChange,
               handleBlur,
-              setFieldValue,
-              values,
+              handleChange,
               handleSubmit,
+              setFieldValue,
               errors,
               touched,
+              values,
             }) => (
               <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
                 <ThemedView style={{ gap: 8, flex: 1 }}>
@@ -161,6 +163,12 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
                     selectedDate={values.transactionDate}
                     onSelectDate={value => {
                       setFieldValue('transactionDate', value);
+                    }}
+                  />
+                  <RecurringExpenseField
+                    value={values.recurrence}
+                    onSelect={value => {
+                      setFieldValue('recurrence', value);
                     }}
                   />
                   <TextArea

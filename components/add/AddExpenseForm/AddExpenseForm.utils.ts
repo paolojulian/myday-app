@@ -14,5 +14,6 @@ export const ADD_EXPENSE_VALIDATION_SCHEMA = Yup.object().shape({
   amount: Yup.string().required('Amount is required'),
   description: Yup.string().max(255),
   transactionDate: Yup.date().required('Transaction date is required'),
+  recurrence: Yup.string().oneOf(['monthly', 'weekly', 'yearly']).nullable(),
 });
 export type ExpenseFormValues = Yup.InferType<typeof ADD_EXPENSE_VALIDATION_SCHEMA>;
