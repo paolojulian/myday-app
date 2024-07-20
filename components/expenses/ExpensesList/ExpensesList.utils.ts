@@ -1,6 +1,5 @@
 import { Category } from '@/hooks/services/category/category.types';
 import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
-import { SupportedExpenseFilter } from './ExpensesListFilter/ExpensesListFilter';
 
 export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) {
   if (!expenses) {
@@ -27,35 +26,15 @@ export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) 
   return reducedExpenses;
 }
 
-export function buildListByFilter({
-  expenses,
-  selectedFilter,
-}: {
-  expenses?: ExpenseWithCategoryName[];
-  selectedFilter: SupportedExpenseFilter;
-}): ExpenseWithCategoryName[] | CategoryItemFields[] {
-  if (!expenses) {
-    return [];
-  }
-
-  if (selectedFilter === 'item') {
-    return expenses;
-  }
-
-  if (selectedFilter === 'category') {
-    return groupExpensesByCategory(expenses);
-  }
-
-  return [];
-}
-
 export type CategoryItemFields = {
   type: 'category';
   categoryId: Category['id'];
   categoryName: Category['category_name'];
   totalAmount: number;
 };
-function groupExpensesByCategory(expenses: ExpenseWithCategoryName[]): CategoryItemFields[] {
+export function groupExpensesByCategory(
+  expenses: Pick<ExpenseWithCategoryName, 'category_id' | 'category_name' | 'amount'>[],
+): CategoryItemFields[] {
   const categoryItems: CategoryItemFields[] = [];
 
   expenses.forEach(expense => {

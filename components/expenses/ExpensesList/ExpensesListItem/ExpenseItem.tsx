@@ -15,7 +15,7 @@ import { useRouter } from 'expo-router';
 
 type SupportedExpenseFields = Pick<
   ExpenseWithCategoryName,
-  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id'
+  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id' | 'recurrence'
 >;
 
 type ExpenseItemProps = {
@@ -30,9 +30,11 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
     amount,
     transaction_date: transactionDateEpoch,
     category_name: categoryName,
+    recurrence,
   } = expense;
   const router = useRouter();
   const formattedTransactionDate = convertEpochToDate(transactionDateEpoch).format('MMM D, YYYY');
+  const recurrenceText = recurrence !== null ? `${recurrence}` : '';
 
   const handleDelete = () => {
     onDelete(id);
@@ -90,8 +92,11 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
                 {categoryName}
               </ThemedText>
             )}
-            <ThemedText variant="body" style={{ color: colors.darkGrey }}>
-              {formattedTransactionDate}
+            <ThemedText
+              variant="body"
+              style={{ color: colors.darkGrey, textTransform: 'capitalize' }}
+            >
+              {recurrence !== null ? recurrenceText : formattedTransactionDate}
             </ThemedText>
           </Stack>
           <ThemedText variant="body2" style={{ color: colors.red }}>

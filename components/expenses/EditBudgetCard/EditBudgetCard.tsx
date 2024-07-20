@@ -3,7 +3,7 @@ import EditIcon from '@/components/common/icons/EditIcon';
 import ThemedView from '@/components/common/ThemedView';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { UpdateBudgetManager } from '../BudgetCard/UpdateBudgetBottomSheet';
+import { UpdateBudgetManager } from '../UpdateBudgetBottomSheet/UpdateBudgetBottomSheet';
 
 function EditBudgetCard() {
   const handlePress = () => {

@@ -1,7 +1,13 @@
-import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
+import {
+  Expense,
+  expenseQueryKeys,
+  ExpenseQueryKeys,
+} from '@/hooks/services/expense/expense.types';
 import { useSQLiteContext } from 'expo-sqlite';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import dayjs from 'dayjs';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
@@ -14,18 +20,40 @@ export const useCreateExpense = () => {
 
   async function setup(expense: SupportedCreateExpenseFields) {
     const now_epoch = convertDateToEpoch(new Date());
-    const result = await db.runAsync(ADD_EXPENSE_STATEMENT, {
+    const variables = {
       $title: expense.title,
       $amount: expense.amount,
       $description: expense.description,
       $category_id: expense.category_id,
       $transaction_date: expense.transaction_date,
       $recurrence: expense.recurrence,
+      $recurrence_id: null,
       $created_at: now_epoch,
       $updated_at: now_epoch,
-    });
+    };
 
-    return result;
+    try {
+      await db.withTransactionAsync(async () => {
+        const result = await db.runAsync(ADD_EXPENSE_STATEMENT, variables);
+
+        const isExpenseToday = dayjs.unix(expense.transaction_date).isSame(dayjs(), 'day');
+        if (expense.recurrence !== null && !!isExpenseToday) {
+          // Add recurrence
+          await db.runAsync(ADD_EXPENSE_STATEMENT, {
+            ...variables,
+            $recurrence_id: result.lastInsertRowId,
+            $recurrence: null,
+          });
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        GlobalSnackbar.show({
+          message: e.message,
+          type: 'error',
+        });
+      }
+    }
   }
 
   const { data, error, mutate, isPending } = useMutation({
@@ -33,7 +61,9 @@ export const useCreateExpense = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          return query.queryKey[0] === ExpenseQueryKeys.list;
+          if (typeof query.queryKey[0] !== 'string') return false;
+
+          return expenseQueryKeys.includes(query.queryKey[0] as ExpenseQueryKeys);
         },
       });
 
@@ -45,6 +75,6 @@ export const useCreateExpense = () => {
 };
 
 const ADD_EXPENSE_STATEMENT = `
-  INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, created_at, updated_at)
-  VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $created_at, $updated_at)
+  INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, recurrence_id, created_at, updated_at)
+  VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $recurrence_id,$created_at, $updated_at)
 `;

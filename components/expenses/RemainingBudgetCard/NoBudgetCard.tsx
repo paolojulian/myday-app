@@ -3,8 +3,8 @@ import LinkText from '@/components/common/LinkText';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import { UpdateBudgetManager } from '@/components/expenses/BudgetCard/UpdateBudgetBottomSheet';
 import { Image } from 'react-native';
+import { UpdateBudgetManager } from '../UpdateBudgetBottomSheet/UpdateBudgetBottomSheet';
 
 export function NoBudgetCard() {
   const handleSetBudgetPress = () => {
