@@ -9,6 +9,7 @@ import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { NoBudgetCard } from './NoBudgetCard';
+import { useFocusEffect } from 'expo-router';
 
 type RemainingBudgetCardProps = {
   variant?: 'horizontal' | 'vertical';
@@ -16,8 +17,16 @@ type RemainingBudgetCardProps = {
 
 export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingBudgetCardProps) {
   const today = useMemo(() => new Date(), []);
-  const { data: budget } = useBudget(today);
-  const { data: totalMonthlyExpenses } = useTotalExpenses({ transactionDate: today });
+  const { data: budget, refetch: refetchBudget } = useBudget(today);
+  const { data: totalMonthlyExpenses, refetch: refetchTotalExpenses } = useTotalExpenses({
+    transactionDate: today,
+    type: 'monthly',
+  });
+
+  useFocusEffect(() => {
+    refetchTotalExpenses();
+    refetchBudget();
+  });
 
   const monthlyBudget = budget?.amount ?? 0;
 

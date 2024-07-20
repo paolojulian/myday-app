@@ -12,14 +12,23 @@ import ExpensesListFilter, {
 } from './ExpensesListFilter/ExpensesListFilter';
 import ExpenseItem from './ExpensesListItem/ExpenseItem';
 import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
+import { useFocusEffect } from 'expo-router';
 
 export default function ExpensesList() {
   const [transactionDate] = useState(new Date());
   const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
 
-  const { data: expenses, isLoading } = useExpenses({
+  const {
+    data: expenses,
+    isLoading,
+    refetch: refetchExpenses,
+  } = useExpenses({
     filterType: 'monthly',
     transactionDate,
+  });
+
+  useFocusEffect(() => {
+    refetchExpenses();
   });
 
   const totalExpensesAmount = expenses ? getTotalAmount(expenses) : 0;

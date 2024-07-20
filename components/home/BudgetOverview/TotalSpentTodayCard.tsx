@@ -3,28 +3,23 @@ import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
-import useExpenses from '@/hooks/services/expense/useExpenses';
+import { useTotalExpenses } from '@/hooks/services/expense/useTotalExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
-import { getTotalExpenseAmount } from '@/utils/expenses/getTotalExpenseAmount';
-import dayjs from 'dayjs';
+import { useFocusEffect } from 'expo-router';
 import { useMemo } from 'react';
 import { Image } from 'react-native';
 
 export default function TotalSpentTodayCard() {
   const today = useMemo(() => new Date(), []);
 
-  const { data: expenses } = useExpenses({
-    filterType: 'monthly',
+  const { data: totalExpensesToday, refetch: refetchTotalExpenses } = useTotalExpenses({
     transactionDate: today,
+    type: 'daily',
   });
 
-  const totalExpensesToday = useMemo(
-    () =>
-      getTotalExpenseAmount(
-        expenses?.filter(expense => dayjs.unix(expense.transaction_date).isSame(today, 'day')),
-      ),
-    [expenses, today],
-  );
+  useFocusEffect(() => {
+    refetchTotalExpenses();
+  });
 
   const spentToday = {
     color: totalExpensesToday > 0 ? colors.red : colors.black,

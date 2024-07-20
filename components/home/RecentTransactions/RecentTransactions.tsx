@@ -7,13 +7,21 @@ import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ExpenseItem from '@/components/expenses/ExpensesList/ExpensesListItem/ExpenseItem';
 import useExpenses from '@/hooks/services/expense/useExpenses';
-import { useNavigation } from 'expo-router';
+import { useFocusEffect, useNavigation } from 'expo-router';
 import React, { Fragment } from 'react';
 import EmptyRecentTransactions from './EmptyRecentTransactions';
 
 function RecentTransactions() {
   const navigation = useNavigation();
-  const { data: expenses, isLoading } = useExpenses({ filterType: 'recent-transactions' });
+  const {
+    data: expenses,
+    isLoading,
+    refetch: refetchExpenses,
+  } = useExpenses({ filterType: 'recent-transactions' });
+
+  useFocusEffect(() => {
+    refetchExpenses();
+  });
 
   const isEmpty = !expenses || expenses.length === 0;
 

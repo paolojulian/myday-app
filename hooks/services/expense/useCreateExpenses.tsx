@@ -1,4 +1,8 @@
-import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
+import {
+  Expense,
+  expenseQueryKeys,
+  ExpenseQueryKeys,
+} from '@/hooks/services/expense/expense.types';
 import { useSQLiteContext } from 'expo-sqlite';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -55,7 +59,9 @@ export const useCreateExpense = () => {
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
-          return query.queryKey[0] === ExpenseQueryKeys.list;
+          if (typeof query.queryKey[0] !== 'string') return false;
+
+          return expenseQueryKeys.includes(query.queryKey[0] as ExpenseQueryKeys);
         },
       });
 
