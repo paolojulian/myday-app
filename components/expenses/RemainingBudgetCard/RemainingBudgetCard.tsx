@@ -4,12 +4,11 @@ import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import useBudget from '@/hooks/services/budget/useBudget';
-import useExpenses from '@/hooks/services/expense/useExpenses';
+import { useTotalExpenses } from '@/hooks/services/expense/useTotalExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
-import { getTotalExpenseAmount } from '@/utils/expenses/getTotalExpenseAmount';
 import { useMemo } from 'react';
-import { NoBudgetCard } from './NoBudgetCard';
 import { StyleSheet } from 'react-native';
+import { NoBudgetCard } from './NoBudgetCard';
 
 type RemainingBudgetCardProps = {
   variant?: 'horizontal' | 'vertical';
@@ -18,13 +17,9 @@ type RemainingBudgetCardProps = {
 export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingBudgetCardProps) {
   const today = useMemo(() => new Date(), []);
   const { data: budget } = useBudget(today);
-  const { data: expenses } = useExpenses({
-    filterType: 'monthly',
-    transactionDate: today,
-  });
+  const { data: totalMonthlyExpenses } = useTotalExpenses({ transactionDate: today });
 
   const monthlyBudget = budget?.amount ?? 0;
-  const totalMonthlyExpenses = useMemo(() => getTotalExpenseAmount(expenses), [expenses]);
 
   const remainingBudget = monthlyBudget - totalMonthlyExpenses;
 

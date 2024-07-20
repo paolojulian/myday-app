@@ -67,11 +67,6 @@ export default function RecurringExpenseField({ onSelect, value }: RecurringExpe
               title="Monthly"
               onPress={() => handleSelect('monthly')}
             />
-            <RecurrenceOption
-              isSelected={value === 'yearly'}
-              title="Yearly"
-              onPress={() => handleSelect('yearly')}
-            />
           </Stack>
         </SafeAreaView>
       </BottomSheetModal>

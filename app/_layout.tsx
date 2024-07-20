@@ -1,4 +1,4 @@
-import UpdateBudgetBottomSheet from '@/components/expenses/BudgetCard/UpdateBudgetBottomSheet';
+import UpdateBudgetBottomSheet from '@/components/expenses/UpdateBudgetBottomSheet';
 import DefaultTheme from '@/constants/Theme';
 import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
 import { useCustomFonts } from '@/hooks/useCustomFonts';

@@ -21,9 +21,6 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
 
       return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
     },
-    refetchOnWindowFocus: true,
-    refetchInterval: 10000,
-    refetchOnReconnect: true,
   });
 };
 

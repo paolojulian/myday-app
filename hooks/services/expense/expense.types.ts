@@ -23,6 +23,7 @@ export enum ExpenseQueryKeys {
   item = 'expense-item',
   list = 'expenses-list',
   recurringExpenses = 'recurring-expenses',
+  totalExpenses = 'total-expenses',
 }
 
 export type ExpenseQueryFilters =
