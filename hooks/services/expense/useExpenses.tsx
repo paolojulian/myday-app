@@ -10,20 +10,20 @@ import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
 const useExpenses = (filter: ExpenseQueryFilters) => {
   const db = useSQLiteContext();
 
-  const setup = async () => {
-    if (!filter) {
-      throw new Error('Invalid filters provided');
-    }
-    const query = buildQuery(filter);
-    const variables = buildVariables(filter);
-
-    return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
-  };
-
   return useQuery({
     queryKey: [ExpenseQueryKeys.list, filter],
-    queryFn: setup,
+    queryFn: async () => {
+      if (!filter) {
+        throw new Error('Invalid filters provided');
+      }
+      const query = buildQuery(filter);
+      const variables = buildVariables(filter);
+
+      return await db.getAllAsync<ExpenseWithCategoryName>(query, variables);
+    },
     refetchOnWindowFocus: true,
+    refetchInterval: 10000,
+    refetchOnReconnect: true,
   });
 };
 
@@ -31,11 +31,14 @@ function buildQuery(filter: ExpenseQueryFilters) {
   switch (filter.filterType) {
     case 'monthly':
       return /* sql */ `
-        SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
-        LEFT JOIN category ON expense.category_id = category.id
-        WHERE transaction_date BETWEEN $start AND $end
-          AND recurrence IS NULL
-        ORDER BY expense.transaction_date DESC
+      SELECT expense.*, category.id as category_id, category.category_name as category_name 
+      FROM expense
+      LEFT JOIN category ON expense.category_id = category.id
+      WHERE (
+        (transaction_date BETWEEN $start AND $end AND recurrence IS NULL AND recurrence_id IS NULL)
+        OR (recurrence IS NOT NULL AND recurrence_id IS NULL)
+      )
+      ORDER BY expense.transaction_date DESC
       `;
     case 'category':
       return /* sql */ `

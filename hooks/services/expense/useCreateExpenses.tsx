@@ -22,19 +22,21 @@ export const useCreateExpense = () => {
       $category_id: expense.category_id,
       $transaction_date: expense.transaction_date,
       $recurrence: expense.recurrence,
+      $recurrence_id: null,
       $created_at: now_epoch,
       $updated_at: now_epoch,
     };
 
     try {
       await db.withTransactionAsync(async () => {
-        await db.runAsync(ADD_EXPENSE_STATEMENT, variables);
+        const result = await db.runAsync(ADD_EXPENSE_STATEMENT, variables);
 
         if (expense.recurrence !== null) {
           // Add recurrence
           await db.runAsync(ADD_EXPENSE_STATEMENT, {
             ...variables,
-            recurrence: null,
+            $recurrence_id: result.lastInsertRowId,
+            $recurrence: null,
           });
         }
       });
@@ -65,6 +67,6 @@ export const useCreateExpense = () => {
 };
 
 const ADD_EXPENSE_STATEMENT = `
-  INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, created_at, updated_at)
-  VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $created_at, $updated_at)
+  INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, recurrence_id, created_at, updated_at)
+  VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $recurrence_id,$created_at, $updated_at)
 `;
