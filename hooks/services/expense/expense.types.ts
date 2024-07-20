@@ -23,7 +23,10 @@ export enum ExpenseQueryKeys {
   item = 'expense-item',
   list = 'expenses-list',
   recurringExpenses = 'recurring-expenses',
+  totalExpenses = 'total-expenses',
+  expenseCategoryList = 'expense-category-list',
 }
+export const expenseQueryKeys = Object.values(ExpenseQueryKeys);
 
 export type ExpenseQueryFilters =
   | {

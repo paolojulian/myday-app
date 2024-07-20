@@ -87,7 +87,7 @@ function UpdateBudgetBottomSheet() {
 
   return (
     <>
-      <BottomSheetModal onClose={handleHide} isOpen={isOpen}>
+      <BottomSheetModal variant="slide" onClose={handleHide} isOpen={isOpen}>
         <ThemedView style={{ gap: 16, paddingVertical: 16 }}>
           <Formik
             onSubmit={handleSavePressed}

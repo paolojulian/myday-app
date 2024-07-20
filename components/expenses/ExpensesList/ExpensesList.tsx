@@ -3,10 +3,12 @@ import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
 import useExpenses from '@/hooks/services/expense/useExpenses';
-import { useMemo, useState } from 'react';
+import { useExpensesByCategory } from '@/hooks/services/expense/useExpensesByCategory';
+import { useFocusEffect } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import CategoryItem from './CategoryItem';
-import { buildListByFilter, getTotalAmount, type CategoryItemFields } from './ExpensesList.utils';
+import { getTotalAmount, type CategoryItemFields } from './ExpensesList.utils';
 import ExpensesListFilter, {
   SupportedExpenseFilter,
 } from './ExpensesListFilter/ExpensesListFilter';
@@ -17,20 +19,30 @@ export default function ExpensesList() {
   const [transactionDate] = useState(new Date());
   const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
 
-  const { data: expenses, isLoading } = useExpenses({
+  const {
+    data: expenses,
+    isLoading,
+    refetch: refetchExpenses,
+  } = useExpenses({
     filterType: 'monthly',
     transactionDate,
   });
+  const { data: expensesByCategory, refetch: refetchExpensesByCategory } = useExpensesByCategory({
+    transactionDate,
+  });
+
+  useFocusEffect(() => {
+    refetchExpenses();
+  });
+
+  useEffect(() => {
+    if (selectedFilter === 'category') {
+      refetchExpensesByCategory();
+    }
+  }, [selectedFilter]);
 
   const totalExpensesAmount = expenses ? getTotalAmount(expenses) : 0;
-  const filteredData = useMemo(
-    () =>
-      buildListByFilter({
-        expenses,
-        selectedFilter,
-      }),
-    [expenses, selectedFilter],
-  );
+  const data = selectedFilter === 'category' ? expensesByCategory : expenses;
 
   if (isLoading) {
     // TODO: add loading skeleton
@@ -44,7 +56,7 @@ export default function ExpensesList() {
 
   return (
     <FlatList<CategoryItemFields | ExpenseWithCategoryName | { isFilter: boolean }>
-      data={[{ isFilter: true }, ...filteredData]}
+      data={[{ isFilter: true }, ...data]}
       contentContainerStyle={{
         justifyContent: 'flex-start',
         flex: 1,
