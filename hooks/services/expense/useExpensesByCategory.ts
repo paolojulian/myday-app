@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Category } from '../category/category.types';
 import { ExpenseQueryKeys } from './expense.types';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
 
 type ReturnData = {
   category_id: Category['id'];
@@ -32,11 +33,19 @@ export function useExpensesByCategory({ transactionDate }: UseExpenseByCategoryP
       const query = buildQuery();
       const variables = buildVariables({ transactionDate });
 
-      const result = await db.getAllAsync<ReturnData>(query, variables);
-
-      return groupExpensesByCategory(result);
+      try {
+        const result = await db.getAllAsync<ReturnData>(query, variables);
+        return groupExpensesByCategory(result);
+      } catch (error) {
+        GlobalSnackbar.show({
+          message: 'Unable to fetch expenses by category',
+          type: 'error',
+        });
+        throw error;
+      }
     },
     initialData: [],
+    enabled: false,
   });
 }
 
