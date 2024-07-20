@@ -49,6 +49,7 @@ function buildQuery(filter: ExpenseQueryFilters) {
     case 'recent-transactions':
       return /* sql */ `
         SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense
+        WHERE recurrence IS NULL
         LEFT JOIN category ON expense.category_id = category.id
         ORDER BY expense.transaction_date DESC
         LIMIT 5 

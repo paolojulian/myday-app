@@ -2,6 +2,7 @@ import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.type
 import { useSQLiteContext } from 'expo-sqlite';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
@@ -14,7 +15,7 @@ export const useCreateExpense = () => {
 
   async function setup(expense: SupportedCreateExpenseFields) {
     const now_epoch = convertDateToEpoch(new Date());
-    const result = await db.runAsync(ADD_EXPENSE_STATEMENT, {
+    const variables = {
       $title: expense.title,
       $amount: expense.amount,
       $description: expense.description,
@@ -23,9 +24,28 @@ export const useCreateExpense = () => {
       $recurrence: expense.recurrence,
       $created_at: now_epoch,
       $updated_at: now_epoch,
-    });
+    };
 
-    return result;
+    try {
+      await db.withTransactionAsync(async () => {
+        await db.runAsync(ADD_EXPENSE_STATEMENT, variables);
+
+        if (expense.recurrence !== null) {
+          // Add recurrence
+          await db.runAsync(ADD_EXPENSE_STATEMENT, {
+            ...variables,
+            recurrence: null,
+          });
+        }
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        GlobalSnackbar.show({
+          message: e.message,
+          type: 'error',
+        });
+      }
+    }
   }
 
   const { data, error, mutate, isPending } = useMutation({

@@ -75,7 +75,7 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
         description: values.description ?? '',
         title: values.title,
         transaction_date: convertDateToEpoch(values.transactionDate),
-        recurrence: null,
+        recurrence: values.recurrence,
       });
 
       showSuccessMessage();

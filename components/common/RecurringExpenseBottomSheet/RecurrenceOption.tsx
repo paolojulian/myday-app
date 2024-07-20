@@ -4,17 +4,18 @@ import { colors } from '@/constants/Colors';
 import ThemedText from '../ThemedText';
 
 type RecurrenceOptionProps = {
-  title: string;
   onPress: () => void;
+  title: string;
+  isSelected: boolean;
 };
 
-export default function RecurrenceOption({ onPress, title }: RecurrenceOptionProps) {
+export default function RecurrenceOption({ onPress, title, isSelected }: RecurrenceOptionProps) {
   return (
     <TouchableOpacity onPress={onPress}>
       <ThemedView
         style={{
           justifyContent: 'center',
-          backgroundColor: colors.whiteSmoke,
+          backgroundColor: isSelected ? colors.slateGrey[100] : colors.whiteSmoke,
           padding: 16,
         }}
       >
