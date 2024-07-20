@@ -47,6 +47,7 @@ export default function ExpensesList() {
       data={[{ isFilter: true }, ...filteredData]}
       contentContainerStyle={{
         justifyContent: 'flex-start',
+        flex: 1,
       }}
       keyExtractor={item => {
         if (isFilter(item)) {
