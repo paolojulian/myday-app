@@ -6,9 +6,12 @@ import { type TaskFilterTypes } from '@/hooks/services/task/task.types';
 import { useCompleteTask } from '@/hooks/services/task/useCompleteTask';
 import useTasks from '@/hooks/services/task/useTasks';
 import { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
 import EmptyTaskList from './EmptyTaskList';
+import { useUncompleteTask } from '@/hooks/services/task/useUncompleteTask';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import ThemedText from '@/components/common/ThemedText';
 
 export default function TaskList() {
   const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
@@ -16,9 +19,30 @@ export default function TaskList() {
   const tasks = data || [];
 
   const { mutateAsync: completeTaskMutation } = useCompleteTask();
+  const { mutateAsync: unCompleteTaskMutation } = useUncompleteTask();
 
-  const handleRemoveItem: TaskItemProps['onRemove'] = id => {
-    completeTaskMutation(id);
+  const handleRemoveItem: TaskItemProps['onRemove'] = async (id): Promise<void> => {
+    await completeTaskMutation(id);
+    GlobalSnackbar.show({
+      message: 'Task removed',
+      duration: GlobalSnackbar.LENGTH_LONG,
+      type: 'success',
+      RightComponent: (
+        <TouchableOpacity
+          onPress={() => {
+            unCompleteTaskMutation(id);
+          }}
+        >
+          <ThemedText variant="body2" style={{ color: colors.white }}>
+            UNDO
+          </ThemedText>
+        </TouchableOpacity>
+      ),
+    });
+  };
+
+  const handleRevertItem: TaskItemProps['onRevert'] = id => {
+    unCompleteTaskMutation(id);
   };
 
   return (
@@ -37,7 +61,12 @@ export default function TaskList() {
       stickyHeaderIndices={[0]}
       renderItem={({ item }) => (
         <Container>
-          <TaskItem key={item.id} onRemove={handleRemoveItem} task={item} />
+          <TaskItem
+            key={item.id}
+            onRemove={handleRemoveItem}
+            onRevert={handleRevertItem}
+            task={item}
+          />
         </Container>
       )}
     />

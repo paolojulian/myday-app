@@ -13,6 +13,7 @@ type ShowSnackbarParams = {
   message: string;
   duration?: number;
   type?: SnackbarType;
+  RightComponent?: React.ReactNode;
 };
 
 function show(params: ShowSnackbarParams) {
@@ -33,6 +34,7 @@ function SnackbarManager() {
   const [message, setMessage] = useState<string | null>(null);
   const [duration, setDuration] = useState<number>(GlobalSnackbar.LENGTH_SHORT);
   const [type, setType] = useState<SnackbarType>('info');
+  const [RightComponent, setRightComponent] = useState<React.ReactNode | null>(null);
 
   const handleHide = () => {
     setMessage(null);
@@ -42,6 +44,7 @@ function SnackbarManager() {
     setMessage(params.message);
     setDuration(params.duration || GlobalSnackbar.LENGTH_SHORT);
     setType(params.type || 'info');
+    setRightComponent(params.RightComponent || null);
   };
 
   useEffect(() => {
@@ -54,7 +57,15 @@ function SnackbarManager() {
     };
   }, []);
 
-  return <Snackbar onDismiss={handleHide} message={message} duration={duration} type={type} />;
+  return (
+    <Snackbar
+      onDismiss={handleHide}
+      RightComponent={RightComponent}
+      message={message}
+      duration={duration}
+      type={type}
+    />
+  );
 }
 
 export default SnackbarManager;
