@@ -4,14 +4,18 @@ import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { forwardRef, useState } from 'react';
 import { TextInput, TextInputProps, TouchableOpacity } from 'react-native';
+import Stack from '../../Stack';
+
+type ComboBoxVariant = 'inline' | 'bottom-sheet';
 
 type ComboBoxProps<T extends string> = {
   onSelect: (value: T) => void;
   options?: T[];
+  variant?: ComboBoxVariant;
 } & TextFieldProps;
 
 function ComboBox<T extends string = string>(
-  { onSelect, options = [], ...props }: ComboBoxProps<T>,
+  { onSelect, options = [], variant = 'inline', ...props }: ComboBoxProps<T>,
   ref: React.Ref<TextInput>,
 ) {
   const [willShowOptions, setWillShowOptions] = useState(false);
@@ -37,7 +41,21 @@ function ComboBox<T extends string = string>(
         zIndex: 10,
       }}
     >
-      <TextField ref={ref} {...props} onFocus={handleFocus} onBlur={handleBlur} />
+      {variant === 'inline' && (
+        <TextField ref={ref} {...props} onFocus={handleFocus} onBlur={handleBlur} />
+      )}
+      {variant === 'bottom-sheet' && (
+        <TouchableOpacity onPress={() => setWillShowOptions(true)}>
+          <Stack
+            style={{
+              paddingVertical: 12,
+              paddingHorizontal: 16,
+              backgroundColor: colors.whiteSmoke,
+              borderRadius: 8,
+            }}
+          ></Stack>
+        </TouchableOpacity>
+      )}
       {willShowOptions && (
         <ThemedView
           style={{
@@ -80,24 +98,6 @@ function ComboBox<T extends string = string>(
               </ThemedView>
             </TouchableOpacity>
           )}
-
-          {/* <FlatList<T>
-            data={options}
-            keyExtractor={item => item}
-            keyboardShouldPersistTaps='always'
-            renderItem={({ item }) => (
-              <TouchableWithoutFeedback onPressIn={() => handlePressItem(item)}>
-                <ThemedView
-                  style={{
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
-                  }}
-                >
-                  <ThemedText>{item}</ThemedText>
-                </ThemedView>
-              </TouchableWithoutFeedback>
-            )}
-          /> */}
         </ThemedView>
       )}
     </ThemedView>
