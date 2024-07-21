@@ -16,7 +16,7 @@ type SupportedTaskFields = Pick<
 
 export type TaskItemProps = {
   onRemove: (id: number) => void;
-  onRevert: (id: number) => void;
+  onRevert?: (id: number) => void; // This is optional, since not every page has revert function
   task: SupportedTaskFields;
 };
 
@@ -32,7 +32,7 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
   const handlePress = (): void => {
     selectionAsync();
     if (!!task.is_completed) {
-      onRevert(id);
+      if (onRevert) onRevert(id);
       return;
     }
 
