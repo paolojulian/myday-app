@@ -1,6 +1,7 @@
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import {
+  DimensionValue,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -17,6 +18,7 @@ export type BottomSheetModalProps = {
   isOpen: boolean;
   children: React.ReactElement;
   variant?: BottomSheetModalVariants;
+  minHeight?: DimensionValue;
 };
 
 export default function BottomSheetModal({
@@ -24,6 +26,7 @@ export default function BottomSheetModal({
   variant,
   isOpen,
   children,
+  minHeight,
 }: BottomSheetModalProps) {
   return (
     <>
@@ -64,6 +67,7 @@ export default function BottomSheetModal({
               borderTopStartRadius: 16,
               padding: 16,
               backgroundColor: colors.white,
+              minHeight: minHeight ?? 'auto',
             }}
           >
             {/* Small thumb on the middle top of this sheet */}

@@ -5,15 +5,14 @@ import {
   ExpenseFormValues,
 } from '@/components/add/AddExpenseForm/AddExpenseForm.utils';
 import Button from '@/components/common/Button';
+import CategorySelect from '@/components/common/CategorySelect';
 import Container from '@/components/common/Container';
 import EasyDatePicker from '@/components/common/EasyDatePicker';
-import ComboBox from '@/components/common/forms/ComboBox';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import RecurringExpenseField from '@/components/common/RecurringExpenseBottomSheet/RecurringExpenseField';
 import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
-import useCategories from '@/hooks/services/category/useCategories';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
@@ -21,35 +20,39 @@ import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
 import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { ScrollView, TextInput } from 'react-native';
 
 type AddExpenseFormProps = {
   shouldAutoFocus?: boolean;
 };
 
-function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
+function AddExpenseForm({}: AddExpenseFormProps) {
   const navigation = useNavigation();
+  const titleRef = useRef<TextInput>(null);
   const amountRef = useRef<TextInput>(null);
   const categoryRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
   const [error, setError] = React.useState<string | null>(null);
   const { mutate: createExpenseMutate } = useCreateExpense();
   const getOrCreateCategory = useGetOrCreateCategory();
-  const { data: categories } = useCategories();
 
+  const focusTitle = () => {
+    titleRef.current?.focus();
+  };
   const focusAmount = () => {
     amountRef.current?.focus();
   };
   const focusCategory = () => {
     categoryRef.current?.focus();
   };
-  const handleCategorySubmit = () => {
-    focusAmount();
-  };
   const handleTitleSubmitEditing = () => {
     focusCategory();
   };
+
+  useEffect(() => {
+    focusTitle();
+  }, []);
 
   const showSuccessMessage = () => {
     GlobalSnackbar.show({
@@ -114,8 +117,8 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
               <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
                 <ThemedView style={{ gap: 8, flex: 1 }}>
                   <TextField
+                    ref={titleRef}
                     testID={ADD_EXPENSE_FORM_TEST_IDS.title}
-                    autoFocus={shouldAutoFocus}
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
@@ -127,24 +130,15 @@ function AddExpenseForm({ shouldAutoFocus = true }: AddExpenseFormProps) {
                     returnKeyLabel="Next"
                     returnKeyType="next"
                   />
-                  <ComboBox
-                    ref={categoryRef}
-                    testID={ADD_EXPENSE_FORM_TEST_IDS.category}
-                    onSubmitEditing={handleCategorySubmit}
+                  <CategorySelect
+                    onClose={() => {
+                      focusAmount();
+                    }}
                     onSelect={value => {
                       setFieldValue('category', value);
                       focusAmount();
                     }}
-                    onChangeText={handleChange('category')}
-                    isError={!!errors.category && !!touched.category}
-                    errorMessage={errors.category}
-                    options={categories?.map(({ category_name }) => category_name) ?? []}
                     value={values.category}
-                    label="Category"
-                    placeholder="e.g. Restaurant, Grocery"
-                    keyboardType="default"
-                    returnKeyLabel="Next"
-                    returnKeyType="next"
                   />
                   <TextField
                     isError={!!errors.amount && !!touched.amount}
