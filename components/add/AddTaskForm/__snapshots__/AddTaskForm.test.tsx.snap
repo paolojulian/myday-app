@@ -822,6 +822,7 @@ etc.."
           "elevation": 8,
           "flexDirection": "row",
           "height": 56,
+          "justifyContent": "space-between",
           "marginHorizontal": 16,
           "padding": 16,
           "shadowColor": "#0F172A",

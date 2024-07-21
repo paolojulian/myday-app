@@ -27,6 +27,8 @@ export const taskMigrations = [
             deleted_at INTEGER,
             FOREIGN KEY(category_id) REFERENCES category(id)
           );
+          INSERT INTO task (title, description, category_id, is_completed, to_buy, expected_amount, reminder_date, started_at, ended_at, created_at, updated_at, deleted_at)
+          VALUES ('Check this', 'Description 1', 1, 0, 0, 0, null, null, null, null, null, null);
         `,
       },
     ],

@@ -13,12 +13,14 @@ export type SnackbarType = 'error' | 'success' | 'info';
 type SnackbarProps = {
   onDismiss: () => void;
   message: string | null;
+  RightComponent?: React.ReactNode;
   type?: SnackbarType;
   duration?: number;
 };
 
 function Snackbar({
   onDismiss,
+  RightComponent = null,
   message,
   duration = SNACKBAR.DURATION_SHORT,
   type = 'info',
@@ -119,6 +121,7 @@ function Snackbar({
       >
         <Animated.View style={[styles.container, resolvedContainerStyle]}>
           <ThemedText style={[resolvedTextStyle]}>{message}</ThemedText>
+          {RightComponent}
         </Animated.View>
       </Animated.View>
     </TouchableWithoutFeedback>
@@ -130,6 +133,7 @@ const styles = StyleSheet.create({
     height: 56,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     elevation: 8,
     shadowColor: colors.black,
     shadowOffset: { width: 0, height: 2 },
