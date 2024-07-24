@@ -1,5 +1,5 @@
-import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
-export const mockExpensesWithCategoryName: ExpenseWithCategoryName[] = [
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
+export const mockExpensesWithCategoryName: ExpenseListItem[] = [
   {
     id: 1,
     title: 'Grocery Shopping',

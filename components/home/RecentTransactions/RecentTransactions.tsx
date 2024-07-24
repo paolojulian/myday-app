@@ -29,8 +29,6 @@ function RecentTransactions() {
     navigation.navigate(TabName.Expense as never);
   };
 
-  const handleDeleteExpense = () => {};
-
   if (isLoading) {
     // TODO - add loader
     return null;
@@ -47,9 +45,7 @@ function RecentTransactions() {
             <Fragment>
               {/* List */}
               <Stack style={{ gap: 8 }}>
-                {expenses?.map(expense => (
-                  <ExpenseItem key={expense.id} onDelete={handleDeleteExpense} expense={expense} />
-                ))}
+                {expenses?.map(expense => <ExpenseItem key={expense.id} expense={expense} />)}
               </Stack>
               {/* View All */}
               <Row style={{ justifyContent: 'center' }}>

@@ -1,29 +1,25 @@
+import { RouteNames } from '@/app/_layout';
 import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
-import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
+import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import { convertEpochToDate } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
-import { ComponentProps } from 'react';
-import { TouchableHighlight } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
-import ExpenseItemRightActions from './ExpenseItemRightActions';
-import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
-import { RouteNames } from '@/app/_layout';
 import { useRouter } from 'expo-router';
+import { TouchableHighlight } from 'react-native';
 
 type SupportedExpenseFields = Pick<
-  ExpenseWithCategoryName,
+  ExpenseListItem,
   'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id' | 'recurrence'
 >;
 
 type ExpenseItemProps = {
-  onDelete: (id: Expense['id']) => void;
   expense: SupportedExpenseFields;
 };
 
-export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
+export default function ExpenseItem({ expense }: ExpenseItemProps) {
   const {
     id,
     title,
@@ -36,11 +32,6 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
   const formattedTransactionDate = convertEpochToDate(transactionDateEpoch).format('MMM D, YYYY');
   const recurrenceText = recurrence !== null ? `${recurrence}` : '';
 
-  const handleDelete = () => {
-    onDelete(id);
-    selectionAsync();
-  };
-
   const handlePress = () => {
     selectionAsync();
     router.push({
@@ -49,61 +40,48 @@ export default function ExpenseItem({ onDelete, expense }: ExpenseItemProps) {
     });
   };
 
-  const renderRightActions: ComponentProps<typeof Swipeable>['renderRightActions'] = () => {
-    return <ExpenseItemRightActions onDelete={handleDelete} />;
-  };
-
   return (
-    <Swipeable
-      containerStyle={{
-        borderRadius: 8,
-        overflow: 'visible',
-      }}
-      renderRightActions={renderRightActions}
-      overshootFriction={8}
-      friction={2}
+    <TouchableHighlight
+      style={{ borderRadius: 8 }}
+      delayPressIn={400}
+      onPress={handlePress}
+      activeOpacity={0.9}
     >
-      <TouchableHighlight
-        style={{ borderRadius: 8 }}
-        delayPressIn={400}
-        onPress={handlePress}
-        activeOpacity={0.9}
+      <Row
+        style={{
+          padding: 16,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderRadius: 8,
+          elevation: 16,
+          shadowColor: colors.black,
+          shadowOpacity: 0.1,
+          shadowOffset: {
+            width: 0,
+            height: 3,
+          },
+          backgroundColor: colors.white,
+        }}
       >
-        <Row
-          style={{
-            padding: 16,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderRadius: 8,
-            elevation: 16,
-            shadowColor: colors.black,
-            shadowOpacity: 0.1,
-            shadowOffset: {
-              width: 0,
-              height: 3,
-            },
-            backgroundColor: colors.white,
-          }}
-        >
-          <Stack>
-            <ThemedText variant="body2">{title}</ThemedText>
-            {!!categoryName && (
-              <ThemedText variant="body" style={{ color: colors.darkGrey }}>
-                {categoryName}
-              </ThemedText>
-            )}
-            <ThemedText
-              variant="body"
-              style={{ color: colors.darkGrey, textTransform: 'capitalize' }}
-            >
-              {recurrence !== null ? recurrenceText : formattedTransactionDate}
+        <Stack>
+          <ThemedText variant="body2">{title}</ThemedText>
+          {!!categoryName && (
+            <ThemedText variant="body" style={{ color: colors.darkGrey }}>
+              {categoryName}
             </ThemedText>
-          </Stack>
-          <ThemedText variant="body2" style={{ color: colors.red }}>
-            - {toLocaleCurrencyFormat(amount)}
+          )}
+          <ThemedText
+            variant="body"
+            style={{ color: colors.darkGrey, textTransform: 'capitalize' }}
+          >
+            {recurrence !== null ? recurrenceText : formattedTransactionDate}
           </ThemedText>
-        </Row>
-      </TouchableHighlight>
-    </Swipeable>
+        </Stack>
+        <ThemedText variant="body2" style={{ color: colors.red }}>
+          - {toLocaleCurrencyFormat(amount)}
+        </ThemedText>
+      </Row>
+    </TouchableHighlight>
   );
 }
