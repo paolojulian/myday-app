@@ -4,6 +4,7 @@ class ExpenseFactory {
   item: Partial<Expense>;
 
   constructor({
+    id,
     title,
     amount,
     description,
@@ -18,6 +19,7 @@ class ExpenseFactory {
     const now = Date.now();
 
     const item = {
+      id,
       title,
       amount,
       description,

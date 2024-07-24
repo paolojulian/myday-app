@@ -1,5 +1,5 @@
 import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
-import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
 
 describe('TESTING getCategoriesFromExpenses', () => {
   describe('WHEN expenses is undefined', () => {
@@ -27,7 +27,7 @@ describe('TESTING getCategoriesFromExpenses', () => {
         { category_id: 3, category_name: 'Entertainment' },
         { category_id: 3, category_name: 'Entertainment' },
         { category_id: 3, category_name: 'Entertainment' },
-      ] as ExpenseWithCategoryName[];
+      ] as ExpenseListItem[];
       const result = getCategoriesFromExpenses(expenses);
       expect(result).toEqual([
         { category_id: 1, category_name: 'Food' },
