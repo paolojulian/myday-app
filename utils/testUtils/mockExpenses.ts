@@ -13,6 +13,7 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672531200000,
     updated_at: 1672531200000,
     deleted_at: null,
+    recurred_items: [],
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672617600000,
     updated_at: 1672617600000,
     deleted_at: null,
+    recurred_items: [],
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672704000000,
     updated_at: 1672704000000,
     deleted_at: null,
+    recurred_items: [],
   },
   {
     id: 4,
@@ -55,6 +58,7 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672790400000,
     updated_at: 1672790400000,
     deleted_at: null,
+    recurred_items: [],
   },
   {
     id: 5,
@@ -69,6 +73,7 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672876800000,
     updated_at: 1672876800000,
     deleted_at: null,
+    recurred_items: [],
   },
   {
     id: 6,
@@ -83,5 +88,6 @@ export const mockExpensesWithCategoryName: ExpenseListItem[] = [
     created_at: 1672963200000,
     updated_at: 1672963200000,
     deleted_at: null,
+    recurred_items: [],
   },
 ];
