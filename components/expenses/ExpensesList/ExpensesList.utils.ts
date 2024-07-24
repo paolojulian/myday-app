@@ -1,7 +1,7 @@
 import { Category } from '@/hooks/services/category/category.types';
-import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
 
-export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) {
+export function getCategoriesFromExpenses(expenses?: ExpenseListItem[]) {
   if (!expenses) {
     return [];
   }
@@ -33,7 +33,7 @@ export type CategoryItemFields = {
   totalAmount: number;
 };
 export function groupExpensesByCategory(
-  expenses: Pick<ExpenseWithCategoryName, 'category_id' | 'category_name' | 'amount'>[],
+  expenses: Pick<ExpenseListItem, 'category_id' | 'category_name' | 'amount'>[],
 ): CategoryItemFields[] {
   const categoryItems: CategoryItemFields[] = [];
 
@@ -59,6 +59,6 @@ export function groupExpensesByCategory(
   return categoryItems.sort((a, b) => b.totalAmount - a.totalAmount);
 }
 
-export function getTotalAmount(expenses: Pick<ExpenseWithCategoryName, 'amount'>[]): number {
+export function getTotalAmount(expenses: Pick<ExpenseListItem, 'amount'>[]): number {
   return expenses.reduce((acc, { amount }) => acc + amount, 0);
 }

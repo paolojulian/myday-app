@@ -14,10 +14,16 @@ export interface Expense {
   deleted_at: number | null;
 }
 
+export type ExpenseWithRecurredItems = Expense & {
+  recurred_items: Expense[];
+};
+
 export type ExpenseWithCategoryName = Expense & {
   category_id: Category['id'] | null;
   category_name: string | null;
 };
+
+export type ExpenseListItem = ExpenseWithRecurredItems & ExpenseWithCategoryName;
 
 export enum ExpenseQueryKeys {
   item = 'expense-item',
