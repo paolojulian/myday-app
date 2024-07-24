@@ -7,9 +7,10 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { SQLiteBindParams, useSQLiteContext } from 'expo-sqlite';
+import { FETCH_MONTHLY_EXPENSES } from './expense.statements';
 
 type ReturnData = ExpenseWithCategoryName & {
-  recurred_items: string; // JSON stringified array of Expense[]
+  recurred_items: string | null; // JSON stringified array of Expense[]
 };
 
 const useExpenses = (filter: ExpenseQueryFilters) => {
@@ -35,12 +36,16 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
 function reduceData(data: ReturnData[]): ExpenseListItem[] {
   return data.map(expense => {
     let recurred_items: ExpenseListItem[] = [];
-    if (expense.recurrence) {
+    let amount: number = expense.amount;
+
+    if (expense.recurrence && expense.recurred_items) {
       recurred_items = JSON.parse(expense.recurred_items);
+      amount = recurred_items.reduce((acc, recurredItem) => acc + recurredItem.amount, 0);
     }
 
     return {
       ...expense,
+      amount,
       recurred_items,
     };
   });
@@ -49,69 +54,7 @@ function reduceData(data: ReturnData[]): ExpenseListItem[] {
 function buildQuery(filter: ExpenseQueryFilters) {
   switch (filter.filterType) {
     case 'monthly':
-      return /* sql */ `
-        WITH RecurringBase AS (
-          SELECT
-            e.id,
-            e.title,
-            e.amount,
-            e.description,
-            e.category_id,
-            e.transaction_date,
-            e.recurrence,
-            e.recurrence_id,
-            e.created_at,
-            e.updated_at,
-            e.deleted_at,
-            c.category_name
-          FROM
-            expense e
-          LEFT JOIN
-            category c ON e.category_id = c.id
-          WHERE
-            e.recurrence IS NOT NULL
-        )
-        SELECT
-          e.id,
-          e.title,
-          e.amount,
-          e.description,
-          e.category_id,
-          e.transaction_date,
-          e.recurrence,
-          e.recurrence_id,
-          e.created_at,
-          e.updated_at,
-          e.deleted_at,
-          c.category_name,
-          json_group_array(
-            json_object(
-              'id', re.id,
-              'title', re.title,
-              'amount', re.amount,
-              'description', re.description,
-              'category_id', re.category_id,
-              'transaction_date', re.transaction_date,
-              'recurrence', re.recurrence,
-              'recurrence_id', re.recurrence_id,
-              'created_at', re.created_at,
-              'updated_at', re.updated_at,
-              'deleted_at', re.deleted_at
-            )
-          ) AS recurred_items
-        FROM
-          RecurringBase e
-        LEFT JOIN
-          expense re ON e.id = re.recurrence_id
-        LEFT JOIN
-          category c ON e.category_id = c.id
-        WHERE
-          re.transaction_date BETWEEN $start AND $end
-        GROUP BY
-          e.id
-        ORDER BY
-          e.transaction_date DESC;
-      `;
+      return FETCH_MONTHLY_EXPENSES;
     case 'category':
       return /* sql */ `
         SELECT expense.*, category.id as category_id, category.category_name as category_name FROM expense

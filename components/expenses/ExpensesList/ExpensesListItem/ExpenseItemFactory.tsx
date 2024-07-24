@@ -4,7 +4,14 @@ import ExpenseItem from './ExpenseItem';
 
 type SupportedExpenseFields = Pick<
   ExpenseListItem,
-  'id' | 'title' | 'amount' | 'transaction_date' | 'category_name' | 'category_id' | 'recurrence'
+  | 'id'
+  | 'title'
+  | 'amount'
+  | 'transaction_date'
+  | 'category_name'
+  | 'category_id'
+  | 'recurrence'
+  | 'recurred_items'
 >;
 
 type ExpenseItemProps = {

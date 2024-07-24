@@ -37,10 +37,6 @@ export default function RecurringExpenseItem({ expense }: RecurringExpenseItemPr
   const router = useRouter();
   const formattedTransactionDate = convertEpochToDate(transactionDateEpoch).format('MMM D, YYYY');
   const recurrenceText = recurrence !== null ? `${recurrence}` : '';
-  const totalAmount = expense.recurred_items.reduce(
-    (acc, recurredItem) => acc + recurredItem.amount,
-    0,
-  );
 
   const handlePress = () => {
     selectionAsync();
@@ -103,7 +99,7 @@ export default function RecurringExpenseItem({ expense }: RecurringExpenseItemPr
               <Row style={{ justifyContent: 'space-between' }}>
                 <ThemedText style={{ color: colors.darkGrey }}>Total</ThemedText>
                 <ThemedText style={{ color: colors.red }}>
-                  - {toLocaleCurrencyFormat(totalAmount)}
+                  - {toLocaleCurrencyFormat(expense.amount)}
                 </ThemedText>
               </Row>
             </Stack>

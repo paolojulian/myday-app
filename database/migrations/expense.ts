@@ -5,11 +5,12 @@ import dayjs from 'dayjs';
 const startOfMonth = dayjs().startOf('month');
 const inserts = [
   new ExpenseFactory({
+    id: 1111,
     title: 'Lunch at Jolibee',
     amount: 1290,
     description: 'Lunch',
     category_id: 2,
-    transaction_date: dayjs().unix(),
+    transaction_date: dayjs().startOf('day').add(8, 'hours').unix(),
   }).toInsertValues(),
   new ExpenseFactory({
     id: 123,

@@ -53,14 +53,9 @@ export default function ExpenseItem({ expense }: ExpenseItemProps) {
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderRadius: 8,
-          elevation: 16,
-          shadowColor: colors.black,
-          shadowOpacity: 0.1,
-          shadowOffset: {
-            width: 0,
-            height: 3,
-          },
+          borderWidth: 1,
+          borderColor: colors.slateGrey[200],
+          borderRadius: 16,
           backgroundColor: colors.white,
         }}
       >
