@@ -50,53 +50,51 @@ export default function ExpensesList() {
   }
 
   return (
-    <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
-      data={[{ isFilter: true }, ...data]}
-      contentContainerStyle={{
-        justifyContent: 'flex-start',
-        flex: 1,
-      }}
-      keyExtractor={item => {
-        if (isFilter(item)) {
-          return 'filter';
-        }
+    <>
+      <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
+        data={[{ isFilter: true }, ...data]}
+        keyExtractor={item => {
+          if (isFilter(item)) {
+            return 'filter';
+          }
 
-        if (isCategory(item)) {
-          return `Category:${item.categoryId}`;
-        }
+          if (isCategory(item)) {
+            return `Category:${item.categoryId}`;
+          }
 
-        return item.id.toString();
-      }}
-      stickyHeaderIndices={[1]}
-      renderItem={({ item }) => {
-        if (isFilter(item)) {
-          return (
-            <ExpensesListFilter
-              selectedFilter={selectedFilter}
-              onSelectFilter={setSelectedFilter}
-            />
-          );
-        }
-
-        return (
-          <Container>
-            {isCategory(item) ? (
-              <CategoryItem
-                key={item.categoryId}
-                item={item}
-                totalExpensesAmount={totalExpensesAmount}
+          return item.id.toString();
+        }}
+        renderItem={({ item }) => {
+          if (isFilter(item)) {
+            return (
+              <ExpensesListFilter
+                selectedFilter={selectedFilter}
+                onSelectFilter={setSelectedFilter}
               />
-            ) : (
-              <ExpenseItemFactory key={item.id} expense={item} />
-            )}
-          </Container>
-        );
-      }}
-      ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
-      ListHeaderComponent={() => <ListHeaderComponent />}
-      ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
-      ListEmptyComponent={() => <ThemedText>No Expenses</ThemedText>}
-    />
+            );
+          }
+
+          return (
+            <Container>
+              {isCategory(item) ? (
+                <CategoryItem
+                  key={item.categoryId}
+                  item={item}
+                  totalExpensesAmount={totalExpensesAmount}
+                />
+              ) : (
+                <ExpenseItemFactory key={item.id} expense={item} />
+              )}
+            </Container>
+          );
+        }}
+        stickyHeaderIndices={[1]}
+        ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
+        ListHeaderComponent={<ListHeaderComponent />}
+        ListFooterComponent={<ThemedView style={{ height: 16 }} />}
+        ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}
+      />
+    </>
   );
 }
 
