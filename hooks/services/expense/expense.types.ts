@@ -27,6 +27,7 @@ export type ExpenseListItem = ExpenseWithRecurredItems & ExpenseWithCategoryName
 
 export enum ExpenseQueryKeys {
   item = 'expense-item',
+  recurrenceItems = 'recurrence-items',
   list = 'expenses-list',
   recurringExpenses = 'recurring-expenses',
   totalExpenses = 'total-expenses',

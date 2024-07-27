@@ -74,7 +74,7 @@ export const useCreateExpense = () => {
   return { data, isLoading: isPending, error, mutate };
 };
 
-const ADD_EXPENSE_STATEMENT = `
+export const ADD_EXPENSE_STATEMENT = `
   INSERT INTO Expense (title, amount, description, category_id, transaction_date, recurrence, recurrence_id, created_at, updated_at)
   VALUES ($title, $amount, $description, $category_id, $transaction_date, $recurrence, $recurrence_id,$created_at, $updated_at)
 `;

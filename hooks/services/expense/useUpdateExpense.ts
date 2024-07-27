@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
-import { Expense, ExpenseQueryKeys } from './expense.types';
 import { BudgetQueryKeys } from '../budget/budget.types';
+import { Expense, ExpenseQueryKeys } from './expense.types';
 
 type SupportedUpdateExpenseFields = Partial<
   Pick<
@@ -26,6 +26,7 @@ export function useUpdateExpense(id: Expense['id']) {
       addVariableIfDefined(variables, 'category_id', expense?.category_id);
       addVariableIfDefined(variables, 'transaction_date', expense?.transaction_date);
       addVariableIfDefined(variables, 'description', expense?.description);
+      addVariableIfDefined(variables, 'recurrence', expense?.recurrence);
 
       await db.runAsync(statement, variables);
     },
@@ -33,6 +34,10 @@ export function useUpdateExpense(id: Expense['id']) {
       queryClient.invalidateQueries({
         predicate: query => {
           if (typeof query.queryKey[0] !== 'string') return false;
+
+          if (query.queryKey[0] === ExpenseQueryKeys.item && query.queryKey[1] === id) {
+            return true;
+          }
 
           const queriesToCancel: string[] = [
             ExpenseQueryKeys.list,

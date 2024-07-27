@@ -5,6 +5,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView, ScrollView } from 'react-native';
 import DeleteExpenseButton from './DeleteExpenseButton';
 import EditExpenseForm from './EditExpenseForm';
+import RecurredPayments from './EditExpenseForm/RecurredPayments';
 
 type SearchParams = {
   id: string;
@@ -38,6 +39,7 @@ export default function EditExpenseScreen() {
 
         <ThemedView style={{ flex: 1, gap: 16 }}>
           <EditExpenseForm id={id} />
+          <RecurredPayments id={id} />
         </ThemedView>
       </ScrollView>
     </SafeAreaView>
