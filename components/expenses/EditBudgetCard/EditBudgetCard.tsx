@@ -11,8 +11,8 @@ function EditBudgetCard() {
   };
 
   return (
-    <TouchableOpacity style={{ flex: 0 }} onPress={handlePress}>
-      <BentoCard style={{ aspectRatio: '1/1' }}>
+    <TouchableOpacity onPress={handlePress}>
+      <BentoCard>
         <ThemedView
           style={{
             gap: 16,

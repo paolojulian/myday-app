@@ -1,12 +1,12 @@
 import ExpensesList from '@/components/expenses/ExpensesList';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import AppSafeAreaView from '../common/AppSafeAreaView';
 
 function ExpensesWorkArea() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <AppSafeAreaView>
       <ExpensesList />
-    </SafeAreaView>
+    </AppSafeAreaView>
   );
 }
 

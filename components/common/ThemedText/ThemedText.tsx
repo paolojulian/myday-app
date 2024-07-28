@@ -27,6 +27,7 @@ export const themedTextStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 600,
     fontFamily: 'PoppinsSemiBold',
+    lineHeight: 32,
   },
   large: {
     fontSize: 48,
@@ -36,14 +37,17 @@ export const themedTextStyles = StyleSheet.create({
   body: {
     fontSize: 14,
     fontFamily: 'PoppinsRegular',
+    lineHeight: 21,
   },
   body1: {
     fontSize: 16,
     fontFamily: 'PoppinsRegular',
+    lineHeight: 25,
   },
   body2: {
     fontSize: 16,
     fontWeight: 500,
     fontFamily: 'PoppinsMedium',
+    lineHeight: 25,
   },
 });

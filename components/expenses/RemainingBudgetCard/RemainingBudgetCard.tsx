@@ -6,10 +6,11 @@ import ThemedView from '@/components/common/ThemedView';
 import useBudget from '@/hooks/services/budget/useBudget';
 import { useTotalExpenses } from '@/hooks/services/expense/useTotalExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
-import { useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { NoBudgetCard } from './NoBudgetCard';
 import { useFocusEffect } from 'expo-router';
+import { useMemo } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { UpdateBudgetManager } from '../UpdateBudgetBottomSheet/UpdateBudgetBottomSheet';
+import { NoBudgetCard } from './NoBudgetCard';
 
 type RemainingBudgetCardProps = {
   variant?: 'horizontal' | 'vertical';
@@ -22,6 +23,10 @@ export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingB
     transactionDate: today,
     type: 'monthly',
   });
+
+  const handlePress = () => {
+    UpdateBudgetManager.show();
+  };
 
   useFocusEffect(() => {
     refetchTotalExpenses();
@@ -40,29 +45,31 @@ export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingB
   }
 
   return (
-    <BentoCard>
-      <ThemedView
-        style={{
-          gap: 16,
-          ...variantStyles.container,
-        }}
-      >
-        <ThemedView style={{ ...variantStyles.pieChart }}>
-          <PieChart variant={pieChartVariant} current={remainingBudget} total={monthlyBudget} />
-        </ThemedView>
+    <TouchableOpacity style={{ flex: 1 }} onPress={handlePress}>
+      <BentoCard>
+        <ThemedView
+          style={{
+            gap: 16,
+            ...variantStyles.container,
+          }}
+        >
+          <ThemedView style={{ ...variantStyles.pieChart }}>
+            <PieChart variant={pieChartVariant} current={remainingBudget} total={monthlyBudget} />
+          </ThemedView>
 
-        <Stack style={{ ...variantStyles.description }}>
-          <ThemedText variant="heading">{toLocaleCurrencyFormat(remainingBudget)}</ThemedText>
-          <ThemedText variant="body">Remaining Budget</ThemedText>
-        </Stack>
-      </ThemedView>
-    </BentoCard>
+          <Stack style={{ ...variantStyles.description }}>
+            <ThemedText variant="heading">{toLocaleCurrencyFormat(remainingBudget)}</ThemedText>
+            <ThemedText variant="body">Remaining Budget</ThemedText>
+          </Stack>
+        </ThemedView>
+      </BentoCard>
+    </TouchableOpacity>
   );
 }
 
 const horizontalStyles = StyleSheet.create({
   container: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row-reverse',
   },
@@ -84,6 +91,6 @@ const verticalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   pieChart: {
-    marginTop: 16,
+    marginTop: 0,
   },
 });
