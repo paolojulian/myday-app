@@ -6,7 +6,7 @@ const useSetBudget = () => {
   const db = useSQLiteContext();
   const queryClient = useQueryClient();
 
-  async function setBudget(amount: number) {
+  async function setup(amount: number) {
     const now_epoch = convertDateToEpoch(new Date());
     return await db.runAsync(INSERT_LATEST_BUDGET, {
       $amount: String(amount),
@@ -15,7 +15,7 @@ const useSetBudget = () => {
   }
 
   return useMutation({
-    mutationFn: setBudget,
+    mutationFn: setup,
     onSuccess: response => {
       queryClient.invalidateQueries({
         predicate(query) {
