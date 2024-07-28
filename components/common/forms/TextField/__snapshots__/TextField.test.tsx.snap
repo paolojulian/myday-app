@@ -28,6 +28,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
             "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
+            "lineHeight": 24,
           },
           {
             "fontWeight": 400,
@@ -61,6 +62,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
         {
           "fontFamily": "PoppinsRegular",
           "fontSize": 16,
+          "lineHeight": 24,
         },
         {
           "borderColor": "transparent",
@@ -101,6 +103,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
             "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
+            "lineHeight": 24,
           },
           {
             "fontWeight": 400,
@@ -134,6 +137,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
         {
           "fontFamily": "PoppinsRegular",
           "fontSize": 16,
+          "lineHeight": 24,
         },
         {
           "borderColor": "#CC3333",
@@ -149,6 +153,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
         {
           "fontFamily": "PoppinsRegular",
           "fontSize": 14,
+          "lineHeight": 20,
         },
         {
           "fontWeight": 400,

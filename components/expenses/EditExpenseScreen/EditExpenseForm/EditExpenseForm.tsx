@@ -1,12 +1,11 @@
+import CategorySelect from '@/components/common/CategorySelect';
 import Container from '@/components/common/Container';
+import EasyDatePicker from '@/components/common/EasyDatePicker';
 import RecurringExpenseField from '@/components/common/RecurringExpenseBottomSheet';
 import ThemedView from '@/components/common/ThemedView';
-import ComboBox from '@/components/common/forms/ComboBox';
-import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import useCategories from '@/hooks/services/category/useCategories';
-import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { Expense } from '@/hooks/services/expense/expense.types';
 import { useExpense } from '@/hooks/services/expense/useExpense';
 import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
@@ -28,7 +27,6 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
   const { data: expense, isLoading: isLoadingExpense } = useExpense(id);
   const { mutateAsync: updateExpenseMutate } = useUpdateExpense(id);
-  const getOrCreateCategory = useGetOrCreateCategory();
 
   const validateAndHandleFieldUpdate = async (
     fieldName: keyof EditExpenseFormValues,
@@ -40,7 +38,7 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
       updateExpenseMutate({ [resolvedFieldName]: value });
       return true;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return false;
     }
   };
@@ -53,12 +51,6 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
 
   const categoryName =
     categories?.find(({ id }) => id === expense?.category_id)?.category_name || '';
-
-  const getCategoryIdByName = async (name: string) => {
-    const categoryId = await getOrCreateCategory(name);
-
-    return categoryId ?? null;
-  };
 
   return (
     <Container style={{ flex: 1 }}>
@@ -78,7 +70,7 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
           // No form submission needed, everything is inline editing
         }}
       >
-        {({ handleChange, handleBlur, setFieldValue, values, errors, touched }) => (
+        {({ handleBlur, setFieldValue, values, errors, touched }) => (
           <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
             <ThemedView style={{ gap: 8, flex: 1 }}>
               <TextField
@@ -96,27 +88,12 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 returnKeyLabel="Done Title"
                 returnKeyType="done"
               />
-              <ComboBox
-                onSelect={async value => {
+
+              <CategorySelect
+                onSelect={value => {
                   setFieldValue('category', value);
-                  const categoryId = await getCategoryIdByName(value);
-                  updateExpenseMutate({ category_id: categoryId });
                 }}
-                onBlur={async () => {
-                  if (!values.category) return;
-                  const categoryId = await getCategoryIdByName(values.category);
-                  updateExpenseMutate({ category_id: categoryId });
-                }}
-                onChangeText={handleChange('category')}
-                isError={!!errors.category && !!touched.category}
-                errorMessage={errors.category}
-                options={categories?.map(({ category_name }) => category_name) ?? []}
                 value={values.category}
-                label="Category"
-                placeholder="e.g. Restaurant, Grocery"
-                keyboardType="default"
-                returnKeyLabel="Done Category"
-                returnKeyType="done"
               />
               <TextField
                 isError={!!errors.amount && !!touched.amount}
@@ -133,13 +110,11 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 returnKeyLabel="Done"
                 returnKeyType="done"
               />
-              <DatePicker
-                value={values.transactionDate}
+              <EasyDatePicker
+                selectedDate={values.transactionDate}
                 onSelectDate={value => {
                   setFieldValue('transactionDate', value);
-                  debouncedHandleChange('transactionDate', dayjs(value).unix());
                 }}
-                variant="border"
               />
               <RecurringExpenseField
                 value={values.recurrence}
