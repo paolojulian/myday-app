@@ -58,6 +58,7 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
             "fontFamily": "PoppinsMedium",
             "fontSize": 16,
             "fontWeight": 500,
+            "lineHeight": 24,
           },
           {
             "fontWeight": 400,

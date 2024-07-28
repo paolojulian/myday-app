@@ -60,6 +60,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
           {
             "fontFamily": "PoppinsRegular",
             "fontSize": 14,
+            "lineHeight": 20,
           },
           {
             "fontWeight": 400,
@@ -118,6 +119,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
           {
             "fontFamily": "PoppinsRegular",
             "fontSize": 14,
+            "lineHeight": 20,
           },
           {
             "fontWeight": 400,
@@ -176,6 +178,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
           {
             "fontFamily": "PoppinsRegular",
             "fontSize": 14,
+            "lineHeight": 20,
           },
           {
             "fontWeight": 400,

@@ -59,6 +59,7 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                       "fontFamily": "PoppinsMedium",
                       "fontSize": 16,
                       "fontWeight": 500,
+                      "lineHeight": 24,
                     },
                     {
                       "fontWeight": 400,
@@ -96,6 +97,7 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                   {
                     "fontFamily": "PoppinsRegular",
                     "fontSize": 16,
+                    "lineHeight": 24,
                   },
                   {
                     "borderColor": "transparent",
@@ -133,6 +135,7 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                       "fontFamily": "PoppinsMedium",
                       "fontSize": 16,
                       "fontWeight": 500,
+                      "lineHeight": 24,
                     },
                     {
                       "fontWeight": 400,
@@ -174,6 +177,7 @@ etc.."
                   {
                     "fontFamily": "PoppinsRegular",
                     "fontSize": 16,
+                    "lineHeight": 24,
                   },
                   {
                     "borderColor": "transparent",
@@ -312,6 +316,7 @@ etc.."
                       {
                         "fontFamily": "PoppinsRegular",
                         "fontSize": 14,
+                        "lineHeight": 20,
                       },
                       {
                         "fontWeight": 400,
@@ -438,6 +443,7 @@ etc.."
                       {
                         "fontFamily": "PoppinsRegular",
                         "fontSize": 14,
+                        "lineHeight": 20,
                       },
                       {
                         "fontWeight": 400,
@@ -564,6 +570,7 @@ etc.."
                       {
                         "fontFamily": "PoppinsRegular",
                         "fontSize": 14,
+                        "lineHeight": 20,
                       },
                       {
                         "fontWeight": 400,
@@ -672,6 +679,7 @@ etc.."
                       {
                         "fontFamily": "PoppinsRegular",
                         "fontSize": 16,
+                        "lineHeight": 24,
                       },
                       {
                         "fontWeight": 400,
@@ -750,6 +758,7 @@ etc.."
                       "fontFamily": "PoppinsMedium",
                       "fontSize": 16,
                       "fontWeight": 500,
+                      "lineHeight": 24,
                     },
                     {
                       "fontWeight": 400,
@@ -839,6 +848,7 @@ etc.."
             {
               "fontFamily": "PoppinsRegular",
               "fontSize": 14,
+              "lineHeight": 20,
             },
             {
               "fontWeight": 400,
