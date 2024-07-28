@@ -14,7 +14,12 @@ export function useExpenseRecurredPayments(id: number, filterDate: Date) {
   };
 
   return useQuery({
-    queryKey: [ExpenseQueryKeys.recurrenceItems, id, dayjs(filterDate).format('YYYY-MM-DD')],
+    queryKey: [
+      ExpenseQueryKeys.expense,
+      ExpenseQueryKeys.recurrenceItems,
+      id,
+      dayjs(filterDate).format('YYYY-MM-DD'),
+    ],
     queryFn,
   });
 }

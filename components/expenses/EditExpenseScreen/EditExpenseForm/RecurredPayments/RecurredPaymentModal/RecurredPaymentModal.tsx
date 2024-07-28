@@ -17,7 +17,7 @@ const RecurredPaymenModal: FC<RecurredPaymentModalProps> = ({ onClose, isOpen, e
       {expense ? (
         <RecurredPaymentModalContainer>
           <RecurredPaymentModalHeader onDeleteDone={onClose} expense={expense} />
-          <ReccuredPaymentModalForm expense={expense} />
+          <ReccuredPaymentModalForm onDismiss={onClose} expense={expense} />
         </RecurredPaymentModalContainer>
       ) : (
         <></>

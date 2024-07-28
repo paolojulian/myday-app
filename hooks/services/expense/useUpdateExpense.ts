@@ -40,6 +40,8 @@ export function useUpdateExpense(id: Expense['id']) {
           }
 
           const queriesToCancel: string[] = [
+            ExpenseQueryKeys.expense,
+            ExpenseQueryKeys.item,
             ExpenseQueryKeys.list,
             ExpenseQueryKeys.recurringExpenses,
             BudgetQueryKeys.budget,
