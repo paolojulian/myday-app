@@ -16,7 +16,7 @@ import ExpenseItemFactory from './ExpensesListItem/ExpenseItemFactory';
 import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
 
 export default function ExpensesList() {
-  const [transactionDate] = useState(new Date());
+  const [transactionDate] = useState<Date>(new Date());
   const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
 
   const {
@@ -27,6 +27,7 @@ export default function ExpensesList() {
     filterType: 'monthly',
     transactionDate,
   });
+
   const { data: expensesByCategory, refetch: refetchExpensesByCategory } = useExpensesByCategory({
     transactionDate,
   });
