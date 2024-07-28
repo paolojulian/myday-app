@@ -1,8 +1,9 @@
 import { RouteNames } from '@/app/_layout';
+import AppSafeAreaView from '@/components/common/AppSafeAreaView';
 import HeaderWithBackButton from '@/components/common/HeaderWithBackButton';
 import ThemedView from '@/components/common/ThemedView';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import DeleteExpenseButton from './DeleteExpenseButton';
 import EditExpenseForm from './EditExpenseForm';
 import RecurredPayments from './EditExpenseForm/RecurredPayments';
@@ -29,19 +30,19 @@ export default function EditExpenseScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={{ flex: 1 }} stickyHeaderIndices={[0]} keyboardShouldPersistTaps="never">
+    <AppSafeAreaView>
+      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="never">
         <HeaderWithBackButton
           onBackPress={handleBackPress}
           title="Expense"
           RightComponent={<DeleteExpenseButton id={id} />}
         />
 
-        <ThemedView style={{ flex: 1, gap: 16 }}>
+        <ThemedView style={{ flex: 1, gap: 16, marginBottom: 24 }}>
           <EditExpenseForm id={id} />
           <RecurredPayments id={id} />
         </ThemedView>
       </ScrollView>
-    </SafeAreaView>
+    </AppSafeAreaView>
   );
 }

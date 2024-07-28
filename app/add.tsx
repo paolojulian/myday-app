@@ -1,5 +1,6 @@
 import AddFactory from '@/components/add/AddFactory';
 import { isSupportedAddType } from '@/components/add/utils';
+import AppSafeAreaView from '@/components/common/AppSafeAreaView';
 import Container from '@/components/common/Container';
 import Tabs from '@/components/common/Tabs';
 import { TabItem } from '@/components/common/Tabs/TabsItem';
@@ -8,7 +9,7 @@ import ThemedView from '@/components/common/ThemedView';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 
 export type SupportedAddItems = 'Expense' | 'Todo';
 
@@ -36,7 +37,7 @@ export default function AddScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <AppSafeAreaView>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
@@ -63,7 +64,7 @@ export default function AddScreen() {
           </ThemedView>
         </ThemedView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </AppSafeAreaView>
   );
 }
 

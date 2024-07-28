@@ -91,6 +91,6 @@ const verticalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   pieChart: {
-    marginTop: 0,
+    marginTop: 16,
   },
 });

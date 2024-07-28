@@ -23,7 +23,18 @@ type EasyDatePickerProps = {
 };
 
 export default function EasyDatePicker({ onSelectDate, selectedDate, label }: EasyDatePickerProps) {
-  const [selectedType, setSelectedType] = useState<EasyDatePickerTypes | null>(null);
+  const [selectedType, setSelectedType] = useState<EasyDatePickerTypes | null>(() => {
+    if (!selectedDate) {
+      return null;
+    }
+    if (dayjs(selectedDate).isSame(dayjs(), 'day')) {
+      return 'today';
+    }
+    if (dayjs(selectedDate).isSame(dayjs().add(1, 'day'), 'day')) {
+      return 'tomorrow';
+    }
+    return 'custom';
+  });
 
   const handlePressToday = () => {
     setSelectedType('today');
