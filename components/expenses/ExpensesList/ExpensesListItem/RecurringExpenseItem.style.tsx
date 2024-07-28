@@ -1,3 +1,4 @@
+import RefreshIcon from '@/components/common/icons/RefreshIcon';
 import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
@@ -44,9 +45,12 @@ export const StyledCategoryName: FC<{ categoryName: string | null }> = ({ catego
   );
 
 export const StyledRecurrenceType: FC<{ title: string }> = ({ title }) => (
-  <ThemedText variant="body" style={{ color: colors.darkGrey, textTransform: 'capitalize' }}>
-    {title}
-  </ThemedText>
+  <Row style={{ gap: 4, alignItems: 'center' }}>
+    <ThemedText variant="body" style={{ color: colors.darkGrey, textTransform: 'capitalize' }}>
+      {title}
+    </ThemedText>
+    <RefreshIcon />
+  </Row>
 );
 
 type StyledRecurrenceItemProps = {
@@ -67,7 +71,9 @@ export const StyledTotalAmount: FC<{ amount: string }> = ({ amount }) => (
   <Stack style={{ marginTop: 16 }}>
     <Row style={{ justifyContent: 'space-between' }}>
       <ThemedText style={{ color: colors.darkGrey }}>Total</ThemedText>
-      <ThemedText style={{ color: colors.red }}>{amount}</ThemedText>
+      <ThemedText variant="body2" style={{ color: colors.red }}>
+        {amount}
+      </ThemedText>
     </Row>
   </Stack>
 );

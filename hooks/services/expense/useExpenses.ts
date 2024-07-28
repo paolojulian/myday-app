@@ -16,19 +16,25 @@ type ReturnData = ExpenseWithCategoryName & {
 const useExpenses = (filter: ExpenseQueryFilters) => {
   const db = useSQLiteContext();
 
+  const getExpenses = async (): Promise<ExpenseListItem[]> => {
+    if (!filter) {
+      throw new Error('Invalid filters provided');
+    }
+    const query = buildQuery(filter);
+    const variables = buildVariables(filter);
+
+    try {
+      const result = await db.getAllAsync<ReturnData>(query, variables);
+      return reduceData(result);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  };
+
   return useQuery({
     queryKey: [ExpenseQueryKeys.list, filter],
-    queryFn: async () => {
-      if (!filter) {
-        throw new Error('Invalid filters provided');
-      }
-      const query = buildQuery(filter);
-      const variables = buildVariables(filter);
-
-      const result = await db.getAllAsync<ReturnData>(query, variables);
-
-      return reduceData(result);
-    },
+    queryFn: getExpenses,
     initialData: [],
   });
 };
@@ -36,11 +42,13 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
 function reduceData(data: ReturnData[]): ExpenseListItem[] {
   return data.map(expense => {
     let recurred_items: ExpenseListItem[] = [];
-    let amount: number = expense.amount;
+    let amount: number = expense?.amount;
 
     if (expense.recurrence && expense.recurred_items) {
-      recurred_items = JSON.parse(expense.recurred_items);
-      amount = recurred_items.reduce((acc, recurredItem) => acc + recurredItem.amount, 0);
+      recurred_items = JSON.parse(expense.recurred_items).filter(Boolean);
+      amount = recurred_items
+        .filter(Boolean)
+        .reduce((acc, recurredItem) => acc + recurredItem.amount, 0);
     }
 
     return {
