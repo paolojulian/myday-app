@@ -1,23 +1,24 @@
 import Container from '@/components/common/Container';
+import RecurringExpenseField from '@/components/common/RecurringExpenseBottomSheet';
 import ThemedView from '@/components/common/ThemedView';
 import ComboBox from '@/components/common/forms/ComboBox';
 import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
+import useCategories from '@/hooks/services/category/useCategories';
+import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
+import { Expense } from '@/hooks/services/expense/expense.types';
+import { useExpense } from '@/hooks/services/expense/useExpense';
+import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
+import dayjs from 'dayjs';
 import { Formik } from 'formik';
+import { useDebounceCallback } from 'usehooks-ts';
 import {
   EDIT_EXPENSE_FORM_TEST_IDS,
   EDIT_EXPENSE_VALIDATION_SCHEMA,
   EditExpenseFormValues,
   resolveFieldName,
 } from './EditExpenseForm.utils';
-import useCategories from '@/hooks/services/category/useCategories';
-import { Expense } from '@/hooks/services/expense/expense.types';
-import { useExpense } from '@/hooks/services/expense/useExpense';
-import dayjs from 'dayjs';
-import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
-import { useDebounceCallback } from 'usehooks-ts';
-import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 
 type EditExpenseFormProps = {
   id: Expense['id'];
@@ -70,6 +71,7 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
           transactionDate: expense?.transaction_date
             ? dayjs.unix(expense.transaction_date).toDate()
             : new Date(),
+          recurrence: expense?.recurrence || null,
         }}
         validationSchema={EDIT_EXPENSE_VALIDATION_SCHEMA}
         onSubmit={() => {
@@ -138,6 +140,13 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                   debouncedHandleChange('transactionDate', dayjs(value).unix());
                 }}
                 variant="border"
+              />
+              <RecurringExpenseField
+                value={values.recurrence}
+                onSelect={value => {
+                  setFieldValue('recurrence', value);
+                  debouncedHandleChange('recurrence', value);
+                }}
               />
               <TextArea
                 onChangeText={value => {

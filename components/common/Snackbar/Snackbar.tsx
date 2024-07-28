@@ -115,7 +115,6 @@ function Snackbar({
             },
           ],
           zIndex: 999,
-          marginBottom: 120,
           pointerEvents: message ? 'auto' : 'none',
         }}
       >

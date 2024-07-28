@@ -2,7 +2,7 @@ import TextField, { TextFieldProps } from '@/components/common/forms/TextField';
 import React, { forwardRef } from 'react';
 import { TextInput } from 'react-native';
 
-type TextAreaProps = {
+export type TextAreaProps = {
   label: string;
   numberOfLines?: number;
   minHeight?: number;
