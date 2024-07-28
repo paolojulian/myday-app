@@ -798,7 +798,6 @@ etc.."
         "bottom": 0,
         "flex": 1,
         "left": 0,
-        "marginBottom": 120,
         "opacity": 0,
         "pointerEvents": "none",
         "position": "absolute",

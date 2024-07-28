@@ -51,6 +51,7 @@ export default function ExpensesList() {
 
   return (
     <>
+      <ListHeaderComponent />
       <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
         data={[{ isFilter: true }, ...data]}
         keyExtractor={item => {
@@ -88,9 +89,8 @@ export default function ExpensesList() {
             </Container>
           );
         }}
-        stickyHeaderIndices={[1]}
+        stickyHeaderIndices={[0]}
         ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
-        ListHeaderComponent={<ListHeaderComponent />}
         ListFooterComponent={<ThemedView style={{ height: 16 }} />}
         ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}
       />

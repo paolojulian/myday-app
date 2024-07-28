@@ -16,7 +16,12 @@ export function useDeleteExpense(id: Expense['id']) {
         predicate: query => {
           if (typeof query.queryKey[0] !== 'string') return false;
 
+          if (query.queryKey[0] === ExpenseQueryKeys.item && query.queryKey[1] === id) {
+            return true;
+          }
+
           const queriesToCancel: string[] = [
+            ExpenseQueryKeys.expense,
             ExpenseQueryKeys.list,
             ExpenseQueryKeys.recurringExpenses,
             BudgetQueryKeys.budget,
