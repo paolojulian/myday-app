@@ -15,7 +15,7 @@ function ItemValueBentoCard({ value, label }: ItemValueBentoCardProps) {
     typeof label === 'string' ? <ThemedText variant="body">{label}</ThemedText> : label;
   return (
     <BentoCard>
-      <Stack style={{ aspectRatio: '1/1', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Stack style={{ aspectRatio: 1, alignItems: 'center', justifyContent: 'flex-end' }}>
         {ValueComponent}
         {LabelComponent}
       </Stack>

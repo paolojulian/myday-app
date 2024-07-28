@@ -37,11 +37,11 @@ export default function AddScreen() {
   };
 
   return (
-    <AppSafeAreaView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <AppSafeAreaView edges={['top']}>
         <ThemedView style={styles.main}>
           <Container>
             <ThemedView style={styles.header}>
@@ -63,8 +63,8 @@ export default function AddScreen() {
             <AddFactory type={selectedItem} />
           </ThemedView>
         </ThemedView>
-      </KeyboardAvoidingView>
-    </AppSafeAreaView>
+      </AppSafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

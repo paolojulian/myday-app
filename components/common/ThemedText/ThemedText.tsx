@@ -33,21 +33,22 @@ export const themedTextStyles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 800,
     fontFamily: 'PoppinsBold',
+    lineHeight: 56,
   },
   body: {
     fontSize: 14,
     fontFamily: 'PoppinsRegular',
-    lineHeight: 21,
+    lineHeight: 20,
   },
   body1: {
     fontSize: 16,
     fontFamily: 'PoppinsRegular',
-    lineHeight: 25,
+    lineHeight: 24,
   },
   body2: {
     fontSize: 16,
     fontWeight: 500,
     fontFamily: 'PoppinsMedium',
-    lineHeight: 25,
+    lineHeight: 24,
   },
 });
