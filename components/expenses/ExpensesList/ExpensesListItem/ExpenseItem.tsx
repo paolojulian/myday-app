@@ -42,7 +42,7 @@ export default function ExpenseItem({ expense }: ExpenseItemProps) {
 
   return (
     <TouchableHighlight
-      style={{ borderRadius: 8 }}
+      style={{ borderRadius: 16 }}
       delayPressIn={400}
       onPress={handlePress}
       activeOpacity={0.9}
