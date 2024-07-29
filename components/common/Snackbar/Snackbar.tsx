@@ -104,7 +104,7 @@ function Snackbar({
       <Animated.View
         style={{
           position: 'absolute',
-          bottom: 0,
+          bottom: 120,
           left: 0,
           right: 0,
           flex: 1,
