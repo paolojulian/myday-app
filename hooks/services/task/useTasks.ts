@@ -16,7 +16,7 @@ const useTasks = (filters: TaskQueryFilters) => {
   }
 
   return useQuery({
-    queryKey: [TaskQueryKeys.list, filters.filterType],
+    queryKey: [TaskQueryKeys.task, TaskQueryKeys.list, filters.filterType],
     queryFn: setup,
   });
 };
