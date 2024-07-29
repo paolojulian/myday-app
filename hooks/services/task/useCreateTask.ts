@@ -32,19 +32,7 @@ export const useCreateTask = () => {
     mutationFn: setup,
     onSuccess: response => {
       queryClient.invalidateQueries({
-        predicate(query) {
-          const firstQueryKey = query.queryKey[0];
-          if (typeof firstQueryKey !== 'string') {
-            return false;
-          }
-
-          const invalidateQueries: string[] = [
-            TaskQueryKeys.list,
-            TaskQueryKeys.overview,
-            TaskQueryKeys.priority,
-          ];
-          return invalidateQueries.includes(firstQueryKey);
-        },
+        predicate: query => query.queryKey[0] === TaskQueryKeys.task,
       });
 
       return response;

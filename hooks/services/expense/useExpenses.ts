@@ -33,7 +33,7 @@ const useExpenses = (filter: ExpenseQueryFilters) => {
   };
 
   return useQuery({
-    queryKey: [ExpenseQueryKeys.list, filter],
+    queryKey: [ExpenseQueryKeys.expense, ExpenseQueryKeys.list, filter],
     queryFn: getExpenses,
     initialData: [],
   });

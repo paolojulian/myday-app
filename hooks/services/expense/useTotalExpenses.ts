@@ -22,7 +22,7 @@ export function useTotalExpenses({ transactionDate, type = 'monthly' }: UseTotal
   const db = useSQLiteContext();
 
   return useQuery<number>({
-    queryKey: [ExpenseQueryKeys.totalExpenses, type],
+    queryKey: [ExpenseQueryKeys.expense, ExpenseQueryKeys.totalExpenses, type],
     queryFn: async () => {
       const query = buildQuery();
       const variables = buildVariables({ transactionDate, type });

@@ -28,7 +28,7 @@ export function useExpensesByCategory({ transactionDate }: UseExpenseByCategoryP
   const db = useSQLiteContext();
 
   return useQuery<CategoryItemFields[]>({
-    queryKey: [ExpenseQueryKeys.expenseCategoryList],
+    queryKey: [ExpenseQueryKeys.expense, ExpenseQueryKeys.expenseCategoryList],
     queryFn: async () => {
       const query = buildQuery();
       const variables = buildVariables({ transactionDate });

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
-import { BudgetQueryKeys } from '../budget/budget.types';
 import { Expense, ExpenseQueryKeys } from './expense.types';
+import { getUseExpenseQueryKey } from './useExpense';
 
 type SupportedUpdateExpenseFields = Partial<
   Pick<
@@ -33,25 +33,11 @@ export function useUpdateExpense(id: Expense['id']) {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: query => {
-          if (typeof query.queryKey[0] !== 'string') return false;
-
-          if (query.queryKey[0] === ExpenseQueryKeys.item && query.queryKey[1] === id) {
+          if (query.queryKey === getUseExpenseQueryKey(id)) {
             return true;
           }
 
-          const queriesToCancel: string[] = [
-            ExpenseQueryKeys.expense,
-            ExpenseQueryKeys.item,
-            ExpenseQueryKeys.list,
-            ExpenseQueryKeys.recurringExpenses,
-            BudgetQueryKeys.budget,
-          ];
-          const includesId = queriesToCancel.includes(query.queryKey[0]);
-
-          const itemQueryToCancel =
-            query.queryKey[0] === ExpenseQueryKeys.item && query.queryKey[1] === id;
-
-          return includesId || itemQueryToCancel;
+          return query.queryKey[0] === ExpenseQueryKeys.expense;
         },
       });
     },
