@@ -1,13 +1,9 @@
-import {
-  Expense,
-  expenseQueryKeys,
-  ExpenseQueryKeys,
-} from '@/hooks/services/expense/expense.types';
-import { useSQLiteContext } from 'expo-sqlite';
+import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import dayjs from 'dayjs';
+import { useSQLiteContext } from 'expo-sqlite';
 
 export type SupportedCreateExpenseFields = Pick<
   Expense,
@@ -60,11 +56,7 @@ export const useCreateExpense = () => {
     mutationFn: setup,
     onSuccess: response => {
       queryClient.invalidateQueries({
-        predicate(query) {
-          if (typeof query.queryKey[0] !== 'string') return false;
-
-          return expenseQueryKeys.includes(query.queryKey[0] as ExpenseQueryKeys);
-        },
+        predicate: query => query.queryKey[0] === ExpenseQueryKeys.expense,
       });
 
       return response;

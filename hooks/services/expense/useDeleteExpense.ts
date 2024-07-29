@@ -1,7 +1,7 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Expense, ExpenseQueryKeys } from './expense.types';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { BudgetQueryKeys } from '../budget/budget.types';
+import { getUseExpenseQueryKey } from './useExpense';
 
 export function useDeleteExpense(id: Expense['id']) {
   const db = useSQLiteContext();
@@ -14,20 +14,11 @@ export function useDeleteExpense(id: Expense['id']) {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: query => {
-          if (typeof query.queryKey[0] !== 'string') return false;
-
-          if (query.queryKey[0] === ExpenseQueryKeys.item && query.queryKey[1] === id) {
+          if (query.queryKey === getUseExpenseQueryKey(id)) {
             return true;
           }
 
-          const queriesToCancel: string[] = [
-            ExpenseQueryKeys.expense,
-            ExpenseQueryKeys.list,
-            ExpenseQueryKeys.recurringExpenses,
-            BudgetQueryKeys.budget,
-          ];
-
-          return queriesToCancel.includes(query.queryKey[0]);
+          return query.queryKey[0] === ExpenseQueryKeys.expense;
         },
       });
     },

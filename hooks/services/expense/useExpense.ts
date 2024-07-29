@@ -14,7 +14,7 @@ export function useExpense(id: number) {
   };
 
   return useQuery({
-    queryKey: [ExpenseQueryKeys.item, id],
+    queryKey: getUseExpenseQueryKey(id),
     queryFn,
   });
 }
@@ -23,3 +23,9 @@ const GET_EXPENSE_BY_ID = /* sql */ `
   SELECT expense.* FROM expense
   WHERE id = $id
 `;
+
+export const getUseExpenseQueryKey: (id: number) => (string | number)[] = id => [
+  ExpenseQueryKeys.expense,
+  ExpenseQueryKeys.item,
+  id,
+];

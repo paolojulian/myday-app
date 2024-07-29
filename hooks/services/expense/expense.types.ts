@@ -30,7 +30,6 @@ export enum ExpenseQueryKeys {
   item = 'expense-item',
   recurrenceItems = 'recurrence-items',
   list = 'expenses-list',
-  recurringExpenses = 'recurring-expenses',
   totalExpenses = 'total-expenses',
   expenseCategoryList = 'expense-category-list',
 }
