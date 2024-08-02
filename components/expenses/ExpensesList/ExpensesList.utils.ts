@@ -1,5 +1,6 @@
 import { Category } from '@/hooks/services/category/category.types';
 import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
+import { ExpenseFlatListItems } from './ExpenseList.types';
 
 export function getCategoriesFromExpenses(expenses?: ExpenseListItem[]) {
   if (!expenses) {
@@ -61,4 +62,24 @@ export function groupExpensesByCategory(
 
 export function getTotalAmount(expenses: Pick<ExpenseListItem, 'amount'>[]): number {
   return expenses.reduce((acc, { amount }) => acc + amount, 0);
+}
+
+export function keyExtractor(item: ExpenseFlatListItems): string {
+  if (isFilter(item)) {
+    return 'filter';
+  }
+
+  if (isCategory(item)) {
+    return `Category:${item.categoryId}`;
+  }
+
+  return item.id.toString();
+}
+
+export function isFilter(item: ExpenseFlatListItems): item is { isFilter: boolean } {
+  return 'isFilter' in item && item.isFilter === true;
+}
+
+export function isCategory(item: CategoryItemFields | ExpenseListItem): item is CategoryItemFields {
+  return 'type' in item && item.type === 'category';
 }
