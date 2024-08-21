@@ -1,15 +1,16 @@
 import HomeWorkArea from '@/components/home/HomeWorkArea';
 import { colors } from '@/constants/Colors';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StatusBar as RNStatusBar } from 'react-native';
 
 export default function Home() {
   return (
     <>
-      {/* ios */}
-      <SafeAreaView style={{ flex: 0, backgroundColor: colors.slateGrey[100] }} />
       {/* android */}
-      <StatusBar backgroundColor={colors.slateGrey[100]} />
+      <StatusBar backgroundColor={colors.v2.black} style="light" />
+      {/* ios */}
+      <SafeAreaView style={{ flex: 0, backgroundColor: colors.v2.black }} />
+      <RNStatusBar backgroundColor={colors.v2.black} barStyle="light-content" />
       <HomeWorkArea />
     </>
   );

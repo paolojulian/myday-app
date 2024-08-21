@@ -1,3 +1,4 @@
+import { colors } from '@/constants/Colors';
 import { useMemo } from 'react';
 import { StyleSheet, Text, TextProps, TextStyle } from 'react-native';
 
@@ -15,17 +16,39 @@ type Variants =
   | 'title-sm'
   | 'title-md'
   | 'title-lg';
+type Colors = 'default' | 'light';
+
 type ThemedTextProps = {
   variant?: Variants;
+  color?: Colors;
 } & TextProps;
 
-export default function ThemedText({ variant = 'body', style, ...props }: ThemedTextProps) {
-  const variantStyle = useMemo(() => {
+export default function ThemedText({
+  variant = 'body',
+  color = 'default',
+  style,
+  ...props
+}: ThemedTextProps) {
+  const variantStyle: TextStyle = useMemo(() => {
     return variantStyles[variant] || variantStyles['body-md'];
   }, [variant]);
+  const colorStyle: TextStyle = useMemo(() => {
+    return colorStyles[color] || colorStyles['default'];
+  }, [color]);
 
-  return <Text {...props} style={[variantStyle, themedTextStyles.baseStyle, style]}></Text>;
+  return (
+    <Text {...props} style={[variantStyle, colorStyle, themedTextStyles.baseStyle, style]}></Text>
+  );
 }
+
+const colorStyles = StyleSheet.create<Record<Colors, TextStyle>>({
+  default: {
+    color: colors.v2.white,
+  },
+  light: {
+    color: colors.v2.grayLight,
+  },
+});
 
 export const themedTextStyles = StyleSheet.create({
   baseStyle: {
