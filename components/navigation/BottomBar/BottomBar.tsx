@@ -26,14 +26,15 @@ export default function BottomBar({
     <SafeAreaView
       style={{
         elevation: 8,
-        shadowColor: colors.black,
-        shadowOpacity: 0.1,
-        shadowRadius: 24,
+        shadowColor: colors.v2.black,
+        shadowOpacity: 0.8,
+        shadowRadius: 40,
         shadowOffset: {
           width: 0,
-          height: -3,
+          height: -30,
         },
-        backgroundColor: colors.white,
+        backgroundColor: colors.v2.black,
+        zIndex: 50,
       }}
     >
       <Container
@@ -44,6 +45,7 @@ export default function BottomBar({
         }}
       >
         <BottomBarItem
+          activeColor={colors.v2.white}
           name="Home"
           onPress={onHomePress}
           isActive={pathname === '/'}
@@ -53,6 +55,7 @@ export default function BottomBar({
           }
         />
         <BottomBarItem
+          activeColor={colors.v2.teal}
           name="Expenses"
           onPress={onExpensePress}
           isActive={pathname === '/expenses'}
@@ -65,6 +68,7 @@ export default function BottomBar({
         <AddButton onPress={onAddPress} />
 
         <BottomBarItem
+          activeColor={colors.v2.yellow}
           name="Tasks"
           onPress={onTodoPress}
           isActive={pathname === '/todos'}
@@ -75,6 +79,7 @@ export default function BottomBar({
         />
 
         <BottomBarItem
+          activeColor={colors.v2.red}
           name="Journal"
           onPress={onJournalPress}
           isActive={pathname === '/journal'}
