@@ -16,7 +16,7 @@ type Variants =
   | 'title-sm'
   | 'title-md'
   | 'title-lg';
-type Colors = 'default' | 'light';
+type Colors = 'default' | 'lighter' | 'inverted';
 
 type ThemedTextProps = {
   variant?: Variants;
@@ -45,8 +45,11 @@ const colorStyles = StyleSheet.create<Record<Colors, TextStyle>>({
   default: {
     color: colors.v2.white,
   },
-  light: {
+  lighter: {
     color: colors.v2.grayLight,
+  },
+  inverted: {
+    color: colors.v2.black,
   },
 });
 
