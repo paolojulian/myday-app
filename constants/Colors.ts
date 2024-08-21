@@ -1,6 +1,6 @@
 export const colors = {
   v2: {
-    black: '#262626',
+    black: '#171717',
     white: '#fafafa',
     whiteSmoke: '#f5f5f5',
     grayLight: '#A3A3A3',
