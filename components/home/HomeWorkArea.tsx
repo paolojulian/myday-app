@@ -7,6 +7,9 @@ import { ScrollView, View } from 'react-native';
 import Row from '../common/Row';
 import ThemedText from '../common/ThemedText';
 import ChartPieIcon from '../common/icons/ChartPieIcon';
+import AppCard from '../common/AppCard';
+import MoneyIcon from '../common/icons/MoneyIcon';
+import JournalIcon from '../common/icons/JournalIcon';
 
 function HomeWorkArea() {
   const formattedDateToday = useMemo(() => dayjs().format('dddd, MMM D, YYYY'), []);
@@ -17,42 +20,86 @@ function HomeWorkArea() {
       <Stack style={{ gap: 8, flex: 1, paddingBottom: 24 }}>
         <Row style={{ gap: 8 }}>
           <Stack style={{ flex: 1, gap: 8 }}>
-            <View
-              style={{ borderRadius: 56, backgroundColor: colors.v2.teal, padding: 8, height: 197 }}
+            <AppCard
+              style={{
+                backgroundColor: colors.v2.teal,
+                height: 197,
+              }}
             >
               <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                <View style={{ marginBottom: 8 }}>
+                <View style={{ marginBottom: 16 }}>
                   <ChartPieIcon />
                 </View>
-                <ThemedText variant="header-lg" color="inverted">
-                  $9,000
-                </ThemedText>
-                <ThemedText variant="title-sm" color="inverted">
-                  Remaining Budget
-                </ThemedText>
+                <View style={{ alignItems: 'center', gap: 8 }}>
+                  <ThemedText variant="header-lg" color="inverted">
+                    $9,000
+                  </ThemedText>
+                  <ThemedText variant="title-sm" color="inverted">
+                    Remaining Budget
+                  </ThemedText>
+                </View>
               </Stack>
-            </View>
-            <View
+            </AppCard>
+            <AppCard
               style={{
-                borderRadius: 56,
                 backgroundColor: colors.v2.yellow,
-                padding: 8,
                 height: 240,
               }}
-            ></View>
+            >
+              <Stack
+                style={{ justifyContent: 'center', alignItems: 'center', height: '100%', gap: 24 }}
+              >
+                <View style={{ alignItems: 'center', gap: 8 }}>
+                  <ThemedText variant="header-lg" color="inverted">
+                    4
+                  </ThemedText>
+                  <ThemedText variant="title-sm" color="inverted">
+                    Tasks Today
+                  </ThemedText>
+                </View>
+                <View style={{ alignItems: 'center', gap: 8 }}>
+                  <ThemedText variant="header-lg" color="inverted">
+                    12
+                  </ThemedText>
+                  <ThemedText variant="title-sm" color="inverted">
+                    Overdue
+                  </ThemedText>
+                </View>
+              </Stack>
+            </AppCard>
           </Stack>
           <Stack style={{ flex: 1, gap: 8 }}>
-            <View
+            <AppCard
               style={{
-                borderRadius: 56,
-                backgroundColor: colors.v2.orange,
-                padding: 8,
+                backgroundColor: colors.v2.red,
                 height: 240,
               }}
-            ></View>
-            <View
-              style={{ borderRadius: 56, backgroundColor: colors.v2.red, padding: 8, height: 197 }}
-            ></View>
+            >
+              <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <View style={{ marginBottom: 16 }}>
+                  <MoneyIcon />
+                </View>
+                <View style={{ alignItems: 'center', gap: 8 }}>
+                  <ThemedText variant="header-lg" color="inverted">
+                    -$1,200
+                  </ThemedText>
+                  <ThemedText variant="title-sm" color="inverted">
+                    Spent Today
+                  </ThemedText>
+                </View>
+              </Stack>
+            </AppCard>
+            <AppCard style={{ backgroundColor: colors.v2.orange, height: 197 }}>
+              <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <View style={{ marginBottom: 16 }}>
+                  <JournalIcon />
+                </View>
+
+                <ThemedText variant="title-sm" color="inverted" style={{ textAlign: 'center' }}>
+                  Start Journal for Today
+                </ThemedText>
+              </Stack>
+            </AppCard>
           </Stack>
         </Row>
         {/* <TasksOverview />
