@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     paddingHorizontal: 16,
     backgroundColor: colors.v2.grayDark,
-    borderRadius: 8,
+    color: colors.v2.white,
+    borderRadius: 24,
     borderWidth: 1,
   },
   textInputDefault: {

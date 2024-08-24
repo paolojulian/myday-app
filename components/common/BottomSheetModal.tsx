@@ -61,12 +61,13 @@ export default function BottomSheetModal({
               height: 'auto',
               alignSelf: 'stretch',
               elevation: 16,
-              shadowColor: colors.black,
-              shadowOpacity: 0.15,
-              borderTopEndRadius: 16,
-              borderTopStartRadius: 16,
+              shadowColor: colors.v2.black,
+              shadowOpacity: 0.8,
+              shadowRadius: 48,
+              borderTopEndRadius: 24,
+              borderTopStartRadius: 24,
               padding: 16,
-              backgroundColor: colors.white,
+              backgroundColor: colors.v2.black,
               minHeight: minHeight ?? 'auto',
             }}
           >
