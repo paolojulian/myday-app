@@ -10,6 +10,7 @@ import ChartPieIcon from '../common/icons/ChartPieIcon';
 import AppCard from '../common/AppCard';
 import MoneyIcon from '../common/icons/MoneyIcon';
 import JournalIcon from '../common/icons/JournalIcon';
+import RecentTransactions from './RecentTransactions';
 
 function HomeWorkArea() {
   const formattedDateToday = useMemo(() => dayjs().format('dddd, MMM D, YYYY'), []);
@@ -17,7 +18,7 @@ function HomeWorkArea() {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.v2.black }}>
       <MainHeader subtitle={formattedDateToday} />
-      <Stack style={{ gap: 8, flex: 1, paddingBottom: 24 }}>
+      <Stack style={{ gap: 40, flex: 1, paddingBottom: 24 }}>
         <Row style={{ gap: 8 }}>
           <Stack style={{ flex: 1, gap: 8 }}>
             <AppCard
@@ -102,10 +103,7 @@ function HomeWorkArea() {
             </AppCard>
           </Stack>
         </Row>
-        {/* <TasksOverview />
-        <BudgetOverview />
-        <PriorityTaskList />
-        <RecentTransactions /> */}
+        <RecentTransactions />
       </Stack>
     </ScrollView>
   );
