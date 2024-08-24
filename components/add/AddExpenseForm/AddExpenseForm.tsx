@@ -175,7 +175,7 @@ function AddExpenseForm({}: AddExpenseFormProps) {
                     returnKeyType="next"
                   />
                 </ThemedView>
-                <ThemedView style={{ marginTop: 8 }}>
+                <ThemedView style={{ marginTop: 24 }}>
                   <Button
                     testID={ADD_EXPENSE_FORM_TEST_IDS.saveButton}
                     text={'Save'}

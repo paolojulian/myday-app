@@ -11,7 +11,7 @@ type LinkTextProps = {
 function LinkText({ onPress, text }: LinkTextProps) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <ThemedText variant="header-sm" style={{ color: colors.v2.accent }}>
+      <ThemedText variant="header-sm" style={{ color: colors.v2.teal }}>
         {text}
       </ThemedText>
     </TouchableOpacity>

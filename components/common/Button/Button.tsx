@@ -34,7 +34,7 @@ function Button({ text, variant = 'primary', ...props }: ButtonProps) {
   return (
     <TouchableOpacity role="button" accessibilityRole="button" activeOpacity={0.9} {...props}>
       <ThemedView style={[styles.container, containerVariantStyle]}>
-        <ThemedText variant="body2" style={[textVariantStyle, styles.text]}>
+        <ThemedText variant="header-sm" style={[textVariantStyle, styles.text]}>
           {text}
         </ThemedText>
       </ThemedView>
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   primaryContainer: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.teal,
   },
   primaryText: {
-    color: colors.white,
+    color: colors.v2.black,
   },
   text: {
     fontWeight: 'bold',

@@ -48,7 +48,7 @@ export default function CategorySelect({ onSelect, onClose, value }: CategorySel
         <ThemedView
           style={{
             backgroundColor: colors.v2.grayDark,
-            borderRadius: 24,
+            borderRadius: 8,
             paddingVertical: 12,
             paddingHorizontal: 16,
             gap: 8,

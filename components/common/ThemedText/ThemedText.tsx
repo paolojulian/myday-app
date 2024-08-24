@@ -24,13 +24,13 @@ type ThemedTextProps = {
 } & TextProps;
 
 export default function ThemedText({
-  variant = 'body',
+  variant = 'body-md',
   color = 'default',
   style,
   ...props
 }: ThemedTextProps) {
   const variantStyle: TextStyle = useMemo(() => {
-    return variantStyles[variant] || variantStyles['body-md'];
+    return textVariantStyles[variant] || textVariantStyles['body-md'];
   }, [variant]);
   const colorStyle: TextStyle = useMemo(() => {
     return colorStyles[color] || colorStyles['default'];
@@ -93,7 +93,7 @@ export const themedTextStyles = StyleSheet.create({
   },
 });
 
-const variantStyles = StyleSheet.create<Record<Variants, TextStyle>>({
+export const textVariantStyles = StyleSheet.create<Record<Variants, TextStyle>>({
   caps: {
     fontSize: 64,
     fontWeight: 800,

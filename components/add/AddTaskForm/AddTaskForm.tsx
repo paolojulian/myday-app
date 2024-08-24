@@ -136,7 +136,7 @@ export default function AddTaskForm() {
                     />
                   )}
                 </ThemedView>
-                <ThemedView style={{ marginVertical: 16 }}>
+                <ThemedView style={{ marginTop: 24 }}>
                   <Button text={'Save'} onPress={() => handleSubmit()} />
                 </ThemedView>
               </>

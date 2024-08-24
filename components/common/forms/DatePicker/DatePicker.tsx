@@ -1,6 +1,6 @@
 import {
-  DAY_OF_WEEK,
   DATE_PICKER_TEST_IDS,
+  DAY_OF_WEEK,
 } from '@/components/common/forms/DatePicker/DatePicker.constants';
 import DatePickerItem from '@/components/common/forms/DatePicker/DatePickerItem';
 import {
@@ -15,7 +15,8 @@ import { colors } from '@/constants/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import CalendarCustomIcon from '../../icons/CalendarCustomIcon';
 
 type DatePickerVariants = 'shadow' | 'border';
 
@@ -113,16 +114,13 @@ function DatePicker({
           onPress={handleHeaderClick}
         >
           <ThemedView style={{ flex: 1, flexDirection: 'row', gap: 16, alignItems: 'center' }}>
-            <Image
-              source={require('@/assets/icons/calendar-lines.png')}
-              style={{ width: 24, height: 24 }}
-            />
+            <CalendarCustomIcon />
             <ThemedView style={{ gap: 4, flex: 1 }}>
               <Label text={label} />
               <ThemedText
                 testID={DATE_PICKER_TEST_IDS.value}
-                variant="body1"
-                style={{ color: !!value ? colors.black : colors.grey }}
+                variant="body-md"
+                style={{ color: !!value ? colors.v2.white : colors.v2.grayLight }}
               >
                 {titleText}
               </ThemedText>
@@ -134,16 +132,19 @@ function DatePicker({
             <MaterialCommunityIcons
               size={40}
               name="chevron-left"
-              color={colors.black}
+              color={colors.v2.white}
               onPress={handlePrevMonth}
             />
-            <ThemedText style={{ width: 40, textAlign: 'center' }} variant="body1">
+            <ThemedText
+              style={{ width: 40, textAlign: 'center', color: colors.v2.white }}
+              variant="header-sm"
+            >
               {currentMonthTitle}
             </ThemedText>
             <MaterialCommunityIcons
               size={40}
               name="chevron-right"
-              color={colors.black}
+              color={colors.v2.white}
               onPress={handleNextMonth}
             />
           </ThemedView>
@@ -156,7 +157,7 @@ function DatePicker({
               <DatePickerItem
                 key={day}
                 value={day}
-                textStyle={{ color: colors.grey, fontSize: 12 }}
+                textStyle={{ color: colors.v2.grayLight, fontSize: 12 }}
               />
             ))}
           </ThemedView>
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerShadow: {
-    shadowColor: colors.black,
+    shadowColor: colors.v2.black,
     shadowOpacity: 0.24,
     shadowRadius: 12,
     shadowOffset: {
@@ -197,15 +198,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   containerBorder: {
-    borderWidth: 2,
-    borderRadius: 12,
-    borderColor: colors.whiteSmoke,
+    borderRadius: 0,
   },
   header: {
-    borderTopStartRadius: 12,
-    borderTopEndRadius: 12,
-    backgroundColor: colors.whiteSmoke,
-    paddingVertical: 12,
+    borderTopStartRadius: 8,
+    borderTopEndRadius: 8,
+    backgroundColor: colors.v2.grayDark,
+    paddingTop: 16,
+    paddingBottom: 8,
     paddingHorizontal: 16,
 
     display: 'flex',
@@ -220,10 +220,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   body: {
-    borderBottomStartRadius: 12,
-    borderBottomEndRadius: 12,
-    backgroundColor: colors.white,
-    padding: 16,
+    borderBottomStartRadius: 8,
+    borderBottomEndRadius: 8,
+    backgroundColor: colors.v2.grayDark,
+    padding: 8,
   },
   weekContainer: {
     display: 'flex',

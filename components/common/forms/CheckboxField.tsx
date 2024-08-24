@@ -23,10 +23,10 @@ export default function CheckboxField({ onValueChange, value, label }: CheckboxF
           gap: 8,
           paddingHorizontal: 24,
           paddingVertical: 16,
-          backgroundColor: colors.whiteSmoke,
+          backgroundColor: colors.v2.grayDark,
         }}
       >
-        <Checkbox style={{ borderRadius: 4 }} value={value} color={colors.black} />
+        <Checkbox style={{ borderRadius: 4 }} value={value} color={colors.v2.grayLight} />
         <ThemedText aria-label={label} variant="body1">
           {label}
         </ThemedText>

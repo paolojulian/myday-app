@@ -1,5 +1,5 @@
 import Label from '@/components/common/forms/Label';
-import ThemedText, { themedTextStyles } from '@/components/common/ThemedText/ThemedText';
+import ThemedText, { textVariantStyles } from '@/components/common/ThemedText/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { ComponentProps, forwardRef, useMemo, useState } from 'react';
@@ -57,7 +57,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
           ref={ref}
           testID={props.testID ? props.testID : TEXT_FIELD_TEST_IDS.textInput}
           placeholderTextColor={colors.v2.grayLight}
-          style={[style, styles.textInput, themedTextStyles.body1, resolvedTextInputStyle]}
+          style={[style, styles.textInput, textVariantStyles['body-md'], resolvedTextInputStyle]}
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: colors.v2.grayDark,
     color: colors.v2.white,
-    borderRadius: 24,
+    borderRadius: 8,
     borderWidth: 1,
   },
   textInputDefault: {

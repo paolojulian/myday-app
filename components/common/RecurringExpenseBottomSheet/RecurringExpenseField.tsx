@@ -37,7 +37,7 @@ export default function RecurringExpenseField({ onSelect, value }: RecurringExpe
       <TouchableOpacity onPress={handleShow}>
         <ThemedView
           style={{
-            backgroundColor: colors.whiteSmoke,
+            backgroundColor: colors.v2.grayDark,
             borderRadius: 8,
             paddingVertical: 12,
             paddingHorizontal: 16,
@@ -45,7 +45,7 @@ export default function RecurringExpenseField({ onSelect, value }: RecurringExpe
           }}
         >
           <Label text="Recurring Expense" />
-          <ThemedText variant="body1" style={{ textTransform: 'capitalize' }}>
+          <ThemedText variant="body-md" style={{ textTransform: 'capitalize' }}>
             {formattedValue}
           </ThemedText>
         </ThemedView>
@@ -53,7 +53,7 @@ export default function RecurringExpenseField({ onSelect, value }: RecurringExpe
       <BottomSheetModal variant="slide" isOpen={isOpen} onClose={handleHide}>
         <SafeAreaView style={{ marginBottom: 40 }}>
           <Row style={{ paddingBottom: 24 }}>
-            <ThemedText variant="body2">Recurring Expense</ThemedText>
+            <ThemedText variant="header-sm">Recurring Expense</ThemedText>
           </Row>
           <Stack style={{ gap: 8 }}>
             <RecurrenceOption isSelected={!value} title="None" onPress={() => handleSelect(null)} />
