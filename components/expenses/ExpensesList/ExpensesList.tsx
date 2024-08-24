@@ -90,7 +90,7 @@ export default function ExpensesList() {
           );
         }}
         stickyHeaderIndices={[1]}
-        ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
+        ItemSeparatorComponent={() => <ThemedView style={{ height: 4 }} />}
         ListHeaderComponent={<ListHeaderComponent />}
         ListFooterComponent={<ThemedView style={{ height: 16 }} />}
         ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}

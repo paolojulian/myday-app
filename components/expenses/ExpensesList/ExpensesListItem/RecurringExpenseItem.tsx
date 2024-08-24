@@ -46,7 +46,7 @@ export default function RecurringExpenseItem({ expense }: RecurringExpenseItemPr
 
   return (
     <StyledTouchableContainer onPress={handlePress}>
-      <ThemedText variant="body2">{title}</ThemedText>
+      <ThemedText variant="header-sm">{title}</ThemedText>
       <StyledCategoryName categoryName={categoryName} />
       <StyledRecurrenceType title={recurrenceText} />
 

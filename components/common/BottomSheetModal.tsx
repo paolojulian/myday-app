@@ -50,7 +50,8 @@ export default function BottomSheetModal({
               bottom: 0,
               left: 0,
               right: 0,
-              backgroundColor: variant === 'fade' ? 'rgba(0, 0, 0, 0.5)' : 'transparent',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              // backgroundColor: variant === 'fade' ? 'rgba(0, 0, 0, 0.5)' : 'rbga(0, 0, 0, 0.5)',
             }}
             onPress={onClose}
           />
@@ -66,6 +67,8 @@ export default function BottomSheetModal({
               shadowRadius: 48,
               borderTopEndRadius: 24,
               borderTopStartRadius: 24,
+              borderWidth: 1,
+              borderTopColor: colors.v2.grayDark,
               padding: 16,
               backgroundColor: colors.v2.black,
               minHeight: minHeight ?? 'auto',
