@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
 const defaultStyles = StyleSheet.create({
   container: {
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.v2.grayDark,
   },
 });
 
