@@ -47,19 +47,19 @@ export default function CategorySelect({ onSelect, onClose, value }: CategorySel
       <TouchableOpacity onPress={handlePress}>
         <ThemedView
           style={{
-            backgroundColor: colors.whiteSmoke,
+            backgroundColor: colors.v2.grayDark,
             borderRadius: 8,
             paddingVertical: 12,
             paddingHorizontal: 16,
-            gap: 4,
+            gap: 8,
           }}
         >
           <Label text="Category" />
           <ThemedText
-            variant="body1"
+            variant="body-md"
             style={{
               textTransform: formattedValue ? 'capitalize' : 'none',
-              color: formattedValue ? colors.black : colors.grey,
+              color: formattedValue ? colors.v2.white : colors.v2.grayLight,
             }}
           >
             {formattedValue || 'e.g. Restaurant, Grocery'}
@@ -67,7 +67,7 @@ export default function CategorySelect({ onSelect, onClose, value }: CategorySel
         </ThemedView>
       </TouchableOpacity>
       <BottomSheetModal variant="slide" isOpen={isOpen} onClose={close}>
-        <Stack style={{ gap: 4 }}>
+        <Stack style={{ gap: 16 }}>
           <TextField
             autoFocus
             label="Category"

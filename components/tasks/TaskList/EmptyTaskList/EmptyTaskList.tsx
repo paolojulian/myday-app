@@ -7,7 +7,7 @@ import { colors } from '@/constants/Colors';
 import { TaskFilterTypes } from '@/hooks/services/task/task.types';
 import { router } from 'expo-router';
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 type EmptyTaskListProps = {
   filterType: TaskFilterTypes;
@@ -23,13 +23,9 @@ function EmptyTaskList({ filterType }: EmptyTaskListProps) {
           gap: 24,
           flex: 1,
           paddingTop: 24,
+          height: 350,
         }}
       >
-        <Image
-          style={{ width: 220, height: 230 }}
-          source={require('../../../../assets/images/empty-tasks.png')}
-        />
-
         <RenderEmptyText filterType={filterType} />
       </Stack>
     </Container>
@@ -55,10 +51,10 @@ function NoTasksSet() {
   return (
     <Stack style={{ alignItems: 'center', gap: 24 }}>
       <Stack style={{ alignItems: 'center', gap: 8 }}>
-        <ThemedText variant="heading">No Task Set</ThemedText>
+        <ThemedText variant="header-md">No Task Set</ThemedText>
         <ThemedText
-          variant="body"
-          style={{ textAlign: 'center', color: colors.slateGrey[500], maxWidth: 300 }}
+          variant="body-md"
+          style={{ textAlign: 'center', color: colors.v2.grayLight, maxWidth: 300 }}
         >
           Add tasks to start organizing your to-dos and know exactly what needs to be done.
         </ThemedText>
@@ -73,9 +69,9 @@ function NoTasksToday() {
   return (
     <Stack style={{ alignItems: 'center', gap: 24 }}>
       <Stack style={{ alignItems: 'center', gap: 8 }}>
-        <ThemedText variant="heading">No Task Due Today</ThemedText>
+        <ThemedText variant="header-md">No Task Due Today</ThemedText>
         <ThemedText
-          variant="body"
+          variant="body-md"
           style={{ textAlign: 'center', color: colors.slateGrey[500], maxWidth: 300 }}
         >
           You can now relax or add additional hustles.
@@ -91,7 +87,7 @@ function NoScheduledTasks() {
   return (
     <Stack style={{ alignItems: 'center', gap: 24 }}>
       <Stack style={{ alignItems: 'center', gap: 8 }}>
-        <ThemedText variant="heading">No Scheduled Tasks</ThemedText>
+        <ThemedText variant="header-md">No Scheduled Tasks</ThemedText>
       </Stack>
 
       <TapToCreateTask />
@@ -103,9 +99,9 @@ function NoCompletedTasks() {
   return (
     <Stack style={{ alignItems: 'center', gap: 24 }}>
       <Stack style={{ alignItems: 'center', gap: 8 }}>
-        <ThemedText variant="heading">No Completed Tasks</ThemedText>
+        <ThemedText variant="header-md">No Completed Tasks</ThemedText>
         <ThemedText
-          variant="body"
+          variant="body-md"
           style={{ textAlign: 'center', color: colors.slateGrey[500], maxWidth: 300 }}
         >
           Finish something...
@@ -126,7 +122,7 @@ function TapToCreateTask() {
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <ThemedText variant="body" style={{ color: colors.blueLink }}>
+      <ThemedText variant="body" style={{ color: colors.v2.accent }}>
         Tap here to create a new task
       </ThemedText>
     </TouchableOpacity>

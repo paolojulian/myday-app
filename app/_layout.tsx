@@ -43,7 +43,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar backgroundColor={colors.white} />
+      <StatusBar backgroundColor={colors.v2.black} style="dark" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <DatabaseProvider>
           <QueryClientProvider client={queryClient}>

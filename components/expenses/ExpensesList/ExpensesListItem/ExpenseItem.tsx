@@ -49,31 +49,27 @@ export default function ExpenseItem({ expense }: ExpenseItemProps) {
     >
       <Row
         style={{
-          padding: 16,
+          paddingVertical: 16,
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderWidth: 1,
-          borderColor: colors.slateGrey[200],
-          borderRadius: 16,
-          backgroundColor: colors.white,
         }}
       >
         <Stack>
-          <ThemedText variant="body2">{title}</ThemedText>
+          <ThemedText variant="header-sm">{title}</ThemedText>
           {!!categoryName && (
-            <ThemedText variant="body" style={{ color: colors.darkGrey }}>
+            <ThemedText variant="body-md" style={{ color: colors.v2.grayLight }}>
               {categoryName}
             </ThemedText>
           )}
           <ThemedText
-            variant="body"
-            style={{ color: colors.darkGrey, textTransform: 'capitalize' }}
+            variant="body-md"
+            style={{ color: colors.v2.grayLight, textTransform: 'capitalize' }}
           >
             {recurrence !== null ? recurrenceText : formattedTransactionDate}
           </ThemedText>
         </Stack>
-        <ThemedText variant="body2" style={{ color: colors.red }}>
+        <ThemedText variant="header-md" style={{ color: colors.v2.teal }}>
           - {toLocaleCurrencyFormat(amount)}
         </ThemedText>
       </Row>

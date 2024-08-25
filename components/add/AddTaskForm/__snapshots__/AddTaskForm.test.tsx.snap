@@ -56,16 +56,18 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                 style={
                   [
                     {
-                      "fontFamily": "PoppinsMedium",
+                      "fontFamily": "RalewayBold",
                       "fontSize": 16,
-                      "fontWeight": 500,
-                      "lineHeight": 24,
+                      "fontWeight": 700,
+                    },
+                    {
+                      "color": "#fafafa",
                     },
                     {
                       "fontWeight": 400,
                     },
                     {
-                      "color": "#0F172A",
+                      "color": "#fafafa",
                     },
                   ]
                 }
@@ -80,24 +82,24 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
               onFocus={[Function]}
               onSubmitEditing={[Function]}
               placeholder="Buy groceries..."
-              placeholderTextColor="#a3a3a3"
+              placeholderTextColor="#A3A3A3"
               returnKeyLabel="Next"
               returnKeyType="next"
               style={
                 [
                   undefined,
                   {
-                    "backgroundColor": "#f5f5f5",
+                    "backgroundColor": "#404040",
                     "borderRadius": 8,
                     "borderWidth": 1,
+                    "color": "#fafafa",
                     "paddingBottom": 12,
                     "paddingHorizontal": 16,
                     "paddingTop": 36,
                   },
                   {
-                    "fontFamily": "PoppinsRegular",
+                    "fontFamily": "RalewayRegular",
                     "fontSize": 16,
-                    "lineHeight": 24,
                   },
                   {
                     "borderColor": "transparent",
@@ -132,16 +134,18 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                 style={
                   [
                     {
-                      "fontFamily": "PoppinsMedium",
+                      "fontFamily": "RalewayBold",
                       "fontSize": 16,
-                      "fontWeight": 500,
-                      "lineHeight": 24,
+                      "fontWeight": 700,
+                    },
+                    {
+                      "color": "#fafafa",
                     },
                     {
                       "fontWeight": 400,
                     },
                     {
-                      "color": "#0F172A",
+                      "color": "#fafafa",
                     },
                   ]
                 }
@@ -160,24 +164,24 @@ Dish soap
 Soy sauce
 Toilet paper
 etc.."
-              placeholderTextColor="#a3a3a3"
+              placeholderTextColor="#A3A3A3"
               style={
                 [
                   {
                     "minHeight": 120,
                   },
                   {
-                    "backgroundColor": "#f5f5f5",
+                    "backgroundColor": "#404040",
                     "borderRadius": 8,
                     "borderWidth": 1,
+                    "color": "#fafafa",
                     "paddingBottom": 12,
                     "paddingHorizontal": 16,
                     "paddingTop": 36,
                   },
                   {
-                    "fontFamily": "PoppinsRegular",
+                    "fontFamily": "RalewayRegular",
                     "fontSize": 16,
-                    "lineHeight": 24,
                   },
                   {
                     "borderColor": "transparent",
@@ -243,8 +247,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#f5f5f5",
-                        "borderColor": "#f5f5f5",
+                        "backgroundColor": "#404040",
+                        "borderColor": "#404040",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -263,6 +267,7 @@ etc.."
                   align="xMidYMid"
                   bbHeight="25"
                   bbWidth="26"
+                  color="#fafafa"
                   fill="none"
                   focusable={false}
                   height="25"
@@ -282,6 +287,7 @@ etc.."
                       },
                     ]
                   }
+                  tintColor="#fafafa"
                   vbHeight={25}
                   vbWidth={26}
                   width="26"
@@ -298,8 +304,7 @@ etc.."
                       d="M2.39587 22.6562C2.39587 23.9502 3.44568 25 4.73962 25H21.9271C23.2211 25 24.2709 23.9502 24.2709 22.6562V9.375H2.39587V22.6562ZM5.52087 13.2812C5.52087 12.8516 5.87244 12.5 6.30212 12.5H10.9896C11.4193 12.5 11.7709 12.8516 11.7709 13.2812V17.9688C11.7709 18.3984 11.4193 18.75 10.9896 18.75H6.30212C5.87244 18.75 5.52087 18.3984 5.52087 17.9688V13.2812ZM21.9271 3.125H19.5834V0.78125C19.5834 0.351562 19.2318 0 18.8021 0H17.2396C16.8099 0 16.4584 0.351562 16.4584 0.78125V3.125H10.2084V0.78125C10.2084 0.351562 9.85681 0 9.42712 0H7.86462C7.43494 0 7.08337 0.351562 7.08337 0.78125V3.125H4.73962C3.44568 3.125 2.39587 4.1748 2.39587 5.46875V7.8125H24.2709V5.46875C24.2709 4.1748 23.2211 3.125 21.9271 3.125Z"
                       fill={
                         {
-                          "payload": 4279179050,
-                          "type": 0,
+                          "type": 2,
                         }
                       }
                       propList={
@@ -314,9 +319,11 @@ etc.."
                   style={
                     [
                       {
-                        "fontFamily": "PoppinsRegular",
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontFamily": "RalewayRegular",
+                        "fontSize": 16,
+                      },
+                      {
+                        "color": "#fafafa",
                       },
                       {
                         "fontWeight": 400,
@@ -370,8 +377,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#f5f5f5",
-                        "borderColor": "#f5f5f5",
+                        "backgroundColor": "#404040",
+                        "borderColor": "#404040",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -390,6 +397,7 @@ etc.."
                   align="xMidYMid"
                   bbHeight="25"
                   bbWidth="26"
+                  color="#fafafa"
                   fill="none"
                   focusable={false}
                   height="25"
@@ -409,6 +417,7 @@ etc.."
                       },
                     ]
                   }
+                  tintColor="#fafafa"
                   vbHeight={25}
                   vbWidth={26}
                   width="26"
@@ -425,8 +434,7 @@ etc.."
                       d="M2.0625 22.6562C2.0625 23.9502 3.1123 25 4.40625 25H21.5938C22.8877 25 23.9375 23.9502 23.9375 22.6562V9.375H2.0625V22.6562ZM5.1875 13.2812C5.1875 12.8516 5.53906 12.5 5.96875 12.5H20.0312C20.4609 12.5 20.8125 12.8516 20.8125 13.2812V16.4062C20.8125 16.8359 20.4609 17.1875 20.0312 17.1875H5.96875C5.53906 17.1875 5.1875 16.8359 5.1875 16.4062V13.2812ZM21.5938 3.125H19.25V0.78125C19.25 0.351562 18.8984 0 18.4688 0H16.9062C16.4766 0 16.125 0.351562 16.125 0.78125V3.125H9.875V0.78125C9.875 0.351562 9.52344 0 9.09375 0H7.53125C7.10156 0 6.75 0.351562 6.75 0.78125V3.125H4.40625C3.1123 3.125 2.0625 4.1748 2.0625 5.46875V7.8125H23.9375V5.46875C23.9375 4.1748 22.8877 3.125 21.5938 3.125Z"
                       fill={
                         {
-                          "payload": 4279179050,
-                          "type": 0,
+                          "type": 2,
                         }
                       }
                       propList={
@@ -441,9 +449,11 @@ etc.."
                   style={
                     [
                       {
-                        "fontFamily": "PoppinsRegular",
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontFamily": "RalewayRegular",
+                        "fontSize": 16,
+                      },
+                      {
+                        "color": "#fafafa",
                       },
                       {
                         "fontWeight": 400,
@@ -497,8 +507,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#f5f5f5",
-                        "borderColor": "#f5f5f5",
+                        "backgroundColor": "#404040",
+                        "borderColor": "#404040",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -517,6 +527,7 @@ etc.."
                   align="xMidYMid"
                   bbHeight="25"
                   bbWidth="26"
+                  color="#fafafa"
                   fill="none"
                   focusable={false}
                   height="25"
@@ -536,6 +547,7 @@ etc.."
                       },
                     ]
                   }
+                  tintColor="#fafafa"
                   vbHeight={25}
                   vbWidth={26}
                   width="26"
@@ -552,8 +564,7 @@ etc.."
                       d="M1.72913 22.6562C1.72913 23.9502 2.77893 25 4.07288 25H21.2604C22.5543 25 23.6041 23.9502 23.6041 22.6562V9.375H1.72913V22.6562ZM17.3541 13.0859C17.3541 12.7637 17.6178 12.5 17.9401 12.5H19.8932C20.2155 12.5 20.4791 12.7637 20.4791 13.0859V15.0391C20.4791 15.3613 20.2155 15.625 19.8932 15.625H17.9401C17.6178 15.625 17.3541 15.3613 17.3541 15.0391V13.0859ZM17.3541 19.3359C17.3541 19.0137 17.6178 18.75 17.9401 18.75H19.8932C20.2155 18.75 20.4791 19.0137 20.4791 19.3359V21.2891C20.4791 21.6113 20.2155 21.875 19.8932 21.875H17.9401C17.6178 21.875 17.3541 21.6113 17.3541 21.2891V19.3359ZM11.1041 13.0859C11.1041 12.7637 11.3678 12.5 11.6901 12.5H13.6432C13.9655 12.5 14.2291 12.7637 14.2291 13.0859V15.0391C14.2291 15.3613 13.9655 15.625 13.6432 15.625H11.6901C11.3678 15.625 11.1041 15.3613 11.1041 15.0391V13.0859ZM11.1041 19.3359C11.1041 19.0137 11.3678 18.75 11.6901 18.75H13.6432C13.9655 18.75 14.2291 19.0137 14.2291 19.3359V21.2891C14.2291 21.6113 13.9655 21.875 13.6432 21.875H11.6901C11.3678 21.875 11.1041 21.6113 11.1041 21.2891V19.3359ZM4.85413 13.0859C4.85413 12.7637 5.1178 12.5 5.44006 12.5H7.39319C7.71545 12.5 7.97913 12.7637 7.97913 13.0859V15.0391C7.97913 15.3613 7.71545 15.625 7.39319 15.625H5.44006C5.1178 15.625 4.85413 15.3613 4.85413 15.0391V13.0859ZM4.85413 19.3359C4.85413 19.0137 5.1178 18.75 5.44006 18.75H7.39319C7.71545 18.75 7.97913 19.0137 7.97913 19.3359V21.2891C7.97913 21.6113 7.71545 21.875 7.39319 21.875H5.44006C5.1178 21.875 4.85413 21.6113 4.85413 21.2891V19.3359ZM21.2604 3.125H18.9166V0.78125C18.9166 0.351562 18.5651 0 18.1354 0H16.5729C16.1432 0 15.7916 0.351562 15.7916 0.78125V3.125H9.54163V0.78125C9.54163 0.351562 9.19006 0 8.76038 0H7.19788C6.76819 0 6.41663 0.351562 6.41663 0.78125V3.125H4.07288C2.77893 3.125 1.72913 4.1748 1.72913 5.46875V7.8125H23.6041V5.46875C23.6041 4.1748 22.5543 3.125 21.2604 3.125Z"
                       fill={
                         {
-                          "payload": 4278190080,
-                          "type": 0,
+                          "type": 2,
                         }
                       }
                       propList={
@@ -568,9 +579,11 @@ etc.."
                   style={
                     [
                       {
-                        "fontFamily": "PoppinsRegular",
-                        "fontSize": 14,
-                        "lineHeight": 20,
+                        "fontFamily": "RalewayRegular",
+                        "fontSize": 16,
+                      },
+                      {
+                        "color": "#fafafa",
                       },
                       {
                         "fontWeight": 400,
@@ -611,7 +624,7 @@ etc.."
                 style={
                   {
                     "alignItems": "center",
-                    "backgroundColor": "#f5f5f5",
+                    "backgroundColor": "#404040",
                     "flexDirection": "row",
                     "gap": 8,
                     "paddingHorizontal": 24,
@@ -665,7 +678,7 @@ etc.."
                       false,
                       {
                         "backgroundColor": undefined,
-                        "borderColor": "#0F172A",
+                        "borderColor": "#A3A3A3",
                       },
                       undefined,
                       false,
@@ -680,6 +693,9 @@ etc.."
                         "fontFamily": "PoppinsRegular",
                         "fontSize": 16,
                         "lineHeight": 24,
+                      },
+                      {
+                        "color": "#fafafa",
                       },
                       {
                         "fontWeight": 400,
@@ -697,7 +713,7 @@ etc.."
         <View
           style={
             {
-              "marginVertical": 16,
+              "marginTop": 24,
             }
           }
         >
@@ -746,7 +762,7 @@ etc.."
                     "padding": 16,
                   },
                   {
-                    "backgroundColor": "#0F172A",
+                    "backgroundColor": "#FEF9C3",
                   },
                 ]
               }
@@ -755,17 +771,19 @@ etc.."
                 style={
                   [
                     {
-                      "fontFamily": "PoppinsMedium",
+                      "fontFamily": "RalewayBold",
                       "fontSize": 16,
-                      "fontWeight": 500,
-                      "lineHeight": 24,
+                      "fontWeight": 700,
+                    },
+                    {
+                      "color": "#fafafa",
                     },
                     {
                       "fontWeight": 400,
                     },
                     [
                       {
-                        "color": "#FFFFFF",
+                        "color": "#171717",
                       },
                       {
                         "fontWeight": "bold",
@@ -804,7 +822,7 @@ etc.."
     onStartShouldSetResponder={[Function]}
     style={
       {
-        "bottom": 0,
+        "bottom": 120,
         "flex": 1,
         "left": 0,
         "opacity": 0,
@@ -821,34 +839,40 @@ etc.."
     }
   >
     <View
-      collapsable={false}
       style={
-        {
-          "alignItems": "center",
-          "backgroundColor": "#CC3333",
-          "borderRadius": 8,
-          "elevation": 8,
-          "flexDirection": "row",
-          "height": 56,
-          "justifyContent": "space-between",
-          "marginHorizontal": 16,
-          "padding": 16,
-          "shadowColor": "#0F172A",
-          "shadowOffset": {
-            "height": 2,
-            "width": 0,
+        [
+          {
+            "alignItems": "center",
+            "backgroundColor": "#CC3333",
+            "borderRadius": 8,
+            "elevation": 8,
+            "flexDirection": "row",
+            "height": 56,
+            "justifyContent": "space-between",
+            "marginHorizontal": 16,
+            "padding": 16,
+            "shadowColor": "#0F172A",
+            "shadowOffset": {
+              "height": 2,
+              "width": 0,
+            },
+            "shadowOpacity": 0.15,
           },
-          "shadowOpacity": 0.15,
-        }
+          {
+            "backgroundColor": "#CC3333",
+          },
+        ]
       }
     >
       <Text
         style={
           [
             {
-              "fontFamily": "PoppinsRegular",
-              "fontSize": 14,
-              "lineHeight": 20,
+              "fontFamily": "RalewayRegular",
+              "fontSize": 16,
+            },
+            {
+              "color": "#fafafa",
             },
             {
               "fontWeight": 400,

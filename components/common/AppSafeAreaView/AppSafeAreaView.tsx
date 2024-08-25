@@ -9,7 +9,7 @@ type AppSafeAreaViewProps = SafeAreaViewProps & {
 
 const AppSafeAreaView: FC<AppSafeAreaViewProps> = ({
   style,
-  statusBarColor = colors.white,
+  statusBarColor = colors.v2.black,
   ...props
 }) => {
   return (

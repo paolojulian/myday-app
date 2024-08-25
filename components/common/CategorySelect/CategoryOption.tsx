@@ -15,11 +15,18 @@ export default function CategoryOption({ onPress, title, isSelected }: Recurrenc
       <ThemedView
         style={{
           justifyContent: 'center',
-          backgroundColor: isSelected ? colors.slateGrey[100] : colors.whiteSmoke,
+          backgroundColor: isSelected ? colors.v2.accent : colors.v2.grayDark,
           padding: 16,
         }}
       >
-        <ThemedText style={{ textTransform: 'capitalize' }}>{title}</ThemedText>
+        <ThemedText
+          style={{
+            textTransform: 'capitalize',
+            color: isSelected ? colors.v2.black : colors.v2.white,
+          }}
+        >
+          {title}
+        </ThemedText>
       </ThemedView>
     </TouchableOpacity>
   );

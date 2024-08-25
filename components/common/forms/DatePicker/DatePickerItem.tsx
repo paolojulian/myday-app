@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   isActive: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.accent,
   },
   isToday: {
-    backgroundColor: colors.aliceBlue,
+    backgroundColor: colors.v2.accentLight,
   },
   isActiveText: {
     color: colors.white,

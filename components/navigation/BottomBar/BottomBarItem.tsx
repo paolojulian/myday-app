@@ -1,8 +1,6 @@
-import ThemedText from '@/components/common/ThemedText';
-import { colors } from '@/constants/Colors';
 import { selectionAsync } from 'expo-haptics';
 import React from 'react';
-import { TouchableHighlight } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 export type BottomBarItemProps = {
   ActiveIcon: React.ReactElement;
@@ -10,14 +8,15 @@ export type BottomBarItemProps = {
   name: string;
   isActive: boolean;
   onPress: () => void;
+  activeColor: string;
 };
 
 export default function BottomBarItem({
   ActiveIcon,
   InactiveIcon,
   isActive,
-  name,
   onPress,
+  activeColor,
 }: BottomBarItemProps) {
   const handlePress = () => {
     if (!isActive) {
@@ -27,7 +26,7 @@ export default function BottomBarItem({
   };
 
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       onPress={handlePress}
       disabled={isActive}
       style={{
@@ -37,19 +36,36 @@ export default function BottomBarItem({
         alignSelf: 'stretch',
         justifyContent: 'center',
         paddingVertical: 16,
+        position: 'relative',
       }}
-      underlayColor={colors.whiteSmoke}
     >
-      <>
-        {isActive ? ActiveIcon : InactiveIcon}
-        <ThemedText
+      {isActive ? (
+        <View
           style={{
-            color: isActive ? colors.black : colors.darkGrey,
+            backgroundColor: activeColor,
+            height: 18,
+            width: 2,
+            borderRadius: 9999,
+            position: 'absolute',
+            bottom: 0,
+            left: '48%',
+            zIndex: 10,
           }}
-        >
-          {name}
-        </ThemedText>
-      </>
-    </TouchableHighlight>
+        />
+      ) : null}
+      <View
+        style={{
+          backgroundColor: isActive ? activeColor : 'transparent',
+          height: 32,
+          width: 32,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 9999,
+        }}
+      >
+        {isActive ? ActiveIcon : InactiveIcon}
+      </View>
+    </TouchableOpacity>
   );
 }

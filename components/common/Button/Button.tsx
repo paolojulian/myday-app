@@ -5,18 +5,20 @@ import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
-type ButtonVariants = 'primary';
+type ButtonVariants = 'teal' | 'yellow';
 
 type ButtonProps = {
   text: string;
   variant?: ButtonVariants;
 } & TouchableOpacityProps;
 
-function Button({ text, variant = 'primary', ...props }: ButtonProps) {
+function Button({ text, variant = 'teal', ...props }: ButtonProps) {
   const containerVariantStyle = useMemo(() => {
     switch (variant) {
-      case 'primary':
-        return styles.primaryContainer;
+      case 'teal':
+        return styles.tealContainer;
+      case 'yellow':
+        return styles.yellowContainer;
       default:
         return {};
     }
@@ -24,8 +26,10 @@ function Button({ text, variant = 'primary', ...props }: ButtonProps) {
 
   const textVariantStyle = useMemo(() => {
     switch (variant) {
-      case 'primary':
+      case 'teal':
         return styles.primaryText;
+      case 'yellow':
+        return styles.yellowText;
       default:
         return {};
     }
@@ -34,7 +38,7 @@ function Button({ text, variant = 'primary', ...props }: ButtonProps) {
   return (
     <TouchableOpacity role="button" accessibilityRole="button" activeOpacity={0.9} {...props}>
       <ThemedView style={[styles.container, containerVariantStyle]}>
-        <ThemedText variant="body2" style={[textVariantStyle, styles.text]}>
+        <ThemedText variant="header-sm" style={[textVariantStyle, styles.text]}>
           {text}
         </ThemedText>
       </ThemedView>
@@ -49,11 +53,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primaryContainer: {
-    backgroundColor: colors.black,
+  tealContainer: {
+    backgroundColor: colors.v2.teal,
+  },
+  yellowContainer: {
+    backgroundColor: colors.v2.yellow,
   },
   primaryText: {
-    color: colors.white,
+    color: colors.v2.black,
+  },
+  yellowText: {
+    color: colors.v2.black,
   },
   text: {
     fontWeight: 'bold',

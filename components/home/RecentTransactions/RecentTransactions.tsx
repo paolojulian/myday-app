@@ -1,5 +1,4 @@
 import { TabName } from '@/app/(tabs)/_layout';
-import BentoCard from '@/components/common/BentoCard';
 import Container from '@/components/common/Container';
 import LinkText from '@/components/common/LinkText';
 import Row from '@/components/common/Row';
@@ -36,25 +35,23 @@ function RecentTransactions() {
 
   return (
     <Container>
-      <BentoCard>
-        {/* Title */}
-        <Stack style={{ gap: 16 }}>
-          <ThemedText variant="body2">Recent Transactions</ThemedText>
-          {isEmpty ? <EmptyRecentTransactions /> : null}
-          {!isEmpty && (
-            <Fragment>
-              {/* List */}
-              <Stack style={{ gap: 8 }}>
-                {expenses?.map(expense => <ExpenseItem key={expense.id} expense={expense} />)}
-              </Stack>
-              {/* View All */}
-              <Row style={{ justifyContent: 'center' }}>
-                <LinkText onPress={handleViewAllPress} text="View all" />
-              </Row>
-            </Fragment>
-          )}
-        </Stack>
-      </BentoCard>
+      {/* Title */}
+      <Stack style={{ gap: 8 }}>
+        <ThemedText variant="header-md">Recent Transactions</ThemedText>
+        {isEmpty ? <EmptyRecentTransactions /> : null}
+        {!isEmpty && (
+          <Fragment>
+            {/* List */}
+            <Stack>
+              {expenses?.map(expense => <ExpenseItem key={expense.id} expense={expense} />)}
+            </Stack>
+            {/* View All */}
+            <Row style={{ justifyContent: 'center' }}>
+              <LinkText onPress={handleViewAllPress} text="View all" />
+            </Row>
+          </Fragment>
+        )}
+      </Stack>
     </Container>
   );
 }

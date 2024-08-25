@@ -1,9 +1,9 @@
 import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
-import { colors } from '@/constants/Colors';
 import { TouchableHighlight } from 'react-native';
 import { CategoryItemFields } from '../ExpensesList.utils';
+import { colors } from '@/constants/Colors';
 
 type CategoryItemProps = {
   item: CategoryItemFields;
@@ -14,7 +14,6 @@ export default function CategoryItem({ item, totalExpensesAmount }: CategoryItem
   const percentage = (item.totalAmount / totalExpensesAmount) * 100;
   return (
     <TouchableHighlight
-      style={{ borderRadius: 8 }}
       delayPressIn={400}
       // onPress={handlePress}
       activeOpacity={0.9}
@@ -22,18 +21,17 @@ export default function CategoryItem({ item, totalExpensesAmount }: CategoryItem
       <Row
         style={{
           alignItems: 'center',
-          backgroundColor: colors.white,
           borderRadius: 24,
           justifyContent: 'space-between',
-          padding: 16,
-          borderWidth: 1,
-          borderColor: colors.slateGrey[200],
+          padding: 8,
         }}
       >
         <Stack>
-          <ThemedText variant="body2">{item.categoryName}</ThemedText>
+          <ThemedText variant="header-sm">{item.categoryName}</ThemedText>
         </Stack>
-        <ThemedText variant="heading">{percentage.toFixed(0)}%</ThemedText>
+        <ThemedText variant="header-lg" style={{ color: colors.v2.teal }}>
+          {percentage.toFixed(0)}%
+        </ThemedText>
       </Row>
     </TouchableHighlight>
   );

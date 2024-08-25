@@ -19,7 +19,7 @@ export default function PageHeader({ title, LeftComponent, RightComponent }: Pag
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingVertical: 16,
-          backgroundColor: colors.white,
+          backgroundColor: colors.v2.black,
         }}
       >
         {LeftComponent}

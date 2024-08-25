@@ -117,9 +117,9 @@ function Item({ onPress, IconComponent, title, isActive }: ItemProps) {
       <Stack
         style={[
           {
-            backgroundColor: colors.whiteSmoke,
+            backgroundColor: colors.v2.grayDark,
             borderWidth: 1,
-            borderColor: isActive ? colors.black : colors.whiteSmoke,
+            borderColor: isActive ? colors.v2.white : colors.v2.grayDark,
             padding: 16,
             flex: 1,
             justifyContent: 'center',

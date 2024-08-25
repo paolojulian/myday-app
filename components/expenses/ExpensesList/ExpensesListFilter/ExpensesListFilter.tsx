@@ -18,7 +18,7 @@ export default function ExpensesListFilter({
   };
 
   return (
-    <Container style={{ paddingVertical: 8, backgroundColor: colors.white }}>
+    <Container style={{ paddingVertical: 8, backgroundColor: colors.v2.black }}>
       <Tabs<SupportedExpenseFilter>
         items={[
           {
