@@ -72,7 +72,7 @@ function NoTasksToday() {
         <ThemedText variant="header-md">No Task Due Today</ThemedText>
         <ThemedText
           variant="body-md"
-          style={{ textAlign: 'center', color: colors.slateGrey[500], maxWidth: 300 }}
+          style={{ textAlign: 'center', color: colors.v2.grayLight, maxWidth: 300 }}
         >
           You can now relax or add additional hustles.
         </ThemedText>
@@ -102,7 +102,7 @@ function NoCompletedTasks() {
         <ThemedText variant="header-md">No Completed Tasks</ThemedText>
         <ThemedText
           variant="body-md"
-          style={{ textAlign: 'center', color: colors.slateGrey[500], maxWidth: 300 }}
+          style={{ textAlign: 'center', color: colors.v2.grayLight, maxWidth: 300 }}
         >
           Finish something...
         </ThemedText>

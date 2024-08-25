@@ -33,7 +33,7 @@ export default function TaskList() {
             unCompleteTaskMutation(id);
           }}
         >
-          <ThemedText variant="body-md" style={{ color: colors.white }}>
+          <ThemedText variant="header-md" style={{ color: colors.v2.black }}>
             UNDO
           </ThemedText>
         </TouchableOpacity>

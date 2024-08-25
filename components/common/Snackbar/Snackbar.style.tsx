@@ -120,13 +120,13 @@ export const StyledSnackbarCard: FC<StyledSnackbarCardProps> = ({ children, vari
 };
 const cardVariantStyle: Record<SnackbarType, ViewStyle> = {
   error: {
-    backgroundColor: colors.red,
+    backgroundColor: colors.v2.red,
   },
   info: {
-    backgroundColor: colors.grey,
+    backgroundColor: colors.v2.grayLight,
   },
   success: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.v2.teal,
   },
 };
 
@@ -140,12 +140,12 @@ export const StyledSnackbarMessage: FC<StyledSnackbarMessageProps> = ({ message,
 
 const messageVariantStyle: Record<SnackbarType, TextStyle> = {
   info: {
-    color: colors.black,
+    color: colors.v2.black,
   },
   error: {
-    color: colors.white,
+    color: colors.v2.black,
   },
   success: {
-    color: colors.white,
+    color: colors.v2.black,
   },
 };
