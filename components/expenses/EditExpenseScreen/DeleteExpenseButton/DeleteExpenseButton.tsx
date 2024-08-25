@@ -38,7 +38,7 @@ export default function DeleteExpenseButton({ id }: DeleteExpenseButtonProps) {
 
   return (
     <MaterialCommunityIcons
-      style={{ color: colors.red }}
+      style={{ color: colors.v2.accent }}
       name={'trash-can'}
       size={32}
       onPress={handlePress}

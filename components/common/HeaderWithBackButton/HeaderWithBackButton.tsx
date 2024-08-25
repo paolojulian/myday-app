@@ -13,10 +13,15 @@ export default function HeaderWithBackButton({
   ...pageHeaderProps
 }: HeaderWithBackButtonProps) {
   return (
-    <View style={{ zIndex: 1, paddingBottom: 8, backgroundColor: colors.white }}>
+    <View style={{ zIndex: 1, paddingBottom: 8, backgroundColor: colors.v2.black }}>
       <PageHeader
         LeftComponent={
-          <MaterialCommunityIcons name={'chevron-left'} size={32} onPress={onBackPress} />
+          <MaterialCommunityIcons
+            color={colors.v2.white}
+            name={'chevron-left'}
+            size={32}
+            onPress={onBackPress}
+          />
         }
         {...pageHeaderProps}
       />

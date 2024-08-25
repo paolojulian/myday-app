@@ -56,7 +56,7 @@ export const RecurredPaymentsItem: FC<RecurredPaymentsItemProps> = ({
     <ThemedView
       style={{
         borderWidth: 1,
-        borderColor: colors.slateGrey[200],
+        borderColor: colors.v2.grayDark,
         borderRadius: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -64,10 +64,10 @@ export const RecurredPaymentsItem: FC<RecurredPaymentsItemProps> = ({
         padding: 16,
       }}
     >
-      <ThemedText style={{ color: colors.darkGrey }}>
+      <ThemedText style={{ color: colors.v2.white }}>
         {convertEpochToDate(transactionDate_epoch).format('D MMM YYYY')}
       </ThemedText>
-      <ThemedText style={{ color: colors.red }}>-{toLocaleCurrencyFormat(amount)}</ThemedText>
+      <ThemedText style={{ color: colors.v2.teal }}>-{toLocaleCurrencyFormat(amount)}</ThemedText>
     </ThemedView>
   </TouchableOpacity>
 );
