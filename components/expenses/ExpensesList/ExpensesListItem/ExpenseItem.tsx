@@ -69,7 +69,7 @@ export default function ExpenseItem({ expense }: ExpenseItemProps) {
             {recurrence !== null ? recurrenceText : formattedTransactionDate}
           </ThemedText>
         </Stack>
-        <ThemedText variant="header-md" style={{ color: colors.v2.accent }}>
+        <ThemedText variant="header-md" style={{ color: colors.v2.teal }}>
           - {toLocaleCurrencyFormat(amount)}
         </ThemedText>
       </Row>

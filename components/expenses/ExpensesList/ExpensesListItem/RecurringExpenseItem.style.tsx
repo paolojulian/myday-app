@@ -66,7 +66,7 @@ export const StyledRecurrenceItem: FC<StyledRecurrenceItemProps> = ({
 }) => (
   <Row style={{ justifyContent: 'space-between' }}>
     <ThemedText style={{ color: colors.v2.grayLight }}>{transactionDate}</ThemedText>
-    <ThemedText style={{ color: colors.v2.accent }}>{amount}</ThemedText>
+    <ThemedText style={{ color: colors.v2.teal }}>{amount}</ThemedText>
   </Row>
 );
 
@@ -74,7 +74,7 @@ export const StyledTotalAmount: FC<{ amount: string }> = ({ amount }) => (
   <Stack style={{ marginTop: 16 }}>
     <Row style={{ justifyContent: 'space-between' }}>
       <ThemedText style={{ color: colors.v2.grayLight }}>Total</ThemedText>
-      <ThemedText variant="body2" style={{ color: colors.v2.accent }}>
+      <ThemedText variant="body2" style={{ color: colors.v2.teal }}>
         {amount}
       </ThemedText>
     </Row>

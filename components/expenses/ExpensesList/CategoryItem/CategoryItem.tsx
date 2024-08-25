@@ -29,7 +29,7 @@ export default function CategoryItem({ item, totalExpensesAmount }: CategoryItem
         <Stack>
           <ThemedText variant="header-sm">{item.categoryName}</ThemedText>
         </Stack>
-        <ThemedText variant="header-lg" style={{ color: colors.v2.accent }}>
+        <ThemedText variant="header-lg" style={{ color: colors.v2.teal }}>
           {percentage.toFixed(0)}%
         </ThemedText>
       </Row>

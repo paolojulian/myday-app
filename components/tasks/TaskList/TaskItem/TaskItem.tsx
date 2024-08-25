@@ -85,7 +85,7 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
           {!!formattedReminderDate && (
             <ThemedText
               style={{
-                color: isChecked ? colors.grey : colors.darkGrey,
+                color: colors.v2.grayLight,
               }}
             >
               {formattedReminderDate}
