@@ -1,4 +1,4 @@
-import UpdateBudgetBottomSheet from '@/components/expenses/BudgetCard/UpdateBudgetBottomSheet';
+import UpdateBudgetBottomSheet from '@/components/expenses/UpdateBudgetBottomSheet';
 import { colors } from '@/constants/Colors';
 import DefaultTheme from '@/constants/Theme';
 import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
@@ -11,13 +11,13 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 export enum RouteNames {
   Tabs = '(tabs)',
   Add = 'add',
+  Edit = 'expense/[id]',
   NotFound = '+not-found',
 }
 
@@ -43,10 +43,7 @@ export default function RootLayout() {
 
   return (
     <>
-      {/* ios */}
-      <SafeAreaView style={{ flex: 0, backgroundColor: colors.slateGrey[100] }} />
-      {/* android */}
-      <StatusBar backgroundColor={colors.slateGrey[100]} />
+      <StatusBar backgroundColor={colors.v2.black} style="dark" />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <DatabaseProvider>
           <QueryClientProvider client={queryClient}>
@@ -59,6 +56,7 @@ export default function RootLayout() {
                   name={RouteNames.Add}
                   options={{ headerShown: false, presentation: 'fullScreenModal' }}
                 />
+                <Stack.Screen name={RouteNames.Edit} options={{ headerShown: false }} />
                 <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
               </Stack>
             </ThemeProvider>

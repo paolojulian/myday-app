@@ -7,6 +7,9 @@ export function useCustomFonts() {
     PoppinsMedium: require('../../assets/fonts/Poppins/Poppins-Medium.ttf'),
     PoppinsSemiBold: require('../../assets/fonts/Poppins/Poppins-SemiBold.ttf'),
     PoppinsBold: require('../../assets/fonts/Poppins/Poppins-Bold.ttf'),
+    RalewayRegular: require('../../assets/fonts/Raleway/static/Raleway-Regular.ttf'),
+    RalewaySemiBold: require('../../assets/fonts/Raleway/static/Raleway-SemiBold.ttf'),
+    RalewayBold: require('../../assets/fonts/Raleway/static/Raleway-Bold.ttf'),
   });
 
   return { loaded };

@@ -1,7 +1,7 @@
 import { Category } from '@/hooks/services/category/category.types';
-import { ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
 
-export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) {
+export function getCategoriesFromExpenses(expenses?: ExpenseListItem[]) {
   if (!expenses) {
     return [];
   }
@@ -24,4 +24,41 @@ export function getCategoriesFromExpenses(expenses?: ExpenseWithCategoryName[]) 
   );
 
   return reducedExpenses;
+}
+
+export type CategoryItemFields = {
+  type: 'category';
+  categoryId: Category['id'];
+  categoryName: Category['category_name'];
+  totalAmount: number;
+};
+export function groupExpensesByCategory(
+  expenses: Pick<ExpenseListItem, 'category_id' | 'category_name' | 'amount'>[],
+): CategoryItemFields[] {
+  const categoryItems: CategoryItemFields[] = [];
+
+  expenses.forEach(expense => {
+    const categoryIndex = categoryItems.findIndex(
+      category => category.categoryId === expense.category_id,
+    );
+    const doesCategoryExist = categoryIndex !== -1;
+
+    // Update existing category
+    if (doesCategoryExist) {
+      categoryItems[categoryIndex].totalAmount += expense.amount;
+    } else if (expense.category_id && expense.category_name) {
+      categoryItems.push({
+        type: 'category',
+        categoryId: expense.category_id,
+        categoryName: expense.category_name,
+        totalAmount: expense.amount,
+      });
+    }
+  });
+
+  return categoryItems.sort((a, b) => b.totalAmount - a.totalAmount);
+}
+
+export function getTotalAmount(expenses: Pick<ExpenseListItem, 'amount'>[]): number {
+  return expenses.reduce((acc, { amount }) => acc + amount, 0);
 }

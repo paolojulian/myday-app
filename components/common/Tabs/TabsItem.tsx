@@ -49,6 +49,7 @@ function TabsItem<T extends string | number>({
         ]}
       >
         <ThemedText
+          variant={variant === 'default-separated' ? 'body-md' : 'header-sm'}
           style={{
             ...styles.text,
             ...resolvedStyles.text,
@@ -105,13 +106,13 @@ const defaultStyles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   containerSelected: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.white,
   },
   text: {
-    color: colors.black,
+    color: colors.v2.white,
   },
   textActive: {
-    color: colors.white,
+    color: colors.v2.black,
   },
 });
 
@@ -132,16 +133,16 @@ const invertedStyles = StyleSheet.create({
 
 const defaultSeparatedStyles = StyleSheet.create({
   container: {
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.v2.grayDark,
   },
   containerSelected: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.yellow,
   },
   text: {
-    color: colors.black,
+    color: colors.v2.white,
   },
   textActive: {
-    color: colors.white,
+    color: colors.v2.black,
   },
 });
 

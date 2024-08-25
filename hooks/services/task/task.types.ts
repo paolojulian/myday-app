@@ -18,6 +18,7 @@ export interface Task {
 }
 
 export enum TaskQueryKeys {
+  task = 'task',
   list = 'task-list',
   overview = 'task-overview',
   priority = 'task-priority',

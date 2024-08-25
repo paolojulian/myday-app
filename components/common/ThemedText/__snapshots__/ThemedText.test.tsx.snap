@@ -5,8 +5,11 @@ exports[`TESTING ThemedText Component WHEN the component is rendered should matc
   style={
     [
       {
-        "fontFamily": "PoppinsRegular",
-        "fontSize": 14,
+        "fontFamily": "RalewayRegular",
+        "fontSize": 16,
+      },
+      {
+        "color": "#fafafa",
       },
       {
         "fontWeight": 400,
@@ -27,6 +30,10 @@ exports[`TESTING ThemedText Component WHEN the variant is set to heading should 
         "fontFamily": "PoppinsSemiBold",
         "fontSize": 24,
         "fontWeight": 600,
+        "lineHeight": 32,
+      },
+      {
+        "color": "#fafafa",
       },
       {
         "fontWeight": 400,

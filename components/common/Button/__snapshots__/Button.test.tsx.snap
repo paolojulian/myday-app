@@ -2,6 +2,7 @@
 
 exports[`TESTING Button Component GIVEN a text WHEN the component is rendered THEN it should match the snapshot 1`] = `
 <View
+  accessibilityRole="button"
   accessibilityState={
     {
       "busy": undefined,
@@ -45,7 +46,7 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
           "padding": 16,
         },
         {
-          "backgroundColor": "#0F172A",
+          "backgroundColor": "#CCFBF1",
         },
       ]
     }
@@ -54,16 +55,19 @@ exports[`TESTING Button Component GIVEN a text WHEN the component is rendered TH
       style={
         [
           {
-            "fontFamily": "PoppinsMedium",
+            "fontFamily": "RalewayBold",
             "fontSize": 16,
-            "fontWeight": 500,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           [
             {
-              "color": "#FFFFFF",
+              "color": "#171717",
             },
             {
               "fontWeight": "bold",

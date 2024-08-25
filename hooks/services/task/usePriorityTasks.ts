@@ -13,7 +13,7 @@ export function usePriorityTasks() {
   }
 
   return useQuery({
-    queryKey: [TaskQueryKeys.priority],
+    queryKey: [TaskQueryKeys.task, TaskQueryKeys.priority],
     queryFn: setup,
   });
 }

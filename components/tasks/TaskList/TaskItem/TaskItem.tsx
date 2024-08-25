@@ -1,56 +1,45 @@
 import { colors } from '@/constants/Colors';
+import { Task } from '@/hooks/services/task/task.types';
+import dayjs from 'dayjs';
 import Checkbox from 'expo-checkbox';
 import { selectionAsync } from 'expo-haptics';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
-import dayjs from 'dayjs';
-import { Task } from '@/hooks/services/task/task.types';
 
-type SupportedTaskFields = Pick<Task, 'id' | 'title' | 'description' | 'reminder_date'>;
+type SupportedTaskFields = Pick<
+  Task,
+  'id' | 'title' | 'description' | 'reminder_date' | 'is_completed'
+>;
 
 export type TaskItemProps = {
   onRemove: (id: number) => void;
+  onRevert?: (id: number) => void; // This is optional, since not every page has revert function
   task: SupportedTaskFields;
 };
 
-const TIME_BEFORE_REMOVED_MS = 3000;
-
-export default function TaskItem({ onRemove, task }: TaskItemProps) {
+export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
   const { id, title, reminder_date: reminderDate } = task;
-  const [isChecked, setChecked] = useState(false);
-  const isBeingRemovedTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isChecked, setChecked] = useState<boolean>(!!task.is_completed);
 
   const formattedReminderDate = useMemo(
     () => (reminderDate ? dayjs.unix(reminderDate).format('MMM D, YYYY') : null),
     [reminderDate],
   );
 
-  const prepareForRemoval = () => {
-    cancelRemoval();
-    // prepare for removal, make the whole thing less visible, then after 5000ms, call the remove function
-    isBeingRemovedTimeoutRef.current = setTimeout(() => {
-      onRemove(id);
-    }, TIME_BEFORE_REMOVED_MS);
-  };
-
-  const cancelRemoval = () => {
-    if (isBeingRemovedTimeoutRef.current) {
-      clearTimeout(isBeingRemovedTimeoutRef.current);
-    }
-  };
-
-  const handlePress = () => {
+  const handlePress = (): void => {
     selectionAsync();
+    if (!!task.is_completed) {
+      if (onRevert) onRevert(id);
+      return;
+    }
+
     setChecked(prev => {
       if (prev === false) {
-        // If previous value is false, we are checking the item, so we should prepare for removal
-        prepareForRemoval();
-      } else {
-        // If previous value is true, we are unchecking the item, so we should cancel the removal
-        cancelRemoval();
+        // If previous value is false, we are checking the item, so we need to remove it
+        onRemove(id);
       }
       return !prev;
     });
@@ -74,23 +63,21 @@ export default function TaskItem({ onRemove, task }: TaskItemProps) {
           gap: 16,
           alignItems: 'center',
           borderRadius: 8,
-          borderWidth: 1,
-          borderColor: colors.slateGrey[200],
-          backgroundColor: colors.white,
+          backgroundColor: colors.v2.grayDark,
         }}
       >
         <Checkbox
           style={{ borderRadius: 6 }}
           value={isChecked}
           onValueChange={setChecked}
-          color={isChecked ? colors.grey : colors.black}
+          color={isChecked ? colors.v2.grayLight : colors.v2.grayLight}
         />
         <Stack style={{ gap: 2, minHeight: 32, justifyContent: 'center' }}>
           <ThemedText
-            variant="body2"
+            variant="header-sm"
             style={{
               textDecorationLine: isChecked ? 'line-through' : 'none',
-              color: isChecked ? colors.grey : colors.black,
+              color: isChecked ? colors.v2.grayLight : colors.v2.white,
             }}
           >
             {title}
@@ -98,7 +85,7 @@ export default function TaskItem({ onRemove, task }: TaskItemProps) {
           {!!formattedReminderDate && (
             <ThemedText
               style={{
-                color: isChecked ? colors.grey : colors.darkGrey,
+                color: colors.v2.grayLight,
               }}
             >
               {formattedReminderDate}

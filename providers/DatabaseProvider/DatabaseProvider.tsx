@@ -18,7 +18,7 @@ export default function DatabaseProvider({ children }: DatabaseProviderProps) {
         <ThemedView
           style={{
             flex: 1,
-            backgroundColor: colors.white,
+            backgroundColor: colors.v2.black,
             alignItems: 'center',
             justifyContent: 'center',
           }}

@@ -14,15 +14,26 @@ export interface Expense {
   deleted_at: number | null;
 }
 
+export type ExpenseWithRecurredItems = Expense & {
+  recurred_items: Expense[];
+};
+
 export type ExpenseWithCategoryName = Expense & {
   category_id: Category['id'] | null;
   category_name: string | null;
 };
 
+export type ExpenseListItem = ExpenseWithRecurredItems & ExpenseWithCategoryName;
+
 export enum ExpenseQueryKeys {
+  expense = 'expense',
+  item = 'expense-item',
+  recurrenceItems = 'recurrence-items',
   list = 'expenses-list',
-  recurringExpenses = 'recurring-expenses',
+  totalExpenses = 'total-expenses',
+  expenseCategoryList = 'expense-category-list',
 }
+export const expenseQueryKeys = Object.values(ExpenseQueryKeys);
 
 export type ExpenseQueryFilters =
   | {

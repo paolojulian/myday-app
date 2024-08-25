@@ -1,4 +1,18 @@
 export const colors = {
+  v2: {
+    black: '#171717',
+    white: '#fafafa',
+    whiteSmoke: '#f5f5f5',
+    grayLight: '#A3A3A3',
+    grayDark: '#404040',
+    red: '#FEE2E2',
+    orange: '#FFEDD5',
+    teal: '#CCFBF1',
+    yellow: '#FEF9C3',
+    accent: '#F97316',
+    accentLight: '#F9731622',
+    success: '#dcfce7',
+  },
   aliceBlue: '#E5ECF3',
   backdrop: 'rgba(0, 0, 0, 0.3)',
   darkGrey: '#737373',

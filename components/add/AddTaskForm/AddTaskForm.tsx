@@ -1,14 +1,14 @@
 import { TabName } from '@/app/(tabs)/_layout';
 import {
-  TaskFormValues,
   ADD_TASK_VALIDATION_SCHEMA,
   convertTaskFormToTask,
   NOTE_PLACEHOLDER,
+  TaskFormValues,
 } from '@/components/add/AddTaskForm/AddTaskForm.utils';
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
+import EasyDatePicker from '@/components/common/EasyDatePicker';
 import CheckboxField from '@/components/common/forms/CheckboxField';
-import DatePicker from '@/components/common/forms/DatePicker';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
@@ -19,6 +19,10 @@ import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
 import { Fragment, useRef, useState } from 'react';
 import { ScrollView, TextInput } from 'react-native';
+
+export const ADD_TASK_FORM_TEST_IDS = {
+  title: 'add-task-form-title',
+};
 
 export default function AddTaskForm() {
   const noteRef = useRef<TextInput>(null);
@@ -71,13 +75,24 @@ export default function AddTaskForm() {
             }}
             validationSchema={ADD_TASK_VALIDATION_SCHEMA}
           >
-            {({ handleSubmit, handleChange, handleBlur, values, setFieldValue }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              setFieldValue,
+              values,
+              touched,
+              errors,
+            }) => (
               <>
                 <ThemedView style={{ gap: 8, flex: 1 }}>
                   <TextField
                     onSubmitEditing={handleTitleSubmitEditing}
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
+                    testID={ADD_TASK_FORM_TEST_IDS.title}
+                    isError={touched.title && !!errors.title}
+                    errorMessage={errors.title}
                     autoFocus
                     value={values.title}
                     label="Title"
@@ -85,12 +100,20 @@ export default function AddTaskForm() {
                     returnKeyLabel="Next"
                     returnKeyType="next"
                   />
-                  <TextArea ref={noteRef} label="Note (Optional)" placeholder={NOTE_PLACEHOLDER} />
-                  <DatePicker
-                    label="Reminder Date (Optional)"
-                    value={values.reminderDate}
+                  <TextArea
+                    onChangeText={handleChange('description')}
+                    onBlur={handleBlur('description')}
+                    ref={noteRef}
+                    label="Note (Optional)"
+                    placeholder={NOTE_PLACEHOLDER}
+                    isError={touched.description && !!errors.description}
+                    errorMessage={errors.description}
+                    value={values.description}
+                  />
+                  <EasyDatePicker
                     onSelectDate={date => setFieldValue('reminderDate', date)}
-                    variant="border"
+                    selectedDate={values.reminderDate}
+                    label="Reminder Date"
                   />
                   <CheckboxField
                     onValueChange={value => {
@@ -113,8 +136,8 @@ export default function AddTaskForm() {
                     />
                   )}
                 </ThemedView>
-                <ThemedView style={{ marginVertical: 16 }}>
-                  <Button text={'Save'} onPress={() => handleSubmit()} />
+                <ThemedView style={{ marginTop: 24 }}>
+                  <Button text={'Save'} onPress={() => handleSubmit()} variant="yellow" />
                 </ThemedView>
               </>
             )}

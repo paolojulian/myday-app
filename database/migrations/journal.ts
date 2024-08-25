@@ -1,5 +1,7 @@
 import { Migration } from '@/database/migrations/migration.types';
+import { convertDateToEpoch } from '@/utils/date/date.utils';
 
+const date = convertDateToEpoch(new Date());
 export const journalMigrations = [
   {
     version: 1,
@@ -22,6 +24,9 @@ export const journalMigrations = [
             deleted_at INTEGER,
             FOREIGN KEY(category_id) REFERENCES category(id)
           );
+
+          INSERT INTO journal (title, description, entry_date, created_at, updated_at)
+          VALUES ('My first journal', 'This is my first journal', ${date}, ${date}, ${date});
         `,
       },
     ],

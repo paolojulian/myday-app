@@ -10,7 +10,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
         "flexDirection": "row",
       },
       {
-        "backgroundColor": "#f5f5f5",
+        "backgroundColor": "#404040",
       },
       {},
     ]
@@ -46,7 +46,7 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
           "backgroundColor": "transparent",
         },
         {
-          "backgroundColor": "#0F172A",
+          "backgroundColor": "#fafafa",
           "flex": 1,
           "padding": 16,
         },
@@ -58,14 +58,18 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "PoppinsRegular",
-            "fontSize": 14,
+            "fontFamily": "RalewayBold",
+            "fontSize": 16,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#FFFFFF",
+            "color": "#171717",
             "textTransform": "capitalize",
           },
         ]
@@ -116,14 +120,18 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "PoppinsRegular",
-            "fontSize": 14,
+            "fontFamily": "RalewayBold",
+            "fontSize": 16,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#0F172A",
+            "color": "#fafafa",
             "textTransform": "capitalize",
           },
         ]
@@ -174,14 +182,18 @@ exports[`TESTING Tabs WHEN rendering should match snapshot 1`] = `
       style={
         [
           {
-            "fontFamily": "PoppinsRegular",
-            "fontSize": 14,
+            "fontFamily": "RalewayBold",
+            "fontSize": 16,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#0F172A",
+            "color": "#fafafa",
             "textTransform": "capitalize",
           },
         ]

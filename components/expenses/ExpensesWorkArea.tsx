@@ -1,10 +1,13 @@
 import ExpensesList from '@/components/expenses/ExpensesList';
-import React, { useState } from 'react';
+import React from 'react';
+import AppSafeAreaView from '../common/AppSafeAreaView';
 
 function ExpensesWorkArea() {
-  const [selectedDate] = useState(new Date());
-
-  return <ExpensesList transactionDate={selectedDate} />;
+  return (
+    <AppSafeAreaView>
+      <ExpensesList />
+    </AppSafeAreaView>
+  );
 }
 
 export default ExpensesWorkArea;

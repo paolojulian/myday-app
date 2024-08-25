@@ -21,18 +21,22 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
     }
   >
     <Text
+      aria-label="Title"
       style={
         [
           {
-            "fontFamily": "PoppinsMedium",
+            "fontFamily": "RalewayBold",
             "fontSize": 16,
-            "fontWeight": 500,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#0F172A",
+            "color": "#fafafa",
           },
         ]
       }
@@ -45,20 +49,21 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
     onChangeText={[MockFunction]}
     onFocus={[Function]}
     placeholder="Search field"
-    placeholderTextColor="#a3a3a3"
+    placeholderTextColor="#A3A3A3"
     style={
       [
         undefined,
         {
-          "backgroundColor": "#f5f5f5",
+          "backgroundColor": "#404040",
           "borderRadius": 8,
           "borderWidth": 1,
+          "color": "#fafafa",
           "paddingBottom": 12,
           "paddingHorizontal": 16,
           "paddingTop": 36,
         },
         {
-          "fontFamily": "PoppinsRegular",
+          "fontFamily": "RalewayRegular",
           "fontSize": 16,
         },
         {
@@ -93,18 +98,22 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     }
   >
     <Text
+      aria-label="Title"
       style={
         [
           {
-            "fontFamily": "PoppinsMedium",
+            "fontFamily": "RalewayBold",
             "fontSize": 16,
-            "fontWeight": 500,
+            "fontWeight": 700,
+          },
+          {
+            "color": "#fafafa",
           },
           {
             "fontWeight": 400,
           },
           {
-            "color": "#0F172A",
+            "color": "#fafafa",
           },
         ]
       }
@@ -117,24 +126,25 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     onChangeText={[MockFunction]}
     onFocus={[Function]}
     placeholder="Search field"
-    placeholderTextColor="#a3a3a3"
+    placeholderTextColor="#A3A3A3"
     style={
       [
         undefined,
         {
-          "backgroundColor": "#f5f5f5",
+          "backgroundColor": "#404040",
           "borderRadius": 8,
           "borderWidth": 1,
+          "color": "#fafafa",
           "paddingBottom": 12,
           "paddingHorizontal": 16,
           "paddingTop": 36,
         },
         {
-          "fontFamily": "PoppinsRegular",
+          "fontFamily": "RalewayRegular",
           "fontSize": 16,
         },
         {
-          "borderColor": "#CC3333",
+          "borderColor": "#F97316",
         },
       ]
     }
@@ -145,14 +155,17 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
     style={
       [
         {
-          "fontFamily": "PoppinsRegular",
-          "fontSize": 14,
+          "fontFamily": "RalewayRegular",
+          "fontSize": 16,
+        },
+        {
+          "color": "#fafafa",
         },
         {
           "fontWeight": 400,
         },
         {
-          "color": "#CC3333",
+          "color": "#F97316",
           "paddingTop": 8,
         },
       ]

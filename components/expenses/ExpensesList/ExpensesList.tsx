@@ -1,89 +1,115 @@
 import Container from '@/components/common/Container';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
-import BudgetCard from '@/components/expenses/BudgetCard';
-import { getCategoriesFromExpenses } from '@/components/expenses/ExpensesList/ExpensesList.utils';
-import ExpensesListCategories from '@/components/expenses/ExpensesList/ExpensesListCategories';
-import { colors } from '@/constants/Colors';
-import { Category } from '@/hooks/services/category/category.types';
-import { Expense, ExpenseWithCategoryName } from '@/hooks/services/expense/expense.types';
+import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
 import useExpenses from '@/hooks/services/expense/useExpenses';
-import { useState } from 'react';
+import { useExpensesByCategory } from '@/hooks/services/expense/useExpensesByCategory';
+import { useFocusEffect } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
-import ExpenseItem from './ExpensesListItem/ExpenseItem';
+import CategoryItem from './CategoryItem';
+import { getTotalAmount, type CategoryItemFields } from './ExpensesList.utils';
+import ExpensesListFilter, {
+  SupportedExpenseFilter,
+} from './ExpensesListFilter/ExpensesListFilter';
+import ExpenseItemFactory from './ExpensesListItem/ExpenseItemFactory';
+import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
 
-type ExpenseListProps = {
-  transactionDate: Date;
-};
+export default function ExpensesList() {
+  const [transactionDate, setTransactionDate] = useState<Date>(new Date());
+  const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
 
-export default function ExpensesList({ transactionDate }: ExpenseListProps) {
-  const [selectedCategory, setSelectedCategory] = useState<Category['id'] | null>(null);
-  // const filterType = selectedCategory === null ? 'monthly' : 'category';
-  const { data: expenses, isLoading } = useExpenses({
+  const {
+    data: expenses,
+    isLoading,
+    refetch: refetchExpenses,
+  } = useExpenses({
     filterType: 'monthly',
     transactionDate,
-    // categoryId: filterType === 'monthly' ? undefined : selectedCategory,
   });
+
+  const { data: expensesByCategory, refetch: refetchExpensesByCategory } = useExpensesByCategory({
+    transactionDate,
+  });
+
+  useFocusEffect(() => {
+    refetchExpenses();
+  });
+
+  useEffect(() => {
+    if (selectedFilter === 'category') {
+      refetchExpensesByCategory();
+    }
+  }, [selectedFilter]);
+
+  const totalExpensesAmount = expenses ? getTotalAmount(expenses) : 0;
+  const data = selectedFilter === 'category' ? expensesByCategory : expenses;
 
   if (isLoading) {
     // TODO: add loading skeleton
     return null;
   }
 
-  const filteredExpenses = selectedCategory
-    ? expenses?.filter(item => item.category_id === selectedCategory)
-    : expenses;
-  const categories = getCategoriesFromExpenses(expenses);
-
-  const handleDeleteItem = (id: Expense['id']) => {
-    // TODO: add delete function
-    console.log('Deleting item with id: ', id);
-  };
-
   return (
-    <FlatList
-      data={[{ isFilters: true }, ...(filteredExpenses ?? [])]}
-      renderItem={({ item }) => {
-        if (isFilterItem(item)) {
-          return (
-            <ThemedView style={{ backgroundColor: colors.white, paddingVertical: 16 }}>
-              <ExpensesListCategories
-                onSelectCategory={setSelectedCategory}
-                categories={categories}
+    <>
+      <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
+        data={[{ isFilter: true }, ...data]}
+        keyExtractor={item => {
+          if (isFilter(item)) {
+            return 'filter';
+          }
+
+          if (isCategory(item)) {
+            return `Category:${item.categoryId}`;
+          }
+
+          return item.id.toString();
+        }}
+        renderItem={({ item }) => {
+          if (isFilter(item)) {
+            return (
+              <ExpensesListFilter
+                selectedFilter={selectedFilter}
+                onSelectFilter={setSelectedFilter}
               />
-            </ThemedView>
+            );
+          }
+
+          return (
+            <Container>
+              {isCategory(item) ? (
+                <CategoryItem
+                  key={item.categoryId}
+                  item={item}
+                  totalExpensesAmount={totalExpensesAmount}
+                />
+              ) : (
+                <ExpenseItemFactory key={item.id} expense={item} />
+              )}
+            </Container>
           );
+        }}
+        stickyHeaderIndices={[1]}
+        ItemSeparatorComponent={() => <ThemedView style={{ height: 4 }} />}
+        ListHeaderComponent={
+          <ListHeaderComponent
+            transactionDate={transactionDate}
+            onSetTransactionDate={setTransactionDate}
+          />
         }
-
-        if (!isExpenseWithCategoryName(item)) {
-          return null;
-        }
-
-        return (
-          <Container>
-            <ExpenseItem key={item.id} onDelete={handleDeleteItem} expense={item} />
-          </Container>
-        );
-      }}
-      ItemSeparatorComponent={() => <ThemedView style={{ height: 8 }} />}
-      ListHeaderComponent={() => (
-        <Container style={{ gap: 24, backgroundColor: colors.black, paddingVertical: 24 }}>
-          <ThemedText variant="heading" style={{ color: colors.white }}>
-            Monthly Expenses
-          </ThemedText>
-          <BudgetCard />
-        </Container>
-      )}
-      ListFooterComponent={() => <ThemedView style={{ height: 16 }} />}
-      stickyHeaderIndices={[1]}
-    />
+        ListFooterComponent={<ThemedView style={{ height: 16 }} />}
+        ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}
+      />
+    </>
   );
 }
 
-function isFilterItem(item?: any): item is { isFilters: true } {
-  return item?.isFilters;
+function isFilter(
+  item: CategoryItemFields | ExpenseListItem | { isFilter: boolean },
+): item is { isFilter: boolean } {
+  return 'isFilter' in item && item.isFilter === true;
 }
 
-function isExpenseWithCategoryName(item?: any): item is ExpenseWithCategoryName {
-  return (item as ExpenseWithCategoryName)?.category_name !== undefined;
+function isCategory(item: CategoryItemFields | ExpenseListItem): item is CategoryItemFields {
+  return 'type' in item && item.type === 'category';
 }

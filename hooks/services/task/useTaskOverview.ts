@@ -16,7 +16,7 @@ export default function useTaskOverview() {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: [TaskQueryKeys.overview],
+    queryKey: [TaskQueryKeys.task, TaskQueryKeys.overview],
     queryFn: setup,
     initialData: { totalTasks: 0, dueToday: 0, overdue: 0 },
   });

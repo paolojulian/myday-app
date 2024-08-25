@@ -8,3 +8,7 @@ export interface Journal {
   updated_at: number;
   deleted_at: number;
 }
+
+export enum JournalQueryKeys {
+  journal = 'journal',
+}

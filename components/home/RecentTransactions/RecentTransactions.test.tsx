@@ -1,13 +1,18 @@
 import * as UseExpensesMock from '@/hooks/services/expense/useExpenses';
 import { render, screen } from '@testing-library/react-native';
-import RecentTransactions from './RecentTransactions';
 import dayjs from 'dayjs';
+import RecentTransactions from './RecentTransactions';
 
 jest.mock('expo-router', () => ({
   ...jest.requireActual('expo-router'),
   useNavigation: jest.fn(),
 }));
 jest.mock('@/hooks/services/expense/useExpenses');
+jest.mock('expo-router', () => ({
+  useNavigation: jest.fn(),
+  useRouter: jest.fn(),
+  useFocusEffect: jest.fn(),
+}));
 
 describe('TESTING RecentTransactions component', () => {
   describe('GIVEN expenses', () => {
@@ -47,6 +52,7 @@ describe('TESTING RecentTransactions component', () => {
           ({
             data: [],
             isLoading: false,
+            refetch: jest.fn(),
           }) as any,
       );
       initializeComponent();

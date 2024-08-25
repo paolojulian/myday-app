@@ -1,5 +1,5 @@
 import Label from '@/components/common/forms/Label';
-import ThemedText, { themedTextStyles } from '@/components/common/ThemedText/ThemedText';
+import ThemedText, { textVariantStyles } from '@/components/common/ThemedText/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
 import React, { ComponentProps, forwardRef, useMemo, useState } from 'react';
@@ -55,9 +55,9 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
         <TextInput
           {...props}
           ref={ref}
-          testID={TEXT_FIELD_TEST_IDS.textInput}
-          placeholderTextColor={colors.grey}
-          style={[style, styles.textInput, themedTextStyles.body1, resolvedTextInputStyle]}
+          testID={props.testID ? props.testID : TEXT_FIELD_TEST_IDS.textInput}
+          placeholderTextColor={colors.v2.grayLight}
+          style={[style, styles.textInput, textVariantStyles['body-md'], resolvedTextInputStyle]}
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
@@ -65,7 +65,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
         {!!errorMessage && isError && (
           <ThemedText
             testID={TEXT_FIELD_TEST_IDS.errorMessage}
-            style={{ color: colors.red, paddingTop: 8 }}
+            style={{ color: colors.v2.accent, paddingTop: 8 }}
           >
             {errorMessage}
           </ThemedText>
@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
     paddingTop: 36,
     paddingBottom: 12,
     paddingHorizontal: 16,
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.v2.grayDark,
+    color: colors.v2.white,
     borderRadius: 8,
     borderWidth: 1,
   },
@@ -99,10 +100,10 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   textInputWithFocus: {
-    borderColor: colors.black,
+    borderColor: colors.v2.black,
   },
   textInputWithError: {
-    borderColor: colors.red,
+    borderColor: colors.v2.accent,
   },
 });
 
