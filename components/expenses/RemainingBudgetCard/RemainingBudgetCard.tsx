@@ -42,7 +42,6 @@ export default function RemainingBudgetCard({
   const remainingBudget = monthlyBudget - totalMonthlyExpenses;
 
   const variantStyles = variant === 'horizontal' ? horizontalStyles : verticalStyles;
-  const pieChartVariant = variant === 'horizontal' ? 'sm' : 'default';
 
   if (!budget) {
     return <NoBudgetCard />;
@@ -80,7 +79,7 @@ export default function RemainingBudgetCard({
             </Stack>
           </Stack>
           <ThemedView style={{ ...variantStyles.pieChart }}>
-            <PieChart variant={pieChartVariant} current={remainingBudget} total={monthlyBudget} />
+            <PieChart variant={'default'} current={remainingBudget} total={monthlyBudget} />
           </ThemedView>
         </Row>
       </AppCard>

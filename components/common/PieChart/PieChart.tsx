@@ -56,8 +56,8 @@ const defaultStyles = StyleSheet.create({
 });
 const smStyles = StyleSheet.create({
   container: {
-    width: 80,
-    height: 80,
+    width: 48,
+    height: 48,
   },
 });
 
