@@ -14,6 +14,8 @@ import ExpensesListFilter, {
 } from './ExpensesListFilter/ExpensesListFilter';
 import ExpenseItemFactory from './ExpensesListItem/ExpenseItemFactory';
 import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
+import MainHeader from '@/components/common/MainHeader';
+import { colors } from '@/constants/Colors';
 
 export default function ExpensesList() {
   const [transactionDate, setTransactionDate] = useState<Date>(new Date());
@@ -52,6 +54,7 @@ export default function ExpensesList() {
 
   return (
     <>
+      <MainHeader subtitle={'Expenses'} color={colors.v2.teal} />
       <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
         data={[{ isFilter: true }, ...data]}
         keyExtractor={item => {
@@ -91,7 +94,7 @@ export default function ExpensesList() {
             </Container>
           );
         }}
-        stickyHeaderIndices={[1]}
+        stickyHeaderIndices={[0, 1]}
         ItemSeparatorComponent={() => <ThemedView style={{ height: 4 }} />}
         ListHeaderComponent={
           <ListHeaderComponent

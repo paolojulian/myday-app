@@ -20,7 +20,7 @@ function HomeWorkArea() {
   return (
     <AppSafeAreaView>
       <GlowingHeader variant="white" />
-      <ScrollView style={{ flex: 1, backgroundColor: colors.v2.black }}>
+      <ScrollView style={{ flex: 1, backgroundColor: colors.v2.black }} stickyHeaderIndices={[0]}>
         <MainHeader subtitle={formattedDateToday} />
         <Container>
           <Stack style={{ gap: 40, flex: 1, paddingBottom: 24 }}>

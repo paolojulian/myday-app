@@ -3,6 +3,7 @@ import { colors } from '@/constants/Colors';
 import DefaultTheme from '@/constants/Theme';
 import { useBackgroundFetch } from '@/hooks/useBackgroundFetch';
 import { useCustomFonts } from '@/hooks/useCustomFonts';
+import { usePreloadImages } from '@/hooks/usePreloadImages/usePreloadImages';
 import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
 import { ThemeProvider } from '@react-navigation/native';
@@ -28,16 +29,18 @@ const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const { loaded: isFontsLoaded } = useCustomFonts();
+  const { areImagesReady } = usePreloadImages();
 
+  const isPreloadFinished: boolean = isFontsLoaded && areImagesReady;
   useBackgroundFetch();
 
   useEffect(() => {
-    if (isFontsLoaded) {
+    if (isPreloadFinished) {
       SplashScreen.hideAsync();
     }
-  }, [isFontsLoaded]);
+  }, [isPreloadFinished]);
 
-  if (!isFontsLoaded) {
+  if (!isPreloadFinished) {
     return null;
   }
 

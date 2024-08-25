@@ -13,7 +13,7 @@ function GlowingHeader({ variant }: GlowingHeaderProps) {
 
   return (
     <Image
-      source={source}
+      source={source as any}
       style={{ position: 'absolute', top: -16, left: 0, right: 0, zIndex: 100 }}
       resizeMode="contain"
     />
