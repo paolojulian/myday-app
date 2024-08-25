@@ -43,7 +43,7 @@ export default function ListHeaderComponent({
             <ChevronRightIcon />
           </TouchableOpacity>
         </Row>
-        <RemainingBudgetCard variant="horizontal" />
+        <RemainingBudgetCard transactionDate={transactionDate} variant="horizontal" />
       </Container>
     </>
   );

@@ -1,5 +1,6 @@
 import AppCard from '@/components/common/AppCard';
 import PieChart from '@/components/common/PieChart';
+import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import ThemedView from '@/components/common/ThemedView';
@@ -8,21 +9,22 @@ import useBudget from '@/hooks/services/budget/useBudget';
 import { useTotalExpenses } from '@/hooks/services/expense/useTotalExpenses';
 import { toLocaleCurrencyFormat } from '@/utils/currency/currency.utils';
 import { useFocusEffect } from 'expo-router';
-import { useMemo } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { UpdateBudgetManager } from '../UpdateBudgetBottomSheet/UpdateBudgetBottomSheet';
 import { NoBudgetCard } from './NoBudgetCard';
-import Row from '@/components/common/Row';
 
 type RemainingBudgetCardProps = {
+  transactionDate: Date;
   variant?: 'horizontal' | 'vertical';
 };
 
-export default function RemainingBudgetCard({ variant = 'vertical' }: RemainingBudgetCardProps) {
-  const today = useMemo(() => new Date(), []);
-  const { data: budget, refetch: refetchBudget } = useBudget(today);
+export default function RemainingBudgetCard({
+  transactionDate,
+  variant = 'vertical',
+}: RemainingBudgetCardProps) {
+  const { data: budget, refetch: refetchBudget } = useBudget(transactionDate);
   const { data: totalMonthlyExpenses, refetch: refetchTotalExpenses } = useTotalExpenses({
-    transactionDate: today,
+    transactionDate,
     type: 'monthly',
   });
 
