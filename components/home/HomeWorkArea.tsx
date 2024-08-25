@@ -79,7 +79,7 @@ function HomeWorkArea() {
             <Stack style={{ flex: 1, gap: 8 }}>
               <AppCard
                 style={{
-                  backgroundColor: colors.v2.red,
+                  backgroundColor: colors.v2.orange,
                   height: 240,
                 }}
               >
@@ -97,7 +97,7 @@ function HomeWorkArea() {
                   </View>
                 </Stack>
               </AppCard>
-              <AppCard style={{ backgroundColor: colors.v2.orange, height: 197 }}>
+              <AppCard style={{ backgroundColor: colors.v2.red, height: 197 }}>
                 <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                   <View style={{ marginBottom: 16 }}>
                     <JournalIcon />

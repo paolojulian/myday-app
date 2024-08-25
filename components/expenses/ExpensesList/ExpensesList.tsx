@@ -16,7 +16,7 @@ import ExpenseItemFactory from './ExpensesListItem/ExpenseItemFactory';
 import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
 
 export default function ExpensesList() {
-  const [transactionDate] = useState<Date>(new Date());
+  const [transactionDate, setTransactionDate] = useState<Date>(new Date());
   const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
 
   const {
@@ -91,7 +91,12 @@ export default function ExpensesList() {
         }}
         stickyHeaderIndices={[1]}
         ItemSeparatorComponent={() => <ThemedView style={{ height: 4 }} />}
-        ListHeaderComponent={<ListHeaderComponent />}
+        ListHeaderComponent={
+          <ListHeaderComponent
+            transactionDate={transactionDate}
+            onSetTransactionDate={setTransactionDate}
+          />
+        }
         ListFooterComponent={<ThemedView style={{ height: 16 }} />}
         ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}
       />
