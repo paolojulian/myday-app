@@ -12,6 +12,7 @@ import JournalIcon from '../common/icons/JournalIcon';
 import HomeRemainingBudgetCard from './HomeRemainingBudgetCard';
 import HomeSpentToday from './HomeSpentToday';
 import RecentTransactions from './RecentTransactions';
+import HomeTaskOverview from './HomeTaskOverview';
 
 function HomeWorkArea() {
   const formattedDateToday = useMemo(() => dayjs().format('dddd, MMM D, YYYY'), []);
@@ -24,38 +25,7 @@ function HomeWorkArea() {
           <Row style={{ gap: 8 }}>
             <Stack style={{ flex: 1, gap: 8 }}>
               <HomeRemainingBudgetCard />
-              <AppCard
-                style={{
-                  backgroundColor: colors.v2.yellow,
-                  height: 240,
-                }}
-              >
-                <Stack
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100%',
-                    gap: 24,
-                  }}
-                >
-                  <View style={{ alignItems: 'center', gap: 8 }}>
-                    <ThemedText variant="header-lg" color="inverted">
-                      4
-                    </ThemedText>
-                    <ThemedText variant="title-sm" color="inverted">
-                      Tasks Today
-                    </ThemedText>
-                  </View>
-                  <View style={{ alignItems: 'center', gap: 8 }}>
-                    <ThemedText variant="header-lg" color="inverted">
-                      12
-                    </ThemedText>
-                    <ThemedText variant="title-sm" color="inverted">
-                      Overdue
-                    </ThemedText>
-                  </View>
-                </Stack>
-              </AppCard>
+              <HomeTaskOverview />
             </Stack>
             <Stack style={{ flex: 1, gap: 8 }}>
               <HomeSpentToday />
