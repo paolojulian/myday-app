@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Expense, ExpenseQueryKeys } from './expense.types';
 import { getUseExpenseQueryKey } from './useExpense';
+import { addVariableIfDefined } from '@/utils/add-variable-if-defined';
 
 type SupportedUpdateExpenseFields = Partial<
   Pick<
@@ -42,16 +43,6 @@ export function useUpdateExpense(id: Expense['id']) {
       });
     },
   });
-}
-
-function addVariableIfDefined<T>(
-  variables: Record<string, T>,
-  fieldName: keyof Expense,
-  value?: T,
-) {
-  if (!value) return;
-
-  variables[`$${fieldName}`] = value;
 }
 
 const buildStatement = (expense: SupportedUpdateExpenseFields) => {

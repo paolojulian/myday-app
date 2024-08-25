@@ -25,8 +25,8 @@ export const journalMigrations = [
             FOREIGN KEY(category_id) REFERENCES category(id)
           );
 
-          INSERT INTO journal (title, description, created_at, updated_at)
-          VALUES ('My first journal', 'This is my first journal', ${date}, ${date});
+          INSERT INTO journal (title, description, entry_date, created_at, updated_at)
+          VALUES ('My first journal', 'This is my first journal', ${date}, ${date}, ${date});
         `,
       },
     ],

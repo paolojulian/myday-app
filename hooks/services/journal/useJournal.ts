@@ -24,6 +24,6 @@ export function useJournal(date: Date) {
 const GET_JOURNAL_BY_DATE = /* sql */ `
   SELECT journal.* FROM journal
   WHERE
-    created_at <= $end AND created_at >= $start
+    entry_date <= $end AND entry_date >= $start
   ORDER BY created_at DESC LIMIT 1
 `;
