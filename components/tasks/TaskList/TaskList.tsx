@@ -1,17 +1,17 @@
 import Container from '@/components/common/Container';
+import MainHeader from '@/components/common/MainHeader';
+import ThemedText from '@/components/common/ThemedText';
 import TaskFilters from '@/components/tasks/TaskFilters';
-import TaskHeader from '@/components/tasks/TaskHeader';
 import { colors } from '@/constants/Colors';
 import { type TaskFilterTypes } from '@/hooks/services/task/task.types';
 import { useCompleteTask } from '@/hooks/services/task/useCompleteTask';
 import useTasks from '@/hooks/services/task/useTasks';
-import { useState } from 'react';
-import { FlatList, TouchableOpacity, View } from 'react-native';
-import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
-import EmptyTaskList from './EmptyTaskList';
 import { useUncompleteTask } from '@/hooks/services/task/useUncompleteTask';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
-import ThemedText from '@/components/common/ThemedText';
+import { useState } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import EmptyTaskList from './EmptyTaskList';
+import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
 
 export default function TaskList() {
   const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
@@ -33,7 +33,7 @@ export default function TaskList() {
             unCompleteTaskMutation(id);
           }}
         >
-          <ThemedText variant="body2" style={{ color: colors.white }}>
+          <ThemedText variant="body-md" style={{ color: colors.white }}>
             UNDO
           </ThemedText>
         </TouchableOpacity>
@@ -48,12 +48,12 @@ export default function TaskList() {
   return (
     <FlatList
       data={tasks}
-      contentContainerStyle={{ backgroundColor: colors.white }}
+      contentContainerStyle={{ backgroundColor: colors.v2.black }}
       ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
       ListEmptyComponent={isLoading ? null : <EmptyTaskList filterType={selectedFilter} />}
       ListHeaderComponent={
         <>
-          <TaskHeader />
+          <MainHeader subtitle="Tasks" color={colors.v2.yellow} />
           <TaskFilters onSelectFilter={setSelectedFilter} selectedItem={selectedFilter} />
         </>
       }

@@ -63,23 +63,21 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
           gap: 16,
           alignItems: 'center',
           borderRadius: 8,
-          borderWidth: 1,
-          borderColor: colors.slateGrey[200],
-          backgroundColor: colors.white,
+          backgroundColor: colors.v2.grayDark,
         }}
       >
         <Checkbox
           style={{ borderRadius: 6 }}
           value={isChecked}
           onValueChange={setChecked}
-          color={isChecked ? colors.grey : colors.black}
+          color={isChecked ? colors.v2.grayLight : colors.v2.grayLight}
         />
         <Stack style={{ gap: 2, minHeight: 32, justifyContent: 'center' }}>
           <ThemedText
-            variant="body2"
+            variant="header-sm"
             style={{
               textDecorationLine: isChecked ? 'line-through' : 'none',
-              color: isChecked ? colors.grey : colors.black,
+              color: isChecked ? colors.v2.grayLight : colors.v2.white,
             }}
           >
             {title}

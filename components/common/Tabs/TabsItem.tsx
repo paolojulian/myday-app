@@ -49,7 +49,7 @@ function TabsItem<T extends string | number>({
         ]}
       >
         <ThemedText
-          variant="header-sm"
+          variant={variant === 'default-separated' ? 'body-md' : 'header-sm'}
           style={{
             ...styles.text,
             ...resolvedStyles.text,
@@ -136,13 +136,13 @@ const defaultSeparatedStyles = StyleSheet.create({
     backgroundColor: colors.v2.grayDark,
   },
   containerSelected: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.yellow,
   },
   text: {
-    color: colors.black,
+    color: colors.v2.white,
   },
   textActive: {
-    color: colors.white,
+    color: colors.v2.black,
   },
 });
 
