@@ -9,8 +9,8 @@ import Container from '../common/Container';
 import Row from '../common/Row';
 import ThemedText from '../common/ThemedText';
 import JournalIcon from '../common/icons/JournalIcon';
-import MoneyIcon from '../common/icons/MoneyIcon';
 import HomeRemainingBudgetCard from './HomeRemainingBudgetCard';
+import HomeSpentToday from './HomeSpentToday';
 import RecentTransactions from './RecentTransactions';
 
 function HomeWorkArea() {
@@ -58,26 +58,7 @@ function HomeWorkArea() {
               </AppCard>
             </Stack>
             <Stack style={{ flex: 1, gap: 8 }}>
-              <AppCard
-                style={{
-                  backgroundColor: colors.v2.orange,
-                  height: 240,
-                }}
-              >
-                <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                  <View style={{ marginBottom: 16 }}>
-                    <MoneyIcon />
-                  </View>
-                  <View style={{ alignItems: 'center', gap: 8 }}>
-                    <ThemedText variant="header-lg" color="inverted">
-                      -$1,200
-                    </ThemedText>
-                    <ThemedText variant="title-sm" color="inverted">
-                      Spent Today
-                    </ThemedText>
-                  </View>
-                </Stack>
-              </AppCard>
+              <HomeSpentToday />
               <AppCard style={{ backgroundColor: colors.v2.red, height: 197 }}>
                 <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                   <View style={{ marginBottom: 16 }}>
