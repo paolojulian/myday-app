@@ -74,7 +74,7 @@ export const StyledTotalAmount: FC<{ amount: string }> = ({ amount }) => (
   <Stack style={{ marginTop: 16 }}>
     <Row style={{ justifyContent: 'space-between' }}>
       <ThemedText style={{ color: colors.v2.grayLight }}>Total</ThemedText>
-      <ThemedText variant="body2" style={{ color: colors.v2.teal }}>
+      <ThemedText variant="header-md" style={{ color: colors.v2.teal }}>
         {amount}
       </ThemedText>
     </Row>

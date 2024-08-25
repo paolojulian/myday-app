@@ -22,6 +22,7 @@ import {
 import { Formik } from 'formik';
 import { useDebounceCallback } from 'usehooks-ts';
 import useUpdateOrCreateJournal from '@/hooks/services/journal/useUpdateOrCreateJournal';
+import GlowingHeader from '../common/GlowingHeader';
 
 function JournalWorkArea() {
   const [date, setDate] = useState(new Date());
@@ -51,6 +52,7 @@ function JournalWorkArea() {
 
   return (
     <AppSafeAreaView>
+      <GlowingHeader variant="red" />
       <MainHeader subtitle="Journal" color={colors.v2.red} />
 
       <ScrollView>

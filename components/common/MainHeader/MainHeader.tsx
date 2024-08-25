@@ -16,7 +16,9 @@ function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Pro
   return (
     <Container
       style={{
+        backgroundColor: colors.v2.black,
         paddingBottom: 24,
+        zIndex: 10,
       }}
     >
       <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>

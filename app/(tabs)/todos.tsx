@@ -1,5 +1,1 @@
-import TaskWorkArea from '@/components/tasks/TaskWorkArea';
-
-export default function TodoScreen() {
-  return <TaskWorkArea />;
-}
+export { default } from '@/components/tasks/TaskWorkArea';
