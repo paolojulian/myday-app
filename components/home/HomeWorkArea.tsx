@@ -3,16 +3,14 @@ import Stack from '@/components/common/Stack';
 import { colors } from '@/constants/Colors';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
-import { ScrollView, View } from 'react-native';
-import AppCard from '../common/AppCard';
+import { ScrollView } from 'react-native';
 import Container from '../common/Container';
 import Row from '../common/Row';
-import ThemedText from '../common/ThemedText';
-import JournalIcon from '../common/icons/JournalIcon';
+import HomeJournalOverview from './HomeJournalOverview';
 import HomeRemainingBudgetCard from './HomeRemainingBudgetCard';
 import HomeSpentToday from './HomeSpentToday';
-import RecentTransactions from './RecentTransactions';
 import HomeTaskOverview from './HomeTaskOverview';
+import RecentTransactions from './RecentTransactions';
 
 function HomeWorkArea() {
   const formattedDateToday = useMemo(() => dayjs().format('dddd, MMM D, YYYY'), []);
@@ -29,17 +27,7 @@ function HomeWorkArea() {
             </Stack>
             <Stack style={{ flex: 1, gap: 8 }}>
               <HomeSpentToday />
-              <AppCard style={{ backgroundColor: colors.v2.red, height: 197 }}>
-                <Stack style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                  <View style={{ marginBottom: 16 }}>
-                    <JournalIcon />
-                  </View>
-
-                  <ThemedText variant="title-sm" color="inverted" style={{ textAlign: 'center' }}>
-                    Start Journal for Today
-                  </ThemedText>
-                </Stack>
-              </AppCard>
+              <HomeJournalOverview />
             </Stack>
           </Row>
           <RecentTransactions />
