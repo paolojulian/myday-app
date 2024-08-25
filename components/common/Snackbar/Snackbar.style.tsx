@@ -126,7 +126,7 @@ const cardVariantStyle: Record<SnackbarType, ViewStyle> = {
     backgroundColor: colors.v2.grayLight,
   },
   success: {
-    backgroundColor: colors.v2.teal,
+    backgroundColor: colors.v2.success,
   },
 };
 

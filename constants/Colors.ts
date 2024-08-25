@@ -11,6 +11,7 @@ export const colors = {
     yellow: '#FEF9C3',
     accent: '#F97316',
     accentLight: '#F9731622',
+    success: '#dcfce7',
   },
   aliceBlue: '#E5ECF3',
   backdrop: 'rgba(0, 0, 0, 0.3)',
