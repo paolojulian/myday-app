@@ -3,6 +3,7 @@ import Tabs from '@/components/common/Tabs';
 import { TabItem } from '@/components/common/Tabs/TabsItem';
 import { colors } from '@/constants/Colors';
 import { type TaskFilterTypes } from '@/hooks/services/task/task.types';
+import { ScrollView } from 'react-native';
 
 const TASK_FILTERS: TabItem<TaskFilterTypes>[] = [
   {
@@ -30,14 +31,16 @@ type TaskFilterProps = {
 
 export default function TaskFilters({ onSelectFilter, selectedItem }: TaskFilterProps) {
   return (
-    <Container style={{ backgroundColor: colors.v2.black, paddingVertical: 16 }}>
-      <Tabs<TaskFilterTypes>
-        items={TASK_FILTERS}
-        onSelect={onSelectFilter}
-        selectedItem={selectedItem}
-        variant="default-separated"
-        isCompact
-      />
-    </Container>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <Container style={{ backgroundColor: colors.v2.black, paddingVertical: 16 }}>
+        <Tabs<TaskFilterTypes>
+          items={TASK_FILTERS}
+          onSelect={onSelectFilter}
+          selectedItem={selectedItem}
+          variant="default-separated"
+          isCompact
+        />
+      </Container>
+    </ScrollView>
   );
 }
