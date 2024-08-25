@@ -6,7 +6,7 @@ import useExpenses from '@/hooks/services/expense/useExpenses';
 import { useExpensesByCategory } from '@/hooks/services/expense/useExpensesByCategory';
 import { useFocusEffect } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import CategoryItem from './CategoryItem';
 import { getTotalAmount, type CategoryItemFields } from './ExpensesList.utils';
 import ExpensesListFilter, {
@@ -77,15 +77,17 @@ export default function ExpensesList() {
 
           return (
             <Container>
-              {isCategory(item) ? (
-                <CategoryItem
-                  key={item.categoryId}
-                  item={item}
-                  totalExpensesAmount={totalExpensesAmount}
-                />
-              ) : (
-                <ExpenseItemFactory key={item.id} expense={item} />
-              )}
+              <View style={{ paddingHorizontal: 16 }}>
+                {isCategory(item) ? (
+                  <CategoryItem
+                    key={item.categoryId}
+                    item={item}
+                    totalExpensesAmount={totalExpensesAmount}
+                  />
+                ) : (
+                  <ExpenseItemFactory key={item.id} expense={item} />
+                )}
+              </View>
             </Container>
           );
         }}
