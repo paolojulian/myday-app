@@ -17,6 +17,7 @@ function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Pro
     <Container
       style={{
         backgroundColor: colors.v2.black,
+        paddingTop: 16,
         paddingBottom: 24,
         zIndex: 10,
       }}
