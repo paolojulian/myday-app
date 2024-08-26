@@ -23,12 +23,9 @@ export const StyledTouchableContainer: FC<RecurringExpenseItemContainerProps> = 
     <Stack
       style={{
         width: '100%',
-        padding: 16,
+        paddingVertical: 16,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        borderWidth: 1,
-        borderColor: colors.v2.grayDark,
-        borderRadius: 8,
         backgroundColor: colors.v2.black,
       }}
     >
