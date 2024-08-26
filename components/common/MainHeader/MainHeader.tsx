@@ -27,7 +27,7 @@ function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Pro
           <ThemedText variant="title-lg" style={{ color }}>
             {title}
           </ThemedText>
-          <ThemedText variant="title-md" style={{ color, opacity: 0.6 }}>
+          <ThemedText variant="body-md" style={{ color, opacity: 0.6 }}>
             {subtitle}
           </ThemedText>
         </Stack>
