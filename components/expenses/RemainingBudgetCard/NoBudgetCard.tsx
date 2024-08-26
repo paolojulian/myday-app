@@ -1,10 +1,9 @@
-import BentoCard from '@/components/common/BentoCard';
+import AppCard from '@/components/common/AppCard';
 import LinkText from '@/components/common/LinkText';
 import Stack from '@/components/common/Stack';
-import ThemedText from '@/components/common/ThemedText';
-import ThemedView from '@/components/common/ThemedView';
-import { Image } from 'react-native';
+import { colors } from '@/constants/Colors';
 import { UpdateBudgetManager } from '../UpdateBudgetBottomSheet/UpdateBudgetBottomSheet';
+import { TouchableOpacity } from 'react-native';
 
 export function NoBudgetCard() {
   const handleSetBudgetPress = () => {
@@ -12,17 +11,20 @@ export function NoBudgetCard() {
   };
 
   return (
-    <BentoCard>
-      <Stack style={{ gap: 16, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <ThemedView style={{ marginTop: 16 }}>
-          <Image
-            style={{ width: 64, height: 64 }}
-            source={require('../../../assets/images/no-budget.png')}
-          />
-        </ThemedView>
-        <ThemedText variant="body2">No Budget Set</ThemedText>
-        <LinkText onPress={handleSetBudgetPress} text="Set Now" />
-      </Stack>
-    </BentoCard>
+    <TouchableOpacity onPress={handleSetBudgetPress}>
+      <AppCard style={{ backgroundColor: colors.v2.grayDark }}>
+        <Stack
+          style={{
+            paddingVertical: 16,
+            gap: 16,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+          }}
+        >
+          <LinkText text="Set Monthly Budget" style={{ color: colors.v2.teal }} />
+        </Stack>
+      </AppCard>
+    </TouchableOpacity>
   );
 }

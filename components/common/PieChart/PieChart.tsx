@@ -39,9 +39,9 @@ function PieChart({ total, current, variant = 'default' }: PieChartProps) {
           fontWeight="bold"
           textAnchor="middle"
           dy=".3em"
-          dx="-.5em"
+          dx="-.65em"
         >
-          {remainingPercentage.toFixed(0)} %
+          {remainingPercentage.toFixed(0)}%
         </Text>
       </Svg>
     </View>

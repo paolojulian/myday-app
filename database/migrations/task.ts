@@ -1,4 +1,7 @@
 import { Migration } from '@/database/migrations/migration.types';
+import dayjs from 'dayjs';
+
+const todayUnix = dayjs().startOf('day').add(8, 'hours').unix();
 
 export const taskMigrations = [
   {
@@ -28,7 +31,12 @@ export const taskMigrations = [
             FOREIGN KEY(category_id) REFERENCES category(id)
           );
           INSERT INTO task (title, description, category_id, is_completed, to_buy, expected_amount, reminder_date, started_at, ended_at, created_at, updated_at, deleted_at)
-          VALUES ('Check this', 'Description 1', 1, 0, 0, 0, null, null, null, null, null, null);
+          VALUES 
+            ('Create a task', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
+            ('Create a journal', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
+            ('Create an expense', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
+            ('Set a monthly budget', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null)
+            ;
         `,
       },
     ],

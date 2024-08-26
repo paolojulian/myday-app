@@ -1,17 +1,18 @@
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TextStyle, TouchableOpacity } from 'react-native';
 
 type LinkTextProps = {
   onPress?: () => void;
   text: string;
+  style?: TextStyle;
 };
 
-function LinkText({ onPress, text }: LinkTextProps) {
+function LinkText({ onPress, text, style }: LinkTextProps) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <ThemedText variant="header-sm" style={{ color: colors.v2.teal }}>
+      <ThemedText variant="header-sm" style={{ color: colors.v2.teal, ...style }}>
         {text}
       </ThemedText>
     </TouchableOpacity>
