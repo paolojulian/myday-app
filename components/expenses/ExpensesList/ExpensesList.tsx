@@ -1,6 +1,7 @@
 import Container from '@/components/common/Container';
-import ThemedText from '@/components/common/ThemedText';
+import MainHeader from '@/components/common/MainHeader';
 import ThemedView from '@/components/common/ThemedView';
+import { colors } from '@/constants/Colors';
 import { ExpenseListItem } from '@/hooks/services/expense/expense.types';
 import useExpenses from '@/hooks/services/expense/useExpenses';
 import { useExpensesByCategory } from '@/hooks/services/expense/useExpensesByCategory';
@@ -14,8 +15,7 @@ import ExpensesListFilter, {
 } from './ExpensesListFilter/ExpensesListFilter';
 import ExpenseItemFactory from './ExpensesListItem/ExpenseItemFactory';
 import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
-import MainHeader from '@/components/common/MainHeader';
-import { colors } from '@/constants/Colors';
+import EmptyExpenseList from './EmptyExpenseList';
 
 export default function ExpensesList() {
   const [transactionDate, setTransactionDate] = useState<Date>(new Date());
@@ -46,6 +46,7 @@ export default function ExpensesList() {
 
   const totalExpensesAmount = expenses ? getTotalAmount(expenses) : 0;
   const data = selectedFilter === 'category' ? expensesByCategory : expenses;
+  const dataWithFilter = data.length > 0 ? [{ isFilter: true }, ...data] : [];
 
   if (isLoading) {
     // TODO: add loading skeleton
@@ -56,7 +57,7 @@ export default function ExpensesList() {
     <>
       <MainHeader subtitle={'Expenses'} color={colors.v2.teal} />
       <FlatList<CategoryItemFields | ExpenseListItem | { isFilter: boolean }>
-        data={[{ isFilter: true }, ...data]}
+        data={dataWithFilter}
         keyExtractor={item => {
           if (isFilter(item)) {
             return 'filter';
@@ -103,7 +104,7 @@ export default function ExpensesList() {
           />
         }
         ListFooterComponent={<ThemedView style={{ height: 16 }} />}
-        ListEmptyComponent={<ThemedText>No Expenses</ThemedText>}
+        ListEmptyComponent={<EmptyExpenseList />}
       />
     </>
   );

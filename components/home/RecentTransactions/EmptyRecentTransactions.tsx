@@ -22,7 +22,7 @@ function EmptyRecentTransactions() {
         }}
         source={require('../../../assets/images/no-recent-transactions.png')}
       />
-      <ThemedText variant="body1" style={{ color: colors.slateGrey[500] }}>
+      <ThemedText variant="body-md" style={{ color: colors.v2.grayLight }}>
         No recent transactions
       </ThemedText>
     </ThemedView>
