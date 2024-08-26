@@ -3,12 +3,11 @@ import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
 import { Expense } from '@/hooks/services/expense/expense.types';
 import { useDeleteExpense } from '@/hooks/services/expense/useDeleteExpense';
-import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import { FC } from 'react';
-import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { showDeleteExpenseConfirmation } from './RecurredPaymentHeader.utils';
 
 type RecurredPaymentModalProps = {
   onDeleteDone: () => void;
@@ -21,43 +20,10 @@ export const RecurredPaymentModalHeader: FC<RecurredPaymentModalProps> = ({
   const { mutateAsync } = useDeleteExpense(expense.id);
 
   const handleDeletePress = () => {
-    Alert.alert(
-      'Delete Expense',
-      'Are you sure you want to delete this expense?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Delete',
-          onPress: async () => {
-            try {
-              await mutateAsync();
-              Alert.alert(
-                'Expense Deleted',
-                'This expense has been deleted successfully',
-                [{ text: 'OK', onPress: onDeleteDone }],
-                {
-                  cancelable: false,
-                },
-              );
-
-              onDeleteDone();
-            } catch {
-              GlobalSnackbar.show({
-                message: 'Failed to delete expense',
-                type: 'error',
-              });
-            }
-          },
-          style: 'destructive',
-        },
-      ],
-      {
-        cancelable: true,
-      },
-    );
+    showDeleteExpenseConfirmation({
+      deleteExpenseAsync: mutateAsync,
+      onDeleteDone,
+    });
   };
 
   return (
