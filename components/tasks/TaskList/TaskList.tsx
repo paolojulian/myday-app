@@ -14,7 +14,7 @@ import EmptyTaskList from './EmptyTaskList';
 import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
 
 export default function TaskList() {
-  const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('All');
+  const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('Today');
   const { data, isLoading } = useTasks({ filterType: selectedFilter });
   const tasks = data || [];
 
