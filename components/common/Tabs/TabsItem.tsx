@@ -121,13 +121,13 @@ const invertedStyles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   containerSelected: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.v2.white,
   },
   text: {
-    color: colors.white,
+    color: colors.v2.white,
   },
   textActive: {
-    color: colors.black,
+    color: colors.v2.black,
   },
 });
 

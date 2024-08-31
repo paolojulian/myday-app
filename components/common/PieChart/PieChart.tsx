@@ -1,4 +1,7 @@
-import { PieChartPaths } from '@/components/common/PieChart/PieChart.utils';
+import {
+  PieChartPaths,
+  calculatePercentageText,
+} from '@/components/common/PieChart/PieChart.utils';
 import { colors } from '@/constants/Colors';
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -13,12 +16,17 @@ type PieChartProps = {
 };
 
 function PieChart({ total, current, variant = 'default' }: PieChartProps) {
+  const pieChartPaths = useMemo(() => new PieChartPaths({ total, current }), [total, current]);
   const { currentPath, currentPathColor, totalPath } = useMemo(() => {
-    return new PieChartPaths({ total, current }).calculatePaths();
-  }, [total, current]);
+    return pieChartPaths.calculatePaths();
+  }, [pieChartPaths]);
 
   const resolvedStyles = variant === 'default' ? defaultStyles : smStyles;
-  const remainingPercentage = 100 - ((total - current) / total) * 100;
+  const remainingPercentageText = calculatePercentageText({ total, current });
+
+  if (!remainingPercentageText) {
+    return null;
+  }
 
   return (
     <View style={resolvedStyles.container}>
@@ -39,9 +47,8 @@ function PieChart({ total, current, variant = 'default' }: PieChartProps) {
           fontWeight="bold"
           textAnchor="middle"
           dy=".3em"
-          dx="-.65em"
         >
-          {remainingPercentage.toFixed(0)}%
+          {remainingPercentageText}
         </Text>
       </Svg>
     </View>

@@ -18,7 +18,7 @@ exports[`TESTING DatePicker WHEN the component is rendered should match snapshot
     style={
       {
         "alignItems": "flex-end",
-        "backgroundColor": "#404040",
+        "backgroundColor": "#262626",
         "borderTopEndRadius": 8,
         "borderTopStartRadius": 8,
         "display": "flex",

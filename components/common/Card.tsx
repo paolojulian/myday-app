@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   header: {
     borderTopStartRadius: 12,
     borderTopEndRadius: 12,
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.v2.whiteSmoke,
     paddingVertical: 16,
     paddingHorizontal: 24,
 
@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
   body: {
     borderBottomStartRadius: 12,
     borderBottomEndRadius: 12,
-    backgroundColor: colors.white,
+    backgroundColor: colors.v2.white,
     padding: 16,
   },
 });
 
 const shadowStyles = StyleSheet.create({
   container: {
-    shadowColor: colors.black,
+    shadowColor: colors.v2.black,
     shadowOpacity: 0.24,
     shadowRadius: 12,
     shadowOffset: {
@@ -58,7 +58,7 @@ const borderStyles = StyleSheet.create({
   container: {
     borderWidth: 2,
     borderRadius: 12,
-    borderColor: colors.whiteSmoke,
+    borderColor: colors.v2.whiteSmoke,
   },
 });
 

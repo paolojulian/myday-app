@@ -81,7 +81,7 @@ export default function BottomSheetModal({
                   alignSelf: 'center',
                   width: 40,
                   height: 4,
-                  backgroundColor: colors.grey,
+                  backgroundColor: colors.v2.grayLight,
                   borderRadius: 8,
                   marginBottom: 24,
                 }}

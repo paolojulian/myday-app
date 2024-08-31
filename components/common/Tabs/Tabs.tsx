@@ -71,7 +71,7 @@ const defaultStyles = StyleSheet.create({
 
 const invertedStyles = StyleSheet.create({
   container: {
-    backgroundColor: colors.black,
+    backgroundColor: colors.v2.black,
   },
 });
 

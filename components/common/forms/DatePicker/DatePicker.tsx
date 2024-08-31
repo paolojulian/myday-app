@@ -104,7 +104,7 @@ function DatePicker({
         {
           ...(variant === 'shadow' && styles.containerShadow),
           ...(variant === 'border' && styles.containerBorder),
-          ...(isError && { borderColor: colors.red }),
+          ...(isError && { borderColor: colors.v2.red }),
         },
       ]}
     >

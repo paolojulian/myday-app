@@ -1,4 +1,7 @@
-import { PieChartPaths } from '@/components/common/PieChart/PieChart.utils';
+import {
+  PieChartPaths,
+  calculatePercentageText,
+} from '@/components/common/PieChart/PieChart.utils';
 import { colors } from '@/constants/Colors';
 
 describe('TESTING PieChartPaths class', () => {
@@ -16,7 +19,7 @@ describe('TESTING PieChartPaths class', () => {
       });
       it('THEN the current path color should be black', () => {
         const { currentPathColor } = pieChartPaths.calculatePaths();
-        expect(currentPathColor).toBe(colors.black);
+        expect(currentPathColor).toBe(colors.v2.black);
       });
     });
 
@@ -41,9 +44,9 @@ describe('TESTING PieChartPaths class', () => {
     const current = -50;
     const pieChartPaths = new PieChartPaths({ total, current });
     describe('WHEN calculatePaths is called', () => {
-      it('THEN the current path color should be red', () => {
+      it('THEN the current path color should be accent', () => {
         const { currentPathColor } = pieChartPaths.calculatePaths();
-        expect(currentPathColor).toBe(colors.red);
+        expect(currentPathColor).toBe(colors.v2.accent);
       });
     });
 
@@ -95,6 +98,57 @@ describe('TESTING PieChartPaths class', () => {
         const { startAngle, endAngle } = pieChartPaths.getTotalAngles();
         expect(startAngle).toBe(0);
         expect(endAngle).toBe(359.9);
+      });
+    });
+  });
+});
+
+describe('TESTING calculatePercentageText function', () => {
+  describe('GIVEN total is 100 and current is 50', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return 50%', () => {
+        const result = calculatePercentageText({ total: 100, current: 50 });
+        expect(result).toBe('50%');
+      });
+    });
+  });
+  describe('GIVEN total is 100 and current is 20', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return 20%', () => {
+        const result = calculatePercentageText({ total: 100, current: 20 });
+        expect(result).toBe('20%');
+      });
+    });
+  });
+  describe('GIVEN total is 100 and current is 10', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return 10%', () => {
+        const result = calculatePercentageText({ total: 100, current: 10 });
+        expect(result).toBe('10%');
+      });
+    });
+  });
+  describe('GIVEN total is 100 and current is -10', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return -10%', () => {
+        const result = calculatePercentageText({ total: 100, current: -10 });
+        expect(result).toBe('-10%');
+      });
+    });
+  });
+  describe('GIVEN total is 100 and current is 20000', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return ---', () => {
+        const result = calculatePercentageText({ total: 100, current: -20000 });
+        expect(result).toBe('---');
+      });
+    });
+  });
+  describe('GIVEN total is NaN and current is NaN', () => {
+    describe('WHEN getPercentageText is called', () => {
+      it('THEN it should return null', () => {
+        const result = calculatePercentageText({ total: NaN, current: NaN });
+        expect(result).toBeNull();
       });
     });
   });

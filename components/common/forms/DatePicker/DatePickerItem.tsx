@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.v2.accentLight,
   },
   isActiveText: {
-    color: colors.white,
+    color: colors.v2.white,
   },
   isNotCurrentMonth: {
-    color: colors.grey,
+    color: colors.v2.grayLight,
   },
 });
 

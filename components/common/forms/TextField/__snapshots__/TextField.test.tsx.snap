@@ -54,7 +54,7 @@ exports[`TESTING TextField component WHEN the TextField component is rendered TH
       [
         undefined,
         {
-          "backgroundColor": "#404040",
+          "backgroundColor": "#262626",
           "borderRadius": 8,
           "borderWidth": 1,
           "color": "#fafafa",
@@ -131,7 +131,7 @@ exports[`TESTING TextField component WHEN the TextField has errors THEN it shoul
       [
         undefined,
         {
-          "backgroundColor": "#404040",
+          "backgroundColor": "#262626",
           "borderRadius": 8,
           "borderWidth": 1,
           "color": "#fafafa",

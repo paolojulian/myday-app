@@ -1,1 +1,1 @@
-export { default } from './usePreloadImages';
+export { usePreloadImages } from './usePreloadImages';

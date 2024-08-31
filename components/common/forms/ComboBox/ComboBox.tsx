@@ -50,7 +50,7 @@ function ComboBox<T extends string = string>(
             style={{
               paddingVertical: 12,
               paddingHorizontal: 16,
-              backgroundColor: colors.whiteSmoke,
+              backgroundColor: colors.v2.whiteSmoke,
               borderRadius: 8,
             }}
           ></Stack>
@@ -63,9 +63,9 @@ function ComboBox<T extends string = string>(
             borderRadius: 8,
             paddingVertical: 8,
             flexDirection: 'column',
-            backgroundColor: colors.whiteSmoke,
+            backgroundColor: colors.v2.whiteSmoke,
             borderWidth: 1,
-            borderColor: colors.black,
+            borderColor: colors.v2.black,
           }}
         >
           {filteredOptions.map(item => (

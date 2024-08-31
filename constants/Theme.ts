@@ -3,13 +3,13 @@ import { ThemeProvider } from '@react-navigation/native';
 import { ComponentProps } from 'react';
 
 const DefaultTheme: ComponentProps<typeof ThemeProvider>['value'] = {
-  dark: false,
+  dark: true,
   colors: {
     primary: 'rgb(0, 122, 255)',
-    background: colors.white,
+    background: colors.v2.black,
     card: 'rgb(255, 255, 255)',
-    text: 'rgb(28, 28, 30)',
-    border: 'rgb(216, 216, 216)',
+    text: colors.v2.white,
+    border: colors.v2.grayDark,
     notification: 'rgb(255, 59, 48)',
   },
 };

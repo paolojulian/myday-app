@@ -42,17 +42,6 @@ export function createPieArc({
   return d;
 }
 
-export function calculatePercentageText({ total, current }: { total: number; current: number }) {
-  if (!total || !current) {
-    return null;
-  }
-  const remainingPercentage = 100 - ((total - current) / total) * 100;
-  if (remainingPercentage < -100) {
-    return '---';
-  }
-  return `${remainingPercentage.toFixed(0)}%`;
-}
-
 export class PieChartPaths {
   total: number;
   current: number;
@@ -81,7 +70,7 @@ export class PieChartPaths {
   }
 
   getCurrentPathColor() {
-    return this.current < 0 ? colors.v2.accent : colors.v2.black;
+    return this.current < 0 ? colors.v2.red : colors.v2.black;
   }
 
   getCurrentAngles() {

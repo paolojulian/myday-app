@@ -38,7 +38,7 @@ export const RecurredPaymentModalHeader: FC<RecurredPaymentModalProps> = ({
         {dayjs.unix(expense.transaction_date).format('MMM D')}
       </ThemedText>
       <TouchableOpacity onPress={handleDeletePress}>
-        <MaterialCommunityIcons style={{ color: colors.danger }} name={'trash-can'} size={32} />
+        <MaterialCommunityIcons style={{ color: colors.v2.accent }} name={'trash-can'} size={32} />
       </TouchableOpacity>
     </Row>
   );

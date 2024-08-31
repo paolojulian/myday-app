@@ -64,7 +64,7 @@ const RecurredPayments: React.FC<RecurredPaymentsProps> = ({ id }) => {
             />
           ))}
           {recurredPayments?.length === 0 && (
-            <ThemedText style={{ paddingVertical: 8, color: colors.slateGrey[500] }}>
+            <ThemedText style={{ paddingVertical: 8, color: colors.v2.grayLight }}>
               No recurred payments
             </ThemedText>
           )}

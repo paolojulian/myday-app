@@ -89,7 +89,7 @@ exports[`TESTING AddTaskForm GIVEN the AddTaskForm component WHEN it is rendered
                 [
                   undefined,
                   {
-                    "backgroundColor": "#404040",
+                    "backgroundColor": "#262626",
                     "borderRadius": 8,
                     "borderWidth": 1,
                     "color": "#fafafa",
@@ -171,7 +171,7 @@ etc.."
                     "minHeight": 120,
                   },
                   {
-                    "backgroundColor": "#404040",
+                    "backgroundColor": "#262626",
                     "borderRadius": 8,
                     "borderWidth": 1,
                     "color": "#fafafa",
@@ -247,8 +247,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#404040",
-                        "borderColor": "#404040",
+                        "backgroundColor": "#262626",
+                        "borderColor": "#262626",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -377,8 +377,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#404040",
-                        "borderColor": "#404040",
+                        "backgroundColor": "#262626",
+                        "borderColor": "#262626",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -507,8 +507,8 @@ etc.."
                     [
                       {
                         "alignItems": "center",
-                        "backgroundColor": "#404040",
-                        "borderColor": "#404040",
+                        "backgroundColor": "#262626",
+                        "borderColor": "#262626",
                         "borderRadius": 8,
                         "borderWidth": 1,
                         "flex": 1,
@@ -624,7 +624,7 @@ etc.."
                 style={
                   {
                     "alignItems": "center",
-                    "backgroundColor": "#404040",
+                    "backgroundColor": "#262626",
                     "flexDirection": "row",
                     "gap": 8,
                     "paddingHorizontal": 24,
@@ -714,6 +714,7 @@ etc.."
           style={
             {
               "marginTop": 24,
+              "paddingBottom": 16,
             }
           }
         >
@@ -843,7 +844,7 @@ etc.."
         [
           {
             "alignItems": "center",
-            "backgroundColor": "#CC3333",
+            "backgroundColor": "#FEE2E2",
             "borderRadius": 8,
             "elevation": 8,
             "flexDirection": "row",
@@ -851,7 +852,7 @@ etc.."
             "justifyContent": "space-between",
             "marginHorizontal": 16,
             "padding": 16,
-            "shadowColor": "#0F172A",
+            "shadowColor": "#171717",
             "shadowOffset": {
               "height": 2,
               "width": 0,
@@ -859,7 +860,7 @@ etc.."
             "shadowOpacity": 0.15,
           },
           {
-            "backgroundColor": "#CC3333",
+            "backgroundColor": "#FEE2E2",
           },
         ]
       }
@@ -879,7 +880,7 @@ etc.."
             },
             [
               {
-                "color": "#FFFFFF",
+                "color": "#171717",
               },
             ],
           ]
