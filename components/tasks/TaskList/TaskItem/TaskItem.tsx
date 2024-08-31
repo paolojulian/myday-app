@@ -21,7 +21,7 @@ export type TaskItemProps = {
 };
 
 export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
-  const { id, title, reminder_date: reminderDate } = task;
+  const { id, title, description, reminder_date: reminderDate } = task;
   const [isChecked, setChecked] = useState<boolean>(!!task.is_completed);
 
   const formattedReminderDate = useMemo(
@@ -89,6 +89,17 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
               }}
             >
               {formattedReminderDate}
+            </ThemedText>
+          )}
+          {description && (
+            <ThemedText
+              variant="body"
+              style={{
+                marginTop: 4,
+                color: colors.v2.grayLight,
+              }}
+            >
+              {description.trimEnd()}
             </ThemedText>
           )}
         </Stack>
