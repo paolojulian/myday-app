@@ -26,7 +26,7 @@ function buildQuery(filters: TaskQueryFilters) {
     case 'Today':
       return /* sql */ `
         SELECT * FROM task 
-        WHERE task.reminder_date BETWEEN $start AND $end
+        WHERE task.reminder_date <= $end
           AND is_completed = 0
         ORDER BY reminder_date ASC
       `;
@@ -57,7 +57,6 @@ function buildQuery(filters: TaskQueryFilters) {
 function buildVariables(filters: TaskQueryFilters): SQLiteBindParams {
   if (filters.filterType === 'Today') {
     return {
-      $start: convertDateToEpoch(dayjs().startOf('day').toDate()),
       $end: convertDateToEpoch(dayjs().endOf('day').toDate()),
     };
   }
