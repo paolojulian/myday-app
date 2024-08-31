@@ -1,5 +1,7 @@
 import { Migration } from '@/database/migrations/migration.types';
 
+export const OTHERS_CATEGORY_ID = 100;
+
 export const categoryMigrations = [
   {
     version: 1,
@@ -26,6 +28,9 @@ export const categoryMigrations = [
             ('Transport', 1635724800, 1635724800, NULL),
             ('Entertainment', 1635724800, 1635724800, NULL),
             ('Misc', 1635724800, 1635724800, NULL);
+          INSERT INTO category (id, category_name, created_at, updated_at, deleted_at)
+          VALUES
+            (${OTHERS_CATEGORY_ID}, 'Others', 1635724800, 1635724800, NULL);
         `,
       },
     ],

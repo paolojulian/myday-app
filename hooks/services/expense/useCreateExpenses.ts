@@ -1,3 +1,4 @@
+import { OTHERS_CATEGORY_ID } from '@/database/migrations/category';
 import { Expense, ExpenseQueryKeys } from '@/hooks/services/expense/expense.types';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
@@ -20,7 +21,7 @@ export const useCreateExpense = () => {
       $title: expense.title,
       $amount: expense.amount,
       $description: expense.description,
-      $category_id: expense.category_id,
+      $category_id: expense.category_id ?? OTHERS_CATEGORY_ID,
       $transaction_date: expense.transaction_date,
       $recurrence: expense.recurrence,
       $recurrence_id: null,
@@ -52,7 +53,7 @@ export const useCreateExpense = () => {
     }
   }
 
-  const { data, error, mutate, isPending } = useMutation({
+  const { data, error, mutate, mutateAsync, isPending } = useMutation({
     mutationFn: setup,
     onSuccess: response => {
       queryClient.invalidateQueries({
@@ -63,7 +64,7 @@ export const useCreateExpense = () => {
     },
   });
 
-  return { data, isLoading: isPending, error, mutate };
+  return { data, isLoading: isPending, error, mutate, mutateAsync };
 };
 
 export const ADD_EXPENSE_STATEMENT = `

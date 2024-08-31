@@ -81,7 +81,7 @@ export class PieChartPaths {
   }
 
   getCurrentPathColor() {
-    return this.current < 0 ? colors.v2.accent : colors.v2.black;
+    return this.current < 0 ? colors.v2.black : colors.v2.black;
   }
 
   getCurrentAngles() {

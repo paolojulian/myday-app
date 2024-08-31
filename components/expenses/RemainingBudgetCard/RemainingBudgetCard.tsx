@@ -37,11 +37,16 @@ export default function RemainingBudgetCard({
     refetchBudget();
   });
 
-  const monthlyBudget = budget?.amount ?? 0;
+  const monthlyBudget: number = budget?.amount ?? 0;
 
-  const remainingBudget = monthlyBudget - totalMonthlyExpenses;
+  const remainingBudget: number = monthlyBudget - totalMonthlyExpenses;
+
+  const isUnderBudget: boolean = remainingBudget < 0;
 
   const variantStyles = variant === 'horizontal' ? horizontalStyles : verticalStyles;
+
+  const backgroundColor = isUnderBudget ? colors.v2.whiteSmoke : colors.v2.teal;
+  const remainingBudgetAmountColor = isUnderBudget ? colors.v2.accent : colors.v2.black;
 
   if (!budget) {
     return <NoBudgetCard />;
@@ -51,7 +56,7 @@ export default function RemainingBudgetCard({
     <TouchableOpacity style={{ flex: 1 }} onPress={handlePress}>
       <AppCard
         style={{
-          backgroundColor: colors.v2.teal,
+          backgroundColor,
         }}
       >
         <Row
@@ -65,7 +70,7 @@ export default function RemainingBudgetCard({
               <ThemedText variant="body-md" style={{ color: colors.v2.black }}>
                 Remaining Budget
               </ThemedText>
-              <ThemedText variant="header-lg" style={{ color: colors.v2.black }}>
+              <ThemedText variant="header-lg" style={{ color: remainingBudgetAmountColor }}>
                 {toLocaleCurrencyFormat(remainingBudget)}
               </ThemedText>
             </Stack>

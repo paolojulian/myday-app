@@ -44,9 +44,9 @@ describe('TESTING PieChartPaths class', () => {
     const current = -50;
     const pieChartPaths = new PieChartPaths({ total, current });
     describe('WHEN calculatePaths is called', () => {
-      it('THEN the current path color should be accent', () => {
+      it('THEN the current path color should be black', () => {
         const { currentPathColor } = pieChartPaths.calculatePaths();
-        expect(currentPathColor).toBe(colors.v2.accent);
+        expect(currentPathColor).toBe(colors.v2.black);
       });
     });
 

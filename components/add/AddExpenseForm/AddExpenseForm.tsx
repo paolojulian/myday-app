@@ -34,7 +34,7 @@ function AddExpenseForm({}: AddExpenseFormProps) {
   const categoryRef = useRef<TextInput>(null);
   const noteRef = useRef<TextInput>(null);
   const [error, setError] = React.useState<string | null>(null);
-  const { mutate: createExpenseMutate } = useCreateExpense();
+  const { mutateAsync: createExpenseMutateAsync } = useCreateExpense();
   const getOrCreateCategory = useGetOrCreateCategory();
 
   const focusTitle = () => {
@@ -69,10 +69,11 @@ function AddExpenseForm({}: AddExpenseFormProps) {
       categoryId = values.category ? await getOrCreateCategory(values.category) : null;
     } catch {
       setError('Failed to get or create category');
+      return;
     }
 
     try {
-      await createExpenseMutate({
+      await createExpenseMutateAsync({
         category_id: categoryId,
         amount: parseFloat(values.amount),
         description: values.description ?? '',
@@ -86,6 +87,7 @@ function AddExpenseForm({}: AddExpenseFormProps) {
     } catch {
       console.error(error);
       setError('Failed to create expense');
+      return;
     }
   };
 
