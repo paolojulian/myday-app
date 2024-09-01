@@ -18,7 +18,7 @@ function HomeWorkArea() {
   const formattedDateToday = useMemo(() => dayjs().format('dddd, MMM D, YYYY'), []);
 
   return (
-    <AppSafeAreaView>
+    <AppSafeAreaView edges={['top']}>
       <GlowingHeader variant="white" />
       <ScrollView style={{ flex: 1, backgroundColor: colors.v2.black }} stickyHeaderIndices={[0]}>
         <MainHeader subtitle={formattedDateToday} />

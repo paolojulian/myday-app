@@ -4,7 +4,7 @@ import GlowingHeader from '../common/GlowingHeader';
 
 export default function TaskWorkArea() {
   return (
-    <AppSafeAreaView>
+    <AppSafeAreaView edges={['top']}>
       <GlowingHeader variant="yellow" />
       <TodoList />
     </AppSafeAreaView>

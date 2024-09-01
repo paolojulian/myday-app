@@ -1,5 +1,4 @@
 import { colors } from '@/constants/Colors';
-import { useEffect, useRef } from 'react';
 import {
   Animated,
   DimensionValue,
@@ -24,29 +23,10 @@ export type BottomSheetModalProps = {
 
 export default function BottomSheetModal({
   onClose,
-  variant,
   isOpen,
   children,
   minHeight,
 }: BottomSheetModalProps) {
-  const slideAnim = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    if (isOpen) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 800,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [isOpen]);
-
   return (
     <>
       <Modal onRequestClose={onClose} visible={isOpen} animationType={'fade'} transparent>
@@ -86,11 +66,6 @@ export default function BottomSheetModal({
               padding: 16,
               backgroundColor: colors.v2.black,
               minHeight: minHeight ?? 'auto',
-              transform: [
-                {
-                  translateY: variant === 'slide' ? slideAnim : 0,
-                },
-              ],
             }}
           >
             {/* Small thumb on the middle top of this sheet */}

@@ -51,7 +51,7 @@ function JournalWorkArea() {
   const debouncedHandleChange = useDebounceCallback(validateAndHandleFieldUpdate, 500);
 
   return (
-    <AppSafeAreaView>
+    <AppSafeAreaView edges={['top']}>
       <GlowingHeader variant="red" />
       <MainHeader subtitle="Journal" color={colors.v2.red} />
 

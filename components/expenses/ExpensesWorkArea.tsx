@@ -5,7 +5,7 @@ import GlowingHeader from '../common/GlowingHeader';
 
 function ExpensesWorkArea() {
   return (
-    <AppSafeAreaView>
+    <AppSafeAreaView edges={['top']}>
       <GlowingHeader variant="teal" />
       <ExpensesList />
     </AppSafeAreaView>

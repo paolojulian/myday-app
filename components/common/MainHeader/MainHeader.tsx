@@ -1,8 +1,10 @@
+import { RouteNames } from '@/app/_layout';
 import Container from '@/components/common/Container';
 import Row from '@/components/common/Row';
 import Stack from '@/components/common/Stack';
 import ThemedText from '@/components/common/ThemedText';
 import { colors } from '@/constants/Colors';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
@@ -13,6 +15,11 @@ type Props = {
 };
 
 function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Props) {
+  const router = useRouter();
+  const handlePressSettings = (): void => {
+    router.push(RouteNames.Settings);
+  };
+
   return (
     <Container
       style={{
@@ -31,7 +38,7 @@ function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Pro
             {subtitle}
           </ThemedText>
         </Stack>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlePressSettings}>
           <Image
             source={require('../../../assets/icons/cog-icon.png')}
             style={{

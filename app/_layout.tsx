@@ -20,6 +20,7 @@ export enum RouteNames {
   Add = 'add',
   Edit = 'expense/[id]',
   EditTask = 'task/[id]',
+  Settings = 'settings',
   NotFound = '+not-found',
 }
 
@@ -62,6 +63,7 @@ export default function RootLayout() {
                 />
                 <Stack.Screen name={RouteNames.Edit} options={{ headerShown: false }} />
                 <Stack.Screen name={RouteNames.EditTask} options={{ headerShown: false }} />
+                <Stack.Screen name={RouteNames.Settings} options={{ headerShown: false }} />
                 <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
               </Stack>
             </ThemeProvider>
