@@ -8,6 +8,8 @@ import { TouchableOpacity } from 'react-native';
 import Row from '../../../common/Row';
 import Stack from '../../../common/Stack';
 import ThemedText from '../../../common/ThemedText';
+import { useRouter } from 'expo-router';
+import { RouteNames } from '@/app/_layout';
 
 type SupportedTaskFields = Pick<
   Task,
@@ -23,6 +25,8 @@ export type TaskItemProps = {
 export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
   const { id, title, description, reminder_date: reminderDate } = task;
   const [isChecked, setChecked] = useState<boolean>(!!task.is_completed);
+
+  const router = useRouter();
 
   const formattedReminderDate = useMemo(
     () => (reminderDate ? dayjs.unix(reminderDate).format('MMM D, YYYY') : null),
@@ -47,6 +51,10 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
 
   const handleLongPress = () => {
     selectionAsync();
+    router.push({
+      pathname: RouteNames.EditTask,
+      params: { id },
+    });
   };
 
   return (

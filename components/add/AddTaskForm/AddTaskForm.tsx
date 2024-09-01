@@ -8,7 +8,6 @@ import {
 import Button from '@/components/common/Button';
 import Container from '@/components/common/Container';
 import EasyDatePicker from '@/components/common/EasyDatePicker';
-import CheckboxField from '@/components/common/forms/CheckboxField';
 import TextArea from '@/components/common/forms/TextArea';
 import TextField from '@/components/common/forms/TextField';
 import Snackbar from '@/components/common/Snackbar';
@@ -26,10 +25,9 @@ export const ADD_TASK_FORM_TEST_IDS = {
 
 export default function AddTaskForm() {
   const noteRef = useRef<TextInput>(null);
-  const amountRef = useRef<TextInput>(null);
   const navigation = useNavigation();
   const [error, setError] = useState<string | null>(null);
-  const { mutate: createTaskMutate } = useCreateTask();
+  const { mutateAsync: createTaskMutateAsync } = useCreateTask();
 
   const showSuccessMessage = () => {
     GlobalSnackbar.show({
@@ -42,7 +40,7 @@ export default function AddTaskForm() {
   const handleSubmitForm = async (values: TaskFormValues) => {
     const insertValues = convertTaskFormToTask(values);
     try {
-      await createTaskMutate(insertValues);
+      await createTaskMutateAsync(insertValues);
       showSuccessMessage();
       navigation.navigate(TabName.Todo as never);
     } catch {
@@ -52,13 +50,6 @@ export default function AddTaskForm() {
 
   const handleTitleSubmitEditing = () => {
     noteRef.current?.focus();
-  };
-  const handleToBuyChecked = (value: boolean) => {
-    if (value) {
-      setTimeout(() => {
-        amountRef.current?.focus();
-      }, 0);
-    }
   };
 
   return (
@@ -115,26 +106,6 @@ export default function AddTaskForm() {
                     selectedDate={values.reminderDate}
                     label="Reminder Date"
                   />
-                  <CheckboxField
-                    onValueChange={value => {
-                      setFieldValue('toBuy', value);
-                      if (!value) setFieldValue('amount', null);
-                      handleToBuyChecked(value);
-                    }}
-                    label={'To Buy'}
-                    value={!!values.toBuy}
-                  />
-                  {values.toBuy && (
-                    <TextField
-                      ref={amountRef}
-                      label="Expected amount (Optional)"
-                      placeholder="00.00"
-                      keyboardType="numeric"
-                      value={values.amount}
-                      onChangeText={handleChange('amount')}
-                      returnKeyType="done"
-                    />
-                  )}
                 </ThemedView>
                 <ThemedView style={{ marginTop: 24, paddingBottom: 16 }}>
                   <Button text={'Save'} onPress={() => handleSubmit()} variant="yellow" />

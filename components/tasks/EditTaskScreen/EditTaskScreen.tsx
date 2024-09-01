@@ -6,6 +6,7 @@ import DeleteExpenseButton from '@/components/expenses/EditExpenseScreen/DeleteE
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ReactElement } from 'react';
 import { ScrollView } from 'react-native';
+import EditTaskForm from './EditTaskForm';
 
 type SearchParams = {
   id: string;
@@ -33,11 +34,13 @@ const EditTaskScreen = (): ReactElement | null => {
       <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="never">
         <HeaderWithBackButton
           onBackPress={handleBackPress}
-          title="Expense"
+          title="Task"
           RightComponent={<DeleteExpenseButton id={id} />}
         />
 
-        <ThemedView style={{ flex: 1, gap: 16, marginBottom: 24 }}></ThemedView>
+        <ThemedView style={{ flex: 1, gap: 16, marginBottom: 24 }}>
+          <EditTaskForm id={id} />
+        </ThemedView>
       </ScrollView>
     </AppSafeAreaView>
   );

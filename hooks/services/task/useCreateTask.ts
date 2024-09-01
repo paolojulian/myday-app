@@ -28,7 +28,7 @@ export const useCreateTask = () => {
     return result;
   };
 
-  const { data, error, mutate, isPending } = useMutation({
+  const { data, error, mutate, mutateAsync, isPending } = useMutation({
     mutationFn: setup,
     onSuccess: response => {
       queryClient.invalidateQueries({
@@ -39,7 +39,7 @@ export const useCreateTask = () => {
     },
   });
 
-  return { data, isLoading: isPending, error, mutate };
+  return { data, isLoading: isPending, error, mutate, mutateAsync };
 };
 
 const ADD_TASK_STATEMENT = `
