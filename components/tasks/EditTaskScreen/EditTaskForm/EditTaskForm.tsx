@@ -12,6 +12,10 @@ import EasyDatePicker from '@/components/common/EasyDatePicker';
 import Button from '@/components/common/Button';
 import { TextInput } from 'react-native';
 import { NOTE_PLACEHOLDER } from '@/components/add/AddTaskForm/AddTaskForm.utils';
+import { useUpdateTask } from '@/hooks/services/task/useUpdateTask';
+import { useNavigation } from 'expo-router';
+import { TabName } from '@/app/(tabs)/_layout';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
 
 type EditTaskFormProps = {
   id: Task['id'];
@@ -19,10 +23,48 @@ type EditTaskFormProps = {
 
 const EditTaskForm = ({ id }: EditTaskFormProps): ReactElement => {
   const { isLoading, data } = useTask(id);
+  const { isPending: isUpdating, mutateAsync } = useUpdateTask(id);
+  const navigation = useNavigation();
 
   const noteRef = useRef<TextInput>(null);
 
-  const handleSubmit = (): void => {};
+  const handleSuccess = (): void => {
+    GlobalSnackbar.show({
+      message: 'Task updated successfully',
+      type: 'success',
+    });
+    navigation.navigate(TabName.Todo as never);
+  };
+
+  const handleError = (error: unknown): void => {
+    if (error instanceof Error) {
+      GlobalSnackbar.show({
+        message: error.message,
+        type: 'error',
+      });
+      return;
+    }
+
+    const message = 'An error occurred while updating the task';
+    GlobalSnackbar.show({
+      message,
+      type: 'error',
+    });
+  };
+
+  const handleSubmit = async (values: EditTaskFormValues): Promise<void> => {
+    try {
+      await mutateAsync({
+        title: values.title,
+        description: values.description || '',
+        reminder_date: values.reminderDate ? dayjs(values.reminderDate).unix() : null,
+      });
+      handleSuccess();
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   const handleTitleSubmitEditing = (): void => {
     noteRef.current?.focus();
   };
@@ -32,7 +74,7 @@ const EditTaskForm = ({ id }: EditTaskFormProps): ReactElement => {
   }
 
   return (
-    <Container style={{ flex: 1 }}>
+    <Container style={{ flex: 1 }} aria-label="Edit Task Form Container">
       <Formik<EditTaskFormValues>
         onSubmit={handleSubmit}
         initialValues={{
@@ -74,7 +116,12 @@ const EditTaskForm = ({ id }: EditTaskFormProps): ReactElement => {
               />
             </ThemedView>
             <ThemedView style={{ marginTop: 24, paddingBottom: 16 }}>
-              <Button text={'Update'} onPress={() => handleSubmit()} variant="yellow" />
+              <Button
+                text={'Update'}
+                onPress={() => handleSubmit()}
+                variant="yellow"
+                isLoading={isUpdating}
+              />
             </ThemedView>
           </>
         )}

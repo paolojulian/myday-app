@@ -10,9 +10,10 @@ type ButtonVariants = 'teal' | 'yellow';
 type ButtonProps = {
   text: string;
   variant?: ButtonVariants;
+  isLoading?: boolean;
 } & TouchableOpacityProps;
 
-function Button({ text, variant = 'teal', ...props }: ButtonProps) {
+function Button({ text, variant = 'teal', isLoading = false, ...props }: ButtonProps) {
   const containerVariantStyle = useMemo(() => {
     switch (variant) {
       case 'teal':
@@ -36,7 +37,13 @@ function Button({ text, variant = 'teal', ...props }: ButtonProps) {
   }, [variant]);
 
   return (
-    <TouchableOpacity role="button" accessibilityRole="button" activeOpacity={0.9} {...props}>
+    <TouchableOpacity
+      role="button"
+      accessibilityRole="button"
+      activeOpacity={0.9}
+      disabled={isLoading}
+      {...props}
+    >
       <ThemedView style={[styles.container, containerVariantStyle]}>
         <ThemedText variant="header-sm" style={[textVariantStyle, styles.text]}>
           {text}
