@@ -1,6 +1,7 @@
-import ThemedView from '@/components/common/ThemedView';
 import { colors } from '@/constants/Colors';
+import { useEffect, useRef } from 'react';
 import {
+  Animated,
   DimensionValue,
   KeyboardAvoidingView,
   Modal,
@@ -28,9 +29,27 @@ export default function BottomSheetModal({
   children,
   minHeight,
 }: BottomSheetModalProps) {
+  const slideAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (isOpen) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 800,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isOpen]);
+
   return (
     <>
-      <Modal onRequestClose={onClose} visible={isOpen} animationType={variant} transparent>
+      <Modal onRequestClose={onClose} visible={isOpen} animationType={'fade'} transparent>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={{
@@ -42,22 +61,17 @@ export default function BottomSheetModal({
           }}
         >
           {/* Backdrop */}
-          <Pressable
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              // backgroundColor: variant === 'fade' ? 'rgba(0, 0, 0, 0.5)' : 'rbga(0, 0, 0, 0.5)',
-            }}
-            onPress={onClose}
-          />
-
+          <Animated.View style={{ ...StyleSheet.absoluteFillObject }}>
+            <Pressable
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              }}
+              onPress={onClose}
+            />
+          </Animated.View>
           {/* Main content */}
-          <ThemedView
+          <Animated.View
             style={{
               height: 'auto',
               alignSelf: 'stretch',
@@ -72,6 +86,11 @@ export default function BottomSheetModal({
               padding: 16,
               backgroundColor: colors.v2.black,
               minHeight: minHeight ?? 'auto',
+              transform: [
+                {
+                  translateY: variant === 'slide' ? slideAnim : 0,
+                },
+              ],
             }}
           >
             {/* Small thumb on the middle top of this sheet */}
@@ -88,7 +107,7 @@ export default function BottomSheetModal({
               ></View>
             </TouchableWithoutFeedback>
             {children}
-          </ThemedView>
+          </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
     </>

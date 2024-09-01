@@ -11,13 +11,16 @@ import { useExpense } from '@/hooks/services/expense/useExpense';
 import { useUpdateExpense } from '@/hooks/services/expense/useUpdateExpense';
 import dayjs from 'dayjs';
 import { Formik } from 'formik';
-import { useDebounceCallback } from 'usehooks-ts';
 import {
   EDIT_EXPENSE_FORM_TEST_IDS,
   EDIT_EXPENSE_VALIDATION_SCHEMA,
   EditExpenseFormValues,
-  resolveFieldName,
 } from './EditExpenseForm.utils';
+import Button from '@/components/common/Button';
+import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
+import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import { useNavigation } from 'expo-router';
+import { TabName } from '@/app/(tabs)/_layout';
 
 type EditExpenseFormProps = {
   id: Expense['id'];
@@ -26,24 +29,44 @@ type EditExpenseFormProps = {
 export default function EditExpenseForm({ id }: EditExpenseFormProps) {
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
   const { data: expense, isLoading: isLoadingExpense } = useExpense(id);
-  const { mutateAsync: updateExpenseMutate } = useUpdateExpense(id);
+  const getOrCreateCategory = useGetOrCreateCategory();
+  const { isPending: isUpdating, mutateAsync: updateExpenseMutateAsync } = useUpdateExpense(id);
+  const navigation = useNavigation();
 
-  const validateAndHandleFieldUpdate = async (
-    fieldName: keyof EditExpenseFormValues,
-    value: any,
-  ) => {
-    try {
-      await EDIT_EXPENSE_VALIDATION_SCHEMA.validateAt(fieldName, { [fieldName]: value });
-      const resolvedFieldName = resolveFieldName(fieldName);
-      updateExpenseMutate({ [resolvedFieldName]: value });
-      return true;
-    } catch (e) {
-      console.error(e);
-      return false;
+  const handleSuccess = (): void => {
+    GlobalSnackbar.show({
+      message: 'Expense updated successfully',
+      type: 'success',
+    });
+    navigation.navigate(TabName.Expense as never);
+  };
+  const handleError = (error: unknown): void => {
+    let message = 'An error occurred while updating the expense. Please try again later';
+    if (error instanceof Error) {
+      message = error.message;
     }
+    GlobalSnackbar.show({ message, type: 'error' });
   };
 
-  const debouncedHandleChange = useDebounceCallback(validateAndHandleFieldUpdate, 500);
+  const handleSubmitForm = async (values: EditExpenseFormValues): Promise<void> => {
+    let categoryId: number | null = null;
+    try {
+      categoryId = values.category ? await getOrCreateCategory(values.category) : null;
+    } catch (error) {
+      handleError(error);
+      return;
+    }
+
+    try {
+      await updateExpenseMutateAsync({
+        ...values,
+        categoryId,
+      });
+      handleSuccess();
+    } catch (error) {
+      handleError(error);
+    }
+  };
 
   if (isLoadingCategories || isLoadingExpense) {
     return null;
@@ -66,18 +89,15 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
           recurrence: expense?.recurrence || null,
         }}
         validationSchema={EDIT_EXPENSE_VALIDATION_SCHEMA}
-        onSubmit={() => {
-          // No form submission needed, everything is inline editing
-        }}
+        onSubmit={handleSubmitForm}
       >
-        {({ handleBlur, setFieldValue, values, errors, touched }) => (
+        {({ handleBlur, handleSubmit, setFieldValue, values, errors, touched }) => (
           <ThemedView style={{ flex: 1, paddingBottom: 16 }}>
             <ThemedView style={{ gap: 8, flex: 1 }}>
               <TextField
                 testID={EDIT_EXPENSE_FORM_TEST_IDS.title}
                 onChangeText={value => {
                   setFieldValue('title', value);
-                  debouncedHandleChange('title', value);
                 }}
                 onBlur={handleBlur('title')}
                 isError={!!errors.title && !!touched.title}
@@ -100,7 +120,6 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 errorMessage={errors.amount}
                 onChangeText={value => {
                   setFieldValue('amount', value);
-                  debouncedHandleChange('amount', value);
                 }}
                 onBlur={handleBlur('amount')}
                 value={values.amount}
@@ -120,13 +139,11 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 value={values.recurrence}
                 onSelect={value => {
                   setFieldValue('recurrence', value);
-                  debouncedHandleChange('recurrence', value);
                 }}
               />
               <TextArea
                 onChangeText={value => {
                   setFieldValue('description', value);
-                  debouncedHandleChange('description', value);
                 }}
                 onBlur={handleBlur('description')}
                 value={values.description}
@@ -135,6 +152,14 @@ export default function EditExpenseForm({ id }: EditExpenseFormProps) {
                 numberOfLines={0}
                 returnKeyLabel="Next"
                 returnKeyType="done"
+              />
+            </ThemedView>
+            <ThemedView style={{ marginTop: 24, paddingBottom: 16 }}>
+              <Button
+                text={'Update'}
+                onPress={() => handleSubmit()}
+                variant="yellow"
+                isLoading={isUpdating}
               />
             </ThemedView>
           </ThemedView>

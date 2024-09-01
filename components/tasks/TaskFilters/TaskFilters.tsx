@@ -7,12 +7,12 @@ import { ScrollView } from 'react-native';
 
 const TASK_FILTERS: TabItem<TaskFilterTypes>[] = [
   {
-    key: 'All',
-    value: 'All',
-  },
-  {
     key: 'Today',
     value: 'Today',
+  },
+  {
+    key: 'All',
+    value: 'All',
   },
   {
     key: 'Scheduled',

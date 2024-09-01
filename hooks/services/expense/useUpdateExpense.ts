@@ -2,14 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Expense, ExpenseQueryKeys } from './expense.types';
 import { getUseExpenseQueryKey } from './useExpense';
-import { addVariableIfDefined } from '@/utils/add-variable-if-defined';
+import { EditExpenseFormValues } from '@/components/expenses/EditExpenseScreen/EditExpenseForm/EditExpenseForm.utils';
+import { convertDateToEpoch } from '@/utils/date/date.utils';
+import { Category } from '../category/category.types';
 
-type SupportedUpdateExpenseFields = Partial<
-  Pick<
-    Expense,
-    'title' | 'transaction_date' | 'amount' | 'description' | 'category_id' | 'recurrence'
-  >
->;
+type SupportedUpdateExpenseFields = EditExpenseFormValues & {
+  categoryId: Category['id'] | null;
+};
 
 export function useUpdateExpense(id: Expense['id']) {
   const db = useSQLiteContext();
@@ -17,19 +16,26 @@ export function useUpdateExpense(id: Expense['id']) {
 
   return useMutation({
     mutationFn: async (expense: SupportedUpdateExpenseFields) => {
-      const statement = buildStatement(expense);
-      let variables = {
+      const resolvedTransactionDate = expense.transactionDate
+        ? convertDateToEpoch(expense.transactionDate)
+        : null;
+
+      const nowEpoch = Date.now();
+      const variables = {
         $id: id,
-      } as any;
+        $title: expense.title,
+        $amount: expense.amount,
+        $category_id: expense.categoryId,
+        $transaction_date: resolvedTransactionDate,
+        $description: expense.description ?? null,
+        $recurrence: expense.recurrence,
+        $updated_at: nowEpoch,
+      };
+      const statement = buildStatement();
 
-      addVariableIfDefined(variables, 'title', expense?.title);
-      addVariableIfDefined(variables, 'amount', expense?.amount);
-      addVariableIfDefined(variables, 'category_id', expense?.category_id);
-      addVariableIfDefined(variables, 'transaction_date', expense?.transaction_date);
-      addVariableIfDefined(variables, 'description', expense?.description);
-      addVariableIfDefined(variables, 'recurrence', expense?.recurrence);
+      const result = await db.runAsync(statement, variables);
 
-      await db.runAsync(statement, variables);
+      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -45,13 +51,17 @@ export function useUpdateExpense(id: Expense['id']) {
   });
 }
 
-const buildStatement = (expense: SupportedUpdateExpenseFields) => {
-  const setClauses = Object.keys(expense).map(key => `${key} = $${key}`);
-  const setStatement = setClauses.join(', ');
-
+const buildStatement = () => {
   return /* sql */ `
     UPDATE Expense
-    SET ${setStatement}
+    SET
+      title = $title,
+      amount = $amount,
+      category_id = $category_id,
+      transaction_date = $transaction_date,
+      description = $description,
+      recurrence = $recurrence,
+      updated_at = $updated_at
     WHERE id = $id
   `;
 };
