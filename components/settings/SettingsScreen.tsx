@@ -2,9 +2,20 @@ import AppSafeAreaView from '@/components/common/AppSafeAreaView';
 import { ReactElement } from 'react';
 import HeaderWithBackButton from '../common/HeaderWithBackButton';
 import ThemedView from '../common/ThemedView';
+import { useRouter } from 'expo-router';
+import { RouteNames } from '@/app/_layout';
 
 export default function SettingsScreen(): ReactElement {
-  const handleBackPress = (): void => {};
+  const router = useRouter();
+
+  const handleBackPress = (): void => {
+    if (router.canGoBack()) {
+      router.back();
+      return;
+    }
+
+    router.navigate(RouteNames.Tabs);
+  };
 
   return (
     <AppSafeAreaView edges={['top']}>
