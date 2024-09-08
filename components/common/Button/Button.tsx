@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 
-type ButtonVariants = 'teal' | 'yellow';
+type ButtonVariants = 'teal' | 'yellow' | 'red';
 
 type ButtonProps = {
   text: string;
@@ -20,6 +20,8 @@ function Button({ text, variant = 'teal', isLoading = false, ...props }: ButtonP
         return styles.tealContainer;
       case 'yellow':
         return styles.yellowContainer;
+      case 'red':
+        return styles.redContainer;
       default:
         return {};
     }
@@ -31,6 +33,8 @@ function Button({ text, variant = 'teal', isLoading = false, ...props }: ButtonP
         return styles.primaryText;
       case 'yellow':
         return styles.yellowText;
+      case 'red':
+        return styles.redText;
       default:
         return {};
     }
@@ -66,10 +70,16 @@ const styles = StyleSheet.create({
   yellowContainer: {
     backgroundColor: colors.v2.yellow,
   },
+  redContainer: {
+    backgroundColor: colors.v2.red,
+  },
   primaryText: {
     color: colors.v2.black,
   },
   yellowText: {
+    color: colors.v2.black,
+  },
+  redText: {
     color: colors.v2.black,
   },
   text: {

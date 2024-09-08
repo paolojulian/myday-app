@@ -23,18 +23,25 @@ import { Formik } from 'formik';
 import { useDebounceCallback } from 'usehooks-ts';
 import useUpdateOrCreateJournal from '@/hooks/services/journal/useUpdateOrCreateJournal';
 import GlowingHeader from '../common/GlowingHeader';
+import DatePickerSheet from '../common/DatePickerSheet';
 
 function JournalWorkArea() {
   const [date, setDate] = useState(new Date());
   const { data } = useJournal(date);
   const { mutateAsync: updateJournalAsync } = useUpdateOrCreateJournal(date);
 
-  const handlePrevPress = (): void => {
+  const handlePrevDayPress = (): void => {
     setDate(dayjs(date).subtract(1, 'day').toDate());
   };
 
-  const handleNextPress = (): void => {
+  const handleNextDayPress = (): void => {
     setDate(dayjs(date).add(1, 'day').toDate());
+  };
+
+  const handleDateChange = (newDate: Date | null): void => {
+    if (!newDate) return;
+
+    setDate(newDate);
   };
 
   const validateAndHandleFieldUpdate = async (fieldName: keyof JournalFormValues, value: any) => {
@@ -69,14 +76,24 @@ function JournalWorkArea() {
             <Container style={{ flex: 1 }}>
               <Stack style={{ gap: 16 }}>
                 <Row style={{ marginVertical: 16 }}>
-                  <TouchableOpacity onPress={handlePrevPress}>
-                    <ChevronLeftIcon />
+                  <TouchableOpacity onPress={handlePrevDayPress}>
+                    <ChevronLeftIcon color={colors.v2.red} />
                   </TouchableOpacity>
                   <View style={{ flex: 1, alignItems: 'center' }}>
-                    <ThemedText variant="header-md">{formatDateFilter(date)}</ThemedText>
+                    <DatePickerSheet
+                      onChange={handleDateChange}
+                      value={date}
+                      AnchorComponent={({ onPress }) => (
+                        <TouchableOpacity onPress={onPress}>
+                          <ThemedText variant="header-md" style={{ color: colors.v2.red }}>
+                            {formatDateFilter(date)}
+                          </ThemedText>
+                        </TouchableOpacity>
+                      )}
+                    />
                   </View>
-                  <TouchableOpacity onPress={handleNextPress}>
-                    <ChevronRightIcon />
+                  <TouchableOpacity onPress={handleNextDayPress}>
+                    <ChevronRightIcon color={colors.v2.red} />
                   </TouchableOpacity>
                 </Row>
                 <Stack style={{ backgroundColor: colors.v2.black, gap: 8 }}>

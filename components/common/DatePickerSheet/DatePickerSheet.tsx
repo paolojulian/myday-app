@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC, ReactNode, useState } from 'react';
 import { DatePickerSheetContainer, DatePickerSheetValue } from './DatePickerSheet.style';
 import { View } from 'react-native';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
@@ -8,19 +8,22 @@ import Stack from '../Stack';
 import ThemedText from '../ThemedText';
 import { colors } from '@/constants/Colors';
 import Button from '../Button';
+import ConditionalRender from '../ConditionalRender';
 
 type DatePickerSheetProps = {
   onChange: (date: Date | null) => void;
+  AnchorComponent: (props: { onPress: () => void }) => ReactNode;
+  value: Date | null;
   maximumDate?: Date;
   placeholder?: string;
-  value: Date | null;
 };
 
 const DatePickerSheet: FC<DatePickerSheetProps> = ({
   onChange,
-  maximumDate,
-  placeholder = 'Select Date',
+  AnchorComponent,
   value,
+  maximumDate = undefined,
+  placeholder = 'Select Date',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [date, setDate] = useState<Date>(value ?? maximumDate ?? new Date());
@@ -56,23 +59,32 @@ const DatePickerSheet: FC<DatePickerSheetProps> = ({
               onChange={handleDateChange}
               maximumDate={maximumDate}
               textColor={colors.v2.white}
+              accentColor={colors.v2.white}
+              themeVariant="dark"
               value={date}
               mode="date"
-              display="spinner"
+              display="inline"
             />
           </View>
           <Button
             onPress={handleDone}
             style={{ alignSelf: 'center', width: 195 }}
+            variant="red"
             text="Done"
           ></Button>
         </Stack>
       </BottomSheetModal>
 
-      <DatePickerSheetContainer onPress={handlePress}>
-        <CalendarCustomIcon />
-        <DatePickerSheetValue value={value} placeholder={placeholder} />
-      </DatePickerSheetContainer>
+      <ConditionalRender
+        shouldRender={!!AnchorComponent}
+        component={AnchorComponent({ onPress: handlePress })}
+        fallbackComponent={
+          <DatePickerSheetContainer onPress={handlePress}>
+            <CalendarCustomIcon />
+            <DatePickerSheetValue value={value} placeholder={placeholder} />
+          </DatePickerSheetContainer>
+        }
+      />
     </>
   );
 };
