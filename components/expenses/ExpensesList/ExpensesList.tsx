@@ -18,9 +18,12 @@ import ListHeaderComponent from './ExpensesListItem/ListHeaderComponent';
 import EmptyExpenseList from './EmptyExpenseList';
 
 export default function ExpensesList() {
+  //#region states ==============================
   const [transactionDate, setTransactionDate] = useState<Date>(new Date());
   const [selectedFilter, setSelectedFilter] = useState<SupportedExpenseFilter>('item');
+  //#endregion states
 
+  //#region hooks ==============================
   const {
     data: expenses,
     isLoading,
@@ -33,7 +36,9 @@ export default function ExpensesList() {
   const { data: expensesByCategory, refetch: refetchExpensesByCategory } = useExpensesByCategory({
     transactionDate,
   });
+  //#endregion hooks
 
+  //#region lifecycles ==============================
   useFocusEffect(() => {
     refetchExpenses();
   });
@@ -43,10 +48,13 @@ export default function ExpensesList() {
       refetchExpensesByCategory();
     }
   }, [selectedFilter]);
+  //#endregion lifecycles
 
-  const totalExpensesAmount = expenses ? getTotalAmount(expenses) : 0;
+  //#region computed ==============================
+  const totalExpensesAmount: number = expenses ? getTotalAmount(expenses) : 0;
   const data = selectedFilter === 'category' ? expensesByCategory : expenses;
   const dataWithFilter = data.length > 0 ? [{ isFilter: true }, ...data] : [];
+  //#endregion computed
 
   if (isLoading) {
     // TODO: add loading skeleton
@@ -73,8 +81,8 @@ export default function ExpensesList() {
           if (isFilter(item)) {
             return (
               <ExpensesListFilter
-                selectedFilter={selectedFilter}
                 onSelectFilter={setSelectedFilter}
+                selectedFilter={selectedFilter}
               />
             );
           }

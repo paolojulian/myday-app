@@ -70,8 +70,6 @@ export default function EasyDatePicker({ onSelectDate, selectedDate }: EasyDateP
     return dayjs(selectedDate).isSame(dayjs().add(1, 'day'), 'day');
   }, [selectedDate]);
 
-  console.log('re-render');
-
   return (
     <Row
       style={{
