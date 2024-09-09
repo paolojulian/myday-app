@@ -3,7 +3,6 @@ import { toLocaleCurrencyFormat } from '../currency/currency.utils';
 export function convertToCurrencyFormatter<T extends string | number>(
   value: T,
 ): string | undefined {
-  console.log({ value });
   if (value === undefined || value === null) {
     return undefined;
   }
