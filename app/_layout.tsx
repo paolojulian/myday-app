@@ -6,6 +6,7 @@ import { useCustomFonts } from '@/hooks/useCustomFonts';
 import { usePreloadImages } from '@/hooks/usePreloadImages/usePreloadImages';
 import SnackbarManager from '@/managers/SnackbarManager';
 import DatabaseProvider from '@/providers/DatabaseProvider';
+import NotificationsProvider from '@/providers/NotificationsProvider/NotificationsProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
@@ -52,21 +53,23 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <DatabaseProvider>
           <QueryClientProvider client={queryClient}>
-            <ThemeProvider value={DefaultTheme}>
-              <SnackbarManager />
-              <UpdateBudgetBottomSheet />
-              <Stack initialRouteName={RouteNames.Tabs}>
-                <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
-                <Stack.Screen
-                  name={RouteNames.Add}
-                  options={{ headerShown: false, presentation: 'fullScreenModal' }}
-                />
-                <Stack.Screen name={RouteNames.Edit} options={{ headerShown: false }} />
-                <Stack.Screen name={RouteNames.EditTask} options={{ headerShown: false }} />
-                <Stack.Screen name={RouteNames.Settings} options={{ headerShown: false }} />
-                <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
-              </Stack>
-            </ThemeProvider>
+            <NotificationsProvider>
+              <ThemeProvider value={DefaultTheme}>
+                <SnackbarManager />
+                <UpdateBudgetBottomSheet />
+                <Stack initialRouteName={RouteNames.Tabs}>
+                  <Stack.Screen name={RouteNames.Tabs} options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name={RouteNames.Add}
+                    options={{ headerShown: false, presentation: 'fullScreenModal' }}
+                  />
+                  <Stack.Screen name={RouteNames.Edit} options={{ headerShown: false }} />
+                  <Stack.Screen name={RouteNames.EditTask} options={{ headerShown: false }} />
+                  <Stack.Screen name={RouteNames.Settings} options={{ headerShown: false }} />
+                  <Stack.Screen options={{ headerShown: false }} name={RouteNames.NotFound} />
+                </Stack>
+              </ThemeProvider>
+            </NotificationsProvider>
           </QueryClientProvider>
         </DatabaseProvider>
       </GestureHandlerRootView>

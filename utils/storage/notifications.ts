@@ -1,20 +1,28 @@
 import { Task } from '@/hooks/services/task/task.types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ReturnType } from '../types/common-types';
 
 // Store notification ID in local storage for a specific task
 export const storeNotificationId = async (
-  taskId: Task['id'],
+  key: string,
   notificationId: string,
-): Promise<void> => {
-  await AsyncStorage.setItem(`notification-${taskId}`, notificationId);
+): Promise<ReturnType<null>> => {
+  try {
+    await AsyncStorage.setItem(`notification-${key}`, notificationId);
+
+    return [null, null];
+  } catch (error) {
+    if (error instanceof Error) {
+      return [null, error];
+    }
+    return [null, new Error('Cannot store notification ID')];
+  }
 };
 
 // Retrieve notification ID for a specific task
-export const getStoredNotificationId = async (
-  taskId: Task['id'],
-): Promise<[string | null, Error | null]> => {
+export const getStoredNotificationId = async (key: string): Promise<ReturnType<string | null>> => {
   try {
-    const notificationItem = await AsyncStorage.getItem(`notification-${taskId}`);
+    const notificationItem = await AsyncStorage.getItem(`notification-${key}`);
 
     return [notificationItem, null];
   } catch (error) {
