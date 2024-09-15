@@ -20,6 +20,7 @@ export const useTasksTomorrow = () => {
 
       return result;
     },
+    enabled: false,
   });
 };
 

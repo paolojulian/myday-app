@@ -2,7 +2,6 @@ import { getStoredNotificationId, storeNotificationId } from '@/utils/storage/no
 import { Alert } from 'react-native';
 import { useTasksToday } from '../services/task/useTasksToday';
 import { cancelNotification, scheduleNotificationsForToday } from './useNotification.utils';
-import dayjs from 'dayjs';
 
 const TODAY_NOTIFICATION_KEY = 'today';
 const isProduction: boolean = process.env.NODE_ENV === 'production';
@@ -12,10 +11,6 @@ export const useNotification = () => {
   // const { data: tasksTomorrow, isLoading: isLoadingTasksTomorrow } = useTasksTomorrow();
 
   const scheduleNotificationsForTasksToday = async (): Promise<void> => {
-    if (isProduction && dayjs().hour() > 6) {
-      return;
-    }
-
     const { data: tasksToday } = await refetchTasksForToday();
 
     if (tasksToday === undefined || tasksToday.length === 0) {
@@ -28,7 +23,6 @@ export const useNotification = () => {
       Alert.alert('Error', getStoredNotificationIdError.message);
       return;
     }
-    console.log({ storedNotificationId });
 
     if (!isProduction && storedNotificationId !== null) {
       await cancelNotification(storedNotificationId);
@@ -45,7 +39,6 @@ export const useNotification = () => {
       Alert.alert('Error', error.message);
       return;
     }
-    console.log({ notificationId });
 
     await storeNotificationId(TODAY_NOTIFICATION_KEY, notificationId);
   };

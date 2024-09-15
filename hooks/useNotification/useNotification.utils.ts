@@ -3,6 +3,10 @@ import { Task } from '../services/task/task.types';
 import * as Notifications from 'expo-notifications';
 import { ReturnType } from '@/utils/types/common-types';
 
+export enum NotificationIdentifier {
+  TASKS_TODAY = 'tasks-today',
+}
+
 export type SupportedTaskFieldsForNotification = Pick<Task, 'id' | 'reminder_date' | 'title'> & {
   reminder_date: number;
 };
@@ -71,18 +75,13 @@ export const generateMessageForTasksToday = (
     }
   });
 
-  const taskItems = tasks.map(task => {
-    return `
-      • ${task.title} - ${dayjs.unix(task.reminder_date).format('HH:mm')}
-    `;
-  });
+  const taskItems = tasks.map(
+    task => `• ${task.title} - ${dayjs.unix(task.reminder_date).format('H:mm a')}`,
+  );
 
-  const message = `
-    Here are your tasks due today
-    ${taskItems.join('\n')}
-  `;
+  const messagesArray = ['Here are your tasks due today', taskItems.join('\n')];
 
-  return [message, null];
+  return [messagesArray.join('\n'), null];
 };
 
 export const scheduleNotificationsForToday = async (
@@ -95,17 +94,17 @@ export const scheduleNotificationsForToday = async (
 
   try {
     const notificationId = await Notifications.scheduleNotificationAsync({
+      identifier: NotificationIdentifier.TASKS_TODAY,
       content: {
         title: 'Task due today',
         body: message,
         sound: true,
       },
-      trigger: { date: dayjs().hour(7).minute(0).second(0).toDate() },
+      trigger: null,
     });
 
     return [notificationId, null];
   } catch (error) {
-    console.log({ error });
     if (error instanceof Error) {
       return [null, error];
     }

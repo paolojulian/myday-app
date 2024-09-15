@@ -9,6 +9,7 @@ import DatabaseProvider from '@/providers/DatabaseProvider';
 import NotificationsProvider from '@/providers/NotificationsProvider/NotificationsProvider';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import * as Notifications from 'expo-notifications';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -24,6 +25,14 @@ export enum RouteNames {
   Settings = 'settings',
   NotFound = '+not-found',
 }
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
