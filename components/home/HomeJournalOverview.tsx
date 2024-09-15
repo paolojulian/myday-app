@@ -1,4 +1,3 @@
-import { TabName } from '@/app/(tabs)/_layout';
 import { colors } from '@/constants/Colors';
 import { useJournal } from '@/hooks/services/journal/useJournal';
 import { router } from 'expo-router';
@@ -8,6 +7,7 @@ import AppCard from '../common/AppCard';
 import JournalIcon from '../common/icons/JournalIcon';
 import Stack from '../common/Stack';
 import ThemedText from '../common/ThemedText';
+import { TabName } from '@/utils/constants';
 
 const today = new Date();
 function HomeJournalOverview() {
@@ -16,7 +16,7 @@ function HomeJournalOverview() {
   const hasJournalToday: boolean = !!data?.id;
 
   const handlePress = () => {
-    router.push(TabName.Journal);
+    router.push(TabName.Journal as never);
   };
 
   return (

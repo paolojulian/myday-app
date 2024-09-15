@@ -36,6 +36,8 @@ function RenderEmptyText({ filterType }: { filterType: TaskFilterTypes }) {
   switch (filterType) {
     case 'Completed':
       return <NoCompletedTasks />;
+    case 'Tomorrow':
+      return <NoTasksTomorrow />;
     case 'Scheduled':
       return <NoScheduledTasks />;
     case 'Today':
@@ -74,7 +76,26 @@ function NoTasksToday() {
           variant="body-md"
           style={{ textAlign: 'center', color: colors.v2.grayLight, maxWidth: 300 }}
         >
-          You can now relax or add additional hustles.
+          You're all clear for today! Enjoy your free time or feel free to plan ahead.
+        </ThemedText>
+      </Stack>
+
+      <TapToCreateTask />
+    </Stack>
+  );
+}
+
+function NoTasksTomorrow() {
+  return (
+    <Stack style={{ alignItems: 'center', gap: 24 }}>
+      <Stack style={{ alignItems: 'center', gap: 8 }}>
+        <ThemedText variant="header-md">No Task Due Tomorrow</ThemedText>
+        <ThemedText
+          variant="body-md"
+          style={{ textAlign: 'center', color: colors.v2.grayLight, maxWidth: 300 }}
+        >
+          Looks like you're all set for tomorrow! Feel free to kick back and relax, or get a head
+          start on future tasks.
         </ThemedText>
       </Stack>
 

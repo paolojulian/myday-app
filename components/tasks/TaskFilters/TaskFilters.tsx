@@ -11,6 +11,10 @@ const TASK_FILTERS: TabItem<TaskFilterTypes>[] = [
     value: 'Today',
   },
   {
+    key: 'Tomorrow',
+    value: 'Tomorrow',
+  },
+  {
     key: 'All',
     value: 'All',
   },

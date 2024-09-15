@@ -1,4 +1,3 @@
-import { TabName } from '@/app/(tabs)/_layout';
 import {
   ADD_TASK_VALIDATION_SCHEMA,
   convertTaskFormToTask,
@@ -14,6 +13,7 @@ import Snackbar from '@/components/common/Snackbar';
 import ThemedView from '@/components/common/ThemedView';
 import { useCreateTask } from '@/hooks/services/task/useCreateTask';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import { TabName } from '@/utils/constants';
 import { useNavigation } from 'expo-router';
 import { Formik } from 'formik';
 import { Fragment, useRef, useState } from 'react';

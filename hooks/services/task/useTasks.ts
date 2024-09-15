@@ -30,6 +30,13 @@ function buildQuery(filters: TaskQueryFilters) {
           AND is_completed = 0
         ORDER BY reminder_date ASC
       `;
+    case 'Tomorrow':
+      return /* sql */ `
+        SELECT * FROM task
+        WHERE reminder_date BETWEEN $startOfDayEpoch AND $endOfDayEpoch
+          AND is_completed = 0
+        ORDER BY reminder_date ASC
+      `;
     case 'All':
       return /* sql */ `
         SELECT * FROM task
@@ -55,9 +62,17 @@ function buildQuery(filters: TaskQueryFilters) {
 }
 
 function buildVariables(filters: TaskQueryFilters): SQLiteBindParams {
+  const today = dayjs();
   if (filters.filterType === 'Today') {
     return {
-      $end: convertDateToEpoch(dayjs().endOf('day').toDate()),
+      $end: convertDateToEpoch(today.endOf('day').toDate()),
+    };
+  }
+
+  if (filters.filterType === 'Tomorrow') {
+    return {
+      $startOfDayEpoch: convertDateToEpoch(today.add(1, 'day').startOf('day').toDate()),
+      $endOfDayEpoch: convertDateToEpoch(today.add(1, 'day').endOf('day').toDate()),
     };
   }
 

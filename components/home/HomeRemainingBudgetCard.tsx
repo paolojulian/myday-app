@@ -33,7 +33,7 @@ function HomeRemainingBudgetCard() {
   };
 
   return (
-    <TouchableOpacity disabled={!!budget} onPress={handleSetBudgetPress} activeOpacity={0.9}>
+    <TouchableOpacity onPress={handleSetBudgetPress} activeOpacity={0.9}>
       <AppCard
         style={{
           backgroundColor: colors.v2.teal,

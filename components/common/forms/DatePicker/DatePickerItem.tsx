@@ -60,7 +60,7 @@ function DatePickerItem({
           style={[
             {
               ...(isActive && styles.isActiveText),
-              ...(!isCurrentMonth && styles.isNotCurrentMonth),
+              ...(!isCurrentMonth && !isActive && styles.isNotCurrentMonth),
             },
             textStyle,
           ]}

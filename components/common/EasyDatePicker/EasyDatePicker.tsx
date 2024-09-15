@@ -8,7 +8,7 @@ import { colors } from '@/constants/Colors';
 import CalendarTodayIcon from '../icons/CalendarTodayIcon';
 import CalendarTomorrowIcon from '../icons/CalendarTomorrowIcon';
 import CalendarCustomIcon from '../icons/CalendarCustomIcon';
-import DatePicker from '../forms/DatePicker';
+import DatePickerSheet from '../DatePickerSheet';
 
 export const EASY_DATE_PICKER_TEST_IDS = {
   container: 'easy-date-picker__container',
@@ -22,7 +22,7 @@ type EasyDatePickerProps = {
   label?: string;
 };
 
-export default function EasyDatePicker({ onSelectDate, selectedDate, label }: EasyDatePickerProps) {
+export default function EasyDatePicker({ onSelectDate, selectedDate }: EasyDatePickerProps) {
   const [selectedType, setSelectedType] = useState<EasyDatePickerTypes | null>(() => {
     if (!selectedDate) {
       return null;
@@ -36,27 +36,34 @@ export default function EasyDatePicker({ onSelectDate, selectedDate, label }: Ea
     return 'custom';
   });
 
-  const handlePressToday = () => {
+  const handlePressToday = (): void => {
     setSelectedType('today');
     onSelectDate(new Date());
   };
 
-  const handlePressTomorrow = () => {
+  const handlePressTomorrow = (): void => {
     setSelectedType('tomorrow');
     onSelectDate(dayjs().add(1, 'day').toDate());
   };
 
-  const handlePressCustom = () => {
+  const handleCustomDateChange = (date: Date | null) => {
+    if (!date) return;
+
     setSelectedType('custom');
+    onSelectDate(date);
   };
 
-  const isToday = useMemo<boolean>(() => {
+  const isToday: boolean = useMemo<boolean>(() => {
     if (!selectedDate) {
       return false;
     }
     return dayjs(selectedDate).isSame(dayjs(), 'day');
   }, [selectedDate]);
-  const isTomorrow = useMemo<boolean>(() => {
+
+  const customDateTitle =
+    selectedType === 'custom' ? dayjs(selectedDate).format('DD MMM YY') : 'Custom';
+
+  const isTomorrow: boolean = useMemo<boolean>(() => {
     if (!selectedDate) {
       return false;
     }
@@ -71,36 +78,32 @@ export default function EasyDatePicker({ onSelectDate, selectedDate, label }: Ea
       }}
       testID={EASY_DATE_PICKER_TEST_IDS.container}
     >
-      {selectedType === 'custom' ? (
-        <DatePicker
-          value={selectedDate}
-          onSelectDate={onSelectDate}
-          variant="border"
-          initialIsExpanded={true}
-          label={label}
-        />
-      ) : (
-        <>
-          <Item
-            onPress={handlePressToday}
-            IconComponent={<CalendarTodayIcon />}
-            isActive={!!isToday}
-            title="Today"
-          ></Item>
-          <Item
-            onPress={handlePressTomorrow}
-            IconComponent={<CalendarTomorrowIcon />}
-            title="Tomorrow"
-            isActive={!!isTomorrow}
-          ></Item>
-          <Item
-            onPress={handlePressCustom}
-            IconComponent={<CalendarCustomIcon />}
-            title="Custom"
-            isActive={false}
-          ></Item>
-        </>
-      )}
+      <>
+        <Item
+          onPress={handlePressToday}
+          IconComponent={<CalendarTodayIcon />}
+          isActive={!!isToday && selectedType === 'today'}
+          title="Today"
+        ></Item>
+        <Item
+          onPress={handlePressTomorrow}
+          IconComponent={<CalendarTomorrowIcon />}
+          title="Tomorrow"
+          isActive={!!isTomorrow && selectedType === 'tomorrow'}
+        ></Item>
+        <DatePickerSheet
+          value={selectedDate ?? null}
+          onChange={handleCustomDateChange}
+          AnchorComponent={({ onPress }) => (
+            <Item
+              onPress={onPress}
+              IconComponent={<CalendarCustomIcon />}
+              title={customDateTitle}
+              isActive={selectedType === 'custom'}
+            ></Item>
+          )}
+        ></DatePickerSheet>
+      </>
     </Row>
   );
 }

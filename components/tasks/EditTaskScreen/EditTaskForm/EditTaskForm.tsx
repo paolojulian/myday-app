@@ -14,8 +14,8 @@ import { TextInput } from 'react-native';
 import { NOTE_PLACEHOLDER } from '@/components/add/AddTaskForm/AddTaskForm.utils';
 import { useUpdateTask } from '@/hooks/services/task/useUpdateTask';
 import { useNavigation } from 'expo-router';
-import { TabName } from '@/app/(tabs)/_layout';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import { TabName } from '@/utils/constants';
 
 type EditTaskFormProps = {
   id: Task['id'];

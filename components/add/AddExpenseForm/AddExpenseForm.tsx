@@ -1,4 +1,3 @@
-import { TabName } from '@/app/(tabs)/_layout';
 import {
   ADD_EXPENSE_FORM_TEST_IDS,
   ADD_EXPENSE_VALIDATION_SCHEMA,
@@ -16,6 +15,7 @@ import ThemedView from '@/components/common/ThemedView';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { useCreateExpense } from '@/hooks/services/expense/useCreateExpenses';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import { TabName } from '@/utils/constants';
 import { convertDateToEpoch } from '@/utils/date/date.utils';
 import { selectionAsync } from 'expo-haptics';
 import { useNavigation } from 'expo-router';

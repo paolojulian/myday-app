@@ -11,15 +11,31 @@ export const TEXT_FIELD_TEST_IDS = {
 };
 
 export type TextFieldProps = {
+  formatter?: (value: any) => string | undefined;
   label: string;
   isError?: boolean;
   errorMessage?: string;
 } & TextInputProps;
 
 const TextField = forwardRef<TextInput, TextFieldProps>(
-  ({ label, isError = false, errorMessage, style, ...props }, ref) => {
+  (
+    {
+      onChangeText,
+      formatter = (value: any) => value,
+      label,
+      value,
+      isError = false,
+      errorMessage,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    //#region states =========================
     const [isFocused, setIsFocused] = useState(false);
+    //#endregion states
 
+    //#region computed =========================
     const resolvedTextInputStyle = useMemo(() => {
       if (isError) {
         // Error should be the priority
@@ -33,6 +49,10 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
       return styles.textInputDefault;
     }, [isFocused, isError]);
 
+    const formattedValue = formatter(value);
+    //#endregion computed
+
+    //#region callbacks =========================
     const handleFocus: ComponentProps<typeof TextInput>['onFocus'] = e => {
       setIsFocused(true);
       if (props.onFocus) {
@@ -47,6 +67,11 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
       }
     };
 
+    const handleChangeText: TextInputProps['onChangeText'] = (text): void => {
+      onChangeText?.(text);
+    };
+    //#endregion callbacks
+
     return (
       <ThemedView style={[styles.container]}>
         <ThemedView style={styles.label}>
@@ -54,12 +79,14 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
         </ThemedView>
         <TextInput
           {...props}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           ref={ref}
           testID={props.testID ? props.testID : TEXT_FIELD_TEST_IDS.textInput}
           placeholderTextColor={colors.v2.grayLight}
           style={[style, styles.textInput, textVariantStyles['body-md'], resolvedTextInputStyle]}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          value={formattedValue}
         />
 
         {!!errorMessage && isError && (

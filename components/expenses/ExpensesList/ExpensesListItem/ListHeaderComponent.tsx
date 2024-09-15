@@ -16,7 +16,7 @@ export default function ListHeaderComponent({
   onSetTransactionDate,
   transactionDate,
 }: ListHeaderComponentProps) {
-  const canViewNextMonth = dayjs().isAfter(dayjs(transactionDate), 'month');
+  //#region callbacks ==============================
   const handlePrevMonthPress = (): void => {
     onSetTransactionDate(dayjs(transactionDate).subtract(1, 'month').toDate());
   };
@@ -25,6 +25,11 @@ export default function ListHeaderComponent({
 
     onSetTransactionDate(dayjs(transactionDate).add(1, 'month').toDate());
   };
+  //#endregion callbacks
+
+  //#region computed ==============================
+  const canViewNextMonth: boolean = dayjs().isAfter(dayjs(transactionDate), 'month');
+  //#endregion computed
 
   return (
     <>
@@ -36,9 +41,11 @@ export default function ListHeaderComponent({
           <View style={{ flex: 1, alignItems: 'center' }}>
             <ThemedText variant="header-md">{dayjs(transactionDate).format('MMMM')}</ThemedText>
           </View>
-          <TouchableOpacity onPress={handleNextMonthPress} disabled={!canViewNextMonth}>
-            <ChevronRightIcon />
-          </TouchableOpacity>
+          {canViewNextMonth && (
+            <TouchableOpacity onPress={handleNextMonthPress} disabled={!canViewNextMonth}>
+              <ChevronRightIcon />
+            </TouchableOpacity>
+          )}
         </Row>
         <RemainingBudgetCard transactionDate={transactionDate} variant="horizontal" />
       </Container>

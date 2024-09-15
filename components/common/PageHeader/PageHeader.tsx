@@ -2,6 +2,8 @@ import { colors } from '@/constants/Colors';
 import Container from '../Container';
 import ThemedText from '../ThemedText';
 import ThemedView from '../ThemedView';
+import { View } from 'react-native';
+import { ReactElement, ReactNode } from 'react';
 
 export type PageHeaderProps = {
   LeftComponent?: React.ReactNode;
@@ -22,10 +24,31 @@ export default function PageHeader({ title, LeftComponent, RightComponent }: Pag
           backgroundColor: colors.v2.black,
         }}
       >
-        {LeftComponent}
-        <ThemedText variant="heading">{title}</ThemedText>
-        {RightComponent}
+        <PageHeaderEdges placement="start">{LeftComponent}</PageHeaderEdges>
+        <ThemedText style={{ flex: 1, textAlign: 'center' }} variant="heading">
+          {title}
+        </ThemedText>
+        <PageHeaderEdges placement="end">{RightComponent}</PageHeaderEdges>
       </ThemedView>
     </Container>
+  );
+}
+
+function PageHeaderEdges({
+  children,
+  placement,
+}: {
+  children: ReactNode;
+  placement: 'start' | 'end';
+}): ReactElement {
+  return (
+    <View
+      style={{
+        width: 48,
+        alignItems: placement === 'start' ? 'flex-start' : 'flex-end',
+      }}
+    >
+      {children}
+    </View>
   );
 }

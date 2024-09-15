@@ -20,7 +20,7 @@ import Button from '@/components/common/Button';
 import { useGetOrCreateCategory } from '@/hooks/services/category/useGetOrCreateCategory';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
 import { useNavigation } from 'expo-router';
-import { TabName } from '@/app/(tabs)/_layout';
+import { TabName } from '@/utils/constants';
 
 type EditExpenseFormProps = {
   id: Expense['id'];

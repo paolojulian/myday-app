@@ -45,7 +45,6 @@ export function useExpensesByCategory({ transactionDate }: UseExpenseByCategoryP
       }
     },
     initialData: [],
-    enabled: false,
   });
 }
 

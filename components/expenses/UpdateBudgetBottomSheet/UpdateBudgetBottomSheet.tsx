@@ -5,6 +5,10 @@ import ThemedView from '@/components/common/ThemedView';
 import useBudget from '@/hooks/services/budget/useBudget';
 import useSetBudget from '@/hooks/services/budget/useSetBudget';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
+import {
+  convertToCurrencyFormatter,
+  currencyCleaner,
+} from '@/utils/formatters/convert-to-currency.formatter';
 import { Formik } from 'formik';
 import React, { useEffect, useMemo, useState } from 'react';
 import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
@@ -37,7 +41,7 @@ const validationSchema = Yup.object().shape({
     .transform(
       (value, originalValue) => (String(originalValue).trim() === '' ? null : value), // Transform empty string to null
     )
-    .typeError('Amount must be a number')
+    .typeError('Please enter a valid amount')
     .positive('Amount must be positive')
     .max(9999999, 'Amount is too large'),
 });
@@ -47,14 +51,18 @@ function UpdateBudgetBottomSheet() {
   const today = useMemo(() => new Date(), []);
   const [isOpen, setIsOpen] = useState(false);
   const { data: budget, isLoading } = useBudget(today);
-  const { mutate: setBudgetMutate } = useSetBudget();
+  const { mutateAsync: setBudgetMutate } = useSetBudget();
 
   const currentMonthlyBudget = budget?.amount ?? null;
   const saveButtonText = currentMonthlyBudget ? 'Update' : 'Save';
 
   const handleSavePressed = async (values: UpdateBudgetSchema) => {
     if (values.amount) {
-      await setBudgetMutate(values.amount);
+      let resolvedAmount: number = values.amount;
+      if (typeof values.amount === 'string') {
+        resolvedAmount = currencyCleaner(values.amount);
+      }
+      await setBudgetMutate(resolvedAmount);
       hide();
       GlobalSnackbar.show({
         message: 'Budget updated',
@@ -96,15 +104,18 @@ function UpdateBudgetBottomSheet() {
             }}
             validationSchema={validationSchema}
           >
-            {({ handleSubmit, handleChange, values }) => (
+            {({ handleSubmit, setFieldValue, errors, touched, values }) => (
               <>
                 <TextField
-                  onChangeText={handleChange('amount')}
+                  onChangeText={value => setFieldValue('amount', currencyCleaner(value))}
                   autoFocus
+                  formatter={convertToCurrencyFormatter}
                   label="Monthly budget"
                   keyboardType="numeric"
                   placeholder="Enter your monthly budget"
                   value={values.amount?.toString()}
+                  isError={!!touched.amount && !!errors.amount}
+                  errorMessage={errors.amount}
                 />
                 <Button text={saveButtonText} onPress={() => handleSubmit()} />
               </>

@@ -22,9 +22,11 @@ export enum TaskQueryKeys {
   list = 'task-list',
   overview = 'task-overview',
   priority = 'task-priority',
+  tasksDueToday = 'task-due-today',
+  tasksDueTomorrow = 'task-due-tomorrow',
 }
 
-export type TaskFilterTypes = 'Today' | 'All' | 'Scheduled' | 'Completed';
+export type TaskFilterTypes = 'Today' | 'Tomorrow' | 'All' | 'Scheduled' | 'Completed';
 
 export type TaskQueryFilters = {
   filterType: TaskFilterTypes;

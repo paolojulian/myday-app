@@ -75,7 +75,7 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
         }}
       >
         <Checkbox
-          style={{ borderRadius: 6 }}
+          style={{ borderRadius: 6, pointerEvents: 'none' }}
           value={isChecked}
           onValueChange={setChecked}
           color={isChecked ? colors.v2.grayLight : colors.v2.grayLight}
