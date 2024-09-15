@@ -26,7 +26,7 @@ export enum TaskQueryKeys {
   tasksDueTomorrow = 'task-due-tomorrow',
 }
 
-export type TaskFilterTypes = 'Today' | 'All' | 'Scheduled' | 'Completed';
+export type TaskFilterTypes = 'Today' | 'Tomorrow' | 'All' | 'Scheduled' | 'Completed';
 
 export type TaskQueryFilters = {
   filterType: TaskFilterTypes;
