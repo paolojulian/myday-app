@@ -3,18 +3,21 @@ import MainHeader from '@/components/common/MainHeader';
 import ThemedText from '@/components/common/ThemedText';
 import TaskFilters from '@/components/tasks/TaskFilters';
 import { colors } from '@/constants/Colors';
-import { type TaskFilterTypes } from '@/hooks/services/task/task.types';
 import { useCompleteTask } from '@/hooks/services/task/useCompleteTask';
 import useTasks from '@/hooks/services/task/useTasks';
 import { useUncompleteTask } from '@/hooks/services/task/useUncompleteTask';
 import { GlobalSnackbar } from '@/managers/SnackbarManager';
-import { useState } from 'react';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import EmptyTaskList from './EmptyTaskList';
 import TaskItem, { TaskItemProps } from './TaskItem/TaskItem';
+import { isSupportedTaskFilter } from './TaskList.utils';
+import { TaskFilterTypes } from '@/hooks/services/task/task.types';
 
 export default function TaskList() {
-  const [selectedFilter, setSelectedFilter] = useState<TaskFilterTypes>('Today');
+  const router = useRouter();
+  const { filter } = useLocalSearchParams<{ filter?: string }>();
+  const selectedFilter = isSupportedTaskFilter(filter) ? filter : 'Today';
   const { data, isLoading } = useTasks({ filterType: selectedFilter });
   const tasks = data || [];
 
@@ -45,6 +48,10 @@ export default function TaskList() {
     unCompleteTaskMutation(id);
   };
 
+  const handleSelectFilter = (filter: TaskFilterTypes): void => {
+    router.setParams({ defaultFilter: filter });
+  };
+
   return (
     <FlatList
       data={tasks}
@@ -54,7 +61,7 @@ export default function TaskList() {
       ListHeaderComponent={
         <>
           <MainHeader subtitle="Tasks" color={colors.v2.yellow} />
-          <TaskFilters onSelectFilter={setSelectedFilter} selectedItem={selectedFilter} />
+          <TaskFilters onSelectFilter={handleSelectFilter} selectedItem={selectedFilter} />
         </>
       }
       ListFooterComponent={<View style={{ paddingBottom: 24 }} />}

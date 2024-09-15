@@ -1,18 +1,24 @@
 import { colors } from '@/constants/Colors';
 import useTaskOverview from '@/hooks/services/task/useTaskOverview';
-import { router } from 'expo-router';
+import { TabName } from '@/utils/constants';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import AppCard from '../common/AppCard';
 import Stack from '../common/Stack';
 import ThemedText from '../common/ThemedText';
-import { TabName } from '@/utils/constants';
 
 function HomeTaskOverview() {
   const { data } = useTaskOverview();
+  const router = useRouter();
 
   const handlePress = () => {
-    router.push(TabName.Todo as never);
+    router.push({
+      pathname: TabName.Todo as never,
+      params: {
+        filter: 'Today',
+      },
+    });
   };
 
   return (
