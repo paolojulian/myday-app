@@ -1,4 +1,3 @@
-import { TabName } from '@/app/(tabs)/_layout';
 import Container from '@/components/common/Container';
 import LinkText from '@/components/common/LinkText';
 import Row from '@/components/common/Row';
@@ -9,6 +8,7 @@ import useExpenses from '@/hooks/services/expense/useExpenses';
 import { useFocusEffect, useNavigation } from 'expo-router';
 import React, { Fragment } from 'react';
 import EmptyRecentTransactions from './EmptyRecentTransactions';
+import { TabName } from '@/utils/constants';
 
 function RecentTransactions() {
   const navigation = useNavigation();

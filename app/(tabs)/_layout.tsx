@@ -1,15 +1,9 @@
 import { RouteNames } from '@/app/_layout';
 import { getDefaultTypeFromTabIndex } from '@/components/add/utils';
 import BottomBar from '@/components/navigation/BottomBar/BottomBar';
+import { TabName } from '@/utils/constants';
 import { router, Tabs } from 'expo-router';
 import React, { ComponentProps } from 'react';
-
-export enum TabName {
-  Home = 'index',
-  Journal = 'journal',
-  Expense = 'expenses',
-  Todo = 'todos',
-}
 
 /** Don't modify the arrangement of this array since it is used to get the current route from the navigation */
 const tabs = [TabName.Home, TabName.Expense, TabName.Todo, TabName.Journal];
@@ -35,7 +29,7 @@ const TabBar: ComponentProps<typeof Tabs>['tabBar'] = props => {
   const handleAddPress = () => {
     const defaultType = getDefaultTypeFromTabIndex(navigation.getState().index);
     router.push({
-      pathname: RouteNames.Add,
+      pathname: RouteNames.Add as never,
       params: {
         defaultType: defaultType,
       },

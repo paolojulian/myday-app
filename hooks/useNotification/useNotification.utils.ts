@@ -5,6 +5,7 @@ import { ReturnType } from '@/utils/types/common-types';
 
 export enum NotificationIdentifier {
   TASKS_TODAY = 'tasks-today',
+  TASKS_TOMORROW = 'tasks-tomorrow',
 }
 
 export type SupportedTaskFieldsForNotification = Pick<Task, 'id' | 'reminder_date' | 'title'> & {
@@ -58,49 +59,115 @@ export const cancelNotification = async (notificationId: string): Promise<Return
   }
 };
 
-export const generateMessageForTasksToday = (
+const validateTaskReminderDate = (
   tasks: SupportedTaskFieldsForNotification[],
-): ReturnType<string> => {
+): ReturnType<boolean> => {
   tasks.forEach(task => {
     if (!task.reminder_date) {
-      return [null, new Error('Reminder date is missing')];
+      return [false, new Error('Reminder date is missing')];
     }
 
     if (typeof task.reminder_date !== 'number') {
-      return [null, new Error('Reminder date is not a number')];
+      return [false, new Error('Reminder date is not a number')];
     }
 
     if (!dayjs.unix(task.reminder_date).isValid()) {
-      return [null, new Error('Invalid reminder date')];
+      return [false, new Error('Invalid reminder date')];
     }
   });
 
-  const taskItems = tasks.map(
-    task => `• ${task.title} - ${dayjs.unix(task.reminder_date).format('H:mm a')}`,
-  );
+  return [true, null];
+};
 
-  const messagesArray = ['Here are your tasks due today', taskItems.join('\n')];
+const generateMessageForTaskItem = (task: SupportedTaskFieldsForNotification): string => {
+  return `• ${task.title} - ${dayjs.unix(task.reminder_date).format('H:mm a')}`;
+};
 
-  return [messagesArray.join('\n'), null];
+export const generateMessageForTasks = (
+  tasks: SupportedTaskFieldsForNotification[],
+): ReturnType<string> => {
+  const [isValid, error] = validateTaskReminderDate(tasks);
+  if (error !== null) {
+    return [null, error];
+  }
+  if (!isValid) {
+    return [null, new Error('Reminder date is invalid')];
+  }
+
+  const taskItems = tasks.map(generateMessageForTaskItem);
+
+  return [taskItems.join('\n'), null];
 };
 
 export const scheduleNotificationsForToday = async (
   tasks: SupportedTaskFieldsForNotification[],
-): Promise<ReturnType<string>> => {
-  const [message, error] = generateMessageForTasksToday(tasks);
+): Promise<ReturnType<string | null>> => {
+  const [message, error] = generateMessageForTasks(tasks);
   if (error !== null) {
     return [null, error];
   }
+
+  const today = dayjs();
+  let trigger: Date | null = null;
+  const isBefore6AM = today.isBefore(today.hour(6));
+  const isAfter6PM = today.isAfter(today.hour(18));
+  if (isBefore6AM) {
+    trigger = today.hour(6).add(1, 'minute').toDate();
+  }
+
+  if (isAfter6PM) {
+    return [null, null];
+  }
+
+  const title = tasks.length === 1 ? 'Task due today' : `${tasks.length} tasks due today`;
 
   try {
     const notificationId = await Notifications.scheduleNotificationAsync({
       identifier: NotificationIdentifier.TASKS_TODAY,
       content: {
-        title: 'Task due today',
+        title,
         body: message,
         sound: true,
       },
-      trigger: null,
+      trigger,
+    });
+
+    return [notificationId, null];
+  } catch (error) {
+    if (error instanceof Error) {
+      return [null, error];
+    }
+
+    return [null, new Error('Something went wrong')];
+  }
+};
+
+export const scheduleNotificationsForTomorrow = async (
+  tasks: SupportedTaskFieldsForNotification[],
+): Promise<ReturnType<string>> => {
+  const [message, error] = generateMessageForTasks(tasks);
+  if (error !== null) {
+    return [null, error];
+  }
+
+  const today = dayjs();
+  let trigger: Date | null = null;
+  const isBefore6PM = today.isBefore(today.hour(18));
+  if (isBefore6PM) {
+    trigger = today.hour(18).add(1, 'minute').toDate();
+  }
+
+  const title = tasks.length === 1 ? 'Task due tomorrow' : `${tasks.length} tasks due tomorrow`;
+
+  try {
+    const notificationId = await Notifications.scheduleNotificationAsync({
+      identifier: NotificationIdentifier.TASKS_TOMORROW,
+      content: {
+        title,
+        body: message,
+        sound: true,
+      },
+      trigger,
     });
 
     return [notificationId, null];

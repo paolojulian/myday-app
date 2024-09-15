@@ -2,6 +2,7 @@ import { Migration } from '@/database/migrations/migration.types';
 import dayjs from 'dayjs';
 
 const todayUnix = dayjs().startOf('day').add(8, 'hours').unix();
+const tomorrowUnix = dayjs().startOf('day').add(1, 'day').add(8, 'hours').unix();
 
 export const taskMigrations = [
   {
@@ -35,7 +36,8 @@ export const taskMigrations = [
             ('Create a task', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
             ('Create a journal', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
             ('Create an expense', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
-            ('Set a monthly budget', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null)
+            ('Set a monthly budget', '', 1, 0, 0, 0, ${todayUnix}, null, null, null, null, null),
+            ('Tomorrow', '', 1, 0, 0, 0, ${tomorrowUnix}, null, null, null, null, null)
             ;
         `,
       },

@@ -1,4 +1,3 @@
-import { TabName } from '@/app/(tabs)/_layout';
 import { colors } from '@/constants/Colors';
 import useTaskOverview from '@/hooks/services/task/useTaskOverview';
 import { router } from 'expo-router';
@@ -7,12 +6,13 @@ import { TouchableOpacity, View } from 'react-native';
 import AppCard from '../common/AppCard';
 import Stack from '../common/Stack';
 import ThemedText from '../common/ThemedText';
+import { TabName } from '@/utils/constants';
 
 function HomeTaskOverview() {
   const { data } = useTaskOverview();
 
   const handlePress = () => {
-    router.push(TabName.Todo);
+    router.push(TabName.Todo as never);
   };
 
   return (

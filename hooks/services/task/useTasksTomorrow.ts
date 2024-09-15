@@ -3,7 +3,9 @@ import { Task, TaskQueryKeys } from './task.types';
 import { useSQLiteContext } from 'expo-sqlite';
 import dayjs from 'dayjs';
 
-type SupportedTaskFields = Pick<Task, 'id' | 'reminder_date' | 'title'>;
+type SupportedTaskFields = Pick<Task, 'id' | 'reminder_date' | 'title'> & {
+  reminder_date: number;
+};
 
 export const useTasksTomorrow = () => {
   const db = useSQLiteContext();
@@ -27,7 +29,8 @@ export const useTasksTomorrow = () => {
 function buildQuery() {
   return `
     SELECT id, reminder_date, title FROM task
-    WHERE reminder_date BETWEEN $startOfDayEpoch AND $endOfDayEpoch
+    WHERE reminder_date IS NOT NULL
+      AND reminder_date BETWEEN $startOfDayEpoch AND $endOfDayEpoch
       AND is_completed = 0
   `;
 }
