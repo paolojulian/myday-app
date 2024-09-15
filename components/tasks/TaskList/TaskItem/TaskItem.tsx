@@ -52,7 +52,7 @@ export default function TaskItem({ onRemove, onRevert, task }: TaskItemProps) {
   const handleLongPress = () => {
     selectionAsync();
     router.push({
-      pathname: RouteNames.EditTask,
+      pathname: RouteNames.EditTask as never,
       params: { id },
     });
   };

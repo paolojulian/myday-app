@@ -37,7 +37,7 @@ export default function DeleteExpenseButton({ id }: DeleteExpenseButtonProps) {
         if (router.canGoBack()) {
           router.back();
         } else {
-          router.push(RouteNames.Tabs);
+          router.push(RouteNames.Tabs as never);
         }
       },
     });

@@ -39,7 +39,7 @@ export default function RecurringExpenseItem({ expense }: RecurringExpenseItemPr
   const handlePress = () => {
     selectionAsync();
     router.push({
-      pathname: RouteNames.Edit,
+      pathname: RouteNames.Edit as never,
       params: { id },
     });
   };

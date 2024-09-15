@@ -35,7 +35,7 @@ export default function ExpenseItem({ expense }: ExpenseItemProps) {
   const handlePress = () => {
     selectionAsync();
     router.push({
-      pathname: RouteNames.Edit,
+      pathname: RouteNames.Edit as never,
       params: { id },
     });
   };

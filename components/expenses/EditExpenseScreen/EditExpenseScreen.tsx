@@ -22,7 +22,7 @@ export default function EditExpenseScreen() {
       return router.back();
     }
 
-    router.push(RouteNames.Tabs);
+    router.push(RouteNames.Tabs as never);
   };
 
   if (!id) {

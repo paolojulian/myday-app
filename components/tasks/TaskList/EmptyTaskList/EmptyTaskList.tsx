@@ -134,7 +134,7 @@ function NoCompletedTasks() {
 function TapToCreateTask() {
   const handlePress = () => {
     router.push({
-      pathname: RouteNames.Add,
+      pathname: RouteNames.Add as never,
       params: {
         defaultType: 'Todo' satisfies SupportedAddItems,
       },

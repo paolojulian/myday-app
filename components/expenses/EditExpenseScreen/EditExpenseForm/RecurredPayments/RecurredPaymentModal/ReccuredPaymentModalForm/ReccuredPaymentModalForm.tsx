@@ -25,9 +25,9 @@ const ReccuredPaymentModalForm: FC<ReccuredPaymentModalFormProps> = ({ onDismiss
   const handleSubmit = async (values: RecurredPaymentModalValues) => {
     try {
       await updateExpenseMutate({
-        amount: values.amount,
+        amount: values?.amount?.toString() || '',
         description: values.description,
-      });
+      } as any);
       onDismiss();
       Alert.alert('Success', 'Expense updated successfully');
     } catch {

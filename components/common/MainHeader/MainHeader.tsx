@@ -17,7 +17,7 @@ type Props = {
 function MainHeader({ subtitle, title = 'My Day', color = colors.v2.white }: Props) {
   const router = useRouter();
   const handlePressSettings = (): void => {
-    router.push(RouteNames.Settings);
+    router.push(RouteNames.Settings as never);
   };
 
   return (

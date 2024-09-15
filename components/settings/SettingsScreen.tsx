@@ -14,7 +14,7 @@ export default function SettingsScreen(): ReactElement {
       return;
     }
 
-    router.navigate(RouteNames.Tabs);
+    router.navigate(RouteNames.Tabs as never);
   };
 
   return (

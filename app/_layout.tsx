@@ -17,14 +17,16 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
-export enum RouteNames {
-  Tabs = '(tabs)',
-  Add = 'add',
-  Edit = 'expense/[id]',
-  EditTask = 'task/[id]',
-  Settings = 'settings',
-  NotFound = '+not-found',
-}
+type Routes = '(tabs)' | 'add' | 'expense/[id]' | 'task/[id]' | 'settings' | '+not-found';
+
+export const RouteNames: Record<string, Routes> = {
+  Tabs: '(tabs)',
+  Add: 'add',
+  Edit: 'expense/[id]',
+  EditTask: 'task/[id]',
+  Settings: 'settings',
+  NotFound: '+not-found',
+};
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
